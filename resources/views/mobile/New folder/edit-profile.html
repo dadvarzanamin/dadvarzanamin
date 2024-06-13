@@ -1,0 +1,154 @@
+<div class="page">
+    <div class="navbar navbar-page">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="title">
+              ویرایش پروفایل
+            </div>
+            <div class="right">
+                <a href="#" @click="showToastBottom">
+                    <i class="fas fa-check confirm-changes"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <!-- edit profile -->
+        <div class="edit-profile segments">
+            <div class="container">
+                <div class="photo-edit">
+                    <img src="images/user-seller1.png" alt="">
+                    <div class="side-content">
+                        <p>آپلود عکس</p>
+                        <form>
+                            <input type="file" id="button-upload-photo">
+                            <label for="button-upload-photo">
+                                <button class="button primary-button"><i class="fas fa-upload"></i>آپلود</button>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- divider -->
+                <div class="divider-line-half"></div>
+                <!-- end divider -->
+
+                <div class="banner-edit">
+                    <p>آپلود بنر</p>
+                    <form>
+                        <input type="file" id="button-upload-banner">
+                        <label for="button-upload-banner">
+                            <button class="button primary-button"><i class="fas fa-upload"></i>آپلود</button>
+                        </label>
+                    </form>
+                    <img src="images/bg-account.jpg" alt="">
+                </div>
+
+                <!-- divider -->
+                <div class="divider-space-content"></div>
+                <!-- end divider -->
+
+                <form class="list">
+                    <ul>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="email" placeholder="نام و نام خانوادگی">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="password" placeholder="نام کاربری">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="password" placeholder="رمز عبور">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-33">
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-input-wrap">
+                                                <input type="password" placeholder="روز">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-33">
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Gender">
+                                                    <option value="" disabled selected>ماه تولد</option>
+                                                    <option value="January">فروردین</option>
+                                                    <option value="February">اردیبهشت</option>
+                                                    <option value="March">خرداد</option>
+                                                    <option value="April">تیر</option>
+                                                    <option value="May">مرداد</option>
+                                                    <option value="June">شهریور</option>
+                                                    <option value="July">مهر</option>
+                                                    <option value="August">آبان</option>
+                                                    <option value="September">آذر</option>
+                                                    <option value="November">دی</option>
+                                                    <option value="December">بهمن</option>
+                                                    <option value="December">اسفند</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-33">
+                                    <div class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-input-wrap">
+                                                <input type="password" placeholder="سال">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap input-dropdown-wrap">
+                                    <select placeholder="Gender">
+                                        <option value="" disabled selected>جنسیت</option>
+                                        <option value="Male">مرد</option>
+                                        <option value="Female">زن</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="password" placeholder="شماره تلفن">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-input-wrap">
+                                    <input type="password" placeholder="آدرس">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <!-- end edit profile -->
+    </div>
+</div>

@@ -1,0 +1,5 @@
+[23-Aug-2023 09:29:59 UTC] PHP Fatal error:  Cannot declare class App\Http\Controllers\Admin\EmployeeController, because the name is already in use in /home/dadvarz2/public_html/app/Http/Controllers/Admin/EmploeeController.php on line 14
+[22-Nov-2023 08:28:29 UTC] PHP Fatal error:  Cannot declare class App\Role, because the name is already in use in /home/dadvarz2/public_html/app/Models/Role.php on line 7
+[25-Nov-2023 17:30:11 UTC] PHP Warning:  POST Content-Length of 9977369 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[29-Dec-2023 06:45:19 UTC] PHP Fatal error:  Cannot use try without catch or finally in /home/dadvarz2/public_html/vendor/laravel/ui/auth-backend/AuthenticatesUsers.php on line 102
+[05-Jan-2024 20:12:33 UTC] PHP Fatal error:  Cannot use [] for reading in /home/dadvarz2/public_html/app/Http/Controllers/Site/ProfileController.php on line 293

@@ -1,0 +1,116 @@
+div.flip_clock_flat_black_1_medium_container{
+	
+	div.clock_container{
+		float:right;
+		position:relative;
+	}
+	
+	div.day_container{
+		float:right;
+		position:relative;
+		margin-right:60px;
+	}
+	
+	div.clock_number_container{
+		width:67px;
+		height:97px;
+
+		float:right;
+		position:relative;
+		background:url(../images/flat_black_1_medium.png) -670px top no-repeat;
+
+		-webkit-perspective :330px;
+		-moz-perspective    :330px;
+		perspective         :330px;
+
+		// Top
+
+		div.clock_top_back{
+			width:67px;
+			height:48px;
+
+			position:absolute;
+			top:0;
+			left:0;
+
+			background:url(../images/flat_black_1_medium.png) left top no-repeat;
+		}
+		
+		div.clock_top_front{
+			width:67px;
+			height:48px;
+
+			position:absolute;
+			top:0;
+			left:0;
+
+			background:url(../images/flat_black_1_medium.png) left top no-repeat;
+			outline:1px solid transparent;
+			
+			div.clock_top_shadow{
+				position:absolute;
+				top:2px;
+				bottom:0;
+				left:3px;
+				right:3px;
+
+				background:rgba(0,0,0,1);
+
+				-webkit-border-radius :6px 6px 0 0;
+				-moz-border-radius    :6px 6px 0 0;
+				border-radius         :6px 6px 0 0;
+			}
+		}
+
+		// Bottom
+
+		div.clock_bottom_back{
+			width:67px;
+			height:48px;
+
+			position:absolute;
+			bottom:0;
+			left:0;
+
+			background:url(../images/flat_black_1_medium.png) left bottom no-repeat;
+			
+			div.clock_bottom_shadow{
+				position:absolute;
+				top:0;
+				bottom:5px;
+				left:3px;
+				right:3px;
+
+				background:rgba(0,0,0,1);
+
+				-webkit-border-radius :0 0 6px 6px;
+				-moz-border-radius    :0 0 6px 6px;
+				border-radius         :0 0 6px 6px;
+			}
+		}
+		
+		div.clock_bottom_front{
+			width:67px;
+			height:48px;
+
+			position:absolute;
+			bottom:0;
+			left:0;
+
+			background:url(../images/flat_black_1_medium.png) left bottom no-repeat;
+			outline:1px solid transparent;
+		}
+	}
+
+	// Other Options
+
+	div.clock_dots{
+		width:26px;
+		height:97px;
+
+		background:url(../images/flat_black_1_medium.png) -737px top no-repeat;
+
+		float:right;
+		position:relative;
+	}
+}
