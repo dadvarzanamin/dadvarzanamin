@@ -63,7 +63,7 @@
                                 </a>
 
                                 @if(Auth::check())
-                                    <a href="" class="tab-link">
+                                    <a href="{{route('profile')}}" class="tab-link external">
                                         <i class="fas fa-user"></i>
                                     </a>
                                 @else
