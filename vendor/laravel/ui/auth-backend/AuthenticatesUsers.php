@@ -65,7 +65,7 @@ trait AuthenticatesUsers
             if ($user != null) {
                 if (Hash::check($request->input('password'), $user->password)) {
                     Auth::loginUsingId($user->id);
-                    if(Auth::check()){
+                                        if(Auth::check()){
                         alert()->success($user->name.' به وبسایت بستا ' , 'خوش آمدید' );
                         $url  = Session::get('url');
                         return redirect()->intended();
@@ -89,7 +89,41 @@ trait AuthenticatesUsers
             return Redirect::back();
         }
     }
-
+    public function loginusermobile(Request $request)
+    {
+        $request->validate([
+            'phone'         => 'required|numeric',
+            'password' => 'required|string|min:8',
+            'captcha'           => 'required|numeric|captcha|min:1',
+        ]);
+        if ($request->input('phone')  && $request->input('password')) {
+            $user = User::wherePhone($request->input('phone'))->first();
+            if ($user != null) {
+                if (Hash::check($request->input('password'), $user->password)) {
+                    Auth::loginUsingId($user->id);
+                    if(Auth::check()){
+                        alert()->success($user->name.' به وبسایت بستا ' , 'خوش آمدید' );
+                        return Redirect::back();
+                    }else {
+                        alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                        return Redirect::back();
+                    }
+                    //dd(url()->previous());
+                    //return Redirect::to($url);
+                    //return Redirect::route('indexfilter');
+                } else {
+                    alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                    return Redirect::back();
+                }
+            } else {
+                alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                return Redirect::back();
+            }
+        } else {
+            alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور وارد نشده است');
+            return Redirect::back();
+        }
+    }
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();

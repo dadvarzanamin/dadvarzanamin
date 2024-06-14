@@ -61,9 +61,10 @@
                                 <a href="tel:+982188438191" class="link external">
                                     <i class="fas fa-phone"></i>
                                 </a>
+
                                 @if(Auth::check())
-                                    <a href=" " class="tab-link">
-                                        <i class="fas fa-lock-open"></i>
+                                    <a href="" class="tab-link">
+                                        <i class="fas fa-user"></i>
                                     </a>
                                 @else
                                     <a href="#tab-login" class="tab-link">

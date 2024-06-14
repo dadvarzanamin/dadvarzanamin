@@ -174,6 +174,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
     Route::get('remember'                 , 'LoginController@showLoginrememberForm')->name('remember');
     Route::post('remember'                , 'LoginController@remember')             ->name('remember');
     Route::post('login-user'              , 'LoginController@loginuser')            ->name('login-user');
+    Route::post('login-user-mobile'       , 'LoginController@loginusermobile')      ->name('login-user-mobile');
     Route::get('logout'                   , 'LoginController@logout')               ->name('logout');
     Route::get('reload-captcha'           , 'LoginController@reloadcaptcha')        ->name('reload-captcha');
     Route::get('token'                    , 'TokenController@showToken')            ->name('phone.token');

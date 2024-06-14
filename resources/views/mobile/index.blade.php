@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    {{-- 
+    {{--
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
@@ -514,8 +514,10 @@
                     <div class="col-100">
                         <div class="password-settings segments">
                             <div class="container">
-                                <form method="POST" action="{{ route('login-user') }}" class="list">
+                                <form method="POST" action="{{ route('login-user-mobile') }}" class="list">
                                     @csrf
+                                    <a href="{{url('login/google')}}" class="button primary-button external" style="width: 50%"><i class="fas fa-google mr-2"></i> ورود با حساب گوگل </a>
+
                                     <ul>
                                         <li class="item-content item-input">
                                             <div class="item-inner">

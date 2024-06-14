@@ -36,8 +36,8 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><a href="#">{{$post->title}}</a></h5>
-                                <p class="card-text"> 
-                                   {!! Str::words($post->description, 10, ' ...') !!}
+                                <p class="card-text">
+                                    {{ strip_tags(Str::words($post->description, 10, ' ...')) }}
                                 </p>
                                 <div class="line"></div>
                                 <div class="rating-wrap d-flex align-items-center justify-content-between pt-3">
