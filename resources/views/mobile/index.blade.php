@@ -516,8 +516,9 @@
                             <div class="container">
                                 <form method="POST" action="{{ route('login-user-mobile') }}" class="list">
                                     @csrf
-                                    <a href="{{url('login/google')}}" class="button primary-button external" style="width: 50%"><i class="fas fa-google mr-2"></i> ورود با حساب گوگل </a>
-
+                                    <div class="content-button">
+                                        <a href="{{url('login/google')}}" class="button external" style="background-color: #dc3545;margin: 20px auto;color: #EEEEEE"><i class="fas fa-paper-plane mr-2"></i> ورود با حساب گوگل </a>
+                                    </div>
                                     <ul>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
