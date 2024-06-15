@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('mobile/css/framework7.bundle.css')}}">
     <link rel="stylesheet" href="{{asset('mobile/css/font-awesome.css')}}">
     <link rel="stylesheet" href="{{asset('mobile/css/style.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{asset('mobile/css/rtlStyle.css')}}" type="text/css"/>
     @yield('style')
 </head>
@@ -161,6 +162,45 @@
 <script src="{{asset('mobile/js/framework7.bundle.min.js')}}"></script>
 <script src="{{asset('mobile/js/routes.js')}}"></script>
 <script src="{{asset('mobile/js/app.js')}}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    @if(session('success'))
+        Swal.fire({
+        icon: "success",
+        title: "{{ session('success') }}",
+        showConfirmButton: false,
+        timer: 1500
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+        icon: "error",
+        title: "{{ session('error') }}",
+        showConfirmButton: false,
+        timer: 1500
+        });
+    @endif
+
+    @if(session('info'))
+        Swal.fire({
+            icon: 'info',
+            title: 'اطلاعات',
+            text: "{{ session('info') }}",
+            });
+    @endif
+
+    @if(session('warning'))
+        Swal.fire({
+            icon: 'warning',
+            title: 'هشدار',
+            text: "{{ session('warning') }}",
+            });
+    @endif
+    });
+</script>
+
 <script type="text/javascript">
     $('#reload').click(function () {
         $.ajax({

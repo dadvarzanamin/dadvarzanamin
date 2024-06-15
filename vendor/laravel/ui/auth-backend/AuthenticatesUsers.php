@@ -102,25 +102,33 @@ trait AuthenticatesUsers
                 if (Hash::check($request->input('password'), $user->password)) {
                     Auth::loginUsingId($user->id);
                     if(Auth::check()){
-                        alert()->success($user->name.' به وبسایت بستا ' , 'خوش آمدید' );
+                        //alert()->success($user->name.' به وبسایت بستا ' , 'خوش آمدید' );
+                        session()->flash('success', 'شما با موفقیت وارد شدید');
                         return Redirect::back();
                     }else {
-                        alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+//                        alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                        session()->flash('error', 'شماره موبایل و یا رمز عبور اشتباه است');
+
                         return Redirect::back();
                     }
                     //dd(url()->previous());
                     //return Redirect::to($url);
                     //return Redirect::route('indexfilter');
                 } else {
-                    alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+//                    alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                    session()->flash('error', 'شماره موبایل و یا رمز عبور اشتباه است');
+
                     return Redirect::back();
                 }
             } else {
-                alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+//                alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور اشتباه است');
+                session()->flash('error', 'شماره موبایل و یا رمز عبور اشتباه است');
                 return Redirect::back();
             }
         } else {
-            alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور وارد نشده است');
+//            alert()->error('عملیات ناموفق', 'شماره موبایل و یا رمز عبور وارد نشده است');
+            session()->flash('error', 'شماره موبایل و یا رمز عبور اشتباه است');
+
             return Redirect::back();
         }
     }
