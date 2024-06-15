@@ -244,7 +244,14 @@ class LearnfileController extends Controller
             $pdf->SetXY(10, 10);
             $pdf->Write(0, 'Mobile: ' . $mobileNumber);
         }
-        $outputFilePath = public_path('watermark/'.$pdfModel->file); // استفاده از $pdfModel برای نام فایل
+        $outputDir = public_path('watermark/learnfiles/' . md5(auth()->id()));
+        $outputFilePath = $outputDir . '/' . md5($pdfModel->file) . '.pdf';
+
+        // اطمینان از وجود پوشه مقصد
+        if (!file_exists($outputDir)) {
+            mkdir($outputDir, 0777, true);
+        }
+        // ذخیره فایل PDF در مسیر نهایی
         $pdf->Output($outputFilePath, 'F');
 
         return response()->download($outputFilePath);
