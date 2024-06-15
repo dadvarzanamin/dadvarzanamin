@@ -145,7 +145,6 @@ trait AuthenticatesUsers
         try {
             $user = User::find(Auth::user()->id);
             $user->email_verify = 1;
-            $user->level = 'site';
             $user->save();
         }catch (Exception){
 
