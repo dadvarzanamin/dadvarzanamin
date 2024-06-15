@@ -145,11 +145,13 @@ trait AuthenticatesUsers
         try {
             $user = User::find(Auth::user()->id);
             $user->email_verify = 1;
+            $user->level = 'site';
             $user->save();
         }catch (Exception){
 
         }
         alert()->success($user->name.' به وبسایت ' , 'خوش آمدید' );
+        session()->flash('success', 'شما با موفقیت وارد شدید');
         $url  = Session::get('url');
         return Redirect::to(route('/'));
     }
