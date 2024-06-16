@@ -185,6 +185,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
     Route::post('setpass'                 , 'TokenController@update')               ->name('setpass');
     Route::get('register'                 , 'RegisterController@showRegistrationuserForm');
     Route::post('register'                , 'RegisterController@registeruser')->name('register');
+    Route::post('mobile-register'         , 'RegisterController@mobileregister')->name('mobile-register');
 
 });
 

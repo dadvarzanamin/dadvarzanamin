@@ -86,6 +86,44 @@ trait RegistersUsers
         alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
         return Redirect::back();
     }
+    public function mobileregister(UserRequest $request)
+    {
+        $request->validate([
+            'phone'         => 'required|numeric',
+            'username'         => 'required|string|min:2',
+            'password' => 'required|string|min:8',
+            'captcha'           => 'required|numeric|captcha|min:1',
+        ]);
+        $user = User::wherePhone($request->input('phone'))->first();
+        if ($user === null) {
+
+            $users = new User();
+
+            $users->name    = $request->input('name');
+            $users->phone                   = $request->input('phone');
+            $users->username    = $request->input('username');
+            $users->level = 'site';
+            $users->type_id = $request->input('type_user');
+            $users->password    = Hash::make($request->input('password'));
+
+            $users->save();
+
+            $user = User::wherePhone($request->input('phone'))->first();
+
+            $request->session()->flash('auth', [
+                'user_id' => $user->id,
+                'reg' => 1
+            ]);
+
+            $code = ActiveCode::generateCode($user);
+
+            $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
+            $phone = $request->input('phone');
+            return redirect(route('phone.token'))->with(['phone' => $phone]);
+        }
+        session()->flash('error', 'شماره موبایل قبلا ثبت شده است');
+        return Redirect::back();
+    }
 
     /**
      * Get the guard to be used during registration.
