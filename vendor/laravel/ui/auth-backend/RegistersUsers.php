@@ -86,7 +86,7 @@ trait RegistersUsers
         alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
         return Redirect::back();
     }
-    public function mobileregister(UserRequest $request)
+    public function mobileregister(Request $request)
     {
         $request->validate([
             'phone'         => 'required|numeric',

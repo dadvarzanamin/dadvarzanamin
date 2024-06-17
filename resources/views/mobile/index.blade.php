@@ -504,8 +504,8 @@
     <div id="tab-login"class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
-                <div class="left"></div>
                 <div class="title"> ورود </div>
+                <div class="right"><a href="#tab-home" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
             </div>
         </div>
         <div class="recommended product segments-bottom">
@@ -517,7 +517,7 @@
                                 <form method="POST" action="{{ route('login-user-mobile') }}" class="list">
                                     @csrf
                                     <div class="content-button">
-                                        <a href="{{url('login/google')}}" class="button external" style="background-color: #dc3545;margin: 20px auto;color: #EEEEEE"><i class="fas fa-paper-plane mr-2"></i> ورود با حساب گوگل </a>
+                                        <a href="{{url('login/google')}}" class="button external" style="background-color: #dc3545;margin: 20px auto;color: #EEEEEE"> ورود با حساب گوگل </a>
                                     </div>
                                     <ul>
                                         <li class="item-content item-input">
@@ -550,12 +550,12 @@
                                         </li>
                                     </ul>
                                     <div class="content-button">
-                                        <button type="submit" class="button primary-button"><i class="fas fa-paper-plane"></i>ارسال</button>
+                                        <button type="submit" class="button" style="background-color: #006400"><i class="fas fa-lock-open"></i>ورود</button>
                                     </div>
                                 </form>
-                                <a href="#tab-register" class="tab-link" style="margin: 20px auto;">
-                                    <span class="tabbar-label">ثبت نام و عضویت در سایت</span>
-                                </a>
+                                <div class="content-button">
+                                    <a href="#tab-register" class="button tab-link" style="margin: 20px auto;color: #EEEEEE"><i class="fas fa-user-check mr-2"></i>ثبت نام و عضویت در سایت</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -566,8 +566,8 @@
     <div id="tab-register"class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
-                <div class="left"></div>
                 <div class="title"> عضویت </div>
+                <div class="right"><a href="#tab-login" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
             </div>
         </div>
         <div class="recommended product segments-bottom">
@@ -642,7 +642,7 @@
                                         </li>
                                     </ul>
                                     <div class="content-button">
-                                        <button type="submit" class="button primary-button"><i class="fas fa-paper-plane"></i>ثب نام</button>
+                                        <button type="submit" class="button primary-button"><i class="fas fa-paper-plane"></i>عضویت در سایت</button>
                                     </div>
                                 </form>
                             </div>
@@ -653,26 +653,4 @@
         </div>
     </div>
     </div>
-@endsection
-@section('script')
-    @if ($errors->any())
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'خطا',
-                html: '<ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
-            });
-        </script>
-    @endif
-    <script type="text/javascript">
-        $('#reload').click(function () {
-            $.ajax({
-                type: 'GET',
-                url: 'reload-captcha',
-                success: function (data) {
-                    $(".captcha span").html(data.captcha);
-                }
-            });
-        });
-    </script>
 @endsection

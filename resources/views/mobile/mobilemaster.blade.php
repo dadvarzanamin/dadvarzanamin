@@ -303,5 +303,25 @@
             });
     });
 </script>
+<script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+</script>
+@if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'خطا',
+            html: '<ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+            });
+    </script>
+@endif
 </body>
 </html>
