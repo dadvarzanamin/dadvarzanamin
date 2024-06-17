@@ -658,19 +658,32 @@
                         </div>
                         <div class="password-settings segments">
                             <div class="container">
-                                    <ul>
-                                        <li class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-input-wrap" style="margin: 0 auto;">
-                                                    <h4>{{Auth::user()->name}}</h4>
-                                                </div>
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-input-wrap" style="margin: 0 auto;">
+                                                <h4>{{Auth::user()->name}}</h4>
                                             </div>
-                                        </li>
-                                    </ul>
-                                    <div class="content-button">
-                                        <a href="#tab-editprofile" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;"><i class="fas fa-edit"></i>ویرایش اطلاعات کاربری</a>
-                                    </div>
-                                </form>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="content-button">
+                                    <a href="#tab-editprofile" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;"><i class="fas fa-edit"></i>ویرایش اطلاعات کاربری</a>
+                                </div>
+                                    <table>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام فایل</th>
+                                            <th>فایل</th>
+                                        </tr>
+                                        @foreach(\App\Models\Dashboard\Learnfile::select('id' , 'title' , 'image' , 'file')->whereStatus(4)->orderBy('id' , 'DESC')->get() as $learnfile)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$learnfile->title}}</td>
+                                                <td><a href="{{route('learn-file-download', $learnfile->id)}}" class="tab-link external"><img src="{{$learnfile->image}}" alt="" style="width: 100px"></a></td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
                             </div>
                         </div>
                     </div>
