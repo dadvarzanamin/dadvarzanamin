@@ -393,7 +393,7 @@
             </div>
         </div>
     </div>
-    <div id="tab-account"class="page-content tab">
+    <div id="tab-account" class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
                 <div class="left"></div>
@@ -501,7 +501,7 @@
             </div>
         </div>
     </div>
-    <div id="tab-login"class="page-content tab">
+    <div id="tab-login" class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
                 <div class="title"> ورود </div>
@@ -563,7 +563,7 @@
             </div>
         </div>
     </div>
-    <div id="tab-register"class="page-content tab">
+    <div id="tab-register" class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
                 <div class="title"> عضویت </div>
@@ -626,20 +626,6 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-input-wrap">
-                                                    <input type="text" name="captcha" required placeholder="کد امنیتی" @error('captcha') is-invalid @enderror">
-                                                    <br>
-                                                    <div class="form-account-title captcha">
-                                                        <label for="captcha_img" class="float-right"></label>
-                                                        <span class="float-left">{!! captcha_img('math') !!}</span>
-                                                        <br>
-                                                        <button type="button" class="btn btn-default reload" id="reload" style="width:10%;float: right;margin: -25px 20px;height: 35px;">&#x21bb;</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
                                     </ul>
                                     <div class="content-button">
                                         <button type="submit" class="button primary-button"><i class="fas fa-paper-plane"></i>عضویت در سایت</button>
@@ -652,5 +638,143 @@
             </div>
         </div>
     </div>
+    @if(Auth::check())
+    <div id="tab-profile" class="page-content tab">
+        <div class="navbar navbar-page">
+            <div class="navbar-inner">
+                <div class="title"> پروفایل کاربری </div>
+                <div class="right"><a href="#tab-home" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
+            </div>
+        </div>
+        <div class="recommended product segments-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-100">
+                        <div class="shop-cart-btn">
+                            <div class="avatar-xs">
+                                <img class="rounded-full img-fluid" style="width: 40%; margin: 20px auto;" @if(Auth::user()->image)  src="{{Auth::user()->image}}" @else src="{{asset('admin/assets/img/users/1.jpg')}}" @endif alt="{{(Auth::user()->name)}}" />
+                            </div>
+                            <span class="dot-status bg-1"></span>
+                        </div>
+                        <div class="password-settings segments">
+                            <div class="container">
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap" style="margin: 0 auto;">
+                                                    <h4>{{Auth::user()->name}}</h4>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="content-button">
+                                        <a href="#tab-editprofile" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;"><i class="fas fa-edit"></i>ویرایش اطلاعات کاربری</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tab-editprofile" class="page-content tab">
+        <div class="navbar navbar-page">
+            <div class="navbar-inner">
+                <div class="title">ویرایش پروفایل کاربری </div>
+                <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
+            </div>
+        </div>
+        <div class="recommended product segments-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-100">
+                        <div class="shop-cart-btn">
+                            <div class="avatar-xs">
+                                <img class="rounded-full img-fluid" style="width: 40%; margin: 20px auto;" @if(Auth::user()->image)  src="{{Auth::user()->image}}" @else src="{{asset('admin/assets/img/users/1.jpg')}}" @endif alt="{{(Auth::user()->name)}}" />
+                            </div>
+                            <span class="dot-status bg-1"></span>
+                        </div>
+                        <div class="password-settings segments">
+                            <div class="container">
+                                <form method="POST" action="{{ route('edit-user-mobile') }}" enctype="multipart/form-data" class="list">
+                                    @csrf
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="name" required value="{{Auth::user()->name}}">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="username" required value="{{Auth::user()->username}}">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="phone" required value="{{Auth::user()->phone}}">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="email" required value="{{Auth::user()->email}}">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="national_id" required value="{{Auth::user()->national_id}}">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="file" name="image" style="width: 94%;"/>
+                                                </div>
+                                            </div>
+                                        </li>
+{{--                                        <li class="item-content item-input">--}}
+{{--                                            <div class="item-inner">--}}
+{{--                                                <div class="item-input-wrap">--}}
+{{--                                                    <input class="form-control" required type="password" name="old_password" placeholder="رمز عبور قدیمی" />--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="item-content item-input">--}}
+{{--                                            <div class="item-inner">--}}
+{{--                                                <div class="item-input-wrap">--}}
+{{--                                                    <input class="form-control" required type="password" name="password" placeholder="رمز عبور جدید" />--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="item-content item-input">--}}
+{{--                                            <div class="item-inner">--}}
+{{--                                                <div class="item-input-wrap">--}}
+{{--                                                    <input class="form-control" required type="password" name="password_confirmation" placeholder="رمز عبور جدید را تأیید کنید" />--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+                                    </ul>
+                                    <div class="content-button">
+                                        <button type="submit" class="button" style="background-color: #006400"><i class="fas fa-edit"></i>ویرایش</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   @endif
     </div>
 @endsection

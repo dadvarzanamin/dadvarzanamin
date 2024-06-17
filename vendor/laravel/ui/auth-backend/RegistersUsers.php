@@ -92,7 +92,6 @@ trait RegistersUsers
             'phone'         => 'required|numeric',
             'username'         => 'required|string|min:2',
             'password' => 'required|string|min:8',
-            'captcha'           => 'required|numeric|captcha|min:1',
         ]);
         $user = User::wherePhone($request->input('phone'))->first();
         if ($user === null) {

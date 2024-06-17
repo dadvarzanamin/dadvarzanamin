@@ -21,41 +21,41 @@ class ProfileController extends Controller
             ->with(compact(['menupanels' , 'submenupanels', 'roles' , 'users']));
 
     }
-        public function update(ProfileRequest $request)
-        {
-            try {
-                $user = User::findOrfail(auth()->user()->id);
-                $user->name         = $request->input('name');
-                $user->username     = $request->input('username');
-                $user->email        = $request->input('email');
-                $user->phone        = $request->input('mobile');
-                $user->whatsapp     = $request->input('whatsapp');
-                $user->instagram    = $request->input('instagram');
-                $user->telegram     = $request->input('telegram');
+    public function update(ProfileRequest $request)
+    {
+        try {
+            $user = User::findOrfail(auth()->user()->id);
+            $user->name         = $request->input('name');
+            $user->username     = $request->input('username');
+            $user->email        = $request->input('email');
+            $user->phone        = $request->input('mobile');
+            $user->whatsapp     = $request->input('whatsapp');
+            $user->instagram    = $request->input('instagram');
+            $user->telegram     = $request->input('telegram');
 
-                $result = $user->update();
+            $result = $user->update();
 
-                if ($result == true) {
-                    $success = true;
-                    $flag = 'success';
-                    $subject = 'عملیات موفق';
-                    $message = 'اطلاعات با موفقیت ثبت شد';
-                } else {
-                    $success = false;
-                    $flag = 'error';
-                    $subject = 'عملیات نا موفق';
-                    $message = 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید';
-                }
-
-            } catch (Exception $e) {
-
+            if ($result == true) {
+                $success = true;
+                $flag = 'success';
+                $subject = 'عملیات موفق';
+                $message = 'اطلاعات با موفقیت ثبت شد';
+            } else {
                 $success = false;
                 $flag = 'error';
-                $subject = 'خطا در ارتباط با سرور';
-                //$message = strchr($e);
-                $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
+                $subject = 'عملیات نا موفق';
+                $message = 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید';
             }
 
-            return response()->json(['success' => $success, 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
+        } catch (Exception $e) {
+
+            $success = false;
+            $flag = 'error';
+            $subject = 'خطا در ارتباط با سرور';
+            //$message = strchr($e);
+            $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
         }
+
+        return response()->json(['success' => $success, 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
+    }
 }

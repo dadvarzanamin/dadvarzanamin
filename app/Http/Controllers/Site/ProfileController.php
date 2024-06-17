@@ -556,6 +556,32 @@ class ProfileController extends Controller
         }
         return Redirect::back();
     }
+    public function editusermobile(Request $request){
+        $user = User::whereId(Auth::user()->id)->select('id')->first();
+            $request->validate([
+                'name'  => ['required', 'string', 'min:3'],
+                'email' => ['required', 'string', 'email'],
+                'phone' => ['required', 'numeric', 'min:10'],
+                'image' => ['image','mimes:jpeg,jpg,png,gif','max:50000'],
+            ]);
+            $user->name                 = $request->input('name');
+            $user->username             = $request->input('username');
+            $user->email                = $request->input('email');
+            $user->phone                = $request->input('phone');
+            $user->national_id          = $request->input('national_id');
+            if($request->hasfile('image')) {
+                $file = $request->file('image');
+                $imagePath  =public_path("users");
+                $imagelink  ="users";
+                $filename = Str::random(30) . "." . $file->clientExtension();
+                $newImage = Image::make($file);
+                $newImage->fit(480, 320);
+                $user->image = $imagelink . '/' . $filename;
+                $newImage->save($imagePath . '/' . $filename);
+            }
+            $user->save();
+        return Redirect::back();
+    }
 
     public function changepassword(Request $request)
     {

@@ -72,6 +72,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::post('bankpayment'       , 'ProfileController@creatbankpayment') ->name('bank-payment');
         Route::post('change-email'      , 'ProfileController@changeemail')      ->name('change-email');
         Route::post('queries'           , 'ProfileController@queries')          ->name('queries');
+        Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')       ->name('edit-user-mobile');
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
 
