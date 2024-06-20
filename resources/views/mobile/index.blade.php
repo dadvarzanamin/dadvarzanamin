@@ -664,12 +664,45 @@
                                             <div class="item-input-wrap" style="margin: 0 auto;">
                                                 <h4>{{Auth::user()->name}}</h4>
                                             </div>
+                                            @if(Auth::user()->phone == null)
+                                            <style>
+                                                /* The alert message box */
+                                                .alert {
+                                                    padding: 20px;
+                                                    background-color: #f44336; /* Red */
+                                                    color: white;
+                                                    margin: 15px auto;
+                                                }
+
+                                                /* The close button */
+                                                .closebtn {
+                                                    margin-left: 15px;
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    float: right;
+                                                    font-size: 22px;
+                                                    line-height: 20px;
+                                                    cursor: pointer;
+                                                    transition: 0.3s;
+                                                }
+
+                                                /* When moving the mouse over the close button */
+                                                .closebtn:hover {
+                                                    color: black;
+                                                }
+                                            </style>
+                                            <div class="alert">
+                                                <span class="closebtn"></span>
+                                                برای دریافت فایل های آموزشی ثبت  و تایید شماره موبایل الزامی می باشد
+                                            </div>
+                                            @endif
                                         </div>
                                     </li>
                                 </ul>
                                 <div class="content-button">
                                     <a href="#tab-editprofile" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;"><i class="fas fa-edit"></i>ویرایش اطلاعات کاربری</a>
                                 </div>
+                                @if(Auth::user()->phone != null)
                                     <table>
                                         <tr>
                                             <th>ردیف</th>
@@ -684,6 +717,7 @@
                                             </tr>
                                         @endforeach
                                     </table>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -716,41 +750,47 @@
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="name" required value="{{Auth::user()->name}}">
+                                                    <label>نام و نام خانوادگی</label>
+                                                    <input type="text" name="name" style="{{Auth::user()->name == null ? 'border:1px solid red' : ''}}" required value="{{Auth::user()->name}}">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="username" required value="{{Auth::user()->username}}">
+                                                    <label>نام کاربری</label>
+                                                    <input type="text" name="username" style="{{Auth::user()->username == null ? 'border:1px solid red' : ''}}"  required value="{{Auth::user()->username}}">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="phone" required value="{{Auth::user()->phone}}">
+                                                    <label>شماره موبایل</label>
+                                                    <input type="text" name="phone" style="{{Auth::user()->phone == null ? 'border:1px solid red' : ''}}"  required value="{{Auth::user()->phone}}">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="email" required value="{{Auth::user()->email}}">
+                                                    <label>ایمیل</label>
+                                                    <input type="text" name="email" style="{{Auth::user()->email == null ? 'border:1px solid red' : ''}}"  required value="{{Auth::user()->email}}">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="text" name="national_id" required value="{{Auth::user()->national_id}}">
+                                                    <label>کد ملی</label>
+                                                    <input type="text" name="national_id" style="{{Auth::user()->national_id == null ? 'border:1px solid red' : ''}}"  required value="{{Auth::user()->national_id}}">
                                                 </div>
                                             </div>
                                         </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
+                                                    <label>تصویر پروفایل</label>
                                                     <input type="file" name="image" style="width: 94%;"/>
                                                 </div>
                                             </div>

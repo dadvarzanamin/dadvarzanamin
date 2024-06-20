@@ -239,8 +239,8 @@ class LearnfileController extends Controller
             $pdf->AddPage();
             $tplIdx = $pdf->importPage($pageNo);
             $pdf->useTemplate($tplIdx, 0, 0);
-            $pdf->SetFont('Helvetica');
-            $pdf->SetTextColor(255, 0, 0);
+            $pdf->SetFont('Helvetica' , 'B' , 50);
+            $pdf->SetTextColor(255, 192, 203);
             $pdf->SetXY(10, 10);
             $pdf->Write(0, 'Mobile: ' . $mobileNumber);
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActiveCode;
 use App\Models\Company;
 use App\Models\Dashboard\Estelam;
 use App\Models\Dashboard\notif_user;
@@ -15,6 +16,7 @@ use App\Models\Profile\EstelamToken;
 use App\Models\Profile\Log_estelam;
 use App\Models\Profile\Notif;
 use App\Models\User;
+use App\Notifications\ActiveCode as ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -580,7 +582,17 @@ class ProfileController extends Controller
                 $newImage->save($imagePath . '/' . $filename);
             }
             $user->save();
-        return Redirect::back();
+
+        $request->session()->flash('auth', [
+            'user_id' => $user->id,
+            'reg' => 1
+        ]);
+
+        $code = ActiveCode::generateCode($user);
+
+        $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
+        $phone = $request->input('phone');
+        return redirect(route('phone.token'))->with(['phone' => $phone]);
     }
 
     public function changepassword(Request $request)
