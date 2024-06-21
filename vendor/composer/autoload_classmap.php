@@ -100,6 +100,7 @@ return array(
     'App\\Models\\Dashboard\\Portfolio' => $baseDir . '/app/Models/Dashboard/Portfolio.php',
     'App\\Models\\Dashboard\\Post' => $baseDir . '/app/Models/Dashboard/Post.php',
     'App\\Models\\Dashboard\\Questionlist' => $baseDir . '/app/Models/Dashboard/Questionlist.php',
+    'App\\Models\\Dashboard\\Role' => $baseDir . '/app/Models/Dashboard/Role.php',
     'App\\Models\\Dashboard\\Slide' => $baseDir . '/app/Models/Dashboard/Slide.php',
     'App\\Models\\Dashboard\\Subestelam' => $baseDir . '/app/Models/Dashboard/Subestelam.php',
     'App\\Models\\Dashboard\\Submenu_panel' => $baseDir . '/app/Models/Dashboard/Submenu_panel.php',

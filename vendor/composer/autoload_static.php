@@ -816,6 +816,7 @@ class ComposerStaticInit8ec01dad82bbde8bbd99f52fe8688ab4
         'App\\Models\\Dashboard\\Portfolio' => __DIR__ . '/../..' . '/app/Models/Dashboard/Portfolio.php',
         'App\\Models\\Dashboard\\Post' => __DIR__ . '/../..' . '/app/Models/Dashboard/Post.php',
         'App\\Models\\Dashboard\\Questionlist' => __DIR__ . '/../..' . '/app/Models/Dashboard/Questionlist.php',
+        'App\\Models\\Dashboard\\Role' => __DIR__ . '/../..' . '/app/Models/Dashboard/Role.php',
         'App\\Models\\Dashboard\\Slide' => __DIR__ . '/../..' . '/app/Models/Dashboard/Slide.php',
         'App\\Models\\Dashboard\\Subestelam' => __DIR__ . '/../..' . '/app/Models/Dashboard/Subestelam.php',
         'App\\Models\\Dashboard\\Submenu_panel' => __DIR__ . '/../..' . '/app/Models/Dashboard/Submenu_panel.php',
