@@ -2,16 +2,10 @@
 
 namespace Illuminate\Foundation\Auth;
 
-use App\Models\ActiveCode;
-use App\Http\Requests\UserRequest;
-use App\Notifications\ActiveCode as ActiveCodeNotification;
-use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 
 trait RegistersUsers
 {
@@ -26,10 +20,7 @@ trait RegistersUsers
     {
         return view('auth.register');
     }
-    public function showRegistrationuserForm()
-    {
-        return view('Site.auth.register');
-    }
+
     /**
      * Handle a registration request for the application.
      *
@@ -51,77 +42,6 @@ trait RegistersUsers
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
                     : redirect($this->redirectPath());
-    }
-
-    public function registeruser(UserRequest $request)
-    {
-        $user = User::wherePhone($request->input('phone'))->first();
-        if ($user === null) {
-
-            $users = new User();
-
-            $users->name    = $request->input('name');
-            $users->phone                   = $request->input('phone');
-            $users->username    = $request->input('username');
-            $users->level = 'site';
-            $users->type_id = $request->input('type_user');
-            $users->password    = Hash::make($request->input('password'));
-
-            $users->save();
-
-            $user = User::wherePhone($request->input('phone'))->first();
-
-            $request->session()->flash('auth', [
-                'user_id' => $user->id,
-                'reg' => 1
-            ]);
-
-            $code = ActiveCode::generateCode($user);
-
-            $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
-            $phone = $request->input('phone');
-            return redirect(route('phone.token'))->with(['phone' => $phone]);
-        }
-
-        alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
-        return Redirect::back();
-    }
-    public function mobileregister(Request $request)
-    {
-        $request->validate([
-            'phone'         => 'required|numeric',
-            'username'         => 'required|string|min:2',
-            'password' => 'required|string|min:8',
-        ]);
-        $user = User::wherePhone($request->input('phone'))->first();
-        if ($user === null) {
-
-            $users = new User();
-
-            $users->name    = $request->input('name');
-            $users->phone                   = $request->input('phone');
-            $users->username    = $request->input('username');
-            $users->level = 'site';
-            $users->type_id = $request->input('type_user');
-            $users->password    = Hash::make($request->input('password'));
-
-            $users->save();
-
-            $user = User::wherePhone($request->input('phone'))->first();
-
-            $request->session()->flash('auth', [
-                'user_id' => $user->id,
-                'reg' => 1
-            ]);
-
-            $code = ActiveCode::generateCode($user);
-
-            $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
-            $phone = $request->input('phone');
-            return redirect(route('phone.token'))->with(['phone' => $phone]);
-        }
-        session()->flash('error', 'شماره موبایل قبلا ثبت شده است');
-        return Redirect::back();
     }
 
     /**
