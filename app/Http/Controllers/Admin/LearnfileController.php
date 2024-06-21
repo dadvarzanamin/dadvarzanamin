@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
+use TCPDF;
 use Yajra\DataTables\Facades\DataTables;
-use setasign\Fpdi\Fpdi;
-use setasign\Fpdf\Fpdf;
+//use setasign\Fpdi\Fpdi;
+//use setasign\Fpdf\Fpdf;
+use setasign\Fpdi\Tcpdf\Fpdi;
+
 class LearnfileController extends Controller
 {
     public function index(Request $request)
@@ -231,28 +234,155 @@ class LearnfileController extends Controller
         $pdfModel = Learnfile::findOrFail($id);
         $filePath = public_path($pdfModel->file);
         $mobileNumber = auth()->user()->phone;
-        // افزودن واترمارک
+
         $pdf = new Fpdi();
+
+        // تنظیمات اولیه
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Your Name');
+        $pdf->SetTitle('PDF Title');
+        $pdf->SetSubject('PDF Subject');
+        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+        // حذف هدر و فوتر پیش‌فرض
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // بارگذاری فایل PDF اصلی
         $pageCount = $pdf->setSourceFile($filePath);
 
+        // پردازش هر صفحه از فایل PDF اصلی
         for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
             $pdf->AddPage();
             $tplIdx = $pdf->importPage($pageNo);
             $pdf->useTemplate($tplIdx, 0, 0);
-            $pdf->SetFont('Helvetica' , 'B' , 50);
+
+            // تنظیم واترمارک
+            $pdf->SetAlpha(0.2);
+            $pdf->SetFont('helvetica', 'B', 70);
             $pdf->SetTextColor(255, 192, 203);
-            $pdf->SetXY(10, 10);
-            $pdf->Write(0, 'Mobile: ' . $mobileNumber);
+            $pdf->SetXY(300, 100); // تنظیم موقعیت واترمارک
+            $pdf->StartTransform();
+            $pdf->Rotate(45); // چرخاندن واترمارک
+            $pdf->Text(30, 50, $mobileNumber);
+            $pdf->StopTransform();
+
+            // بازنشانی شفافیت
+            $pdf->SetAlpha(1);
         }
+
         $outputDir = public_path('watermark/learnfiles/' . md5(auth()->id()));
-        $outputFilePath = $outputDir . '/' . md5($pdfModel->file) . '.pdf';
+        $outputFilePath = $outputDir . '/' . md5(basename($filePath)) . '.pdf';
 
         // اطمینان از وجود پوشه مقصد
         if (!file_exists($outputDir)) {
             mkdir($outputDir, 0777, true);
         }
+
         // ذخیره فایل PDF در مسیر نهایی
         $pdf->Output($outputFilePath, 'F');
+
+
+
+
+//
+//        $pdf = new TCPDF();
+//
+//        // تنظیمات اولیه
+//        $pdf->SetCreator(PDF_CREATOR);
+//        $pdf->SetAuthor('Your Name');
+//        $pdf->SetTitle('PDF Title');
+//        $pdf->SetSubject('PDF Subject');
+//        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+//
+//        // حذف هدر و فوتر پیش‌فرض
+//        $pdf->setPrintHeader(false);
+//        $pdf->setPrintFooter(false);
+//
+//        // اضافه کردن یک صفحه
+//        $pdf->AddPage();
+//
+//        // تنظیم واترمارک
+//        $pdf->SetAlpha(0.1);
+//        $pdf->SetFont('helvetica', 'B', 50);
+//        $pdf->Rotate(45, 55, 190);
+//        $pdf->Text(35, 190, $mobileNumber);
+//
+//        // بازنشانی چرخش
+//        $pdf->Rotate(0);
+//
+//        // اضافه کردن محتوای PDF (مثال)
+//        $pdf->SetAlpha(1);
+//        $pdf->SetFont('helvetica', '', 12);
+//        $pdf->MultiCell(0, 0, 'این یک مثال از محتوای PDF است.', 0, 'L', 0, 1, '', '', true);
+//
+//        // خروجی PDF
+//        $pdf->Output('example.pdf', 'D'); // 'D' برای دانلود
+
+
+
+
+//        $pdf = new \TCPDF();
+//
+//        // تنظیمات اولیه
+//        $pdf->SetCreator($filePath);
+//        $pdf->SetAuthor('Aliakbarzade');
+//        $pdf->SetTitle('Law course');
+//        $pdf->SetSubject('PDF EXAM');
+//        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+//        // حذف هدر و فوتر پیش‌فرض
+//        $pdf->setPrintHeader(false);
+//        $pdf->setPrintFooter(false);
+//
+//        // اضافه کردن یک صفحه
+//        $pdf->AddPage();
+//
+//        // تنظیم واترمارک
+//        $pdf->SetAlpha(0.1);
+//        $pdf->SetFont('helvetica', 'B', 50);
+//        $pdf->Rotate(45, 55, 190);
+//        $pdf->Text(35, 190, 'mobile : ' . $mobileNumber);
+//
+//        // بازنشانی چرخش
+//        $pdf->Rotate(0);
+//
+//        // اضافه کردن محتوای PDF (مثال)
+//        $pdf->SetAlpha(1);
+//        $pdf->SetFont('helvetica', '', 12);
+//        $pdf->MultiCell(0, 0, 'این یک مثال از محتوای PDF است.', 0, 'L', 0, 1, '', '', true);
+//
+//        // خروجی PDF
+//        //$pdf->Output('example.pdf', 'D'); // 'D' برای دانلود
+//        $outputDir = public_path('watermark/learnfiles/' . md5(auth()->id()));
+//        $outputFilePath = $outputDir . '/' . md5($pdfModel->file) . '.pdf';
+//        if (!file_exists($outputDir)) {
+//            mkdir($outputDir, 0777, true);
+//        }
+//        $pdf->Output($outputFilePath, 'D');
+
+
+        // افزودن واترمارک
+//        $pdf = new Fpdi();
+//        $pageCount = $pdf->setSourceFile($filePath);
+//
+//        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+//            $pdf->AddPage();
+//            $tplIdx = $pdf->importPage($pageNo);
+//            $pdf->useTemplate($tplIdx, 0, 0);
+//            $pdf->SetFont('Helvetica' , 'B' , 50);
+//            $pdf->SetTextColor(255, 192, 203);
+//            $pdf->SetXY(10, 10);
+//            $pdf->Write(0, 'Mobile: ' . $mobileNumber);
+//        }
+//        $outputDir = public_path('watermark/learnfiles/' . md5(auth()->id()));
+//        $outputFilePath = $outputDir . '/' . md5($pdfModel->file) . '.pdf';
+//
+//        // اطمینان از وجود پوشه مقصد
+//        if (!file_exists($outputDir)) {
+//            mkdir($outputDir, 0777, true);
+//        }
+//        // ذخیره فایل PDF در مسیر نهایی
+//        $pdf->Output($outputFilePath, 'F');
 
         return response()->download($outputFilePath);
     }
