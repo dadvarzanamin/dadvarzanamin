@@ -1,0 +1,6 @@
+[21-Jun-2024 14:28:36 UTC] PHP Warning:  require(/home/dadvarz2/public_html/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/dadvarz2/public_html/public/index.php on line 35
+[21-Jun-2024 14:28:36 UTC] PHP Warning:  require(/home/dadvarz2/public_html/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/dadvarz2/public_html/public/index.php on line 35
+[21-Jun-2024 14:28:36 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/dadvarz2/public_html/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/dadvarz2/public_html/public/index.php:35
+Stack trace:
+#0 {main}
+  thrown in /home/dadvarz2/public_html/public/index.php on line 35
