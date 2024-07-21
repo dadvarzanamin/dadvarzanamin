@@ -1,4 +1,28 @@
 @font-face {
+    font-family: 'Pinar-FD';
+    font-style: normal;
+    font-weight: 500;
+    src: url(../fonts/Pinar/Pinar-FD-Medium.woff2);
+}
+@font-face {
+    font-family: 'Pinar-FD';
+    font-style: normal;
+    font-weight: 600;
+    src: url(../fonts/Pinar/Pinar-FD-SemiBold.woff2);
+}
+@font-face {
+    font-family: 'Pinar-FD';
+    font-style: normal;
+    font-weight: 700;
+    src: url(../fonts/Pinar/Pinar-FD-Bold.woff2);
+}
+@font-face {
+    font-family: 'Pinar-FD';
+    font-style: normal;
+    font-weight: 800;
+    src: url(../fonts/Pinar/Pinar-FD-ExtraBold.woff2);
+}
+@font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: bold;
@@ -50,14 +74,15 @@
 }
 
 body{
-    font-family: IRANSans !important;
+    font-family: Pinar-FD, serif !important;
     direction: rtl;
     text-align: right;
     padding:0;
     margin: 0;
     font-size: 13px;
 }
-h1,h2,h3,h4,h5,h6,p,a{font-family: IRANSans !important;}
+h1,h2,h3,h4,h5,h6,p,a{
+    font-family: Pinar-FD, serif !important;}
 /*---------*/
 .ios .navbar .left {
     margin-left: 10px;

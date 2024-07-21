@@ -14,18 +14,15 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.2",
+        "laravel/ui": "^4.5",
         "mailgun/mailgun-php": "^3.6",
         "matomo/device-detector": "^6.1",
         "mews/captcha": "^3.3",
         "morilog/jalali": "*",
         "php-open-source-saver/jwt-auth": "^2.1",
         "realrashid/sweet-alert": "^7.1",
-        "setasign/fpdf": "^1.8",
-        "setasign/fpdi": "^2.6",
         "symfony/mailer": "^6.4",
         "symfony/mailgun-mailer": "^6.4",
-        "tecnickcom/tcpdf": "^6.7",
         "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
@@ -79,5 +76,5 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
+    "prefer-stable": true
 }
