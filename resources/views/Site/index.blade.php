@@ -168,33 +168,41 @@
                 <p>شرکت حقوقی با وکلای حرفه‌ای و مجرب، حقوق مهاجرتی و مشاوره مالیاتی و مشاوره حقوقی دادگستری و کلیه امور وکالتی</p>
             </div>
         </div>
+
     </section>
-{{--
-    <section class="about-area section--padding overflow-hidden">
+
+    <section class="about-area overflow-hidden">
         <div class="container">
+            @if(Auth::check())
+            <div class="alert alert-success" role="alert">
+                <a href="{{route('profile')}}">
+                    <p class="text-center">                شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی کلیک نمایید
+                    </p>
+                </a>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-lg-6">
                     <div class="about-content pb-5">
                         <div class="section-heading">
-                            <h2 class="section__title text-center"> سلسله نشست های صحن دولت </h2>
+                            <h2 class="section__title text-center"> کارگاه آموزشی </h2>
                             <span class="section-divider"></span>
-                            <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center"> بایسته‌های حقوقی نظام مقررات گذاری دولت </p>
-                            <h3 class="text-center">آیین نامه | بخشنامه | تصویب نامه</h3>
-                            <h4 class="text-center" style="margin: 20px 0px;">سخنران:دکتر حسین سیمایی صراف</h4>
-                            <h6 class="text-center">*عضو هیئت علمی دانشکده شهید بهشتی</h6>
-                            <h6 class="text-center">دبیر هیئت دولت دوازدهم</h6>
-                            <h5 class="text-center" style="margin: 20px 0px;">زمان:شنبه 29 اردیبهشت 1403 -از ساعت 14 </h5>
+                            <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای حل اختلاف</p>
+                            <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
+                            <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
+                            <h6 class="text-center">دادستان سابق دادگستری</h6>
+                            <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
                         </div>
                         <div class="row pt-4 pb-3">
                             <div class="col-lg-12 responsive-column-half">
-                                <div class="info-icon-box mb-3 text-center" >
+                                <div class="info-icon-box mb-3 text-center">
                                     <p id="demo" class="fs-20"></p>
                                 </div>
                             </div>
                         </div>
                         <div class="btn-box text-center">
                             @if(Auth::check())
-                                <button class="btn theme-btn" id="setclass">جهت ثبت نام کلیک کنید</button>
+                                <a href="{{route('profile')}}" class="btn theme-btn">جهت تکمیل ثبت نام در کارگاه آموزشی کلیک کنید</a>
                             @else
                                 <a href="{{route('register')}}" class="btn theme-btn">جهت ثبت نام کلیک کنید</a>
                             @endif
@@ -203,13 +211,13 @@
                 </div>
                 <div class="col-lg-5 ml-auto">
                     <div class="generic-img-box d-none d-md-block">
-                        <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/123.jpg" alt="موسسه حقوقی" class="img__item img__item-1 lazy">
+                        <img src="{{asset('site/images/img-loading.png')}}" data-src="site/images/123.png" alt="موسسه حقوقی" class="img__item img__item-1 lazy">
                     </div>
                 </div>
             </div>
         </div>
     </section>
---}}
+
     {{--  Start partners Area  --}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
@@ -459,9 +467,9 @@
 
 @endsection
 @section('script')
-{{--     <script>
+     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("may 18, 2024 14:00:00").getTime();
+        var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function() {
@@ -523,5 +531,5 @@
                     }));
             });
         });
-    </script>--}}
+    </script>
 @endsection

@@ -15,10 +15,15 @@ use App\Models\Profile\Bank;
 use App\Models\Profile\EstelamToken;
 use App\Models\Profile\Log_estelam;
 use App\Models\Profile\Notif;
+use App\Models\Profile\Workshop;
+use App\Models\Profile\Workshopsign;
 use App\Models\User;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
+use Evryn\LaravelToman\CallbackRequest;
+use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -369,6 +374,19 @@ class ProfileController extends Controller
 
     }
 
+    public function workshop(){
+
+        $companies          = Company::first();
+        $user               = Auth::user();
+        $notifs             = $user->notifs()->whereActive(1)->orderBy('id' , 'DESC')->get();
+        $dashboardmenus     = Menu::select('id' , 'title' , 'slug' , 'class' , 'priority')->MenuDashboard()->orderBy('priority')->get();
+        $payments           = Payment::whereUser_id(Auth::user()->id)->get();
+        $workshops          = Workshop::whereStatus(4)->get();
+
+        return view('Site.Dashboard.workshop')->with(compact('companies', 'dashboardmenus' , 'notifs' , 'workshops' , 'payments'));
+
+    }
+
     public function userrequest(){
 
         $companies = Company::first();
@@ -399,6 +417,99 @@ class ProfileController extends Controller
         $bank->save();
 
         return Redirect::back();
+    }
+
+    public function workshopsign(Request $request){
+        $request->validate([
+            'workshopid'    => ['numeric'],
+            'typeuse'       => ['numeric'],
+        ]);
+
+        $Workshopsign = new Workshopsign();
+
+        $Workshopsign->workshop_id   = $request->input('workshopid');
+        $Workshopsign->typeuse      = $request->input('typeuse');
+        $Workshopsign->price        = $request->input('price');
+        $Workshopsign->pricestatus  = $request->input('pricestatus');
+        $Workshopsign->user_id      = Auth::user()->id;
+
+        $Workshopsign->save();
+
+        return Redirect::route('paymentpage');
+    }
+
+    public function paymentpage(){
+
+        $companies = Company::first();
+        $user = Auth::user();
+        $notifs         = $user->notifs()->whereActive(1)->orderBy('id' , 'DESC')->get();
+        $dashboardmenus = Menu::select('id' , 'title' , 'slug' , 'class' , 'priority')->MenuDashboard()->orderBy('priority')->get();
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '=' , null)
+            ->first();
+
+        return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus' , 'notifs' , 'workshopsigns'));
+
+    }
+
+    public function pay(){
+
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '=' , null)
+            ->first();
+
+        $request = Toman::amount($workshopsigns->price)
+             ->description($workshopsigns->title)
+             ->callback(route('payment.callback'))
+             ->mobile(Auth::user()->phone)
+             ->email(Auth::user()->email)
+            ->request();
+
+        if ($request->successful()) {
+            // Store created transaction details for verification
+            $transactionId = $request->transactionId();
+
+            // Redirect to payment URL
+            return $request->pay();
+        }
+
+        if ($request->failed()) {
+            // Handle transaction request failure.
+        }
+    }
+
+    public function callbackpay(CallbackRequest $request)
+    {
+        // Use $request->transactionId() to match the payment record stored
+        // in your persistence database and get expected amount, which is required
+        // for verification. Take care of Double Spending.
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '=' , null)
+            ->first();
+
+        $payment = $request->amount($workshopsigns->price)->verify();
+
+        if ($payment->successful()) {
+            // Store the successful transaction details
+            $referenceId = $payment->referenceId();
+        }
+
+        if ($payment->alreadyVerified()) {
+            // ...
+        }
+
+        if ($payment->failed()) {
+            // ...
+        }
     }
 
     public function edituserprofile(Request $request){

@@ -60,19 +60,23 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
     Route::group(['namespace' => 'App\Http\Controllers\Site' , 'middleware' => 'checkClint'] , function (){
 
         // Authentication Routes...
-        Route::get('profile'            , 'ProfileController@profile')          ->name('profile');
-        Route::get('usernotif'          , 'ProfileController@usernotif')        ->name('usernotif');
-        Route::get('usernotif'          , 'ProfileController@usernotif')        ->name('usernotif');
-        Route::get('setting'            , 'ProfileController@setting')          ->name('setting');
-        Route::get('message'            , 'ProfileController@message')          ->name('message');
-        Route::get('userrequest'        , 'ProfileController@userrequest')      ->name('user-request');
-        Route::post('edit-user-profile' , 'ProfileController@edituserprofile')  ->name('edit-user-profile');
-        Route::post('change-password'   , 'ProfileController@changepassword')   ->name('change-password');
-        Route::post('bankaccount'       , 'ProfileController@creatbankaccount') ->name('bank-account');
-        Route::post('bankpayment'       , 'ProfileController@creatbankpayment') ->name('bank-payment');
-        Route::post('change-email'      , 'ProfileController@changeemail')      ->name('change-email');
-        Route::post('queries'           , 'ProfileController@queries')          ->name('queries');
-        Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')       ->name('edit-user-mobile');
+        Route::get('profile'            , 'ProfileController@profile')              ->name('profile');
+        Route::get('usernotif'          , 'ProfileController@usernotif')            ->name('usernotif');
+        Route::get('usernotif'          , 'ProfileController@usernotif')            ->name('usernotif');
+        Route::get('setting'            , 'ProfileController@setting')              ->name('setting');
+        Route::get('message'            , 'ProfileController@message')              ->name('message');
+        Route::get('userrequest'        , 'ProfileController@userrequest')          ->name('user-request');
+        Route::post('edit-user-profile' , 'ProfileController@edituserprofile')      ->name('edit-user-profile');
+        Route::post('change-password'   , 'ProfileController@changepassword')       ->name('change-password');
+        Route::post('bankaccount'       , 'ProfileController@creatbankaccount')     ->name('bank-account');
+        Route::post('bankpayment'       , 'ProfileController@creatbankpayment')     ->name('bank-payment');
+        Route::post('change-email'      , 'ProfileController@changeemail')          ->name('change-email');
+        Route::post('queries'           , 'ProfileController@queries')              ->name('queries');
+        Route::post('workshop-sign'     , 'ProfileController@workshopsign')         ->name('workshop-sign');
+        Route::get('paymentpage'        , 'ProfileController@paymentpage')          ->name('paymentpage');
+        Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
+        Route::get('payment.callback'   , 'ProfileController@callbackpay')          ->name('payment.callback');
+        Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
 

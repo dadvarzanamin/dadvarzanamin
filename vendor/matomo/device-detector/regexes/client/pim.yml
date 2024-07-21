@@ -151,7 +151,3 @@
 - regex: 'BlueMail/(\d+[\.\d]+)'
   name: 'BlueMail'
   version: '$1'
-
-- regex: 'mailapp/(\d+\.[\.\d]+)'
-  name: 'mailapp'
-  version: '$1'
