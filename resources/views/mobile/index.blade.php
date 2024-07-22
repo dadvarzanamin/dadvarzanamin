@@ -31,28 +31,25 @@
             </div>
         </div>
     </div>
-    {{--
+
     <div class="categories segments">
         <div class="container">
-            <div class="section-title">
-                <h3> سلسله نشست های صحن دولت </h3>
-            </div>
+
             <div class="row">
-                        <div class="content" style="margin-top: 40px">
-                            <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center"> بایسته‌های حقوقی نظام مقررات گذاری دولت </p>
-                            <h3 class="text-center">آیین نامه | بخشنامه | تصویب نامه</h3>
-                            <h4 class="text-center" style="margin: 20px 0px;">سخنران:دکتر حسین سیمایی صراف</h4>
-                            <h6 class="text-center">*عضو هیئت علمی دانشکده شهید بهشتی</h6>
-                            <h6 class="text-center">دبیر هیئت دولت دوازدهم</h6>
-                            <h5 class="text-center" style="margin: 20px 0px;">زمان:شنبه 29 اردیبهشت 1403 -از ساعت 14 </h5>
+                        <div class="content" style="margin: 20px auto;">
+                            <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای حل اختلاف</p>
+                            <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
+                            <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
+                            <h6 class="text-center">دادستان سابق دادگستری</h6>
+                            <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
                         </div>
                     <div class="content content-shadow-product" style="margin:0 auto;">
-                        <img src="{{asset('site/images/123.jpg')}}" style="width: 200px" alt=" سلسله نشست های صحن دولت ">
+                        <img src="{{asset('site/images/123.png')}}" style="width: 200px" alt="قانون جدید شورای حل اختلاف">
                     </div>
             </div>
         </div>
     </div>
-    --}}
+
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
