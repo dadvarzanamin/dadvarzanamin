@@ -6,6 +6,19 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [2.4.4] - 2024-07-22
+
+### Fixed
+
+- Fixed SmartPunct extension changing already-formatted quotation marks (#1030)
+
+## [2.4.3] - 2024-07-22
+
+### Fixed
+
+- Fixed the Attributes extension not supporting CSS level 3 selectors (#1013)
+- Fixed `UrlAutolinkParser` incorrectly parsing text containing `www` anywhere before an autolink (#1025)
+
 ## [2.4.2] - 2024-02-02
 
 ### Fixed
@@ -567,7 +580,9 @@ No changes were introduced since the previous release.
     - Alternative 1: Use `CommonMarkConverter` or `GithubFlavoredMarkdownConverter` if you don't need to customize the environment
     - Alternative 2: Instantiate a new `Environment` and add the necessary extensions yourself
 
-[unreleased]: https://github.com/thephpleague/commonmark/compare/2.4.2...main
+[unreleased]: https://github.com/thephpleague/commonmark/compare/2.4.4...main
+[2.4.4]: https://github.com/thephpleague/commonmark/compare/2.4.3...2.4.4
+[2.4.3]: https://github.com/thephpleague/commonmark/compare/2.4.2...2.4.3
 [2.4.2]: https://github.com/thephpleague/commonmark/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/thephpleague/commonmark/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/thephpleague/commonmark/compare/2.3.9...2.4.0
