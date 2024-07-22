@@ -6165,6 +6165,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .card-item {
+    margin-top: 12px;
     margin-bottom: 32px;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -6176,7 +6177,15 @@ div.datedropper .picker .pick-lg-b li {
     box-shadow: 0 0 40px rgb(82 85 90 / 0.05);
     border: 1px solid #f4f4f4;
 }
-
+.card-item:hover {
+    transform: translateY(-10px);
+}
+.card-item:hover .btn {
+    transition: all 0.3s;
+    background-color: #233d63;
+    border-color: #233d63;
+    color: #fff;
+}
 .card-item .card-title {
     white-space: nowrap;
     overflow: hidden;

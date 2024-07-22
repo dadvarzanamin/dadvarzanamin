@@ -3,13 +3,14 @@
 <title>ثبت نام در سایت</title>
 @endsection
 @section('main')
-<div class="container">
-    @include('sweetalert::alert')
-    <div class="row">
+    <body>
+    <div class="container login-bg align-content-center">
+        @include('sweetalert::alert')
+        <div class="row">
             <div class="col-lg">
                 <section class="page-account-box">
-                    <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
-                        <div class="ds-userlogin" style="text-align: center;">
+                    <div class="col-lg-4 col-md-6 col-xs-12 mx-auto">
+                        <div class="ds-userlogin " style="text-align: center;">
                             <div class="account-box">
                                 <div class="account-box-headline">
                                     <a href="{{url('login')}}" class="login-ds ">
@@ -19,7 +20,7 @@
                                         <span class="title">ثبت نام</span>
                                     </a>
                                 </div>
-                                <div class="Login-to-account mt-4">
+                                <div class="Login-to-account">
                                     <div class="account-box-content">
                                         <h4>ثبت نام در سایت</h4>
                                         <form method="POST" action="{{ route('register') }}" class="form-account text-right">
@@ -39,10 +40,10 @@
                                             <div class="form-account-title">
                                                 <label for="id_label_single"> نوع کاربری</label>
                                                 <select name="type_user" class="form-control" required>
-                                                        <option value="">انتخاب کنید</option>
-                                                        @foreach(\App\Models\TypeUser::select('id' , 'title_fa')->whereIn('id' , [4,5,6,7])->get() as $type)
+                                                    <option value="">انتخاب کنید</option>
+                                                    @foreach(\App\Models\TypeUser::select('id' , 'title_fa')->whereIn('id' , [4,5,6,7])->get() as $type)
                                                         <option value="{{$type->id}}">{{$type->title_fa}}</option>
-                                                        @endforeach
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-account-title">
@@ -94,6 +95,8 @@
             </div>
         </div>
     </div>
+
+    </body>
 @endsection
 @section('script')
     <script type="text/javascript">
