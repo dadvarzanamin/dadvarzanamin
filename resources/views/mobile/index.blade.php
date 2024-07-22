@@ -36,16 +36,29 @@
         <div class="container">
 
             <div class="row">
-                        <div class="content" style="margin: 20px auto;">
-                            <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای حل اختلاف</p>
-                            <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
-                            <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
-                            <h6 class="text-center">دادستان سابق دادگستری</h6>
-                            <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
-                        </div>
-                    <div class="content content-shadow-product" style="margin:0 auto;">
-                        <img src="{{asset('site/images/123.png')}}" style="width: 200px" alt="قانون جدید شورای حل اختلاف">
-                    </div>
+                <div class="content" style="margin: 20px auto;">
+                    <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای حل اختلاف</p>
+                    <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
+                    <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
+                    <h6 class="text-center">دادستان سابق دادگستری</h6>
+                    <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
+                </div>
+                <div class="content content-shadow-product" style="margin:0 auto;">
+                    <img src="{{asset('site/images/123.png')}}" style="width: 200px" alt="قانون جدید شورای حل اختلاف">
+                </div>
+            </div>
+            <div class="row">
+                <div class="content" style="margin: 0px auto;">
+                    @if(Auth::check())
+                            <div class="content-button">
+                                <a href="#tab-workshop" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;">ثبت نام جهت حضور در کارگاه آموزشی</a>
+                            </div>
+                    @else
+                            <div class="content-button">
+                                <a href="#tab-login" class="button tab-link" style="background-color: #ca8e0b;margin: 20px auto;">ثبت نام در کارگاه آموزشی/ ورود به سایت</a>
+                            </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -795,30 +808,83 @@
                                                 </div>
                                             </div>
                                         </li>
-{{--                                        <li class="item-content item-input">--}}
-{{--                                            <div class="item-inner">--}}
-{{--                                                <div class="item-input-wrap">--}}
-{{--                                                    <input class="form-control" required type="password" name="old_password" placeholder="رمز عبور قدیمی" />--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </li>--}}
-{{--                                        <li class="item-content item-input">--}}
-{{--                                            <div class="item-inner">--}}
-{{--                                                <div class="item-input-wrap">--}}
-{{--                                                    <input class="form-control" required type="password" name="password" placeholder="رمز عبور جدید" />--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </li>--}}
-{{--                                        <li class="item-content item-input">--}}
-{{--                                            <div class="item-inner">--}}
-{{--                                                <div class="item-input-wrap">--}}
-{{--                                                    <input class="form-control" required type="password" name="password_confirmation" placeholder="رمز عبور جدید را تأیید کنید" />--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </li>--}}
+                                        {{--                                        <li class="item-content item-input">--}}
+                                        {{--                                            <div class="item-inner">--}}
+                                        {{--                                                <div class="item-input-wrap">--}}
+                                        {{--                                                    <input class="form-control" required type="password" name="old_password" placeholder="رمز عبور قدیمی" />--}}
+                                        {{--                                                </div>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </li>--}}
+                                        {{--                                        <li class="item-content item-input">--}}
+                                        {{--                                            <div class="item-inner">--}}
+                                        {{--                                                <div class="item-input-wrap">--}}
+                                        {{--                                                    <input class="form-control" required type="password" name="password" placeholder="رمز عبور جدید" />--}}
+                                        {{--                                                </div>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </li>--}}
+                                        {{--                                        <li class="item-content item-input">--}}
+                                        {{--                                            <div class="item-inner">--}}
+                                        {{--                                                <div class="item-input-wrap">--}}
+                                        {{--                                                    <input class="form-control" required type="password" name="password_confirmation" placeholder="رمز عبور جدید را تأیید کنید" />--}}
+                                        {{--                                                </div>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </li>--}}
                                     </ul>
                                     <div class="content-button">
                                         <button type="submit" class="button" style="background-color: #006400"><i class="fas fa-edit"></i>ویرایش</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tab-workshop" class="page-content tab">
+        <div class="navbar navbar-page">
+            <div class="navbar-inner">
+                <div class="title">ثبت نام کارگاه ها و دوره های آموزشی</div>
+                <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
+            </div>
+        </div>
+        <div class="recommended product segments-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-100">
+                        <div class="password-settings segments">
+                            <div class="container">
+                                <form method="POST" action="{{ route('workshop-sign') }}" enctype="multipart/form-data" class="list">
+                                    @csrf
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <label>نام دوره/ کارگاه آموزشی</label>
+                                                    <select name="workshopid" class="form-control" id="workshopid">
+                                                        <option value="">انتخاب کنید</option>
+                                                        @foreach($workshops as $workshop)
+                                                            <option value="{{$workshop->id}}">{{$workshop->title}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <label>نوع استفاده</label>
+                                                    <select name="typeuse" class="form-control" id="typeuse">
+                                                        <option value="">انتخاب کنید</option>
+                                                        <option value="1">حضوری</option>
+                                                        <option value="2">مجازی</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="content-button">
+                                        <button type="submit" class="button" style="background-color: #006400"><i class="fas fa-edit"></i>ثبت نام</button>
                                     </div>
                                 </form>
                             </div>

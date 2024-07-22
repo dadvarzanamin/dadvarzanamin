@@ -16,6 +16,7 @@ use App\Models\Dashboard\Slide;
 use App\Models\Emploee;
 use App\Models\mega_menu;
 use App\Models\Menu;
+use App\Models\Profile\Workshop;
 use App\Models\Submenu;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
@@ -63,6 +64,7 @@ class IndexController extends Controller
         $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
         $akhbars        = Akhbar::leftjoin('users', 'akhbars.user_id', '=', 'users.id')->
         select('akhbars.title', 'akhbars.slug', 'akhbars.image', 'akhbars.description', 'users.name as username', 'akhbars.updated_at')->where('akhbars.status', 4)->where('akhbars.home_show', 1)->get();
+        $workshops          = Workshop::whereStatus(4)->get();
 
 
         $userAgent = request()->header('User-Agent');
@@ -71,9 +73,9 @@ class IndexController extends Controller
         $deviceDetector->parse();
         $lastmenuid = null;
         if ($deviceDetector->isMobile()) {
-            return view('mobile.index')->with(compact('menus','lastmenuid' ,'posts' ,  'thispage', 'companies', 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
+            return view('mobile.index')->with(compact('menus','lastmenuid' ,'posts' , 'workshops' ,  'thispage', 'companies', 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
         } else {
-            return view('Site.index')->with(compact('menus', 'thispage' ,'posts', 'companies', 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
+            return view('Site.index')->with(compact('menus', 'thispage' ,'posts', 'companies' , 'workshops' , 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
         }
     }
 
