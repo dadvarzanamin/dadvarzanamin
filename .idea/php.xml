@@ -48,7 +48,6 @@
       <path value="$PROJECT_DIR$/vendor/league/flysystem-local" />
       <path value="$PROJECT_DIR$/vendor/spatie/flare-client-php" />
       <path value="$PROJECT_DIR$/vendor/spatie/backtrace" />
-      <path value="$PROJECT_DIR$/vendor/spatie/error-solutions" />
       <path value="$PROJECT_DIR$/vendor/spatie/ignition" />
       <path value="$PROJECT_DIR$/vendor/laravel/sail" />
       <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
@@ -76,7 +75,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
-      <path value="$PROJECT_DIR$/vendor/tecnickcom/tcpdf" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/vendor/symfony/mailer" />
@@ -130,9 +128,7 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/cocur/slugify" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdi" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdf" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
@@ -166,6 +162,7 @@
       <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/evryn/laravel-toman" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

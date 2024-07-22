@@ -18,14 +18,12 @@
     font-weight: 700;
     src: url(../fonts/Pinar/Pinar-FD-Bold.woff2);
 }
-
 @font-face {
     font-family: 'Pinar-FD';
     font-style: normal;
     font-weight: 800;
     src: url(../fonts/Pinar/Pinar-FD-ExtraBold.woff2);
 }
-
 @font-face {
     font-family: KalamehWeb;
     font-style: normal;
@@ -470,6 +468,14 @@ h6 {
 }
 .la-angle-down{
     margin-right: 6px;
+}
+.single-blog-area{
+    max-width: 100%;
+    background-image: url(../images/single-bg.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
 }
 
 /*amirhossein classes*/
@@ -1897,13 +1903,13 @@ h6 {
 }
 
 .generic-list-item li {
-    color: #7f8897;
+    color: #1E2E45;
     line-height: 24px;
     margin-bottom: 10px;
 }
 
 .generic-list-item li a {
-    color: rgba(238, 238, 238, 0.8);
+    color: #1E2E45;
     display: block;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -6229,6 +6235,11 @@ div.datedropper .picker .pick-lg-b li {
 
 .card-item .card-body {
     border-radius: 16px !important;
+}
+.card-bg50{
+    color: #242424;
+    background-color: rgba(255, 255, 255, 0.5)!important;
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

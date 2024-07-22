@@ -79,7 +79,7 @@ class MenuController extends Controller
             'create_title'  => 'ایجاد منو سایت',
             'enter_title'   => 'ورود اطلاعات منو سایت',
         ];
-        $typeusers      = TypeUser::whereLevel('site')->get();
+        $typeusers      = TypeUser::all();
         $menupanels     = Menu_panel::whereStatus(4)->get();
         $submenupanels  = Submenu_panel::whereStatus(4)->get();
 
@@ -99,14 +99,14 @@ class MenuController extends Controller
             $menu->title            = $request->input('title');
             $menu->tab_title        = $request->input('tab_title');
             $menu->page_title       = $request->input('page_title');
-            if ($request->input('keyword')) {
+            if (strlen($request->input('keyword')) > 0) {
                 $menu->keyword = json_encode(explode("،", $request->input('keyword')));
             }
             $menu->page_description = $request->input('page_description');
             $menu->submenu          = $request->input('submenu');
             $menu->class            = $request->input('class');
             $menu->mega_menu        = $request->input('mega_menu');
-            $menu->userlevel        = json_encode(explode("،", $request->input('userlevel')));
+            //$menu->userlevel        = explode("،", $request->input('userlevel'));
             $menu->mega_title1      = $request->input('mega_title1');
             $menu->mega_title2      = $request->input('mega_title2');
             $menu->mega_title3      = $request->input('mega_title3');

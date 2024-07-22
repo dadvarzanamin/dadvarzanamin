@@ -21,7 +21,7 @@
         <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
     </section>
 
-    <section class="blog-area pt-100px pb-100px">
+    <section class="blog-area pt-1 pb-100px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mb-5">
