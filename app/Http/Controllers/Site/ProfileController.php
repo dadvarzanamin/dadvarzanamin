@@ -482,30 +482,41 @@ class ProfileController extends Controller
     }
 
     public function pay(){
-        $workshopsigns = DB::table('workshops')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
-            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
-            ->where('workshopsigns.pricestatus' , '=' , null)
-            ->first();
+        if (Auth::user()->email == null)
+        {
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است');
+            return Redirect::back();
 
-        $request = Toman::amount($workshopsigns->price)
-             ->description($workshopsigns->title)
-             ->callback(route('payment.callback'))
-             ->mobile(Auth::user()->phone)
-             ->email(Auth::user()->email)
-            ->request();
+        }elseif (Auth::user()->phone == null){
+            alert()->error('', 'اطلاعات شماره همراه وارد نشده است');
+            return Redirect::back();
 
-        if ($request->successful()) {
-            // Store created transaction details for verification
-            $transactionId = $request->transactionId();
+        }else {
+            $workshopsigns = DB::table('workshops')
+                ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+                ->where('workshopsigns.user_id', '=', Auth::user()->id)
+                ->where('workshopsigns.pricestatus', '=', null)
+                ->first();
 
-            // Redirect to payment URL
-            return $request->pay();
-        }
+            $request = Toman::amount($workshopsigns->price)
+                ->description($workshopsigns->title)
+                ->callback(route('payment.callback'))
+                ->mobile(Auth::user()->phone)
+                ->email(Auth::user()->email)
+                ->request();
 
-        if ($request->failed()) {
-            // Handle transaction request failure.
+            if ($request->successful()) {
+                // Store created transaction details for verification
+                $transactionId = $request->transactionId();
+
+                // Redirect to payment URL
+                return $request->pay();
+            }
+
+            if ($request->failed()) {
+                // Handle transaction request failure.
+            }
         }
     }
 
