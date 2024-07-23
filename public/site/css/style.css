@@ -400,7 +400,6 @@ h6 {
 }
 
 .pr-button {
-    font-size: 15px;
     padding-top: 8px;
     padding-bottom: 8px;
     background-color: #CEA54B;
@@ -428,14 +427,22 @@ h6 {
 .btn-fs {
     font-size: 15px;
 }
+@media (max-width: 1440px) {
+    .btn-fs{
+        font-size: 12px !important;
+    }
+
+;
+}
+
 
 .btn-dark {
     background-color: #1E2E45;
 }
 
 .header-bg {
-    backdrop-filter: blur(8px);
-    background: linear-gradient(62deg, rgba(255,255,255,0.25) 0%, rgba(238,238,238,0.25) 100%);
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .bg-dark {
@@ -1909,7 +1916,7 @@ h6 {
 }
 
 .generic-list-item li a {
-    color: #1E2E45;
+    color: #EEEEEE;
     display: block;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -1917,7 +1924,12 @@ h6 {
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
-
+.a-text-black{
+    color: #252525!important;
+}
+.a-text-black:hover{
+    color: #cea54a!important;
+}
 .generic-list-item li a:hover {
     color: #cea54a;
 }
@@ -6238,8 +6250,10 @@ div.datedropper .picker .pick-lg-b li {
 }
 .card-bg50{
     color: #242424;
-    background-color: rgba(255, 255, 255, 0.5)!important;
-
+    background-color: rgba(255, 255, 255, 0.9)!important;
+}
+.card-bg50:hover{
+    transform: translateY(0);
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -7294,6 +7308,11 @@ div.datedropper .picker .pick-lg-b li {
     -o-transition: all 0.3s;
     transition: all 0.3s;
     padding-bottom: 32px;
+}
+@media screen and (max-width: 1440px) {
+    .main-menu > ul > li a{
+        font-size: 12px;
+    }
 }
 
 .main-menu > ul > li a:hover {

@@ -501,15 +501,17 @@ class ProfileController extends Controller
         if ($payment->successful()) {
             // Store the successful transaction details
             $referenceId = $payment->referenceId();
+            return redirect()->route('payment.success');
         }
 
         if ($payment->alreadyVerified()) {
-            // ...
+            return redirect()->route('payment.success');
         }
 
         if ($payment->failed()) {
-            // ...
+            return redirect()->route('payment.failed');
         }
+        return redirect()->route('payment.failed');
     }
 
     public function edituserprofile(Request $request){

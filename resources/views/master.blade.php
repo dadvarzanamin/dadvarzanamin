@@ -205,7 +205,7 @@
                 <a href="{{route('/')}}" class="logo col-1">
                     <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
                 </a>
-                <div class="d-flex container col-8 align-items-center justify-content-center">
+                <div class="d-flex container col-8 col-md-9 align-items-center justify-content-center">
                     <nav class="main-menu">
                         <ul>
                             @foreach($menus as $menu)
@@ -256,7 +256,7 @@
                             @endforeach
                         </ul>
                     </nav>
-                    <button type="button" class="btn btn-primary pr-button br-8" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
+                    <button type="button" class="btn btn-primary pr-button br-8 btn-fs" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
                 </div>
 
                 <div class="container d-flex col-2 justify-content-end m-0">

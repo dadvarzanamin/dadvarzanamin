@@ -108,23 +108,23 @@
                         <div class="card-body">
                             <h3 class="card-title fs-18 pb-2">آرشیوها</h3>
                             <div class="divider"><span></span></div>
-                            <ul class="generic-list-item">
-                                <li><a href="#">1402/05/01</a></li>
-                                <li><a href="#">1402/04/01</a></li>
-                                <li><a href="#">1402/03/01</a></li>
-                                <li><a href="#">1402/02/01</a></li>
-                                <li><a href="#">1402/01/01</a></li>
+                            <ul class="generic-list-item a-text-black">
+                                <li><a href="#" class="a-text-black">1402/05/01</a></li>
+                                <li><a href="#" class="a-text-black">1402/04/01</a></li>
+                                <li><a href="#" class="a-text-black">1402/03/01</a></li>
+                                <li><a href="#" class="a-text-black">1402/02/01</a></li>
+                                <li><a href="#" class="a-text-black">1402/01/01</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="card card-item card-bg50 br-16">
                         <div class="card-body">
-                            <h3 class="card-title fs-18 pb-2">برچسب های پست</h3>
+                            <h3 class="card-title fs-18 pb-2 ">برچسب های پست</h3>
                             <div class="divider"><span></span></div>
                             <ul class="generic-list-item generic-list-item-boxed d-flex flex-wrap fs-15">
                                 @if($services['keyword'])
                                     @foreach (json_decode($services['keyword']) as $item)
-                                        <li class="mr-2"><a href="#">{{$item}}</a></li>
+                                        <li class="mr-2"><a href="#" class="btn btn-outline a-text-black">{{$item}}</a></li>
                                     @endforeach
                                 @endif
                             </ul>

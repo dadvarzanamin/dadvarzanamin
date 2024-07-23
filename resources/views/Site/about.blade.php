@@ -17,10 +17,6 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
-
     <section class="about-area section--padding overflow-hidden">
         <div class="container">
             <div class="row">
@@ -39,8 +35,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-6 d-none d-md-block">
-                    <div class="generic-img-box generic-img-box-layout-2">
+                <div class="col-lg-6 d-none d-md-block align-content-center align-items-center">
+                    <div class="generic-img-box generic-img-box-layout-2 align-content-center align-items-center">
                         <div class="img__item img__item-1">
                             <img class="lazy" src="{{asset('site/images/img-loading.png')}}" data-src="{{asset('site/images/img7.jpg')}}" alt="درباره تصویر" />
                             <div class="generic-img-box-content">
