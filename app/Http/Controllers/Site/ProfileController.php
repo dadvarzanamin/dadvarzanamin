@@ -484,11 +484,11 @@ class ProfileController extends Controller
     public function pay(){
         if (Auth::user()->email == null)
         {
-            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است');
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
 
         }elseif (Auth::user()->phone == null){
-            alert()->error('', 'اطلاعات شماره همراه وارد نشده است');
+            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
 
         }else {
