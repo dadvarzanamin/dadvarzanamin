@@ -77,15 +77,10 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
         Route::get('payment.callback'   , 'ProfileController@callbackpay')          ->name('payment.callback');
         Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
-        // start amirhossein
-        Route::get('/payment-success', function () {
-            return view('payment-success');
-        })->name('payment.success');
 
-        Route::get('/payment-failed', function () {
-            return view('payment-failed');
-        })->name('payment.failed');
-        // end amirhossein
+        Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
+        Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
+
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
 
         foreach ($dashboardmenus as $menu)

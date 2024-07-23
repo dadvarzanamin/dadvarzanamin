@@ -382,8 +382,20 @@ class ProfileController extends Controller
         $dashboardmenus     = Menu::select('id' , 'title' , 'slug' , 'class' , 'priority')->MenuDashboard()->orderBy('priority')->get();
         $payments           = Payment::whereUser_id(Auth::user()->id)->get();
         $workshops          = Workshop::whereStatus(4)->get();
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '!=' , null)
+            ->get();
 
-        return view('Site.Dashboard.workshop')->with(compact('companies', 'dashboardmenus' , 'notifs' , 'workshops' , 'payments'));
+        $workshoppays = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->get();
+
+        return view('Site.Dashboard.workshop')->with(compact('companies', 'dashboardmenus' ,'workshoppays' ,'workshopsigns', 'notifs' , 'workshops' , 'payments'));
 
     }
 
@@ -420,22 +432,36 @@ class ProfileController extends Controller
     }
 
     public function workshopsign(Request $request){
-        $request->validate([
-            'workshopid'    => ['numeric'],
-            'typeuse'       => ['numeric'],
-        ]);
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '=' , 4)
+            ->first();
+        if ($workshopsigns != null){
 
-        $Workshopsign = new Workshopsign();
+            alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
 
-        $Workshopsign->workshop_id   = $request->input('workshopid');
-        $Workshopsign->typeuse      = $request->input('typeuse');
-        $Workshopsign->price        = $request->input('price');
-        $Workshopsign->pricestatus  = $request->input('pricestatus');
-        $Workshopsign->user_id      = Auth::user()->id;
+            return Redirect::back();
 
-        $Workshopsign->save();
+        }else {
+            $request->validate([
+                'workshopid' => ['numeric'],
+                'typeuse' => ['numeric'],
+            ]);
 
-        return Redirect::route('paymentpage');
+            $Workshopsign = new Workshopsign();
+
+            $Workshopsign->workshop_id  = $request->input('workshopid');
+            $Workshopsign->typeuse      = $request->input('typeuse');
+            $Workshopsign->price        = $request->input('price');
+            $Workshopsign->pricestatus  = $request->input('pricestatus');
+            $Workshopsign->user_id      = Auth::user()->id;
+
+            $Workshopsign->save();
+
+            return Redirect::route('paymentpage');
+        }
     }
 
     public function paymentpage(){
@@ -456,7 +482,6 @@ class ProfileController extends Controller
     }
 
     public function pay(){
-
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
@@ -489,29 +514,41 @@ class ProfileController extends Controller
         // Use $request->transactionId() to match the payment record stored
         // in your persistence database and get expected amount, which is required
         // for verification. Take care of Double Spending.
-        $workshopsigns = DB::table('workshops')
+        $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse')
             ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
             ->where('workshopsigns.pricestatus' , '=' , null)
             ->first();
 
-        $payment = $request->amount($workshopsigns->price)->verify();
+            $payment = $request->amount($workshopsign->price)->verify();
 
-        if ($payment->successful()) {
-            // Store the successful transaction details
-            $referenceId = $payment->referenceId();
-            return redirect()->route('payment.success');
-        }
+            if ($payment->successful()) {
+                $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+                Workshopsign::where('id', $workshoppay->id)->update([
+                    'referenceId' => $payment->referenceId(),
+                    'pricestatus' => 4,
+                    'price' => $workshopsign->price
+                ]);
+                return view('Site.Dashboard.payment-success');
+            }
 
-        if ($payment->alreadyVerified()) {
-            return redirect()->route('payment.success');
-        }
-
-        if ($payment->failed()) {
-            return redirect()->route('payment.failed');
-        }
-        return redirect()->route('payment.failed');
+            if ($payment->alreadyVerified()) {
+                $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+                Workshopsign::where('id', $workshoppay->id)->update([
+                    'referenceId' => $payment->referenceId(),
+                    'pricestatus' => 4,
+                    'price' => $workshopsign->price
+                ]);
+                return view('Site.Dashboard.payment-success');
+            }
+            $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+            Workshopsign::where('id', $workshoppay->id)->update([
+                'referenceId' => $request->transactionid(),
+                'pricestatus' => null,
+                'price' => null
+            ]);
+            return view('Site.Dashboard.payment-failed');
     }
 
     public function edituserprofile(Request $request){

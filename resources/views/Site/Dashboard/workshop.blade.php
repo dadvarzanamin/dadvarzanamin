@@ -5,7 +5,7 @@
 @section('main')
     @include('sweetalert::alert')
     <div class="dashboard-heading mb-5">
-        <h3 class="fs-22 font-weight-semi-bold">ویرایش حساب کاربری</h3>
+        <h3 class="fs-22 font-weight-semi-bold">کارگاه و دوره های آموزشی</h3>
     </div>
     <ul class="nav nav-tabs generic-tab pb-30px" id="myTab" role="tablist">
         <li class="nav-item">
@@ -46,6 +46,66 @@
                         <button type="submit" class="btn theme-btn">ثبت و پرداخت</button>
                     </div>
                 </form>
+                <div class="table-responsive mb-5">
+                    <table class="table generic-table">
+                        <thead>
+                        <tr>
+                            <th scope="col"> ردیف</th>
+                            <th scope="col">نام دوره</th>
+                            <th scope="col">تاریخ دوره</th>
+                            <th scope="col">نوع حضور</th>
+                            <th scope="col">مبلغ پرداخت</th>
+                            <th scope="col">وضعیت پرداخت</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($workshopsigns as $workshopsign)
+                            <tr>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{$loop->iteration}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{$workshopsign->title}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{$workshopsign->date}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        @if($workshopsign->typeuse == 1)
+                                            <button class="btn btn-success">حضوری</button>
+                                        @elseif($workshopsign->typeuse == 2)
+                                            <button class="btn btn-danger">آنلاین</button>
+                                        @endif
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{number_format($workshopsign->price)}} تومان </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>
+                                            @if($workshopsign->pricestatus == 4)
+                                                <button class="btn btn-success">پرداخت موفق</button>
+                                            @elseif($workshopsign->pricestatus == null)
+                                                <button class="btn btn-danger">پرداخت ناموفق</button>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -91,15 +151,14 @@
                         <thead>
                         <tr>
                             <th scope="col"> ردیف</th>
-                            <th scope="col">علت پرداخت</th>
+                            <th scope="col">عنوان دوره آموزشی</th>
                             <th scope="col">مبلغ پرداخت</th>
-                            <th scope="col">تاریخ پرداخت</th>
+                            <th scope="col">تاریخ دوره آموزشی</th>
                             <th scope="col">وضعیت پرداخت</th>
-                            <th scope="col">علت پرداخت</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($payments as $payment)
+                        @foreach($workshoppays as $workshoppay)
                             <tr>
                                 <td>
                                     <ul class="generic-list-item">
@@ -108,33 +167,28 @@
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{$payment->title}}</li>
+                                        <li>{{$workshoppay->title}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{number_format($payment->amount)}} تومان </li>
+                                        <li>{{number_format($workshoppay->price)}} تومان </li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{$payment->date}}</li>
+                                        <li>{{$workshoppay->date}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            @if($payment->status == 4)
+                                            @if($workshoppay->pricestatus == 4)
                                                 <button class="btn btn-success">پرداخت موفق</button>
-                                            @elseif($payment->status == 1)
+                                            @elseif($workshoppay->pricestatus == null)
                                                 <button class="btn btn-danger">پرداخت ناموفق</button>
                                             @endif
                                         </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="generic-list-item">
-                                        <li>{{$payment->pay_for}}</li>
                                     </ul>
                                 </td>
                             </tr>
