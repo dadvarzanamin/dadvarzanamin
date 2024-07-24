@@ -17,9 +17,9 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
+{{--    <section class="breadcrumb-area">--}}
+{{--        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">--}}
+{{--    </section>--}}
 
         <section class="contact-area section--padding position-relative">
             <span class="ring-shape ring-shape-1"></span>
@@ -30,9 +30,9 @@
             <span class="ring-shape ring-shape-6"></span>
             <span class="ring-shape ring-shape-7"></span>
             <div class="container">
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-lg-4 responsive-column-half">
-                        <div class="info-box">
+                        <div class="info-box h-100 br-16">
                             <div class="info-overlay"></div>
                             <div class="icon-element mx-auto shadow-sm">
                                 <svg class="svg-icon-color-1" width="45" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="col-lg-4 responsive-column-half">
-                        <div class="info-box">
+                        <div class="info-box h-100 br-16">
                             <div class="info-overlay"></div>
                             <div class="icon-element mx-auto shadow-sm">
                                 <svg class="svg-icon-color-2" width="40" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
@@ -80,12 +80,13 @@
                             </div>
                             <h3 class="info__title">ایمیل ما</h3>
                             <p class="info__text">{{$companies['email']}}</p>
+                            <br>
                         </div>
 
                     </div>
 
                     <div class="col-lg-4 responsive-column-half">
-                        <div class="info-box">
+                        <div class="info-box h-100 br-16">
                             <div class="info-overlay"></div>
                             <div class="icon-element mx-auto shadow-sm">
                                 <svg class="svg-icon-color-3" width="40" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 473.806 473.806" xml:space="preserve">
@@ -125,13 +126,14 @@
                             </div>
                             <h3 class="info__title">شماره تماس ما</h3>
                             <p class="info__text">{{$companies['tel']}}</p>
+                            <br>
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="row align-items-center pt-30px">
+                <div class="row align-items-center pt-60px">
                     <div class="col-lg-5">
                         <div class="contact-content pb-5">
                             <div class="section-heading">
@@ -191,9 +193,9 @@
                     </div>
                 </div>
 
-                <div class="row pt-30px">
-                    <div class="col-lg-12">
-                        <div class="map-container">
+                <div class="row pt-60px justify-content-center">
+                    <div class="col-lg-12 justify-content-center">
+                        <div class="map-container justify-content-center">
                             <iframe width="100%" height="400px" src="https://www.openstreetmap.org/export/embed.html?bbox=51.44101113080979%2C35.72041122802278%2C51.44455164670944%2C35.72238848247882&amp;layer=mapnik&amp;marker=35.72139986138454%2C51.44278138875961" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=35.72140&amp;mlon=51.44278#map=19/35.72140/51.44278">View Larger Map</a></small>                    </div>
                 </div>
             </div>

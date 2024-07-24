@@ -3,6 +3,27 @@
     <title>تنظیمات حساب کاربری</title>
 @endsection
 @section('main')
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Select2 with Bootstrap</title>
+        <!-- Select2 CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+    </head>
+    <style>
+        .select2-container--default .select2-selection--single {
+            border: none!important;
+        }
+        .select2-container--default .select2-search--dropdown .select2-search__field{
+            direction: rtl;
+        }
+        .datepicker-plot-area{
+            font-family: Vazir, serif;
+            border-radius: 8px;
+            margin: 8px;
+        }
+    </style>
     @include('sweetalert::alert')
     <div class="dashboard-heading mb-5">
         <h3 class="fs-22 font-weight-semi-bold">ویرایش حساب کاربری</h3>
@@ -83,9 +104,12 @@
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
-                        <label class="label-text">تاریخ تولد</label>
+                        <label for="date-input">تاریخ تولد</label>
+
+{{--                        <label class="label-text">تاریخ تولد</label>--}}
                         <div class="form-group">
-                            <input class="form-control" type="text" name="birthday" value="{{Auth::user()->birthday}}" />
+                            <input type="text" class="form-control" id="date-input" name="birthday value="{{Auth::user()->birthday}}">
+{{--                        <input class="form-control" type="text" name="birthday" value="{{Auth::user()->birthday}}" />--}}
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
@@ -118,9 +142,10 @@
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">محل اشتغال</label>
-                        <div class="form-group">
-                            <select name="place_id" class="form-control " id="place_id">
-                                @foreach(App\Models\Profile\State::all() as $state)
+                        <div class="form-control">
+                            <select name="place_id" class="select2 col-md-12" id="place_id">
+                                <option value="" disabled selected>انتخاب کنید</option>
+                            @foreach(App\Models\Profile\State::all() as $state)
                                     <option value="{{$state->id}}" {{Auth::user()->place_id == $state->id ? 'selected' : ''}}>{{$state->title}}</option>
                                 @endforeach
                             </select>
@@ -131,13 +156,12 @@
                             <label class="label-text">عنوان شغل</label>
                             <div class="form-group">
                                 <select class="form-control" name="job_title" id="job_title">
-                                    @foreach(App\Models\Profile\Job_title::all() as $title)
+                                @foreach(App\Models\Profile\Job_title::all() as $title)
                                         <option value="{{$title->id}}" {{Auth::user()->job_title == $title->id ? 'selected' : ''}}>{{$title->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
                         <div class="input-box col-lg-3">
                             <label class="label-text">شماره پروانه</label>
                             <div class="form-group">
@@ -169,9 +193,10 @@
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">استان</label>
-                        <div class="form-group">
-                            <select name="state_id" class="form-control " id="state_id">
-                                @foreach(App\Models\Profile\State::all() as $state)
+                        <div class="form-control">
+                            <select name="state_id" class="select2 col-md-12" id="state_id">
+                                <option value="" disabled selected>انتخاب کنید</option>
+                            @foreach(App\Models\Profile\State::all() as $state)
                                     <option value="{{$state->id}}" {{Auth::user()->state_id == $state->id ? 'selected' : ''}}>{{$state->title}}</option>
                                 @endforeach
                             </select>
@@ -179,9 +204,10 @@
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">شهرستان</label>
-                        <div class="form-group">
-                            <select name="city_id" class="form-control " id="city_id">
-                                @foreach(App\Models\Profile\City::all() as $city)
+                        <div class="form-control">
+                            <select name="city_id" class="select2 col-md-12" id="city_id">
+                                <option value="" disabled selected>انتخاب کنید</option>
+                            @foreach(App\Models\Profile\City::all() as $city)
                                     <option value="{{$city->id}}" {{Auth::user()->city_id == $city->id ? 'selected' : ''}}>{{$city->title}}</option>
                                 @endforeach
                             </select>
@@ -495,4 +521,24 @@
             });
         </script>
     @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'انتخاب کنید',
+                allowClear: true
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#date-input').persianDatepicker({
+                format: 'YYYY/MM/DD'
+            });
+        });
+    </script>
 @endsection
+

@@ -8,9 +8,12 @@
     "devDependencies": {
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
+        "persian-date": "^1.1.0",
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "boxicons": "^2.1.4"
+        "boxicons": "^2.1.4",
+        "persian-datepicker": "^1.2.0",
+        "select2": "^4.1.0-rc.0"
     }
 }

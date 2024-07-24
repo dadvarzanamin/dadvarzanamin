@@ -458,7 +458,7 @@ h6 {
     color: #CEA54B;
 }
 .dark-bg-p{
-    color: rgba(238, 238, 238, 0.8);
+    color: rgba(238, 238, 238, 0.8)!important;
 }
 .footer-area{
     padding-top: 40px;
@@ -1745,7 +1745,6 @@ h6 {
 }
 
 .section__desc {
-    color: #EEEEEE !important;
     line-height: 32px;
     font-size: 16px;
     font-weight: 500;
@@ -1916,7 +1915,7 @@ h6 {
 }
 
 .generic-list-item li a {
-    color: #EEEEEE;
+    color: #333!important;
     display: block;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -5995,10 +5994,12 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .generic-tab .nav-link:hover {
+    background-color: #233d63;
     color: #cea54a;
 }
 
 .generic-tab .nav-link.active {
+    background-color: #233d63;
     color: #cea54a;
     -webkit-box-shadow: 0 6px 25px rgb(14 16 48 / 0.1);
     -moz-box-shadow: 0 6px 25px rgb(14 16 48 / 0.1);
@@ -6194,9 +6195,9 @@ div.datedropper .picker .pick-lg-b li {
     -moz-box-shadow: 0 0 40px rgb(82 85 90 / 0.05);
     box-shadow: 0 0 40px rgb(82 85 90 / 0.05);
     border: 1px solid #f4f4f4;
+    border-radius: 16px;
 }
 .card-item:hover {
-    transform: translateY(-10px);
 }
 .card-item:hover .btn {
     transition: all 0.3s;

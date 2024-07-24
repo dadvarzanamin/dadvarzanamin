@@ -3863,11 +3863,17 @@ span.shipping-destination {
     opacity: 0.9;
     transition: 0.2s;
 }
+.select2-container--default .select2-selection--single {
+    height: calc(2em + .75rem + 2px)!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__clear{
+    margin-left: 4px;
+}
 .form-control{
     color: #22223a;
     font-family: IRANSans, serif;
     background-color: transparent;
-    border: 1px solid rgba(238, 238, 238, 0.2);
+    border: 1px solid rgba(66, 66, 66, 0.25);
     border-radius: 8px;
 }
 .form-auth-row .remember-me {

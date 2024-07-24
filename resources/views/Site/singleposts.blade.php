@@ -17,16 +17,16 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
+{{--    <section class="breadcrumb-area">--}}
+{{--        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">--}}
+{{--    </section>--}}
 
-    <section class="blog-area pt-1 pb-100px">
+    <section class="single-blog-area p-2 pb-100px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mb-5">
-                    <div class="card card-item">
-                        <div class="card-image">
+                    <div class="card card-item card-bg50">
+                        <div class="card-image m-3">
                             @if($posts->file)
                             <video controls preload="metadata" poster="{{asset($posts->image)}}" id="player" style="width: 100%">
                                 <source src="{{asset($posts->file)}}" type="video/mp4" />
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="sidebar">
-                        <div class="card card-item">
+                        <div class="card card-item card-bg50">
                             <div class="card-body">
                                 <h3 class="card-title fs-18 pb-2">آرشیوها</h3>
                                 <div class="divider"><span></span></div>
@@ -126,7 +126,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="card card-item">
+                        <div class="card card-item card-bg50">
                             <div class="card-body">
                                 <h3 class="card-title fs-18 pb-2">برچسب های پست</h3>
                                 <div class="divider"><span></span></div>

@@ -25,6 +25,18 @@
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
     @yield('style')
 </head>
+<style>
+    .footer-generic-list-item li a{
+        color: #ccc!important;
+        display: block;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+</style>
 <body>
 
 {{--<div class="preloader">--}}
@@ -420,7 +432,7 @@
                     <div class="footer-item">
                         <h3 class="fs-18 font-weight-semi-bold dark-bg-h">خدمات موسسه حقوقی</h3>
                         <span class="section-divider section--divider"></span>
-                        <ul class="generic-list-item dark-bg-p">
+                        <ul class="footer-generic-list-item dark-bg-p">
                             <li><a href="#">انواع خدمات قرادادی</a></li>
                             <li><a href="#">انواع خدمات کیفری</a></li>
                             <li><a href="#">انواع خدمات حقوقی</a></li>
@@ -441,7 +453,7 @@
                     <div class="footer-item">
                         <h3 class="fs-18 font-weight-semi-bold dark-bg-h">خدمات برای موکلین</h3>
                         <span class="section-divider section--divider"></span>
-                        <ul class="generic-list-item">
+                        <ul class="footer-generic-list-item">
                             @foreach($servicelawyers as $servicelawyer)
                                 <li><a href="{{url('خدمات/'.$servicelawyer->slug)}}">{{$servicelawyer->title}}</a></li>
                             @endforeach
@@ -462,7 +474,7 @@
                             <li class="mr-2"><a href="{{$companies['linkedin']}}"> <i
                                         class="la la-linkedin"> </i></a></li>
                         </ul>
-                        <ul class="generic-list-item pt-4">
+                        <ul class="footer-generic-list-item pt-4">
                             <li><p class="dark-bg-p"> دفتر مرکزی : {{$companies['address']}}</p></li>
                             <li style="direction:ltr;text-align: left"><a
                                     href="tel:{{$companies['mobile']}}">{{$companies['mobile']}}</a></li>
@@ -489,7 +501,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end">
-                            <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
+                            <ul class="footer-generic-list-item d-flex flex-wrap align-items-center fs-14">
                                 <li class="mr-3"><a href="{{url('تیم-ما/شرایط-و-ضوابط')}}">شرایط و ضوابط</a></li>
                                 <li class="mr-3"><a href="{{url('تیم-ما/حریم-خصوصی')}}">حریم خصوصی</a></li>
                             </ul>
