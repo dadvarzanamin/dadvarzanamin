@@ -532,6 +532,13 @@ class ProfileController extends Controller
             ->where('workshopsigns.pricestatus' , '=' , null)
             ->first();
 
+        if ($workshopsign->typeuse == 1){
+            $workshoptype = 'حضوری';
+
+        }elseif ($workshopsign->typeuse == 2){
+            $workshoptype = 'آنلاین';
+        }
+
             $payment = $request->amount($workshopsign->price)->verify();
 
             if ($payment->successful()) {
@@ -541,6 +548,32 @@ class ProfileController extends Controller
                     'pricestatus' => 4,
                     'price' => $workshopsign->price
                 ]);
+
+                try {
+                    $curl = curl_init();
+                    curl_setopt_array($curl,
+                        array(
+                            CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => "",
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 30,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => "POST",
+                            CURLOPT_POSTFIELDS => "type=1¶m1=&receptor=".Auth::user()->phone."&template=workshop&param1=".Auth::user()->name."&param2=".$workshopsign->title."param3=".$workshoptype,
+                            CURLOPT_HTTPHEADER => array(
+                                "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                                "cache-control: no-cache",
+                                "content-type: application/x-www-form-urlencoded",
+                            ));
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+
+                }catch (Exception $exception){
+
+                }
+
                 return view('Site.Dashboard.payment-success');
             }
 
