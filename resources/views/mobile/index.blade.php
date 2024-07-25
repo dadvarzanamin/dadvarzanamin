@@ -23,7 +23,7 @@
                         <div class="swiper-slide">
                             <div class="content">
                                 <div class="mask"></div>
-                                <img src="{{asset('storage/'.$slide->file_link)}}" alt="{{$companies['title']}}">
+                                <img src="{{asset('./mobile/images/mobile-banner.webp')}}" alt="{{$companies['title']}}">
                             </div>
                         </div>
                     @endforeach
@@ -62,7 +62,6 @@
             </div>
         </div>
     </div>
-
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
@@ -197,7 +196,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <div id="tab-deportment"  class="page-content tab">
         <div class="navbar navbar-page">
@@ -959,5 +957,5 @@
         </div>
     </div>
    @endif
-    </div>
+
 @endsection

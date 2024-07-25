@@ -24,7 +24,7 @@
 {{--            @endforeach--}}
 {{--        </div>--}}
         <div class="container-fluid px-5">
-            <img src="{{asset('./site/images/banner.png')}}" width= 100% alt="">
+            <img src="{{asset('./site/images/home-banner.webp')}}" width= 100% alt="">
         </div>
 {{--        <div class="hero-feature-wrap overflow-hidden savabegh">--}}
 {{--            <span class="ring-shape ring--shape ring-shape-1"></span>--}}
