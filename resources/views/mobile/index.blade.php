@@ -564,6 +564,9 @@
                                     </div>
                                 </form>
                                 <div class="content-button">
+                                    <a href="{{route('remember')}}" class="button external" style="margin: 20px auto;color: #EEEEEE"><i class="fas fa-lock mr-2"></i>فراموشی رمز عبور</a>
+                                </div>
+                                <div class="content-button">
                                     <a href="#tab-register" class="button tab-link" style="margin: 20px auto;color: #EEEEEE"><i class="fas fa-user-check mr-2"></i>ثبت نام و عضویت در سایت</a>
                                 </div>
                             </div>
