@@ -26,8 +26,8 @@
     @yield('style')
 </head>
 <style>
-    .footer-generic-list-item li a{
-        color: #ccc!important;
+    .footer-generic-list-item li a {
+        color: #ccc !important;
         display: block;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
@@ -35,274 +35,234 @@
         -o-transition: all 0.3s;
         transition: all 0.3s;
     }
+    .offcanvas {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: -300px; /* Initially hidden */
+        width: 300px;
+        padding: 1rem;
+        background-color: #fff;
+        transition: right 0.3s ease-in-out;
+        z-index: 1045;
+    }
+
+    .offcanvas.show {
+        right: 0; /* Show offcanvas */
+    }
+
+    .offcanvas-header {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .offcanvas-body {
+        overflow-y: auto;
+    }
+
+    .body-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1040;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .body-overlay.show {
+        display: block;
+        opacity: 1;
+    }
+    a {
+        color: #353535;
+    }
+    a:hover{
+        color: #cea54a;
+    }
+    .dropdown-item.active, .dropdown-item:active{
+        color: #cea54a;
+    }
+    #offcanvasMenu {
+        width: 250px; /* تغییر اندازه Off-Canvas */
+        background-color: #f8f9fa; /* رنگ پس‌زمینه Off-Canvas */
+        padding: 1rem;
+    }
+
+    /* لینک‌های Off-Canvas */
+    #offcanvasMenu .nav-link {
+        color: #000; /* رنگ لینک‌ها */
+        padding: 0.5rem 1rem;
+    }
+
+    #offcanvasMenu .nav-link:hover {
+        background-color: #e9ecef; /* رنگ پس‌زمینه لینک‌ها در حالت هاور */
+    }
 
 </style>
 <body>
-
-{{--<div class="preloader">--}}
-{{--    <div class="loader">--}}
-{{--        <svg class="spinner" viewBox="0 0 50 50">--}}
-{{--            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>--}}
-{{--        </svg>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-<header class="header-menu-area bg-white">
-    {{--    <div class="header-top pr-150px pl-150px border-bottom border-bottom-gray py-1">--}}
-    {{--        <div class="container-fluid">--}}
-    {{--            <div class="row align-items-center">--}}
-    {{--                <div class="col-lg-6">--}}
-    {{--                    <div class="header-widget">--}}
-    {{--                        <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">--}}
-    {{--                            <li class="d-flex align-items-center pr-3 mr-3 border-left border-left-gray"><i class="la la-phone mr-1"></i><a href="tel:00123456789">{{$companies['tel']}}</a></li>--}}
-    {{--                            <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a href="mailto:{{$companies['email']}}"> {{$companies['email']}} </a></li>--}}
-    {{--                        </ul>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-lg-6">--}}
-    {{--                    <div class="header-widget d-flex flex-wrap align-items-center justify-content-end">--}}
-    {{--                        <div class="theme-picker d-flex align-items-center">--}}
-    {{--                            <button class="theme-picker-btn dark-mode-btn" title="حالت تاریک">--}}
-    {{--                                <svg id="moon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
-    {{--                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>--}}
-    {{--                                </svg>--}}
-    {{--                            </button>--}}
-    {{--                            <button class="theme-picker-btn light-mode-btn" title="حالت نور">--}}
-    {{--                                <svg id="sun" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">--}}
-    {{--                                    <circle cx="12" cy="12" r="5"></circle>--}}
-    {{--                                    <line x1="12" y1="1" x2="12" y2="3"></line>--}}
-    {{--                                    <line x1="12" y1="21" x2="12" y2="23"></line>--}}
-    {{--                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>--}}
-    {{--                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>--}}
-    {{--                                    <line x1="1" y1="12" x2="3" y2="12"></line>--}}
-    {{--                                    <line x1="21" y1="12" x2="23" y2="12"></line>--}}
-    {{--                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>--}}
-    {{--                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>--}}
-    {{--                                </svg>--}}
-    {{--                            </button>--}}
-    {{--                        </div>--}}
-    {{--                        <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14 border-right border-right-gray pl-3 ml-3">--}}
-    {{--                            @if(Auth()->check())--}}
-    {{--                                <li class="d-flex align-items-center pr-3 mr-3 border-left border-left-gray"><a href="{{Route('profile')}}"> حساب کاربری : {{auth()->user()->name}}</a></li>--}}
-    {{--                                <li class="d-flex align-items-center"><i class="la la-user mr-1"></i><a href="{{route('logout')}}">خروج</a></li>--}}
-    {{--                            @else--}}
-    {{--                            <li class="d-flex align-items-center pr-3 mr-3 border-left border-left-gray"><i class="la la-sign-in mr-1"></i><a href="{{route('login')}}">ورود</a></li>--}}
-    {{--                            <li class="d-flex align-items-center"><i class="la la-user mr-1"></i><a href="{{route('register')}}"> ثبت نام</a></li>--}}
-    {{--                            @endif--}}
-    {{--                        </ul>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-    {{--        <div class="header-menu-content pr-150px pl-150px bg-white">--}}
-    {{--            <div class="container-fluid">--}}
-    {{--                <div class="main-menu-content">--}}
-    {{--                    <a href="#" class="down-button"><i class="la la-angle-down"></i></a>--}}
-    {{--                    <div class="row align-items-center">--}}
-    {{--                        <div class="col-lg-2">--}}
-    {{--                            <div class="logo-box">--}}
-    {{--                                <a href="{{route('/')}}" class="logo">--}}
-    {{--                                    <img src="{{asset($companies['image'])}}" alt="{{$companies['title']}}">--}}
-    {{--                                </a>--}}
-    {{--                                <div class="user-btn-action d-flex">--}}
-    {{--                                    <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="جستجو کردن">--}}
-    {{--                                        <i class="la la-search"></i>--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="off-canvas-menu-toggle cat-menu-toggle icon-element icon-element-sm shadow-sm mr-2" data-toggle="tooltip" data-placement="top" title="منوی دسته بندی">--}}
-    {{--                                        <i class="la la-th-large"></i>--}}
-    {{--                                    </div>--}}
-    {{--                                    <div class="off-canvas-menu-toggle main-menu-toggle icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="top" title="منوی اصلی">--}}
-    {{--                                        <i class="la la-bars"></i>--}}
-    {{--                                    </div>--}}
-    {{--                                </div>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        <div class="col-lg-10">--}}
-    {{--                            <div class="menu-wrapper">--}}
-    {{--                                <nav class="main-menu">--}}
-    {{--                                    <ul>--}}
-    {{--                                        @foreach($menus as $menu)--}}
-    {{--                                            @if($menu->submenu == 0)--}}
-    {{--                                                <li>--}}
-    {{--                                                    <a href="{{url($menu->slug)}}">{{$menu->title}}</a>--}}
-    {{--                                                </li>--}}
-    {{--                                            @else--}}
-    {{--                                                @if($menu->mega_menu == 1)--}}
-    {{--                                                    <li class="mega-menu-has">--}}
-    {{--                                                        <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>--}}
-    {{--                                                        <div class="dropdown-menu-item mega-menu" style="max-width: 760px;">--}}
-    {{--                                                            <ul class="row no-gutters">--}}
-    {{--                                                                @foreach($megamenus as $megamenu)--}}
-    {{--                                                                    @if($megamenu->menu_id == $menu->id)--}}
-    {{--                                                                        <li @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{12/$megacount['count']}}" @endif @endforeach >--}}
-    {{--                                                                            <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">--}}
-    {{--                                                                                {{$megamenu->title}}--}}
-    {{--                                                                            </h5>--}}
-    {{--                                                                            @foreach($submenus as $submenu)--}}
-    {{--                                                                                @if($menu->id == $submenu->menu_id)--}}
-    {{--                                                                                    @if($submenu->megamenu_id == $megamenu->id)--}}
-    {{--                                                                                        <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>--}}
-    {{--                                                                                    @endif--}}
-    {{--                                                                                @endif--}}
-    {{--                                                                            @endforeach--}}
-    {{--                                                                        </li>--}}
-    {{--                                                                    @endif--}}
-    {{--                                                                @endforeach--}}
-    {{--                                                            </ul>--}}
-    {{--                                                        </div>--}}
-    {{--                                                    </li>--}}
-    {{--                                                @else--}}
-    {{--                                                    <li>--}}
-    {{--                                                        <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>--}}
-    {{--                                                        <ul class="dropdown-menu-item">--}}
-    {{--                                                            @foreach($submenus as $submenu)--}}
-    {{--                                                                @if($menu->id == $submenu->menu_id)--}}
-    {{--                                                                    <li><a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a></li>--}}
-    {{--                                                                @endif--}}
-    {{--                                                            @endforeach--}}
-    {{--                                                        </ul>--}}
-    {{--                                                    </li>--}}
-    {{--                                                @endif--}}
-    {{--                                            @endif--}}
-    {{--                                        @endforeach--}}
-    {{--                                    </ul>--}}
-    {{--                                </nav>--}}
-
-    {{--                            <div class="nav-left-button">--}}
-    {{--                                <button class="btn theme-btn d-none d-lg-inline-block" data-toggle="modal" data-target="#exampleModal"> درخواست مشاوره</button>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    <div class="off-canvas-menu custom-scrollbar-styled main-off-canvas-menu">--}}
-    {{--        <div class="off-canvas-menu-close main-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">--}}
-    {{--            <i class="la la-times"></i>--}}
-    {{--        </div>--}}
-    {{--        <ul class="generic-list-item off-canvas-menu-list pt-90px">--}}
-    {{--            <li>--}}
-    {{--            @foreach($menus as $menu)--}}
-    {{--                @if($menu->submenu == 0)--}}
-    {{--                    <li>--}}
-    {{--                        <a href="{{url($menu->slug)}}">{{$menu->title}}</a>--}}
-    {{--                    </li>--}}
-    {{--                @else--}}
-    {{--                    <li>--}}
-    {{--                        <a href="#">{{$menu->title}}</a>--}}
-    {{--                        <ul class="sub-menu">--}}
-    {{--                            @foreach($submenus as $submenu)--}}
-    {{--                                @if($menu->id == $submenu->menu_id)--}}
-    {{--                                    <li>--}}
-    {{--                                        <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>--}}
-    {{--                                    </li>--}}
-    {{--                                @endif--}}
-    {{--                            @endforeach--}}
-    {{--                        </ul>--}}
-    {{--                    </li>--}}
-    {{--                @endif--}}
-    {{--            @endforeach--}}
-    {{--            </li>--}}
-    {{--        </ul>--}}
-    {{--    </div>--}}
-
-    {{--   New Header  --}}
-
-    <div id="navbar_top" class="px-5 py-4 navbar-expand-lg">
-        <div>
-            <div
-                class="container-fluid d-flex flex-row justify-content-between px-4 py-3 border br-16 align-items-center header-bg">
-                <a href="{{route('/')}}" class="logo col-1">
-                    <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
-                </a>
-                <div class="d-flex container col-8 col-md-9 align-items-center justify-content-center">
-                    <nav class="main-menu">
-                        <ul>
-                            @foreach($menus as $menu)
-                                @if($menu->submenu == 0)
-                                    <li>
-                                        <a href="{{url($menu->slug)}}">{{$menu->title}}</a>
-                                    </li>
-                                @else
-                                    @if($menu->mega_menu == 1)
-                                        <li class="mega-menu-has">
-                                            <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
-                                            <div class="dropdown-menu-item mega-menu" style="max-width: 760px;">
-                                                <ul class="row no-gutters">
-                                                    @foreach($megamenus as $megamenu)
-                                                        @if($megamenu->menu_id == $menu->id)
-                                                            <li @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{12/$megacount['count']}}" @endif @endforeach >
-                                                                <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">
-                                                                    {{$megamenu->title}}
-                                                                </h5>
-                                                                @foreach($submenus as $submenu)
-                                                                    @if($menu->id == $submenu->menu_id)
-                                                                        @if($submenu->megamenu_id == $megamenu->id)
-                                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
-                                                                        @endif
-                                                                    @endif
-                                                                @endforeach
-                                                            </li>
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0">
+    <div class="container-fluid px-4 py-3 border br-16 header-bg justify-content-between">
+        <a href="{{route('/')}}" class="navbar-brand mx-xl-auto">
+            <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="offcanvas" data-target="#offcanvasMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="main-menu collapse navbar-collapse justify-content-space-between" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                @foreach($menus as $menu)
+                    @if($menu->submenu == 0)
+                        <li>
+                            <a href="{{url($menu->slug)}}">{{$menu->title}}</a>
+                        </li>
+                    @else
+                        @if($menu->mega_menu == 1)
+                            <li class="mega-menu-has">
+                                <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
+                                <div class="dropdown-menu-item mega-menu" style="max-width: 760px;">
+                                    <ul class="row no-gutters">
+                                        @foreach($megamenus as $megamenu)
+                                            @if($megamenu->menu_id == $menu->id)
+                                                <li @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{12/$megacount['count']}}" @endif @endforeach >
+                                                    <h5 style="border-bottom: 1px solid #d9d9d9;padding-bottom: 10px;margin-bottom: 10px;">
+                                                        {{$megamenu->title}}
+                                                    </h5>
+                                                    @foreach($submenus as $submenu)
+                                                        @if($menu->id == $submenu->menu_id)
+                                                            @if($submenu->megamenu_id == $megamenu->id)
+                                                                <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                                            @endif
                                                         @endif
                                                     @endforeach
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
-                                            <ul class="dropdown-menu-item">
-                                                @foreach($submenus as $submenu)
-                                                    @if($menu->id == $submenu->menu_id)
-                                                        <li>
-                                                            <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endif
-                                @endif
-                            @endforeach
-                        </ul>
-                    </nav>
-                    <button type="button" class="btn btn-primary pr-button br-8 btn-fs" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
-                </div>
-
-                <div class="container d-flex col-2 justify-content-end m-0">
-                    @if(Auth()->check())
-                        <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
-                        <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">حساب کاربری</a>
-                    @else
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                        @else
+                            <li>
+                                <a href="#">{{$menu->title}}<i class="la la-angle-down fs-12"></i></a>
+                                <ul class="dropdown-menu-item">
+                                    @foreach($submenus as $submenu)
+                                        @if($menu->id == $submenu->menu_id)
+                                            <li>
+                                                <a href="{{url($menu->slug.'/'.$submenu->slug)}}">{{$submenu->title}}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
+                @endforeach
+            </ul>
+            <button type="button" class="btn btn-primary pr-button br-8 btn-fs mx-auto" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
+            <div class="d-flex">
+                @if(Auth()->check())
+                    <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
+                    <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">حساب کاربری</a>
+                @else
                     <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
                     <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('register')}}">ثبت نام</a>
+                @endif
+            </div>
+        </nav>
+    </div>
+</nav>
+
+<!-- Offcanvas Menu -->
+<div class="offcanvas offcanvas-right" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="close" data-dismiss="offcanvas" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="d-flex ml-auto">
+            @if(Auth()->check())
+                <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
+                <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">حساب کاربری</a>
+            @else
+                <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
+                <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('register')}}">ثبت نام</a>
+            @endif
+        </div>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="navbar-nav">
+            @foreach($menus as $menu)
+                @if($menu->submenu == 0)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url($menu->slug) }}">{{ $menu->title }}</a>
+                    </li>
+                @else
+                    @if($menu->mega_menu == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#collapseMegaMenu{{ $menu->id }}" role="button" aria-expanded="false" aria-controls="collapseMegaMenu{{ $menu->id }}">
+                                {{ $menu->title }}<i class="la la-angle-down fs-12"></i>
+                            </a>
+                            <div class="collapse" id="collapseMegaMenu{{ $menu->id }}">
+                                <div class="mega-menu">
+                                    <div class="row no-gutters">
+                                        @foreach($megamenus as $megamenu)
+                                            @if($megamenu->menu_id == $menu->id)
+                                                <div @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{ 12/$megacount['count'] }}" @endif @endforeach>
+                                                    <h5 class="dropdown-header">
+                                                        {{ $megamenu->title }}
+                                                    </h5>
+                                                    @foreach($submenus as $submenu)
+                                                        @if($menu->id == $submenu->menu_id && $submenu->megamenu_id == $megamenu->id)
+                                                            <a class="dropdown-item" href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#collapseMenu{{ $menu->id }}" role="button" aria-expanded="false" aria-controls="collapseMenu{{ $menu->id }}">
+                                {{ $menu->title }}<i class="la la-angle-down fs-12"></i>
+                            </a>
+                            <div class="collapse" id="collapseMenu{{ $menu->id }}">
+                                @foreach($submenus as $submenu)
+                                    @if($menu->id == $submenu->menu_id)
+                                        <a class="dropdown-item" href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </li>
                     @endif
-                </div>
+                @endif
+            @endforeach
+        </ul>
+        <button type="button" class="btn btn-primary pr-button br-8 btn-fs mt-3" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
+    </div>
+</div>
+
+
+
+<div class="mobile-search-form">
+    <div class="d-flex align-items-center">
+        <form method="post" class="flex-grow-1 mr-3">
+            <div class="form-group mb-0">
+                <input class="form-control form--control pl-3" type="text" name="search"
+                       placeholder="هر چیزی را جستجو کنید">
+                <span class="la la-search search-icon"></span>
             </div>
+        </form>
+        <div class="search-bar-close icon-element icon-element-sm shadow-sm">
+            <i class="la la-times"></i>
         </div>
     </div>
-
-    {{--   New Header  --}}
-
-
-    <div class="mobile-search-form">
-        <div class="d-flex align-items-center">
-            <form method="post" class="flex-grow-1 mr-3">
-                <div class="form-group mb-0">
-                    <input class="form-control form--control pl-3" type="text" name="search"
-                           placeholder="هر چیزی را جستجو کنید">
-                    <span class="la la-search search-icon"></span>
-                </div>
-            </form>
-            <div class="search-bar-close icon-element icon-element-sm shadow-sm">
-                <i class="la la-times"></i>
-            </div>
-        </div>
-    </div>
-    <div class="body-overlay"></div>
-</header>
+</div>
+<div class="body-overlay"></div>
+{{--    </header>--}}
 
 <div id="exampleModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -391,7 +351,7 @@
         </div>
     </div>
 </div>
-</div>
+{{--    </header>--}}
 @yield('main')
 
 <section class="footer-area footer-theme">
@@ -455,7 +415,8 @@
                         <span class="section-divider section--divider"></span>
                         <ul class="footer-generic-list-item">
                             @foreach($servicelawyers as $servicelawyer)
-                                <li><a href="{{url('خدمات/'.$servicelawyer->slug)}}">{{$servicelawyer->title}}</a></li>
+                                <li><a href="{{url('خدمات/'.$servicelawyer->slug)}}">{{$servicelawyer->title}}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -486,7 +447,8 @@
                                                                           href='https://trustseal.enamad.ir/?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'><img
                                         referrerpolicy='origin'
                                         src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
-                                        alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'></a></li>
+                                        alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -496,7 +458,9 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                        <p class="copy-desc dark-bg-p">کلیه حقوق مادی و معنوی وبسایت برای {{$companies['title']}} محفوظ می
+                        <p class="copy-desc dark-bg-p">کلیه حقوق مادی و معنوی وبسایت برای {{$companies['title']}}
+                            محفوظ
+                            می
                             باشد</p>
                     </div>
                     <div class="col-lg-6">
@@ -678,6 +642,46 @@
             }
         });
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var offcanvas = document.getElementById('offcanvasMenu');
+        var navbarToggler = document.querySelector('.navbar-toggler');
+        var closeButton = offcanvas.querySelector('.close');
+        var bodyOverlay = document.createElement('div');
+        bodyOverlay.classList.add('body-overlay');
+        document.body.appendChild(bodyOverlay);
+
+        navbarToggler.addEventListener('click', function () {
+            offcanvas.classList.toggle('show');
+            bodyOverlay.classList.toggle('show');
+        });
+
+        closeButton.addEventListener('click', function () {
+            offcanvas.classList.remove('show');
+            bodyOverlay.classList.remove('show');
+        });
+
+        bodyOverlay.addEventListener('click', function () {
+            offcanvas.classList.remove('show');
+            bodyOverlay.classList.remove('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="offcanvas"]').on('click', function() {
+            $('#offcanvasMenu').toggleClass('open');
+        });
+
+        // کنترل Collapse
+        $('.collapse').on('shown.bs.collapse', function() {
+            $(this).parent().find('.la-angle-down').removeClass('la-angle-down').addClass('la-angle-up');
+        }).on('hidden.bs.collapse', function() {
+            $(this).parent().find('.la-angle-up').removeClass('la-angle-up').addClass('la-angle-down');
+        });
+    });
+
 </script>
 </body>
 </html>

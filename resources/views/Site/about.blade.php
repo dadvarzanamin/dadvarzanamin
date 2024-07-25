@@ -11,7 +11,6 @@
     @if($thispage->tab_title)           <meta property="og:title"        content="{{$thispage->tab_title}}"/>                          @endif
     @if($thispage->page_description)    <meta property="og:description"  content="{{$thispage->page_description}}" />                  @endif
     <link rel="canonical" href="{{url()->current()}}" />
-
     <link rel="stylesheet" href="{{asset('site/css/animated-headline.css')}}" />
     <title>{{$thispage->tab_title}}</title>
 @endsection
