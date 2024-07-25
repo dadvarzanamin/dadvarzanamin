@@ -22,16 +22,24 @@ class TokenController extends Controller
 
         return view('Site.auth.token');
     }
+    protected function convertPersianToEnglishNumbers($string) {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
 
     public function token(Request $request)
     {
         $request->validate([
             'code' => ['required','numeric','min:6','exists:active_codes,code']
         ]);
-        $token = $request->input('code');
-//        if(! $request->session()->has('auth')) {
-//            return redirect(route('loginuser'));
-//        }
+
+        $token      = $this->convertPersianToEnglishNumbers($request->input('code'));
+
+        //        if(! $request->session()->has('auth')) {
+        //            return redirect(route('loginuser'));
+        //        }
         $times = ActiveCode::select('expired_at')->whereCode($token)->first();
 
         if (jdate($times->expired_at)->getTimestamp() - jdate()->now()->getTimestamp() <= 0) {
@@ -62,13 +70,15 @@ class TokenController extends Controller
     }
 
     public function update(Request $request){
+
         if (!Auth::check())
         {
             return redirect(route('/'));
         }else {
             $user = User::findOrfail(Auth::user()->id);
             $request->validate(['password' => 'required|string|min:8|confirmed']);
-            $user->password = Hash::make($request->input('password'));
+            $password      = $this->convertPersianToEnglishNumbers($request->input('password'));
+            $user->password = Hash::make($password);
             $user->update();
             return redirect(route('/'));
         }

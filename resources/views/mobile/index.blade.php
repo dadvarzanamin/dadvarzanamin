@@ -599,7 +599,14 @@
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                    <input type="number" name="phone" autocomplete="off" placeholder="موبایل" required  class="form-control @error('phone') is-invalid @enderror">
+                                                    <input type="text" name="phone" autocomplete="off" placeholder="موبایل" required  class="form-control @error('phone') is-invalid @enderror">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="email" autocomplete="off" placeholder="ایمیل" required  class="form-control @error('email') is-invalid @enderror">
                                                 </div>
                                             </div>
                                         </li>
@@ -716,18 +723,72 @@
                                     <a href="{{route('logout')}}" class="button tab-link external" style="background-color: #ca8e0b;margin: 20px auto;"><i class="fas fa-out"></i>خروج از حساب کاربری</a>
                                 </div>
                                 @if(Auth::user()->phone != null)
+                                    <!--<table>-->
+                                    <!--    <tr>-->
+                                    <!--        <th>ردیف</th>-->
+                                    <!--        <th>نام فایل</th>-->
+                                    <!--        <th>فایل</th>-->
+                                    <!--    </tr>-->
+                                    <!--    @foreach(\App\Models\Dashboard\Learnfile::select('id' , 'title' , 'image' , 'file')->whereStatus(4)->orderBy('id' , 'DESC')->get() as $learnfile)-->
+                                    <!--        <tr>-->
+                                    <!--            <td>{{$loop->iteration}}</td>-->
+                                    <!--            <td>{{$learnfile->title}}</td>-->
+                                    <!--            <td><a href="{{route('learn-file-download', $learnfile->id)}}" class="tab-link external"><img src="{{$learnfile->image}}" alt="" style="width: 100px"></a></td>-->
+                                    <!--        </tr>-->
+                                    <!--    @endforeach-->
+                                    <!--</table>-->
                                     <table>
                                         <tr>
-                                            <th>ردیف</th>
-                                            <th>نام فایل</th>
-                                            <th>فایل</th>
-                                        </tr>
-                                        @foreach(\App\Models\Dashboard\Learnfile::select('id' , 'title' , 'image' , 'file')->whereStatus(4)->orderBy('id' , 'DESC')->get() as $learnfile)
+                            <th scope="col">نام دوره</th>
+                            <th scope="col">تاریخ دوره</th>
+                            <th scope="col">نوع حضور</th>
+                            <th scope="col">مبلغ پرداخت</th>
+                            <th scope="col">وضعیت پرداخت</th>
+                        </tr>
+                                        @foreach(Illuminate\Support\Facades\DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price' , 'workshops.date' , 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->where('workshopsigns.user_id' , '=' , Auth::user()->id)
+            ->where('workshopsigns.pricestatus' , '!=' , null)
+            ->get() as $workshopsign)
                                             <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$learnfile->title}}</td>
-                                                <td><a href="{{route('learn-file-download', $learnfile->id)}}" class="tab-link external"><img src="{{$learnfile->image}}" alt="" style="width: 100px"></a></td>
-                                            </tr>
+
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{$workshopsign->title}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{$workshopsign->date}}</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        @if($workshopsign->typeuse == 1)
+                                            <i>حضوری</i>
+                                        @elseif($workshopsign->typeuse == 2)
+                                            <i>آنلاین</i>
+                                        @endif
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>{{number_format($workshopsign->price)}} تومان </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="generic-list-item">
+                                        <li>
+                                            @if($workshopsign->pricestatus == 4)
+                                                <i>پرداخت موفق</i>
+                                            @elseif($workshopsign->pricestatus == null)
+                                                <i>پرداخت ناموفق</i>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
                                         @endforeach
                                     </table>
                                 @endif

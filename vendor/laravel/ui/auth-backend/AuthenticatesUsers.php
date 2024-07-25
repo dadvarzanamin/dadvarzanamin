@@ -43,7 +43,12 @@ trait AuthenticatesUsers
         //session()->flash('url' , url()->previous());
         return view('Site.auth.login');
     }
+    protected function convertPersianToEnglishNumbers($string) {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
 
     /**
      * Handle a login request to the application.
@@ -57,13 +62,17 @@ trait AuthenticatesUsers
     {
         $request->validate([
             'phone'         => 'required|numeric',
-            'password' => 'required|string|min:8',
-            'captcha'           => 'required|numeric|captcha|min:1',
+            'password'      => 'required|string|min:8',
+            'captcha'       => 'required|numeric|captcha|min:1',
         ]);
-        if ($request->input('phone')  && $request->input('password')) {
-            $user = User::wherePhone($request->input('phone'))->first();
+
+        $phone      = $this->convertPersianToEnglishNumbers($request->input('phone'));
+        $password   = $this->convertPersianToEnglishNumbers($request->input('password'));
+
+        if ($phone  && $password) {
+            $user = User::wherePhone($phone)->first();
             if ($user != null) {
-                if (Hash::check($request->input('password'), $user->password)) {
+                if (Hash::check($password, $user->password)) {
                     Auth::loginUsingId($user->id);
                     if(Auth::check()){
                         alert()->success($user->name.' به وبسایت بستا ' , 'خوش آمدید' );
@@ -93,13 +102,18 @@ trait AuthenticatesUsers
     {
         $request->validate([
             'phone'         => 'required|numeric',
-            'password' => 'required|string|min:8',
-            'captcha'           => 'required|numeric|captcha|min:1',
+            'password'      => 'required|string|min:8',
+            'captcha'       => 'required|numeric|captcha|min:1',
         ]);
-        if ($request->input('phone')  && $request->input('password')) {
-            $user = User::wherePhone($request->input('phone'))->first();
+
+        $phone      = $this->convertPersianToEnglishNumbers($request->input('phone'));
+        $password   = $this->convertPersianToEnglishNumbers($request->input('password'));
+
+
+        if ($phone  && $password) {
+            $user = User::wherePhone($phone)->first();
             if ($user != null) {
-                if (Hash::check($request->input('password'), $user->password)) {
+                if (Hash::check($password, $user->password)) {
                     Auth::loginUsingId($user->id);
                     if(Auth::check()){
                         session()->flash('success', 'عملیات با موفقیت انجام شد!');
@@ -173,11 +187,13 @@ trait AuthenticatesUsers
     public function remember(Request $request){
 
         $validData = $request->validate([
-            'phone' => ['required', 'exists:users,phone'],
-            'captcha'           => ['required' ,'numeric' , 'captcha' , 'min:1'],
+            'phone'      => ['required', 'exists:users,phone'],
+            'captcha'    => ['required' ,'numeric' , 'captcha' , 'min:1'],
         ]);
 
-        $user = User::wherePhone($validData['phone'])->first();
+        $phone      = $this->convertPersianToEnglishNumbers($validData['phone']);
+
+        $user = User::wherePhone($phone)->first();
         $user = User::find($user->id);
         $request->session()->flash('auth', [
             'user_id' => $user->id
@@ -186,7 +202,7 @@ trait AuthenticatesUsers
         $code = ActiveCode::generateCode($user);
 
         $user->notify(new ActiveCodeNotification($code , $user->phone));
-        $phone = $validData['phone'];
+
         return redirect(route('phone.token'))->with(['phone' => $phone]);
     }
 
@@ -361,4 +377,5 @@ trait AuthenticatesUsers
     {
         return Auth::guard();
     }
+
 }

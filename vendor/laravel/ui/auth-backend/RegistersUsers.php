@@ -53,41 +53,19 @@ trait RegistersUsers
             : redirect($this->redirectPath());
     }
 
+    protected function convertPersianToEnglishNumbers($string) {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
+
     public function registeruser(UserRequest $request)
     {
-        $user = User::wherePhone($request->input('phone'))->first();
-        if ($user === null) {
+        $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
+        $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
 
-            $users = new User();
-
-            $users->name = $request->input('name');
-            $users->phone                   = $request->input('phone');
-            $users->username    = $request->input('username');
-            $users->type_id = $request->input('type_user');
-            $users->password    = Hash::make($request->input('password'));
-
-            $users->save();
-
-            $user = User::wherePhone($request->input('phone'))->first();
-
-            $request->session()->flash('auth', [
-                'user_id' => $user->id,
-                'reg' => 1
-            ]);
-
-            $code = ActiveCode::generateCode($user);
-
-            $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
-            $phone = $request->input('phone');
-            return redirect(route('phone.token'))->with(['phone' => $phone]);
-        }
-
-        alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
-        return Redirect::back();
-    }
-    public function mobileregister(UserRequest $request)
-    {
-        $user = User::wherePhone($request->input('phone'))->first();
+        $user = User::wherePhone($phone)->first();
         if ($user === null) {
 
             $users = new User();
@@ -96,11 +74,11 @@ trait RegistersUsers
             $users->phone       = $request->input('phone');
             $users->username    = $request->input('username');
             $users->type_id     = $request->input('type_user');
-            $users->password    = Hash::make($request->input('password'));
+            $users->password    = Hash::make($password);
 
             $users->save();
 
-            $user = User::wherePhone($request->input('phone'))->first();
+            $user = User::wherePhone($phone)->first();
 
             $request->session()->flash('auth', [
                 'user_id' => $user->id,
@@ -109,8 +87,42 @@ trait RegistersUsers
 
             $code = ActiveCode::generateCode($user);
 
-            $user->notify(new ActiveCodeNotification($code , $request->input('phone')));
-            $phone = $request->input('phone');
+            $user->notify(new ActiveCodeNotification($code , $phone));
+            return redirect(route('phone.token'))->with(['phone' => $phone]);
+        }
+
+        alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
+        return Redirect::back();
+    }
+    public function mobileregister(UserRequest $request)
+    {
+        $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
+        $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
+
+        $user = User::wherePhone($phone)->first();
+        if ($user === null) {
+
+            $users = new User();
+
+            $users->name        = $request->input('name');
+            $users->phone       = $request->input('phone');
+            $users->email       = $request->input('email');
+            $users->username    = $request->input('username');
+            $users->type_id     = $request->input('type_user');
+            $users->password    = Hash::make($password);
+
+            $users->save();
+
+            $user = User::wherePhone($phone)->first();
+
+            $request->session()->flash('auth', [
+                'user_id' => $user->id,
+                'reg' => 1
+            ]);
+
+            $code = ActiveCode::generateCode($user);
+
+            $user->notify(new ActiveCodeNotification($code , $phone));
             return redirect(route('phone.token'))->with(['phone' => $phone]);
         }
 

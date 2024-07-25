@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationEmail;
+use Illuminate\Support\Facades\DB;
+
 
 class IndexController extends Controller
 {
@@ -74,7 +76,7 @@ class IndexController extends Controller
         $lastmenuid = null;
         if ($deviceDetector->isMobile()) {
             return view('mobile.index')->with(compact('menus','lastmenuid' ,'posts' , 'workshops' ,  'thispage', 'companies', 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
-        } else {
+        }else {
             return view('Site.index')->with(compact('menus', 'thispage' ,'posts', 'companies' , 'workshops' , 'slides', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
         }
     }
