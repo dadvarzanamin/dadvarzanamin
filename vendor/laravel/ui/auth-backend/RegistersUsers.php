@@ -71,7 +71,7 @@ trait RegistersUsers
             $users = new User();
 
             $users->name        = $request->input('name');
-            $users->phone       = $request->input('phone');
+            $users->phone       = $phone;
             $users->username    = $request->input('username');
             $users->type_id     = $request->input('type_user');
             $users->password    = Hash::make($password);
@@ -105,7 +105,7 @@ trait RegistersUsers
             $users = new User();
 
             $users->name        = $request->input('name');
-            $users->phone       = $request->input('phone');
+            $users->phone       = $phone;
             $users->email       = $request->input('email');
             $users->username    = $request->input('username');
             $users->type_id     = $request->input('type_user');
