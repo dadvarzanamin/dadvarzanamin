@@ -473,6 +473,10 @@ h6 {
     border-color: rgba(85, 85, 85, 0.1);
     height: calc(2em + .75rem + 2px);
 }
+.form--control:focus{
+    background-color: rgba(238, 238, 238, 0.53)!important;
+    border-color: rgba(85, 85, 85, 0.5) !important;
+}
 .la-angle-down{
     margin-right: 6px;
 }

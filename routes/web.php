@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mobile\TestController;
 use App\Models\Dashboard\Menu_panel;
 use App\Models\Dashboard\Submenu_panel;
 use App\Models\Menu;
@@ -8,6 +9,8 @@ use DeviceDetector\DeviceDetector;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Spatie\Sitemap\SitemapGenerator;
+
+Route::get('/test-profile', [TestController::class, 'showProfile']);
 
 
 Route::get('generate'  , [App\Http\Controllers\SitemapController::class, 'generate']);
@@ -80,6 +83,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
 
         Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
+
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
 
@@ -194,6 +198,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
     Route::get('register'                 , 'RegisterController@showRegistrationuserForm');
     Route::post('register'                , 'RegisterController@registeruser')->name('register');
     Route::post('mobile-register'         , 'RegisterController@mobileregister')->name('mobile-register');
+    Route::post('mobile-profile'         , 'RegisterController@mobileprofile')->name('mobile-profile');
 
 });
 

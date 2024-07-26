@@ -3876,6 +3876,14 @@ span.shipping-destination {
     border: 1px solid rgba(66, 66, 66, 0.25);
     border-radius: 8px;
 }
+.form-control:active{
+    background-color: rgba(238, 238, 238, 0.6);!important;
+    border-color: rgba(66, 66, 66, 0.5);!important;
+}
+.form-control:focus{
+    background-color: rgba(238, 238, 238, 0.6);!important;
+    border-color: rgba(66, 66, 66, 0.5);!important;
+}
 .form-auth-row .remember-me {
     font-family: IRANSans, serif;
     color: #353535;
