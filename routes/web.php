@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Mobile\TestController;
+//use App\Http\Controllers\Mobile\TestController;
 use App\Models\Dashboard\Menu_panel;
 use App\Models\Dashboard\Submenu_panel;
 use App\Models\Menu;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Spatie\Sitemap\SitemapGenerator;
 
-Route::get('/test-profile', [TestController::class, 'showProfile']);
+//Route::get('/test-profile', [TestController::class, 'showProfile']);
 
 
 Route::get('generate'  , [App\Http\Controllers\SitemapController::class, 'generate']);
@@ -198,7 +198,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
     Route::get('register'                 , 'RegisterController@showRegistrationuserForm');
     Route::post('register'                , 'RegisterController@registeruser')->name('register');
     Route::post('mobile-register'         , 'RegisterController@mobileregister')->name('mobile-register');
-    Route::post('mobile-profile'         , 'RegisterController@mobileprofile')->name('mobile-profile');
+//    Route::post('mobile-profile'         , 'RegisterController@mobileprofile')->name('mobile-profile');
 
 });
 

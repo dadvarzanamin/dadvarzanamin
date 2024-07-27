@@ -197,6 +197,7 @@
             </div>
         </div>
     </div>
+    </div>
     <div id="tab-deportment"  class="page-content tab">
         <div class="navbar navbar-page">
             <div class="navbar-inner">
@@ -957,5 +958,6 @@
         </div>
     </div>
    @endif
+   </div>
 
 @endsection
