@@ -103,7 +103,7 @@
 
 </style>
 <body>
-<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0">
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0" style="z-index: 100">
     <div class="container-fluid px-4 py-3 border br-16 header-bg justify-content-between">
         <a href="{{route('/')}}" class="navbar-brand mx-xl-auto">
             <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">

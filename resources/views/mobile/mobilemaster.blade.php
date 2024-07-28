@@ -57,7 +57,7 @@
                             </div>
                             <div>
                                 <a href="{{route('/')}}" class="logo">
-                                    <img src="{{asset($companies['image'])}}" alt="{{$companies['title']}}">
+                                    <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
                                 </a>
                             </div>
                             <div class="right">

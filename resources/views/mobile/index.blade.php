@@ -60,24 +60,48 @@
                     <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
                     <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
                     <h6 class="text-center">دادستان سابق دادگستری</h6>
-                    <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
+                    <h5 class="text-center" style="margin: 20px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
                 </div>
                 <div class="content content-shadow-product" style="margin:0 auto;">
                     <img src="{{asset('site/images/123.png')}}" style="width: 200px" alt="قانون جدید شورای حل اختلاف">
+                </div>
+            </div>
+            <div class="row pt-4"style="margin-top: 24px">
+                <div class="col-lg-12 responsive-column-half">
+                    <div class="info-icon-box mb-3 text-center">
+                        <div class="row justify-content-center">
+                            <div class="time-segment" style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
+                                <span id="days">0</span>
+                                <span>روز</span>
+                            </div>
+                            <div class="time-segment">
+                                <span id="hours">0</span>
+                                <span>ساعت</span>
+                            </div>
+                            <div class="time-segment">
+                                <span id="minutes">0</span>
+                                <span>دقیقه</span>
+                            </div>
+                            <div class="time-segment" style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
+                                <span id="seconds">0</span>
+                                <span>ثانیه</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="content" style="margin: 0px auto;">
                     @if(Auth::check())
                         <div class="content-button">
-                            <a href="#tab-workshop" class="button tab-link"
-                               style="background-color: #ca8e0b;margin: 20px auto;">ثبت نام جهت حضور در کارگاه
+                            <a href="#tab-workshop" class="mobile-button tab-link"
+                               style="margin: auto; border-radius: 16px;">ثبت نام جهت حضور در کارگاه
                                 آموزشی</a>
                         </div>
                     @else
                         <div class="content-button">
-                            <a href="#tab-login" class="button tab-link"
-                               style="background-color: #ca8e0b;margin: 20px auto;">ثبت نام در کارگاه آموزشی/ ورود به
+                            <a href="#tab-login" class="mobile-button tab-link"
+                               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
                                 سایت</a>
                         </div>
                     @endif
@@ -85,6 +109,43 @@
             </div>
         </div>
     </div>
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // // Display the result in the element with id="demo"
+            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
+            // //+ minutes + " دقیقه " + seconds + " ثانیه ";
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("days").innerHTML = "EXPIRED";
+                document.getElementById("hours").innerHTML = "EXPIRED";
+                document.getElementById("minutes").innerHTML = "EXPIRED";
+                document.getElementById("seconds").innerHTML = "EXPIRED";
+            }
+
+        }, 1000);
+    </script>
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
@@ -272,7 +333,7 @@
                                                     <img src="{{asset('site/images/logodadvarzan.png')}}"
                                                          alt="{{$submenu->title}}">
                                                 </div>
-                                                <span style="font-size: 8px">{{$submenu->title}}</span>
+                                                <span style="font-size: 8px; margin-top: 4px;">{{$submenu->title}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -370,7 +431,7 @@
                                                 <img src="{{asset($servicelawyer->image)}}"
                                                      alt="{{$servicelawyer->title}}">
                                             </div>
-                                            <span style="font-size: 8px">{{$servicelawyer->title}}</span>
+                                            <span style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -566,11 +627,14 @@
             </div>
         </div>
         <div class="recommended product segments-bottom">
-            <div class="container">
+            <div class="container" >
                 <div class="row">
                     <div class="col-100">
                         <div class="password-settings segments">
-                            <div class="container">
+                            <div class="container d-flex justify-content-center align-items-center" >
+                                <div class="row d-flex justify-content-center">
+                                    <img src="{{url('/mobile/images/login-mobile.png/')}}" alt="login" style="width: 50%">
+                                </div>
                                 <form method="POST" action="{{ route('login-user-mobile') }}" class="list">
                                     @csrf
                                     <ul>
@@ -645,6 +709,9 @@
         </div>
         <div class="recommended product segments-bottom">
             <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <img src="{{url('/mobile/images/login-mobile.png/')}}" alt="login" style="width: 50%">
+                </div>
                 <div class="row">
                     <div class="col-100">
                         <div class="password-settings segments">
@@ -719,7 +786,7 @@
                                         </li>
                                     </ul>
                                     <div class="content-button">
-                                        <button type="submit" class="button primary-button"><i
+                                        <button type="submit" class="mobile-button primary-button"><i
                                                 class="fas fa-paper-plane"></i>عضویت در سایت
                                         </button>
                                     </div>
@@ -1060,15 +1127,56 @@
                 </div>
             </div>
         </div>
-        <div id="tap-payment" class="tab-payment tab">
-            <div class="navbar navbar-page">
-                <div class="navbar-inner">
-                    <div class="title">پرداخت هزینه کارگاه</div>
-                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <div id="tap-payment" class="tab-payment tab">--}}
+{{--            <div class="navbar navbar-page">--}}
+{{--                <div class="navbar-inner">--}}
+{{--                    <div class="title">پرداخت هزینه کارگاه</div>--}}
+{{--                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div id="tap-payment" class="tab-payment tab">--}}
+{{--            <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">--}}
+{{--                <div class="setting-body">--}}
+{{--                    <form method="get" action="{{route('pay')}}" class="row pt-40px">--}}
+{{--                        @csrf--}}
+{{--                        <div class="input-box col-lg-3">--}}
+{{--                            <label class="label-text">نام دوره</label>--}}
+{{--                            <p>{{$workshopsigns->title}}</p>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="input-box col-lg-3">--}}
+{{--                            <label class="label-text">مبلغ هزینه دوره</label>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="input-box col-lg-3">--}}
+{{--                            <label class="label-text">نوع استفاده</label>--}}
+{{--                            <div class="form-group">--}}
+{{--                                @if($workshopsigns->typeuse == 1)--}}
+{{--                                    <p> حضوری </p>--}}
+{{--                                @else--}}
+{{--                                    <p> آنلاین </p>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="input-box col-lg-3">--}}
+{{--                            <label class="label-text">تاریخ دوره</label>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <p>{{$workshopsigns->date}}</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="input-box col-lg-12 py-2">--}}
+{{--                            <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
         @endif
         </div>

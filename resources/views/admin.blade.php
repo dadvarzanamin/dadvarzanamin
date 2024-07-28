@@ -40,14 +40,14 @@
         <div class="container-fluid">
             <div class="main-menu-content">
                 <div class="row align-items-center">
-                    <div class="col-lg-9">
+                    <div class="col-9">
                         <div class="media media-card align-items-center">
                             <div class="media-body">
                                 <h2 class="section__title fs-20"> سلام؛ {{ Auth::user()->name }}  </h2>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-3">
                         <div class="logo-box logo--box">
                             <a href="{{url('پروفایل-من')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو" /></a>
                         </div>

@@ -189,22 +189,39 @@
                             <span class="section-divider"></span>
                             <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای حل اختلاف</p>
                             <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
-                            <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
+                            <h4 class="text-center" style="margin: 20px 0;">با تدریس: آقای یحیی ابراهیمی</h4>
                             <h6 class="text-center">دادستان سابق دادگستری</h6>
-                            <h5 class="text-center" style="margin: 20px 0px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
+                            <h5 class="text-center" style="margin: 20px 0;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
                         </div>
                         <div class="row pt-4 pb-3">
                             <div class="col-lg-12 responsive-column-half">
                                 <div class="info-icon-box mb-3 text-center">
-                                    <p id="demo" class="fs-20"></p>
+                                    <div class="row justify-content-center">
+                                        <div class="time-segment" style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
+                                            <span id="days">0</span>
+                                            <span>روز</span>
+                                        </div>
+                                        <div class="time-segment">
+                                            <span id="hours">0</span>
+                                            <span>ساعت</span>
+                                        </div>
+                                        <div class="time-segment">
+                                            <span id="minutes">0</span>
+                                            <span>دقیقه</span>
+                                        </div>
+                                        <div class="time-segment" style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
+                                            <span id="seconds">0</span>
+                                            <span>ثانیه</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="btn-box text-center">
                             @if(Auth::check())
-                                <a href="{{route('profile')}}" class="btn theme-btn">جهت تکمیل ثبت نام در کارگاه آموزشی کلیک کنید</a>
+                                <a href="{{route('profile')}}" class="btn pr-button br-16 py-3">جهت تکمیل ثبت نام در کارگاه آموزشی کلیک کنید</a>
                             @else
-                                <a href="{{route('register')}}" class="btn theme-btn">جهت ثبت نام کلیک کنید</a>
+                                <a href="{{route('register')}}" class="btn pr-button br-8">جهت ثبت نام کلیک کنید</a>
                             @endif
                         </div>
                     </div>
@@ -411,7 +428,6 @@
                 @endforeach
             </div>
         </div>
-
     </section>
     {{--  End Courses Area  --}}
 
@@ -486,15 +502,22 @@
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display the result in the element with id="demo"
-            document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
-            //+ minutes + " دقیقه " + seconds + " ثانیه ";
-
+            // // Display the result in the element with id="demo"
+            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
+            // //+ minutes + " دقیقه " + seconds + " ثانیه ";
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
             // If the count down is finished, write some text
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("days").innerHTML = "EXPIRED";
+                document.getElementById("hours").innerHTML = "EXPIRED";
+                document.getElementById("minutes").innerHTML = "EXPIRED";
+                document.getElementById("seconds").innerHTML = "EXPIRED";
             }
+
         }, 1000);
     </script>
    <script>

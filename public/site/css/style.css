@@ -423,9 +423,25 @@ h6 {
     color: #CEA54B !important;
     box-shadow: 0 0 0 .2rem rgb(35, 35, 34) !important;
 }
+.time-segment {
+    color:#CEA54B;
+    width: 80px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #22223a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 4px;
+}
+
+.time-segment span {
+    display: block;
+    font-size: 1.5em;
+}
 
 .btn-fs {
-    font-size: 15px;
+    font-size: 16px;
 }
 @media (max-width: 1440px) {
     .btn-fs{
@@ -5996,6 +6012,12 @@ div.datedropper .picker .pick-lg-b li {
     -o-transition: all 0.2s;
     transition: all 0.2s;
 }
+@media screen and (max-width: 500px){
+    .generic-tab .nav-link{
+        font-size: 12px;
+        padding: 4px 4px;
+    }
+}
 
 .generic-tab .nav-link:hover {
     background-color: #233d63;
@@ -7305,7 +7327,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .main-menu > ul > li a {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(35, 35, 34, 0.8);
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
