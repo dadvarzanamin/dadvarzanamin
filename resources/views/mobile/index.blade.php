@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="categories segments">
+<!--     <div class="categories segments">
         <div class="container">
 
             <div class="row">
@@ -107,9 +107,9 @@
                     @endif
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
+        </div> -->
+    </div> 
+<!--     <script> 
         // Set the date we're counting down to
         var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
 
@@ -145,7 +145,7 @@
             }
 
         }, 1000);
-    </script>
+    </script> -->
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
