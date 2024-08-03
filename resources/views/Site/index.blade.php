@@ -171,7 +171,7 @@
 
     </section>
 
-    <section class="about-area overflow-hidden">
+<!--     <section class="about-area overflow-hidden">
         <div class="container">
             @if(Auth::check())
             <div class="alert alert-success" role="alert">
@@ -233,7 +233,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     {{--  Start partners Area  --}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
