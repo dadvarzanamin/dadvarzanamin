@@ -483,7 +483,7 @@
 
 @endsection
 @section('script')
-     <script>
+<!--      <script>
         // Set the date we're counting down to
         var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
 
@@ -519,7 +519,7 @@
             }
 
         }, 1000);
-    </script>
+    </script> -->
    <script>
         jQuery(document).ready(function(){
             jQuery('#setclass').click(function(e){
