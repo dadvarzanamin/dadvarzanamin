@@ -32,6 +32,7 @@
                                             <th class="wd-10p"> آدرس ایمیل </th>
                                             <th class="wd-10p"> موبایل </th>
                                             <th class="wd-10p"> وضعیت </th>
+                                            <th class="wd-10p"> زمان ثبت نام </th>
                                             <th class="wd-10p"> تغییر </th>
                                         </tr>
                                         </thead>
@@ -86,8 +87,9 @@
                     {data: 'name'        , name: 'name'},
                     {data: 'username'    , name: 'username'},
                     {data: 'email'       , name: 'email'},
-                    {data: 'phone'       , name: 'phone'},
+                    {data: 'email'       , name: 'email'},
                     {data: 'status'      , name: 'status'},
+                    {data: 'date'        , name: 'date'},
                     {data: 'action'      , name: 'action', orderable: true, searchable: true},
                 ]
             });

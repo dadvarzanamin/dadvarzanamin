@@ -171,7 +171,7 @@
 
     </section>
 
-    <section class="about-area overflow-hidden">
+<!--     <section class="about-area overflow-hidden">
         <div class="container">
             @if(Auth::check())
             <div class="alert alert-success" role="alert">
@@ -233,7 +233,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     {{--  Start partners Area  --}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
@@ -482,7 +482,7 @@
 
 @endsection
 @section('script')
-     <script>
+<!--      <script>
         // Set the date we're counting down to
         var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
 
@@ -518,7 +518,7 @@
             }
 
         }, 1000);
-    </script>
+    </script> -->
    <script>
         jQuery(document).ready(function(){
             jQuery('#setclass').click(function(e){
