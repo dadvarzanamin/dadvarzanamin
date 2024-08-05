@@ -336,8 +336,7 @@
                         <div class="card-body pb-1">
                             <h3 class="card-title" style="font-size: 16px"><a href="#">{{$akhbar->title}}</a></h3>
                             <div class="line"></div>
-                            <div class="rating-wrap d-flex align-items-center justify-content-between py-2">
-                                <p>بازدید : 23</p>
+                            <div class="rating-wrap d-flex align-items-center justify-content-center py-2">
                                 <a href="{{url('اخبار/'.$akhbar->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
                             </div>
                         </div>
@@ -420,7 +419,7 @@
                                 {{ strip_tags(Str::words($post->description, 10, ' ...')) }}
                             </p>
                             <div class="line"></div>
-                            <div class="rating-wrap d-flex align-items-center justify-content-between pt-3">
+                            <div class="rating-wrap d-flex align-items-center justify-content-center pt-3">
                                 <a href="{{url('محتوای-آموزشی/'.$post->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
                             </div>
                         </div>

@@ -16,12 +16,9 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
-
     <section class="blog-area section--padding">
         <div class="container">
+            <h1 class="d-flex text-align-center justify-content-center">اخبار</h1>
             <div class="row">
                 @foreach($akhbars as $akhbar)
                     <div class="col-lg-4">
@@ -36,12 +33,8 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title"><a href="#">{{$akhbar->title}}</a></h5>
-                                <p class="card-text"> {!! $akhbar->description !!} </p>
-                                <p class="card-text"> نویسنده :  {{$akhbar->username}}</p>
                                 <div class="line"></div>
-                                <div class="rating-wrap d-flex align-items-center justify-content-between pt-3">
-                                    <p>بازدید : 23</p>
-                                    <p>نظر : 2</p>
+                                <div class="rating-wrap d-flex align-items-center justify-content-center pt-3">
                                     <a href="{{url('اخبار/'.$akhbar->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
                                 </div>
                             </div>

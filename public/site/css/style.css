@@ -3765,7 +3765,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .member-card:hover:after {
-    background-color: #cea54a;
+    background-color: #233d63;
 }
 
 .label-text {
@@ -7352,7 +7352,6 @@ div.datedropper .picker .pick-lg-b li {
 
 .main-menu > ul > li .dropdown-menu-item {
     position: absolute;
-    right: 0;
     top: 60px;
     width: 220px;
     background-color: #fff;

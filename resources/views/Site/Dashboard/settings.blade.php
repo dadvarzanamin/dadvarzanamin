@@ -26,9 +26,9 @@
     </style>
     @include('sweetalert::alert')
     <div class="dashboard-heading mb-5">
-        <h3 class="fs-22 font-weight-semi-bold">ویرایش حساب کاربری</h3>
+        <h3 class="fs-22 font-weight-semi-bold d-flex justify-content-center text-align-center">ویرایش حساب کاربری</h3>
     </div>
-    <ul class="nav nav-tabs generic-tab pb-30px" id="myTab" role="tablist">
+    <ul class="nav nav-tabs generic-tab pb-30px justify-content-center" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="edit-profile-tab" data-toggle="tab" href="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">مشخصات فردی</a>
         </li>
@@ -48,7 +48,7 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4">ویرایش</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 ">ویرایش</h3>
                 <form method="post" action="{{route('edit-user-profile')}}" class="row pt-40px" enctype="multipart/form-data">
                     @csrf
                     <div class="input-box col-lg-3">
