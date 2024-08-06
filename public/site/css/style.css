@@ -400,6 +400,7 @@ h6 {
 }
 
 .pr-button {
+    text-align: center;
     padding-top: 8px;
     padding-bottom: 8px;
     background-color: #CEA54B;
@@ -408,19 +409,21 @@ h6 {
 }
 
 .pr-button:hover {
-    background-color: #343434;
-    color: #CEA54B;
+    color: rgba(35, 35, 34);
+
+    transition: 400ms;
+    background-color: #f8ca69;
 }
 
 .pr-button:focus {
-    background-color: #212121 !important;
-    color: #CEA54B !important;
+    color: rgba(35, 35, 34);
+    background-color: #f8ca69 !important;
     box-shadow: 0 0 0 .2rem rgb(35, 35, 34) !important;
 }
 
 .pr-button:active {
-    background-color: #212121 !important;
-    color: #CEA54B !important;
+    background-color: #f8ca69 !important;
+    color: rgba(35, 35, 34);
     box-shadow: 0 0 0 .2rem rgb(35, 35, 34) !important;
 }
 .time-segment {
@@ -2116,7 +2119,7 @@ h6 {
 
 
 .social--icons-styled li a {
-    background-color: #fff;
+    background-color: #1E2E45;
     -webkit-box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     -moz-box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);
     box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 0.075);

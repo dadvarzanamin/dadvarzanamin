@@ -109,9 +109,9 @@
                     </div>
                 </div>
             </div>
-{{--
+
             <p class="text-center">می خواهید با ما بپیوندید؟ <a href="careers.html" class="text-color hover-underline">موقعیت های باز</a> ما را ببینید<a href="careers.html" class="text-color hover-underline"></a></p>
---}}
+
         </div>
     </section>
 
@@ -205,85 +205,85 @@
         </div>
     </section>
 
-{{--
-    <section class="testimonial-area bg-gray section--padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="testimonial-content-wrap pb-4">
-                        <div class="section-heading">
-                            <h2 class="section__title mb-3">درباره ما چه میگویند؟</h2>
-                            <p class="section__desc">
-                                موکلین که پرنده آنها را با ما پیش برده اند و وکلایی که با ما همکاری کرده اند درباره ما چه میگوند؟
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="testimonial-carousel-2 owl-action-styled owl-action-styled-2">
-                        <div class="card card-item">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم
-                                </p>
-                                <div class="media media-card align-items-center pt-4">
-                                    <div class="media-img avatar-md">
-                                        <img src="{{asset('site/images/small-avatar-1.jpg')}}" alt="آواتار گواهی" class="rounded-full" />
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>مهندس میرمحمدی</h5>
-                                        <div class="d-flex align-items-center pt-1">
-                                            <span class="lh-18 pr-2">مدیرعامل شرکت مینو</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-item">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم
-                                </p>
-                                <div class="media media-card align-items-center pt-4">
-                                    <div class="media-img avatar-md">
-                                        <img src="{{asset('site/images/small-avatar-2.jpg')}}" alt="آواتار گواهی" class="rounded-full" />
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>ابراهیم محمدی</h5>
-                                        <div class="d-flex align-items-center pt-1">
-                                            <span class="lh-18 pr-2">معاون حقوقی شرکت توسعه اعتماد میهن</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card-item">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم
-                                </p>
-                                <div class="media media-card align-items-center pt-4">
-                                    <div class="media-img avatar-md">
-                                        <img src="{{asset('site/images/small-avatar-3.jpg')}}" alt="آواتار گواهی" class="rounded-full" />
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>احمد جوکار</h5>
-                                        <div class="d-flex align-items-center pt-1">
-                                            <span class="lh-18 pr-2">مدیر حقوقی شرکت پتروشیمی</span>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end media -->
-                            </div>
-                            <!-- end card-body -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
---}}
+{{--    <section class="testimonial-area bg-gray section--padding">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <div class="testimonial-content-wrap pb-4">--}}
+{{--                        <div class="section-heading">--}}
+{{--                            <h2 class="section__title mb-3">درباره ما چه میگویند؟</h2>--}}
+{{--                            <p class="section__desc">--}}
+{{--                                موکلین که پرنده آنها را با ما پیش برده اند و وکلایی که با ما همکاری کرده اند درباره ما چه میگوند؟--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-8">--}}
+{{--                    <div class="testimonial-carousel-2 owl-action-styled owl-action-styled-2">--}}
+{{--                        <div class="card card-item">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <p class="card-text">--}}
+{{--                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم--}}
+{{--                                </p>--}}
+{{--                                <div class="media media-card align-items-center pt-4">--}}
+{{--                                    <div class="media-img avatar-md">--}}
+{{--                                        <img src="{{asset('site/images/small-avatar-1.jpg')}}" alt="آواتار گواهی" class="rounded-full" />--}}
+{{--                                    </div>--}}
+{{--                                    <div class="media-body">--}}
+{{--                                        <h5>مهندس میرمحمدی</h5>--}}
+{{--                                        <div class="d-flex align-items-center pt-1">--}}
+{{--                                            <span class="lh-18 pr-2">مدیرعامل شرکت مینو</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="card card-item">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <p class="card-text">--}}
+{{--                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم--}}
+{{--                                </p>--}}
+{{--                                <div class="media media-card align-items-center pt-4">--}}
+{{--                                    <div class="media-img avatar-md">--}}
+{{--                                        <img src="{{asset('site/images/small-avatar-2.jpg')}}" alt="آواتار گواهی" class="rounded-full" />--}}
+{{--                                    </div>--}}
+{{--                                    <div class="media-body">--}}
+{{--                                        <h5>ابراهیم محمدی</h5>--}}
+{{--                                        <div class="d-flex align-items-center pt-1">--}}
+{{--                                            <span class="lh-18 pr-2">معاون حقوقی شرکت توسعه اعتماد میهن</span>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="card card-item">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <p class="card-text">--}}
+{{--                                    من از زمانی که کارهای حقوقی شرکت را به این مجموعه سپردم با آرامش به کارهای شرکت پرداخته و تمام موارد حقوقی را از دوستان مشورت میگیرم و در صورت بروز شکل از این مجموعه برای رفع آن اعتماد می کنم--}}
+{{--                                </p>--}}
+{{--                                <div class="media media-card align-items-center pt-4">--}}
+{{--                                    <div class="media-img avatar-md">--}}
+{{--                                        <img src="{{asset('site/images/small-avatar-3.jpg')}}" alt="آواتار گواهی" class="rounded-full" />--}}
+{{--                                    </div>--}}
+{{--                                    <div class="media-body">--}}
+{{--                                        <h5>احمد جوکار</h5>--}}
+{{--                                        <div class="d-flex align-items-center pt-1">--}}
+{{--                                            <span class="lh-18 pr-2">مدیر حقوقی شرکت پتروشیمی</span>--}}
+
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <!-- end media -->--}}
+{{--                            </div>--}}
+{{--                            <!-- end card-body -->--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
+
 
     <div class="section-block"></div>
 
@@ -339,3 +339,8 @@
     </section>
 
 @endsection
+
+
+
+
+
