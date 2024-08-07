@@ -16,10 +16,6 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
-
     <section class="blog-area section--padding">
         <div class="container">
             <div class="row">

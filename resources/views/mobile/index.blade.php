@@ -30,6 +30,18 @@
     <title>{{$thispage->tab_title}}</title>
 @endsection
 @section('main')
+    <style>
+        .link-all {
+            display: flex;
+            background-color: #fff;
+            border: 1px solid rgba(85, 85, 85, 0.5);
+            border-radius: 8px;
+            text-align: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 10px;
+        }
+    </style>
     <div class="slider">
         <div class="container">
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
@@ -50,7 +62,7 @@
         </div>
     </div>
 
-<!--     <div class="categories segments">
+    <!--     <div class="categories segments">
         <div class="container">
 
             <div class="row">
@@ -93,59 +105,63 @@
             <div class="row">
                 <div class="content" style="margin: 0px auto;">
                     @if(Auth::check())
-                        <div class="content-button">
-                            <a href="#tab-workshop" class="mobile-button tab-link"
-                               style="margin: auto; border-radius: 16px;">ثبت نام جهت حضور در کارگاه
-                                آموزشی</a>
-                        </div>
-                    @else
-                        <div class="content-button">
-                            <a href="#tab-login" class="mobile-button tab-link"
-                               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
-                                سایت</a>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div> 
-    </div> -->
-<!--     <script> 
-        // Set the date we're counting down to
-        var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
+        <div class="content-button">
+            <a href="#tab-workshop" class="mobile-button tab-link"
+               style="margin: auto; border-radius: 16px;">ثبت نام جهت حضور در کارگاه
+                آموزشی</a>
+        </div>
 
-        // Update the count down every 1 second
-        var x = setInterval(function() {
 
-            // Get today's date and time
-            var now = new Date().getTime();
+    @else
+        <div class="content-button">
+            <a href="#tab-login" class="mobile-button tab-link"
+               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                سایت</a>
+        </div>
 
-            // Find the distance between now and the count down date
-            var distance = countDownDate - now;
 
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    @endif
+    </div>
+</div>
+</div>
+</div> -->
+    <!--     <script>
+            // Set the date we're counting down to
+            var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
 
-            // // Display the result in the element with id="demo"
-            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
-            // //+ minutes + " دقیقه " + seconds + " ثانیه ";
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("days").innerHTML = "EXPIRED";
-                document.getElementById("hours").innerHTML = "EXPIRED";
-                document.getElementById("minutes").innerHTML = "EXPIRED";
-                document.getElementById("seconds").innerHTML = "EXPIRED";
-            }
+            // Update the count down every 1 second
+            var x = setInterval(function() {
 
-        }, 1000);
-    </script> -->
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // // Display the result in the element with id="demo"
+                // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
+                // //+ minutes + " دقیقه " + seconds + " ثانیه ";
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").innerHTML = "EXPIRED";
+                    document.getElementById("hours").innerHTML = "EXPIRED";
+                    document.getElementById("minutes").innerHTML = "EXPIRED";
+                    document.getElementById("seconds").innerHTML = "EXPIRED";
+                }
+
+            }, 1000);
+        </script> -->
     <div class="categories segments">
         <div class="container">
             <div class="section-title">
@@ -153,7 +169,7 @@
             </div>
             <div class="row">
                 @foreach($servicelawyers as $servicelawyer)
-                    <div class="col-30" style="margin: 10px auto;text-align: center;">
+                    <div class="col-25" style="margin: 10px auto;text-align: center;">
                         <div class="content">
                             <a href="{{url('خدمات/'.$servicelawyer->slug)}}" class="external">
                                 <div class="icon">
@@ -185,30 +201,29 @@
             </div>
         </div>
     </div>
-    <div class="flash-sale segments no-pd-b">
-        <div class="container">
-            <div class="section-title flash-s-title">
-                <h3>برخی از موکلین</h3>
-                <div data-space-between="10" data-slides-per-view="auto" class="swiper-container swiper-init">
-                    <div class="swiper-wrapper">
-                        @foreach($customers as $customer)
-                            <div class="swiper-slide">
-                                <div class="content content-shadow-product">
-                                    <img src="{{asset($customer->image)}}" alt="{{$customer->name}}"
-                                         style="max-width: 80px;margin: 0 auto;"/>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{--    <div class="flash-sale segments no-pd-b">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="section-title flash-s-title">--}}
+    {{--                <h3>برخی از موکلین</h3>--}}
+    {{--                <div data-space-between="10" data-slides-per-view="auto" class="swiper-container swiper-init">--}}
+    {{--                    <div class="swiper-wrapper">--}}
+    {{--                        @foreach($customers as $customer)--}}
+    {{--                            <div class="swiper-slide">--}}
+    {{--                                <div class="content content-shadow-product">--}}
+    {{--                                    <img src="{{asset($customer->image)}}" alt="{{$customer->name}}"--}}
+    {{--                                         style="max-width: 80px;margin: 0 auto;"/>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        @endforeach--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
     <div class="popular-product segments-bottom">
         <div class="container">
             <div class="section-title">
                 <h3>اخبار و رویدادها
-                    <a href="{{'تیم-ما/اخبار'}}" class="link external" style="float: left">مشاهده همه</a>
                 </h3>
             </div>
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="1"
@@ -231,13 +246,13 @@
                     @endforeach
                 </div>
             </div>
+            <a href="{{'تیم-ما/اخبار'}}" class="link external link-all" style="">مشاهده همه</a>
         </div>
     </div>
     <div class="popular-product segments-bottom">
         <div class="container">
             <div class="section-title">
                 <h3>اخبار و رویدادها
-                    <a href="{{'تیم-ما/محتوای-آموزشی'}}" class="link external" style="float: left">مشاهده همه</a>
                 </h3>
             </div>
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="1"
@@ -260,6 +275,8 @@
                     @endforeach
                 </div>
             </div>
+            <a href="{{'تیم-ما/محتوای-آموزشی'}}" class="link external link-all">مشاهده همه</a>
+
         </div>
     </div>
     <div class="recommended product segments-bottom">
@@ -270,15 +287,15 @@
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="3"
                  class="swiper-container swiper-init">
                 <div class="swiper-pagination"></div>
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" style="display: flex;align-items: stretch;">
                     @foreach($emploees as $emploee)
-                        <div class="swiper-slide">
+                        <div class="swiper-slide m-4">
                             <div class="content content-shadow-product">
                                 <a href="#">
                                     <img src="{{asset($emploee->image)}}" alt="{{$emploee->fullname}}">
                                     <div class="text" style="text-align: center">
-                                        <p class="title-product" style="font-size: 8px;">{{$emploee->fullname}}</p>
-                                        <p class="price" style="font-size: 8px;">{{$emploee->side}}</p>
+                                        <p class="title-product" style="font-size: 9px;">{{$emploee->fullname}}</p>
+                                        <p class="price" style="font-size: 7px;">{{$emploee->side}}</p>
                                     </div>
                                 </a>
                             </div>
@@ -333,7 +350,8 @@
                                                     <img src="{{asset('site/images/logodadvarzan.png')}}"
                                                          alt="{{$submenu->title}}">
                                                 </div>
-                                                <span style="font-size: 8px; margin-top: 4px;">{{$submenu->title}}</span>
+                                                <span
+                                                    style="font-size: 8px; margin-top: 4px;">{{$submenu->title}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -424,14 +442,15 @@
                         </div>
                         <div class="row">
                             @foreach($servicelawyers as $servicelawyer)
-                                <div class="col-30" style="margin: 10px auto;text-align: center;">
+                                <div class="col-25" style="margin: 10px auto;text-align: center;">
                                     <div class="content">
                                         <a href="#">
                                             <div class="icon">
                                                 <img src="{{asset($servicelawyer->image)}}"
                                                      alt="{{$servicelawyer->title}}">
                                             </div>
-                                            <span style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
+                                            <span
+                                                style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -627,13 +646,14 @@
             </div>
         </div>
         <div class="recommended product segments-bottom">
-            <div class="container" >
+            <div class="container">
                 <div class="row">
                     <div class="col-100">
                         <div class="password-settings segments">
-                            <div class="container d-flex justify-content-center align-items-center" >
+                            <div class="container d-flex justify-content-center align-items-center">
                                 <div class="row d-flex justify-content-center">
-                                    <img src="{{url('/mobile/images/login-mobile.png/')}}" alt="login" style="width: 50%">
+                                    <img src="{{url('/mobile/images/login-mobile.png/')}}" alt="login"
+                                         style="width: 50%">
                                 </div>
                                 <form method="POST" action="{{ route('login-user-mobile') }}" class="list">
                                     @csrf
@@ -682,7 +702,8 @@
                                            style="width: 48%"><i class="fas fa-user-check mr-2"></i>ثبت نام در سایت</a>
                                     </div>
                                     <div class="row">
-                                        <a href="{{url('login/google')}}" class="google-button external" style="width: 100%"> ورود با حساب
+                                        <a href="{{url('login/google')}}" class="google-button external"
+                                           style="width: 100%"> ورود با حساب
                                             گوگل </a>
                                     </div>
 
@@ -963,7 +984,8 @@
                         <div class="col-100">
                             <div class="shop-cart-btn">
                                 <div class="avatar-xs">
-                                    <img class="rounded-full img-fluid" style="width: 40%; margin: 40px auto 20px;border-radius: 24px"
+                                    <img class="rounded-full img-fluid"
+                                         style="width: 40%; margin: 40px auto 20px;border-radius: 24px"
                                          @if(Auth::user()->image)  src="{{Auth::user()->image}}"
                                          @else src="{{asset('admin/assets/img/users/1.jpg')}}"
                                          @endif alt="{{(Auth::user()->name)}}"/>
@@ -1127,56 +1149,56 @@
                 </div>
             </div>
         </div>
-{{--        <div id="tap-payment" class="tab-payment tab">--}}
-{{--            <div class="navbar navbar-page">--}}
-{{--                <div class="navbar-inner">--}}
-{{--                    <div class="title">پرداخت هزینه کارگاه</div>--}}
-{{--                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div id="tap-payment" class="tab-payment tab">--}}
-{{--            <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">--}}
-{{--                <div class="setting-body">--}}
-{{--                    <form method="get" action="{{route('pay')}}" class="row pt-40px">--}}
-{{--                        @csrf--}}
-{{--                        <div class="input-box col-lg-3">--}}
-{{--                            <label class="label-text">نام دوره</label>--}}
-{{--                            <p>{{$workshopsigns->title}}</p>--}}
-{{--                        </div>--}}
+        {{--        <div id="tap-payment" class="tab-payment tab">--}}
+        {{--            <div class="navbar navbar-page">--}}
+        {{--                <div class="navbar-inner">--}}
+        {{--                    <div class="title">پرداخت هزینه کارگاه</div>--}}
+        {{--                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        {{--        <div id="tap-payment" class="tab-payment tab">--}}
+        {{--            <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">--}}
+        {{--                <div class="setting-body">--}}
+        {{--                    <form method="get" action="{{route('pay')}}" class="row pt-40px">--}}
+        {{--                        @csrf--}}
+        {{--                        <div class="input-box col-lg-3">--}}
+        {{--                            <label class="label-text">نام دوره</label>--}}
+        {{--                            <p>{{$workshopsigns->title}}</p>--}}
+        {{--                        </div>--}}
 
-{{--                        <div class="input-box col-lg-3">--}}
-{{--                            <label class="label-text">مبلغ هزینه دوره</label>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+        {{--                        <div class="input-box col-lg-3">--}}
+        {{--                            <label class="label-text">مبلغ هزینه دوره</label>--}}
+        {{--                            <div class="form-group">--}}
+        {{--                                <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
 
-{{--                        <div class="input-box col-lg-3">--}}
-{{--                            <label class="label-text">نوع استفاده</label>--}}
-{{--                            <div class="form-group">--}}
-{{--                                @if($workshopsigns->typeuse == 1)--}}
-{{--                                    <p> حضوری </p>--}}
-{{--                                @else--}}
-{{--                                    <p> آنلاین </p>--}}
-{{--                                @endif--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+        {{--                        <div class="input-box col-lg-3">--}}
+        {{--                            <label class="label-text">نوع استفاده</label>--}}
+        {{--                            <div class="form-group">--}}
+        {{--                                @if($workshopsigns->typeuse == 1)--}}
+        {{--                                    <p> حضوری </p>--}}
+        {{--                                @else--}}
+        {{--                                    <p> آنلاین </p>--}}
+        {{--                                @endif--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
 
-{{--                        <div class="input-box col-lg-3">--}}
-{{--                            <label class="label-text">تاریخ دوره</label>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <p>{{$workshopsigns->date}}</p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="input-box col-lg-12 py-2">--}}
-{{--                            <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        {{--                        <div class="input-box col-lg-3">--}}
+        {{--                            <label class="label-text">تاریخ دوره</label>--}}
+        {{--                            <div class="form-group">--}}
+        {{--                                <p>{{$workshopsigns->date}}</p>--}}
+        {{--                            </div>--}}
+        {{--                        </div>--}}
+        {{--                        <div class="input-box col-lg-12 py-2">--}}
+        {{--                            <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}
+        {{--                        </div>--}}
+        {{--                    </form>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
 
         @endif
         </div>

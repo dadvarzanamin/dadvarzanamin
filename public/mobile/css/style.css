@@ -275,8 +275,8 @@ ul li {
 .price {
     margin-bottom: 8px;
     font-size: 14px;
-    font-weight: 700;
-    color: #cea54a !important;
+    font-weight: 600;
+    color: #22223a !important;
 }
 
 .location {
@@ -290,8 +290,9 @@ ul li {
 }
 
 .date {
+    padding: 10px;
     font-size: 11px;
-    color: #999;
+    color: #555;
 }
 
 /*rate product*/
@@ -321,7 +322,7 @@ ul li {
 .ios .toolbar.tabbar-labels a.tab-link {
     padding-top: 15px;
     padding-bottom: 15px;
-    color: #888;
+    color: #333;
 }
 
 .ios .toolbar.tabbar-labels a.tab-link.tab-link-active {
@@ -746,6 +747,8 @@ ul li {
 }
 
 /*popular product*/
+.popular-product{
+}
 .popular-product.segments-bottom {
     padding-bottom: 23px;
 }
@@ -759,8 +762,11 @@ ul li {
 }
 
 .popular-product .content {
+    overflow: hidden;
+    border: 1px solid rgba(68, 68, 68, 0.32);
     background: #fff;
-    border-radius: 12px;
+    border-radius: 16px;
+    padding: 8px;
 }
 
 .popular-product .content img {
@@ -768,7 +774,10 @@ ul li {
     border-radius: 12px 12px 0 0;
 }
 
-.popular-product .content .text {
+.popular-product .content .text a{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 10px;
 }
 
@@ -780,6 +789,7 @@ ul li {
 }
 
 .product .content {
+    border: 1px solid rgba(136, 136, 136, 0.5);
     background: #fff;
     border-radius: 12px;
     position: relative;
@@ -791,7 +801,8 @@ ul li {
 }
 
 .product .content .text {
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /*--- SEARCH ---*/
@@ -1150,6 +1161,7 @@ ul li {
 .account-seller .header-account .user-caption .title-name .date {
     margin-bottom: 5px;
     color: #ddd;
+
 }
 
 .account-seller .header-account .user-caption .title-name .total-followers {

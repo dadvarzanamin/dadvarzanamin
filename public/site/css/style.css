@@ -6228,12 +6228,12 @@ div.datedropper .picker .pick-lg-b li {
 }
 .card-item:hover {
 }
-.card-item:hover .btn {
-    transition: all 0.3s;
-    background-color: #233d63;
-    border-color: #233d63;
-    color: #fff;
-}
+/*.card-item:hover .btn {*/
+/*    transition: all 0.3s;*/
+/*    background-color: #233d63;*/
+/*    border-color: #233d63;*/
+/*    color: #fff;*/
+/*}*/
 .card-item .card-title {
     white-space: nowrap;
     overflow: hidden;
