@@ -303,10 +303,21 @@
                         <div id="errorphone" style="color: red"></div>
                     </div>
                 </div>
+{{--                <div class="col-lg-12">--}}
+{{--                    <label class="label-text">انتخاب نوع درخواست</label>--}}
+{{--                    <div class="form-group">--}}
+{{--                        <select class="form-control" name="servicemode" id="servicemode"--}}
+{{--                                style="width: 100% !important;">--}}
+{{--                            <option value="">انتخاب کنید</option>--}}
+{{--                            <option value="1">خدمات موکلین</option>--}}
+{{--                            <option value="2">خدمات وکلا</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">انتخاب نوع درخواست</label>
-                    <div class="form-group">
-                        <select class="form-control" name="servicemode" id="servicemode"
+                    <div class="select-container w-100 pt-2 br-8">
+                        <select class="select-container-select" name="servicemode" id="servicemode"
                                 style="width: 100% !important;">
                             <option value="">انتخاب کنید</option>
                             <option value="1">خدمات موکلین</option>
@@ -314,6 +325,16 @@
                         </select>
                     </div>
                 </div>
+{{--                <div class="my-course-filter-item mr-2 col-lg-12">--}}
+{{--                    <span class="fs-14 font-weight-semi-bold">براساس امتیاز</span>--}}
+{{--                    <div class="select-container w-100 pt-2">--}}
+{{--                        <select class="select-container-select" style="width: 100% !important;">--}}
+{{--                            <option value="" >انتخاب کنید</option>--}}
+{{--                            <option value="1">از کم به زیاد</option>--}}
+{{--                            <option value="2">از زیاد به کم</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">انتخاب موضوع حقوقی</label>
                     <div class="form-group">
@@ -322,6 +343,14 @@
                         </select>
                     </div>
                 </div>
+{{--                <div class="col-lg-12">--}}
+{{--                    <label class="label-text">انتخاب موضوع حقوقی</label>--}}
+{{--                    <div class="select-container w-100 pt-2 br-8">--}}
+{{--                        <select class="select-container-select" name="submenu" id="submenu" style="width: 100% !important;">--}}
+{{--                            <option value="">انتخاب کنید</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">توضیحات مختصر</label>
                     <div class="form-group">
@@ -365,15 +394,7 @@
             <span class="ring-shape ring-shape-6"></span>
             <span class="ring-shape ring-shape-7"></span>
             <div class="container mb-4">
-                <div class="cta-content-wrap text-center position-relative">
-                    <div class="section-heading">
-                        <h2 class="section__title fs-18 lh-60 text-white">برای هرگونه سوال و یا درخواست با مشاورین
-                            <strong>موسسه حقوقی دادورزان امین</strong> تماس حاصل نمایید. </h2>
-                    </div>
-                    <div class="cat-btn-box mt-35px">
-                        <a href="tel:+982188438191" class="btn theme-btn theme-btn-white50 br-8">تماس با ما </a>
-                    </div>
-                </div>
+
             </div>
             <div class="row">
                 <div class="col-lg-3 responsive-column-half">

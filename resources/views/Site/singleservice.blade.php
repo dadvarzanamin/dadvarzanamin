@@ -106,14 +106,13 @@
                 <div class="sidebar">
                     <div class="card card-item card-bg50 br-16">
                         <div class="card-body">
-                            <h3 class="card-title fs-18 pb-2">آرشیوها</h3>
+                            <h3 class="card-title fs-18 pb-2">مطالب مرتبط</h3>
                             <div class="divider"><span></span></div>
                             <ul class="generic-list-item a-text-black">
-                                <li><a href="#" class="a-text-black">1402/05/01</a></li>
-                                <li><a href="#" class="a-text-black">1402/04/01</a></li>
-                                <li><a href="#" class="a-text-black">1402/03/01</a></li>
-                                <li><a href="#" class="a-text-black">1402/02/01</a></li>
-                                <li><a href="#" class="a-text-black">1402/01/01</a></li>
+                                <li><a href="#" class="a-text-black">قرارداد پیمانکاری</a></li>
+                                <li><a href="#" class="a-text-black">قرارداد لیسانس</a></li>
+                                <li><a href="#" class="a-text-black">قرارداد استارت آپ ها</a></li>
+                                <li><a href="#" class="a-text-black">قرارداد خرید و فروش</a></li>
                             </ul>
                         </div>
                     </div>

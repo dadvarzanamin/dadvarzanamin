@@ -115,7 +115,7 @@
                     <div class="sidebar">
                         <div class="card card-item card-bg50">
                             <div class="card-body">
-                                <h3 class="card-title fs-18 pb-2">آرشیوها</h3>
+                                <h3 class="card-title fs-18 pb-2">مطالب مرتبط</h3>
                                 <div class="divider"><span></span></div>
                                 <ul class="generic-list-item">
                                     <li><a href="#">1402/05/01</a></li>

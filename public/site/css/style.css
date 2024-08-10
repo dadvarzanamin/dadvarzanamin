@@ -2242,6 +2242,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .select-container .dropdown-toggle {
+    border-radius: 8px;
     padding: 12px 20px;
     border-color: rgb(127 136 151 / 0.2);
     background-color: #fff;
@@ -4732,24 +4733,24 @@ div.datedropper .picker .pick-lg-b li {
     left: -17px;
 }
 
-.custom-scrollbar-styled::-webkit-scrollbar {
-    width: 8px;
-}
+/*.custom-scrollbar-styled::-webkit-scrollbar {*/
+/*    width: 8px;*/
+/*}*/
 
-.custom-scrollbar-styled::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
+/*.custom-scrollbar-styled::-webkit-scrollbar-track {*/
+/*    background: #f1f1f1;*/
+/*}*/
 
-.custom-scrollbar-styled::-webkit-scrollbar-thumb {
-    background: rgb(128 137 150 / 0.2);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
+/*.custom-scrollbar-styled::-webkit-scrollbar-thumb {*/
+/*    background: rgb(128 137 150 / 0.2);*/
+/*    -webkit-border-radius: 10px;*/
+/*    -moz-border-radius: 10px;*/
+/*    border-radius: 10px;*/
+/*}*/
 
-.custom-scrollbar-styled::-webkit-scrollbar-thumb:hover {
-    background: rgb(128 137 150 / 0.4);
-}
+/*.custom-scrollbar-styled::-webkit-scrollbar-thumb:hover {*/
+/*    background: rgb(128 137 150 / 0.4);*/
+/*}*/
 
 .avatar-lg {
     width: 120px !important;
