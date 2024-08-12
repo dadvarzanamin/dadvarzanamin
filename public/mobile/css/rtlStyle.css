@@ -4,190 +4,208 @@
     font-weight: 500;
     src: url(../fonts/Pinar/Pinar-FD-Medium.woff2);
 }
+
 @font-face {
     font-family: 'Pinar-FD';
     font-style: normal;
     font-weight: 600;
     src: url(../fonts/Pinar/Pinar-FD-SemiBold.woff2);
 }
+
 @font-face {
     font-family: 'Pinar-FD';
     font-style: normal;
     font-weight: 700;
     src: url(../fonts/Pinar/Pinar-FD-Bold.woff2);
 }
+
 @font-face {
     font-family: 'Pinar-FD';
     font-style: normal;
     font-weight: 800;
     src: url(../fonts/Pinar/Pinar-FD-ExtraBold.woff2);
 }
+
 @font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: bold;
     src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Bold.eot');
-    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fontIransans/woff2/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fontIransans/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fontIransans/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
+    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Bold.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fontIransans/woff2/IRANSansWeb(FaNum)_Bold.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fontIransans/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fontIransans/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
 }
+
 @font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: 500;
     src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Medium.eot');
-    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fontIransans/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fontIransans/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fontIransans/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
+    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fontIransans/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fontIransans/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fontIransans/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
 }
+
 @font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: 300;
     src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Light.eot');
-    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fontIransans/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fontIransans/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fontIransans/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_Light.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fontIransans/woff2/IRANSansWeb(FaNum)_Light.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fontIransans/woff/IRANSansWeb(FaNum)_Light.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fontIransans/ttf/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
 }
+
 @font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: 200;
     src: url('../fontIransans/eot/IRANSansWeb(FaNum)_UltraLight.eot');
-    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fontIransans/woff2/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fontIransans/woff/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fontIransans/ttf/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
+    src: url('../fontIransans/eot/IRANSansWeb(FaNum)_UltraLight.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fontIransans/woff2/IRANSansWeb(FaNum)_UltraLight.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fontIransans/woff/IRANSansWeb(FaNum)_UltraLight.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fontIransans/ttf/IRANSansWeb(FaNum)_UltraLight.ttf') format('truetype');
 }
+
 @font-face {
     font-family: IRANSans;
     font-style: normal;
     font-weight: normal;
     src: url('../fontIransans/eot/IRANSansWeb(FaNum).eot');
-    src: url('../fontIransans/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-        url('../fontIransans/woff2/IRANSansWeb(FaNum).woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-        url('../fontIransans/woff/IRANSansWeb(FaNum).woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-        url('../fontIransans/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
+    src: url('../fontIransans/eot/IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fontIransans/woff2/IRANSansWeb(FaNum).woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fontIransans/woff/IRANSansWeb(FaNum).woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fontIransans/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
 
-body{
+body {
     font-family: Pinar-FD, serif !important;
     direction: rtl;
     text-align: right;
-    padding:0;
+    padding: 0;
     margin: 0;
     font-size: 13px;
 }
-h1,h2,h3,h4,h5,h6,p,a{
-    font-family: Pinar-FD, serif !important;}
+
+h1, h2, h3, h4, h5, h6, p, a {
+    font-family: Pinar-FD, serif !important;
+}
+
 /*---------*/
 .ios .navbar .left {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .navbar-home .navbar-inner .title {
     text-align: right;
 }
+
 .ios .navbar .right {
     margin-right: 10px;
     margin-left: 0;
 }
+
 .ios .navbar .left a + a, .ios .navbar .right a + a {
     margin-right: 15px;
     margin-left: 0;
 }
+
 .navbar-home .navbar-inner .right a span {
     left: 0;
     right: auto;
 }
+
 .ios .searchbar-icon {
     right: 8px;
     left: auto;
 }
+
 .flash-sale .swiper-slide .content .product-mark-discount {
     left: auto;
     right: 0;
     border-radius: 0 12px 0;
 }
+
 .section-title h3 .see-all-link {
     float: left;
 }
+
 .panel-left {
     right: 0;
     left: auto;
 }
+
 .panel-left.panel-cover {
     transform: translate3d(100%, 0, 0);
 }
+
 .list .item-content .item-media + .item-inner {
     margin-right: 12px;
     margin-left: 0;
 }
+
 .list .item-content {
     padding-right: 12px;
     padding-left: 0;
 }
+
 .list .item-link .item-inner::before, .links-list a::before, .media-list .item-link .item-title-row::before, li.media-item .item-link .item-title-row::before, .media-list.chevron-center .item-link .item-inner::before, .media-list .chevron-center .item-link .item-inner::before, .media-list .item-link.chevron-center .item-inner::before, li.media-item.chevron-center .item-link .item-inner::before, li.media-item .chevron-center .item-link .item-inner::before, li.media-item .item-link.chevron-center .item-inner::before {
     left: 15px;
     right: auto;
     content: 'chevron_left';
 }
+
 .list .item-link .item-inner {
     padding-left: 35px;
     padding-right: 0;
 }
+
 .sidebar .accordion-list .accordion-item .accordion-item-content a i {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .page {
     right: 0;
     left: auto;
 }
+
 .ios .page-previous {
     transform: translate3d(20%, 0, 0);
 }
+
 /*------*/
 @keyframes ios-page-next-to-current {
-  from {
-    transform: translate3d(-100%, 0, 0);
-  }
-  to {
-    transform: translate3d(0%, 0, 0);
-  }
+    from {
+        transform: translate3d(-100%, 0, 0);
+    }
+    to {
+        transform: translate3d(0%, 0, 0);
+    }
 }
+
 @keyframes ios-page-previous-to-current {
-  from {
-    transform: translate3d(20%, 0, 0);
-  }
-  to {
-    transform: translate3d(0%, 0, 0);
-  }
+    from {
+        transform: translate3d(20%, 0, 0);
+    }
+    to {
+        transform: translate3d(0%, 0, 0);
+    }
 }
+
 @keyframes ios-page-current-to-previous {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(20%, 0, 0);
-  }
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(20%, 0, 0);
+    }
 }
+
 @keyframes ios-page-current-to-next {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-100%, 0, 0);
-  }
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-100%, 0, 0);
+    }
 }
+
 /*----*/
 .blog .content .blog-category {
     right: 10px;
     left: auto;
 }
+
 .blog .content .text .wrap-blog-action ul li i {
     margin-left: 3px;
     margin-right: 0;
@@ -196,49 +214,61 @@ h1,h2,h3,h4,h5,h6,p,a{
 .pagination .fa-chevron-left::before {
     content: "\f054";
 }
+
 .pagination .fa-chevron-right::before {
     content: "\f053";
 }
+
 .ios .navbar .left .fa-arrow-left::before {
     content: "\f061";
 }
+
 .ios .icon-back::after, .ios .icon-prev::after {
     content: 'chevron_right_ios';
 }
+
 .blog-single .content-title ul li:last-child {
     float: left;
 }
+
 .blog-single .comment-people .content img {
     float: right;
     margin-left: 10px;
     margin-right: 0;
 }
+
 .checkout .wrap-info-checkout h6 a,
 .sign-in .wrap-link-action ul li:last-child {
     float: left;
 }
+
 .product-details .wrapper-content .wrap-info .list .item-content,
 form.list ul .item-content,
 .sign-in .wrap-link-action .item-checkbox {
     padding-right: 0;
 }
+
 .sign-in .wrap-link-action .item-checkbox .icon-checkbox {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .button i {
     margin-left: 12px;
     margin-right: 0;
 }
+
 .categories-details .popular-new-product .swiper-container .swiper-slide .content .product-mark-new {
     right: 0;
     left: auto;
     border-radius: 0 12px 0;
 }
+
 .product-details .wrapper-content .freeship p i {
     margin-left: 5px;
     margin-right: 0;
 }
+
 .shipping-options .content img,
 .account-seller .header-account .user-caption img,
 .notifi .content img,
@@ -251,133 +281,171 @@ form.list ul .item-content,
     margin-left: 10px;
     margin-right: 0;
 }
+
 .location i {
     margin-left: 5px;
     margin-right: 0;
 }
+
 .product-review .content .text .date {
     left: 20px;
     right: auto;
 }
+
 .product-review .content .text .like-button {
     left: 0;
     right: auto;
 }
+
 .cart .content-cart img {
     float: right;
     border-radius: 0 12px 12px 0;
 }
+
 .cart .content-cart .number-goods {
     left: 0;
     right: auto;
 }
-.stepper .stepper-button-plus {border-radius: 0 0 0 12px;}
-.stepper .stepper-button-minus {border-radius: 0 12px 0 0;}
+
+.stepper .stepper-button-plus {
+    border-radius: 0 0 0 12px;
+}
+
+.stepper .stepper-button-minus {
+    border-radius: 0 12px 0 0;
+}
+
 .email-settings .content h6 a,
 .search .title-search-category span a {
     float: left;
 }
+
 .account-buyer .header-account .title-name p i,
 .search .recent-search ul li i {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .search .popular-search ul li {
     margin: 0 0 7px 7px;
 }
+
 .official-brand .brand-promo .content .product-mark-discount {
     right: 0;
     left: auto;
     border-radius: 0 12px 0;
 }
+
 .media-list .item-link .item-title-row, li.media-item .item-link .item-title-row {
     padding-left: 20px;
     padding-right: 0;
 }
+
 .media-list .item-link .item-inner, li.media-item .item-link .item-inner {
-   padding-left: 15px;
+    padding-left: 15px;
 }
+
 .media-list .item-link .item-title-row::before, li.media-item .item-link .item-title-row::before {
     left: 0;
 }
+
 .list .item-after {
     margin-right: auto;
     margin-left: 0;
 }
+
 .input-dropdown-wrap::before, .input-dropdown::before {
     left: 6px;
     right: auto;
 }
+
 .list .item-inner {
     padding-left: 15px;
     padding-right: 0;
 }
+
 .list .item-after {
     padding-right: 5px;
     padding-left: 0;
 }
+
 .email-settings .content h6 span i {
     margin-left: 5px;
     margin-right: 0;
 }
+
 .email-settings .content h6 span {
     margin-right: 5px;
     margin-left: 0;
 }
+
 .faq .list .accordion-item-content {
     padding-right: 42px;
     padding-left: 0;
 }
+
 .link i + span, .link i + i, .link span + i, .link span + span {
     margin-right: 4px;
     margin-left: 0;
 }
+
 .ios label.item-radio .item-inner {
     padding-left: 35px;
     padding-right: 0;
 }
+
 .ios label.item-radio input[type="radio"] ~ .icon-radio {
     left: 10px;
     right: auto;
 }
+
 .notifi .content .text h6 span {
     margin-right: 10px;
     margin-left: 0;
 }
+
 .wishlist .product .content .love-button {
     left: 0;
     border-radius: 12px 0 12px 0;
     right: auto;
 }
+
 .subnavbar {
     right: 0;
     left: auto;
 }
+
 .transaction .content-info .transaction-status i {
     margin-left: 3px;
     margin-right: 0;
 }
+
 .account-seller .header-account .user-caption .title-name p i {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .navbar .nav-account-seller .right .link i {
     right: 6px;
     left: auto;
 }
+
 .account-seller .account-status-info .category-product-account .content i {
     float: right;
     margin-left: 10px;
     margin-right: 0;
 }
+
 .account-seller .account-status-info .store-info .wrap-info-details ul li i {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .account-seller .account-status-info .store-info .wrap-info-details ul li span {
     margin-right: 5px;
     margin-left: 0;
 }
+
 .sheet-modal.specification-sheet .sheet-modal-inner ul li span,
 .tracking-order .content-total ul li span,
 .tracking-order .wrap-title a,
@@ -385,30 +453,40 @@ form.list ul .item-content,
 .account-seller .account-status-info .store-info .wrap-review .all-rating ul li:last-child {
     float: left;
 }
+
 .all-rating ul li.rating-total,
 .account-seller .account-status-info .store-info .wrap-review .all-rating ul li.rating-total {
     margin-right: 10px;
     margin-left: 0;
 }
+
 .ios .searchbar-expandable .searchbar-disable-button {
     margin-right: 8px;
     margin-left: 0;
 }
+
 .tracking-order .content span i {
     margin-left: 6px;
     margin-right: 0;
 }
+
 .ios .searchbar .input-clear-button {
     left: 7px;
     right: auto;
 }
+
 .ios .searchbar .searchbar-disable-button {
     margin-right: 8px;
 }
-.icon-checkbox::after, .checkbox i::after {direction: rtl;}
+
+.icon-checkbox::after, .checkbox i::after {
+    direction: rtl;
+}
+
 .cart .content-checkbox .checkbox .icon-checkbox::after {
     width: 15px;
 }
+
 .shipping-information .timeline .timeline-item .timeline-item-divider {
     margin-right: 0;
     margin-left: 15px;

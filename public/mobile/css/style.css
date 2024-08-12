@@ -21,36 +21,53 @@ h6 {
 
 h1 {
     font-size: 30px;
+    color: #1e2e45;
+    line-height: 40px;
+
 }
 
 h2 {
     font-size: 26px;
+    color: #1e2e45;
+    line-height: 36px;
+
 }
 
 h3 {
     font-size: 22px;
+    color: #1e2e45;
+    line-height: 36px;
+
 }
 
 h4 {
-    font-size: 17px;
-    line-height: 25px;
+    font-size: 18px;
+    color: #1e2e45;
+    line-height: 36px;
 }
 
 h5 {
     font-size: 16px;
-    line-height: 22px;
+    line-height: 36px;
 }
 
 h6 {
     font-size: 14px;
+    line-height: 30px;
 }
 
 p {
     margin: 0;
+    font-size: 10px;
+    line-height: 24px;
+    color: #444;
 }
 
 img {
     display: block;
+}
+ol {
+    padding-right: 12px;
 }
 
 ul {
@@ -152,7 +169,7 @@ ul li {
 }
 
 .segments-bottom {
-    padding-bottom: 25px;
+    padding-bottom: 40px;
 }
 
 .section-title {
@@ -311,8 +328,12 @@ ul li {
 
 /*toolbar & tabbar home*/
 .ios .toolbar {
+    margin: 4px 4px 2px;
+    border: 1px solid rgba(68, 68, 68, 0.2);
     background: #fff;
-    box-shadow: 0 -1px 8px 0 rgba(0, 0, 0, 0.11);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.11);
+    border-radius: 16px;
+    z-index: 600;
 }
 
 .ios .toolbar::before {
@@ -436,14 +457,15 @@ ul li {
 
 /*navbar*/
 .navbar {
+    margin: 12px 4px 4px;
+    padding: 4px;
     background: #fff;
-    border-bottom: 1px solid rgba(187, 187, 187, 0.3);
+    border: 1px solid rgba(187, 187, 187, 0.3);
+    border-radius: 16px;
 }
 
 .navbar .navbar-inner {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 8px;
+    padding: 8px 16px;
     align-items: center;
 }
 
@@ -478,10 +500,12 @@ ul li {
 }
 
 .navbar-page {
+    display: flex;
     color: #454545;
     border-bottom: 1px solid rgba(187, 187, 187, 0.25);
     height: 60px;
     font-weight: 700;
+    align-items: center;
 }
 
 .navbar-page .navbar-inner .right a + a {
@@ -751,6 +775,7 @@ ul li {
 }
 .popular-product.segments-bottom {
     padding-bottom: 23px;
+    margin-top: 32px;
 }
 
 .popular-product .swiper-container {
@@ -789,7 +814,7 @@ ul li {
 }
 
 .product .content {
-    border: 1px solid rgba(136, 136, 136, 0.5);
+    border: 1px solid rgba(136, 136, 136, 0.25);
     background: #fff;
     border-radius: 12px;
     position: relative;

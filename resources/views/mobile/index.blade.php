@@ -31,8 +31,88 @@
 @endsection
 @section('main')
     <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 600;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(35, 35, 34, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 120px;
+            border: 1px solid rgba(136, 136, 136, 0.55);
+            border-radius: 24px;
+            height: fit-content;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .dep-modal {
+            display: none;
+            position: fixed;
+            z-index: 600;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(35, 35, 34, 0.4);
+            padding-top: 60px;
+        }
+
+        .dep-modal-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 120px;
+            border: 1px solid rgba(136, 136, 136, 0.55);
+            border-radius: 24px;
+            height: fit-content;
+        }
+
+        .dep-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .dep-close:hover,
+        .dep-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         .link-all {
             display: flex;
+
             background-color: #fff;
             border: 1px solid rgba(85, 85, 85, 0.5);
             border-radius: 8px;
@@ -40,6 +120,22 @@
             justify-content: center;
             padding: 12px;
             margin: 10px;
+        }
+        .content-display {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .item-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .item-content h2 {
+            margin-top: 15px;
+            font-size: 20px;
         }
     </style>
     <div class="slider">
@@ -112,12 +208,18 @@
         </div>
 
 
+
+
+
     @else
         <div class="content-button">
             <a href="#tab-login" class="mobile-button tab-link"
                style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
                 سایت</a>
         </div>
+
+
+
 
 
     @endif
@@ -164,41 +266,49 @@
         </script> -->
     <div class="categories segments">
         <div class="container">
-            <div class="section-title">
-                <h3>خدمات برای موکلین</h3>
-            </div>
-            <div class="row">
-                @foreach($servicelawyers as $servicelawyer)
-                    <div class="col-25" style="margin: 10px auto;text-align: center;">
-                        <div class="content">
-                            <a href="{{url('خدمات/'.$servicelawyer->slug)}}" class="external">
-                                <div class="icon">
-                                    <img src="{{asset($servicelawyer->image)}}" alt="{{$servicelawyer->title}}">
-                                </div>
-                                <span style="font-size: 8px">{{$servicelawyer->title}}</span>
-                            </a>
+            <div
+                style="border: 1px solid rgba(51,51,51,0.15); border-radius: 16px; padding-top: 24px;
+                box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.13);">
+                <div class="section-title">
+                    <h3>خدمات برای موکلین</h3>
+                </div>
+                <div class="row">
+                    @foreach($servicelawyers as $servicelawyer)
+                        <div class="col-25" style="margin: 4px 4px 16px 4px;text-align: center;">
+                            <div class="content">
+                                <a href="#" class="open-modal" data-description="{{ $servicelawyer->description }}" data-title="{{ $servicelawyer->title }}">
+                                    <div class="icon">
+                                        <img src="{{asset($servicelawyer->image)}}" alt="{{$servicelawyer->title}}">
+                                    </div>
+                                    <span style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-            <div class="section-title">
-                <h3>خدمات برای وکلا</h3>
-            </div>
-            <div class="row">
-                @foreach($serviceclients as $serviceclient)
-                    <div class="col-30">
-                        <div class="content">
-                            <a href="{{url('خدمات/'.$serviceclient->slug)}}" class="external">
-                                <div class="icon">
-                                    <img src="{{asset($serviceclient->image)}}"
-                                         style="margin: 10px auto;text-align: center;" alt="{{$serviceclient->title}}">
-                                </div>
-                                <span style="font-size: 8px">{{$serviceclient->title}}</span>
-                            </a>
+            <div
+                style="border: 1px solid rgba(51,51,51,0.15); border-radius: 16px; padding: 16px 8px;margin-top: 32px;
+                box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.13);">
+                <div class="section-title">
+                    <h3>خدمات برای وکلا</h3>
+                </div>
+                <div class="row">
+                    @foreach($serviceclients as $serviceclient)
+                        <div class="col-30">
+                            <div class="content">
+                                <a href="#" class="open-modal" data-description="{{ $serviceclient->description }}" data-title="{{ $serviceclient->title }}">
+                                    <div class="icon">
+                                        <img src="{{asset($serviceclient->image)}}" alt="{{$serviceclient->title}}">
+                                    </div>
+                                    <span style="font-size: 8px;margin-top: 8px">{{$serviceclient->title}}</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
+
         </div>
     </div>
     {{--    <div class="flash-sale segments no-pd-b">--}}
@@ -221,7 +331,7 @@
     {{--        </div>--}}
     {{--    </div>--}}
     <div class="popular-product segments-bottom">
-        <div class="container">
+        <div class="container  mt-5">
             <div class="section-title">
                 <h3>اخبار و رویدادها
                 </h3>
@@ -287,7 +397,7 @@
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="3"
                  class="swiper-container swiper-init">
                 <div class="swiper-pagination"></div>
-                <div class="swiper-wrapper" style="display: flex;align-items: stretch;">
+                <div class="swiper-wrapper" style="display: flex;align-items: stretch;margin-bottom: 32px">
                     @foreach($emploees as $emploee)
                         <div class="swiper-slide m-4">
                             <div class="content content-shadow-product">
@@ -307,6 +417,13 @@
     </div>
     </div>
     <div id="tab-deportment" class="page-content tab">
+        <div id="departmentModal" class="dep-modal">
+            <div class="dep-modal-content">
+                <span class="dep-close">&times;</span>
+                <h2 id="departmentModalTitle" style="margin-top: 20px;margin-bottom: 20px"></h2>
+                <p id="departmentModalDescription"></p>
+            </div>
+        </div>
         <div class="navbar navbar-page">
             <div class="navbar-inner">
                 <div class="left"></div>
@@ -345,15 +462,23 @@
                                 @if($submenu->menu_id == 61)
                                     <div class="col-30" style="margin: 10px auto;text-align: center;">
                                         <div class="content">
-                                            <a href="{{url('دپارتمان-دعاوی'.'/'.$submenu->slug)}}" class="external">
+                                            <a href="#" class="open-department-modal" dep-data-description="{{ $submenu->description }}" dep-data-title="{{ $submenu->title }}">
                                                 <div class="icon">
-                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"
-                                                         alt="{{$submenu->title}}">
+                                                    <img src="{{asset($submenu->image)}}" alt="{{$submenu->title}}">
                                                 </div>
-                                                <span
-                                                    style="font-size: 8px; margin-top: 4px;">{{$submenu->title}}</span>
+                                                <span style="font-size: 8px;margin-top: 8px">{{$submenu->title}}</span>
                                             </a>
                                         </div>
+{{--                                        <div class="content">--}}
+{{--                                            <a href="{{url('دپارتمان-دعاوی'.'/'.$submenu->slug)}}" class="external">--}}
+{{--                                                <div class="icon">--}}
+{{--                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"--}}
+{{--                                                         alt="{{$submenu->title}}">--}}
+{{--                                                </div>--}}
+{{--                                                <span--}}
+{{--                                                    style="font-size: 8px; margin-top: 4px;">{{$submenu->title}}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 @endif
                             @endforeach
@@ -366,15 +491,23 @@
                                 @if($submenu->menu_id == 62)
                                     <div class="col-30" style="margin: 10px auto;text-align: center;">
                                         <div class="content">
-                                            <a href="{{url('دپارتمان-قراردادها'.'/'.$submenu->slug)}}" class="external">
+                                            <a href="#" class="open-department-modal" dep-data-description="{{ $submenu->description }}" dep-data-title="{{ $submenu->title }}">
                                                 <div class="icon">
-                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"
-                                                         style="margin: 10px auto;text-align: center;"
-                                                         alt="{{$submenu->title}}">
+                                                    <img src="{{asset($submenu->image)}}" alt="{{$submenu->title}}">
                                                 </div>
-                                                <span style="font-size: 8px">{{$submenu->title}}</span>
+                                                <span style="font-size: 8px;margin-top: 8px">{{$submenu->title}}</span>
                                             </a>
                                         </div>
+{{--                                        <div class="content">--}}
+{{--                                            <a href="{{url('دپارتمان-قراردادها'.'/'.$submenu->slug)}}" class="external">--}}
+{{--                                                <div class="icon">--}}
+{{--                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"--}}
+{{--                                                         style="margin: 10px auto;text-align: center;"--}}
+{{--                                                         alt="{{$submenu->title}}">--}}
+{{--                                                </div>--}}
+{{--                                                <span style="font-size: 8px">{{$submenu->title}}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 @endif
                             @endforeach
@@ -387,16 +520,24 @@
                                 @if($submenu->menu_id == 63)
                                     <div class="col-30" style="margin: 10px auto;text-align: center;">
                                         <div class="content">
-                                            <a href="{{url('دپارتمان-اموزش-و-پژوهش'.'/'.$submenu->slug)}}"
-                                               class="external">
+                                            <a href="#" class="open-department-modal" dep-data-description="{{ $submenu->description }}" dep-data-title="{{ $submenu->title }}">
                                                 <div class="icon">
-                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"
-                                                         style="margin: 10px auto;text-align: center;"
-                                                         alt="{{$submenu->title}}">
+                                                    <img src="{{asset($submenu->image)}}" alt="{{$submenu->title}}">
                                                 </div>
-                                                <span style="font-size: 8px">{{$submenu->title}}</span>
+                                                <span style="font-size: 8px;margin-top: 8px">{{$submenu->title}}</span>
                                             </a>
                                         </div>
+{{--                                        <div class="content">--}}
+{{--                                            <a href="{{url('دپارتمان-اموزش-و-پژوهش'.'/'.$submenu->slug)}}"--}}
+{{--                                               class="external">--}}
+{{--                                                <div class="icon">--}}
+{{--                                                    <img src="{{asset('site/images/logodadvarzan.png')}}"--}}
+{{--                                                         style="margin: 10px auto;text-align: center;"--}}
+{{--                                                         alt="{{$submenu->title}}">--}}
+{{--                                                </div>--}}
+{{--                                                <span style="font-size: 8px">{{$submenu->title}}</span>--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 @endif
                             @endforeach
@@ -406,7 +547,45 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("departmentModal");
+            var modalTitle = document.getElementById("departmentModalTitle");
+            var modalDescription = document.getElementById("departmentModalDescription");
+            var span = document.getElementsByClassName("dep-close")[0];
+
+            document.querySelectorAll(".open-department-modal").forEach(function(element) {
+                element.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    var description = this.getAttribute("dep-data-description");
+                    var title = this.getAttribute("dep-data-title");
+                    modalTitle.textContent = title;
+                    modalDescription.innerHTML = description; // تغییر اینجا
+                    modal.style.display = "block";
+                });
+            });
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+
+    </script>
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle" style="margin-top: 20px;margin-bottom: 20px"></h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
     <div id="tab-service" class="page-content tab">
+
         <div class="navbar navbar-page">
             <div class="navbar-inner">
                 <div class="left"></div>
@@ -421,18 +600,18 @@
                 <div class="slider-brand segments-bottom">
                     <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
                          class="swiper-container swiper-init swiper-container-horizontal">
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-wrapper">
-                            @foreach($slides as $slide)
-                                <div class="swiper-slide">
-                                    <div class="content">
-                                        <div class="mask"></div>
-                                        <img src="{{asset('storage/'.$slide->file_link)}}"
-                                             alt="{{$companies['title']}}">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+{{--                        <div class="swiper-pagination"></div>--}}
+{{--                        <div class="swiper-wrapper">--}}
+{{--                            @foreach($slides as $slide)--}}
+{{--                                <div class="swiper-slide">--}}
+{{--                                    <div class="content">--}}
+{{--                                        <div class="mask"></div>--}}
+{{--                                        <img src="{{asset('storage/'.$slide->file_link)}}"--}}
+{{--                                             alt="{{$companies['title']}}">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="popular-brand segments-bottom">
@@ -444,18 +623,46 @@
                             @foreach($servicelawyers as $servicelawyer)
                                 <div class="col-25" style="margin: 10px auto;text-align: center;">
                                     <div class="content">
-                                        <a href="#">
+                                        <a href="#" class="open-modal" data-description="{{ $servicelawyer->description }}" data-title="{{ $servicelawyer->title }}">
                                             <div class="icon">
-                                                <img src="{{asset($servicelawyer->image)}}"
-                                                     alt="{{$servicelawyer->title}}">
+                                                <img src="{{asset($servicelawyer->image)}}" alt="{{$servicelawyer->title}}">
                                             </div>
-                                            <span
-                                                style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
+                                            <span style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
                                         </a>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                var modal = document.getElementById("descriptionModal");
+                                var modalTitle = document.getElementById("modalTitle");
+                                var modalDescription = document.getElementById("modalDescription");
+                                var span = document.getElementsByClassName("close")[0];
+
+                                document.querySelectorAll(".open-modal").forEach(function(element) {
+                                    element.addEventListener("click", function(event) {
+                                        event.preventDefault();
+                                        var description = this.getAttribute("data-description");
+                                        var title = this.getAttribute("data-title");
+                                        modalTitle.textContent = title;
+                                        modalDescription.innerHTML  = description;
+                                        modal.style.display = "flex";
+                                        modal.style.justifyContent = "center";
+                                    });
+                                });
+
+                                span.onclick = function() {
+                                    modal.style.display = "none";
+                                }
+
+                                window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                            });
+                        </script>
                         <div class="section-title">
                             <h3>خدمات برای وکلا</h3>
                         </div>
@@ -463,13 +670,11 @@
                             @foreach($serviceclients as $serviceclient)
                                 <div class="col-30" style="margin: 10px auto;text-align: center;">
                                     <div class="content">
-                                        <a href="#">
+                                        <a href="#" class="open-modal" data-description="{{ $serviceclient->description }}" data-title="{{ $serviceclient->title }}">
                                             <div class="icon">
-                                                <img src="{{asset($serviceclient->image)}}"
-                                                     style="margin: 10px auto;text-align: center;"
-                                                     alt="{{$serviceclient->title}}">
+                                                <img src="{{asset($serviceclient->image)}}" alt="{{$serviceclient->title}}">
                                             </div>
-                                            <span style="font-size: 8px">{{$serviceclient->title}}</span>
+                                            <span style="font-size: 8px;margin-top: 8px">{{$serviceclient->title}}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -532,14 +737,14 @@
                 <div class="title">
                     درباره ما
                 </div>
-                <div class="right">
-                    <a href="/settings/">
-                        <i class="fas fa-cog"></i>
-                    </a>
-                </div>
+                {{--                <div class="right">--}}
+                {{--                    <a href="/settings/">--}}
+                {{--                        <i class="fas fa-cog"></i>--}}
+                {{--                    </a>--}}
+                {{--                </div>--}}
             </div>
         </div>
-        <div class="recommended product segments-bottom">
+        <div class="recommended product segments-bottom" style="margin-top: 24px">
             <div class="container">
                 <div class="row">
                     <div class="col-100">
@@ -586,9 +791,11 @@
                             <iframe width="100%" height="400px"
                                     src="https://www.openstreetmap.org/export/embed.html?bbox=51.44101113080979%2C35.72041122802278%2C51.44455164670944%2C35.72238848247882&amp;layer=mapnik&amp;marker=35.72139986138454%2C51.44278138875961"
                                     style="border: 1px solid black"></iframe>
-                            <br/><small><a
+                            <br/>
+                            <small><a
                                     href="https://www.openstreetmap.org/?mlat=35.72140&amp;mlon=51.44278#map=19/35.72140/51.44278">موقعیت
-                                    ما روی نقشه</a></small>
+                                    ما روی نقشه</a>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -628,7 +835,7 @@
                                         </li>
                                     </ul>
                                     <div class="content-button">
-                                        <a href="#" class="button primary-button"><i class="fas fa-paper-plane"></i>ارسال</a>
+                                        <a href="#" class="button mobile-button"><i class="fas fa-paper-plane"></i>ارسال</a>
                                     </div>
                                 </form>
                             </div>

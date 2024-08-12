@@ -1332,18 +1332,19 @@ html.device-full-viewport body {
   position: relative;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 96%;
   z-index: 500;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   box-sizing: border-box;
-  margin: 0;
+  margin: 4px;
   transform: translate3d(0, 0, 0);
   height: var(--f7-navbar-height);
   background-image: var(--f7-navbar-bg-image, var(--f7-bars-bg-image));
   background-color: var(--f7-navbar-bg-color, var(--f7-bars-bg-color, var(--f7-theme-color)));
   color: var(--f7-navbar-text-color, var(--f7-bars-text-color));
   font-size: var(--f7-navbar-font-size);
+    border: 1px solid rgba(153, 153, 153, 0.68);
 }
 .navbar b {
   font-weight: 500;
@@ -1474,8 +1475,6 @@ html.device-full-viewport body {
 }
 .navbar-inner {
   position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: var(--f7-navbar-height);
   display: flex;
@@ -2250,7 +2249,7 @@ html.device-full-viewport body {
   --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.5);
 }
 .toolbar {
-  width: 100%;
+  width: 96%;
   position: relative;
   margin: 0;
   transform: translate3d(0, 0, 0);
@@ -2258,7 +2257,8 @@ html.device-full-viewport body {
           backface-visibility: hidden;
   z-index: 500;
   box-sizing: border-box;
-  left: 0;
+  left: 4px;
+    right: 4px;
   height: var(--f7-toolbar-height);
   background-image: var(--f7-toolbar-bg-image, var(--f7-bars-bg-image));
   background-color: var(--f7-toolbar-bg-color, var(--f7-bars-bg-color, var(--f7-theme-color)));

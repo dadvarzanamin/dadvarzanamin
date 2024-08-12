@@ -55,7 +55,7 @@
                                     <i class="fas fa-bars my-auto"></i>
                                 </a>
                             </div>
-                            <div>
+                            <div style="margin-right: 20px">
                                 <a href="{{route('/')}}" class="logo">
                                     <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
                                 </a>

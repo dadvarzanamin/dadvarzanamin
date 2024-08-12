@@ -55,11 +55,10 @@ class IndexController extends Controller
             ->get()
             ->toArray();
         $megamenus = mega_menu::all();
-        $submenus = Submenu::select('id', 'title', 'slug', 'menu_id', 'megamenu_id')->whereStatus(4)->get();
-
+        $submenus = Submenu::select('id', 'title', 'slug', 'image' , 'menu_id','description', 'megamenu_id')->whereStatus(4)->get();
         $companies      = Company::first();
-        $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
-        $serviceclients = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(5)->whereMenu_id(64)->get();
+        $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image','description', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
+        $serviceclients = Submenu::select('title', 'slug', 'menu_id', 'image', 'description', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(5)->whereMenu_id(64)->get();
         $slides = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->get();
         $customers      = Customer::select('name', 'image')->whereStatus(4)->whereHome_show(1)->get();
         $posts          = Post::whereStatus(4)->whereHome_show(1)->orderBy('id' , 'DESC')->limit(6)->get();

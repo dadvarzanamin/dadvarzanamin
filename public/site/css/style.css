@@ -488,6 +488,8 @@ h6 {
 }
 
 .form-control {
+    display: flex;
+    align-items: center;
     border-radius: 8px;
     border-color: rgba(85, 85, 85, 0.1);
     height: calc(2em + .75rem + 2px);
@@ -495,6 +497,10 @@ h6 {
 .form--control:focus{
     background-color: rgba(238, 238, 238, 0.53)!important;
     border-color: rgba(85, 85, 85, 0.5) !important;
+}
+.form-control:focus{
+    border-color: #CEA54B;
+    box-shadow: 0 0 0 .2rem rgba(206, 165, 75, 0.4);
 }
 .la-angle-down{
     margin-right: 6px;
@@ -7697,6 +7703,7 @@ div.datedropper .picker .pick-lg-b li {
     padding-top: 12px;
     padding-bottom: 12px;
     justify-content: flex-start;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.3);
 }
 
 .off--canvas-menu-list li a:hover {

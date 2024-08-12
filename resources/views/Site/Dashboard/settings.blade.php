@@ -23,6 +23,12 @@
             border-radius: 8px;
             margin: 8px;
         }
+        .select2-container--default .select2-selection--single .select2-selection__clear{
+            float: left;
+        }
+        .select2-container--default .select2-results__option--highlighted[aria-selected]{
+            background-color:#cea54a;
+        }
     </style>
     @include('sweetalert::alert')
     <div class="dashboard-heading mb-5">

@@ -490,5 +490,31 @@ class IndexController extends Controller
     public function setclass(){
 
     }
+    public function partnerResume(Request $request)
+    {
+        $url = $request->segments();
+        $menus        = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_menu')->MenuSite()->orderBy('priority')->get();
+        if (count($url) == 1) {
+            $thispage = Menu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->MenuSite()->whereSlug($url[0])->first();
+        } elseif (count($url) > 1) {
+            $thispage = Submenu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug($url[1])->first();
+        }elseif (count($url) == 0) {
+            $thispage = Menu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->MenuSite()->whereSlug('/')->first();
+        }
+        $megacounts = mega_menu::selectRaw('COUNT(*) as count, menu_id')
+            ->groupBy('menu_id')
+            ->get()
+            ->toArray();
+        $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
+        $megamenus          = mega_menu::all();
+        $submenus           = Submenu::select('title' , 'slug' , 'menu_id' , 'megamenu_id')->whereStatus(4)->get();
+        $companies          = Company::first();
+//        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
+        $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
+        $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
+        $posts          = Post::whereStatus(4)->get();
 
+        return view('Site.partner-details')->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' ,'posts' ,  'submenus' , 'megacounts' , 'megamenus' , 'servicelawyers'));
+
+    }
 }
