@@ -2249,7 +2249,7 @@ html.device-full-viewport body {
   --f7-tabbar-link-inactive-color: rgba(255, 255, 255, 0.5);
 }
 .toolbar {
-  width: 96%;
+  /*width: 96%;*/
   position: relative;
   margin: 0;
   transform: translate3d(0, 0, 0);

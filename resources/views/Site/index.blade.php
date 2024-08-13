@@ -161,14 +161,13 @@
 {{--        </div>--}}
     </section>
 
-    <section class="category-area section-padding text-center my-5">
+    <section class="category-area section-padding text-center my-2">
         <div class="container">
             <div class="section-heading">
                 <h1 class="section__title mb-3" style="font-size: 25px">موسسه حقوقی دادورزان امین</h1>
                 <p>شرکت حقوقی با وکلای حرفه‌ای و مجرب، حقوق مهاجرتی و مشاوره مالیاتی و مشاوره حقوقی دادگستری و کلیه امور وکالتی</p>
             </div>
         </div>
-
     </section>
 
 <!--     <section class="about-area overflow-hidden">

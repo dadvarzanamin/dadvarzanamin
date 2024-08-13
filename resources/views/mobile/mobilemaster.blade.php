@@ -156,7 +156,15 @@
                             </ul>
                         </div>
                     </div>
+
                     @yield('main')
+                </div>
+            </div>
+            <div id="descriptionModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2 id="modalTitle" style="margin-top: 20px;margin-bottom: 20px"></h2>
+                    <p id="modalDescription"></p>
                 </div>
             </div>
         </div>
