@@ -477,17 +477,19 @@
                                     href="tel:{{$companies['tel']}}">{{$companies['tel']}}</a></li>
                             <li style="direction:ltr;text-align: left"><a
                                     href="mailto:{{$companies['email']}}">{{$companies['email']}}</a></li>
-                            <li style="direction:ltr;text-align: left"><a referrerpolicy='origin' target='_blank'
-                                                                          href='https://trustseal.enamad.ir/?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'><img
-                                        referrerpolicy='origin'
-                                        src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
-                                        alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'></a>
-                            </li>
-                            <li>
-                                <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer'
-                                     onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=371088&p=xlaojyoerfthobpdmcsimcsi", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
-                                     alt='logo-samandehi'
-                                     src='https://logo.samandehi.ir/logo.aspx?id=371088&p=qftiyndtnbpdlymaaqgwaqgw'/>
+                            <li style="direction:ltr;text-align: left">
+                                <div class="d-flex flex-row">
+                                    <a referrerpolicy='origin' target='_blank'
+                                       href='https://trustseal.enamad.ir/?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'><img
+                                            referrerpolicy='origin'
+                                            src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
+                                            alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'>
+                                    </a>
+                                    <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer'
+                                         onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=371088&p=xlaojyoerfthobpdmcsimcsi", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
+                                         alt='logo-samandehi'
+                                         src='https://logo.samandehi.ir/logo.aspx?id=371088&p=qftiyndtnbpdlymaaqgwaqgw'/>
+                                </div>
                             </li>
                         </ul>
                     </div>
