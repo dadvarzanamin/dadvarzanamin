@@ -35,6 +35,7 @@
         -o-transition: all 0.3s;
         transition: all 0.3s;
     }
+
     .offcanvas {
         position: fixed;
         top: 0;
@@ -76,15 +77,19 @@
         display: block;
         opacity: 1;
     }
+
     a {
         color: #353535;
     }
-    a:hover{
+
+    a:hover {
         color: #cea54a;
     }
-    .dropdown-item.active, .dropdown-item:active{
+
+    .dropdown-item.active, .dropdown-item:active {
         color: #cea54a;
     }
+
     #offcanvasMenu {
         width: 250px; /* تغییر اندازه Off-Canvas */
         background-color: #f8f9fa; /* رنگ پس‌زمینه Off-Canvas */
@@ -160,7 +165,9 @@
                     @endif
                 @endforeach
             </ul>
-            <button type="button" class="btn btn-primary pr-button br-8 btn-fs mx-auto" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
+            <button type="button" class="btn btn-primary pr-button br-8 btn-fs mx-auto" data-toggle="modal"
+                    data-target="#exampleModal">درخواست مشاوره
+            </button>
             <div class="d-flex">
                 @if(Auth()->check())
                     <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
@@ -200,7 +207,8 @@
                 @else
                     @if($menu->mega_menu == 1)
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#collapseMegaMenu{{ $menu->id }}" role="button" aria-expanded="false" aria-controls="collapseMegaMenu{{ $menu->id }}">
+                            <a class="nav-link" data-toggle="collapse" href="#collapseMegaMenu{{ $menu->id }}"
+                               role="button" aria-expanded="false" aria-controls="collapseMegaMenu{{ $menu->id }}">
                                 {{ $menu->title }}<i class="la la-angle-down fs-12"></i>
                             </a>
                             <div class="collapse" id="collapseMegaMenu{{ $menu->id }}">
@@ -208,13 +216,15 @@
                                     <div class="row no-gutters">
                                         @foreach($megamenus as $megamenu)
                                             @if($megamenu->menu_id == $menu->id)
-                                                <div @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{ 12/$megacount['count'] }}" @endif @endforeach>
+                                                <div
+                                                    @foreach($megacounts as $megacount) @if($megacount['menu_id'] == $menu->id) class="col-lg-{{ 12/$megacount['count'] }}" @endif @endforeach>
                                                     <h5 class="dropdown-header">
                                                         {{ $megamenu->title }}
                                                     </h5>
                                                     @foreach($submenus as $submenu)
                                                         @if($menu->id == $submenu->menu_id && $submenu->megamenu_id == $megamenu->id)
-                                                            <a class="dropdown-item" href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
+                                                            <a class="dropdown-item"
+                                                               href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
                                                         @endif
                                                     @endforeach
                                                 </div>
@@ -226,13 +236,15 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#collapseMenu{{ $menu->id }}" role="button" aria-expanded="false" aria-controls="collapseMenu{{ $menu->id }}">
+                            <a class="nav-link" data-toggle="collapse" href="#collapseMenu{{ $menu->id }}" role="button"
+                               aria-expanded="false" aria-controls="collapseMenu{{ $menu->id }}">
                                 {{ $menu->title }}<i class="la la-angle-down fs-12"></i>
                             </a>
                             <div class="collapse" id="collapseMenu{{ $menu->id }}">
                                 @foreach($submenus as $submenu)
                                     @if($menu->id == $submenu->menu_id)
-                                        <a class="dropdown-item" href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
+                                        <a class="dropdown-item"
+                                           href="{{ url($menu->slug.'/'.$submenu->slug) }}">{{ $submenu->title }}</a>
                                     @endif
                                 @endforeach
                             </div>
@@ -241,10 +253,11 @@
                 @endif
             @endforeach
         </ul>
-        <button type="button" class="btn btn-primary pr-button br-8 btn-fs mt-3" data-toggle="modal" data-target="#exampleModal">درخواست مشاوره</button>
+        <button type="button" class="btn btn-primary pr-button br-8 btn-fs mt-3" data-toggle="modal"
+                data-target="#exampleModal">درخواست مشاوره
+        </button>
     </div>
 </div>
-
 
 
 <div class="mobile-search-form">
@@ -303,17 +316,17 @@
                         <div id="errorphone" style="color: red"></div>
                     </div>
                 </div>
-{{--                <div class="col-lg-12">--}}
-{{--                    <label class="label-text">انتخاب نوع درخواست</label>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <select class="form-control" name="servicemode" id="servicemode"--}}
-{{--                                style="width: 100% !important;">--}}
-{{--                            <option value="">انتخاب کنید</option>--}}
-{{--                            <option value="1">خدمات موکلین</option>--}}
-{{--                            <option value="2">خدمات وکلا</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="col-lg-12">--}}
+                {{--                    <label class="label-text">انتخاب نوع درخواست</label>--}}
+                {{--                    <div class="form-group">--}}
+                {{--                        <select class="form-control" name="servicemode" id="servicemode"--}}
+                {{--                                style="width: 100% !important;">--}}
+                {{--                            <option value="">انتخاب کنید</option>--}}
+                {{--                            <option value="1">خدمات موکلین</option>--}}
+                {{--                            <option value="2">خدمات وکلا</option>--}}
+                {{--                        </select>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">انتخاب نوع درخواست</label>
                     <div class="select-container w-100 pt-2 br-8">
@@ -325,16 +338,16 @@
                         </select>
                     </div>
                 </div>
-{{--                <div class="my-course-filter-item mr-2 col-lg-12">--}}
-{{--                    <span class="fs-14 font-weight-semi-bold">براساس امتیاز</span>--}}
-{{--                    <div class="select-container w-100 pt-2">--}}
-{{--                        <select class="select-container-select" style="width: 100% !important;">--}}
-{{--                            <option value="" >انتخاب کنید</option>--}}
-{{--                            <option value="1">از کم به زیاد</option>--}}
-{{--                            <option value="2">از زیاد به کم</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="my-course-filter-item mr-2 col-lg-12">--}}
+                {{--                    <span class="fs-14 font-weight-semi-bold">براساس امتیاز</span>--}}
+                {{--                    <div class="select-container w-100 pt-2">--}}
+                {{--                        <select class="select-container-select" style="width: 100% !important;">--}}
+                {{--                            <option value="" >انتخاب کنید</option>--}}
+                {{--                            <option value="1">از کم به زیاد</option>--}}
+                {{--                            <option value="2">از زیاد به کم</option>--}}
+                {{--                        </select>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">انتخاب موضوع حقوقی</label>
                     <div class="form-group">
@@ -343,14 +356,14 @@
                         </select>
                     </div>
                 </div>
-{{--                <div class="col-lg-12">--}}
-{{--                    <label class="label-text">انتخاب موضوع حقوقی</label>--}}
-{{--                    <div class="select-container w-100 pt-2 br-8">--}}
-{{--                        <select class="select-container-select" name="submenu" id="submenu" style="width: 100% !important;">--}}
-{{--                            <option value="">انتخاب کنید</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="col-lg-12">--}}
+                {{--                    <label class="label-text">انتخاب موضوع حقوقی</label>--}}
+                {{--                    <div class="select-container w-100 pt-2 br-8">--}}
+                {{--                        <select class="select-container-select" name="submenu" id="submenu" style="width: 100% !important;">--}}
+                {{--                            <option value="">انتخاب کنید</option>--}}
+                {{--                        </select>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
                 <div class="col-lg-12">
                     <label class="label-text">توضیحات مختصر</label>
                     <div class="form-group">
@@ -469,6 +482,12 @@
                                         referrerpolicy='origin'
                                         src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
                                         alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'></a>
+                            </li>
+                            <li>
+                                <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer'
+                                     onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=371088&p=xlaojyoerfthobpdmcsimcsi", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
+                                     alt='logo-samandehi'
+                                     src='https://logo.samandehi.ir/logo.aspx?id=371088&p=qftiyndtnbpdlymaaqgwaqgw'/>
                             </li>
                         </ul>
                     </div>
@@ -690,15 +709,15 @@
     });
 </script>
 <script>
-    $(document).ready(function() {
-        $('[data-toggle="offcanvas"]').on('click', function() {
+    $(document).ready(function () {
+        $('[data-toggle="offcanvas"]').on('click', function () {
             $('#offcanvasMenu').toggleClass('open');
         });
 
         // کنترل Collapse
-        $('.collapse').on('shown.bs.collapse', function() {
+        $('.collapse').on('shown.bs.collapse', function () {
             $(this).parent().find('.la-angle-down').removeClass('la-angle-down').addClass('la-angle-up');
-        }).on('hidden.bs.collapse', function() {
+        }).on('hidden.bs.collapse', function () {
             $(this).parent().find('.la-angle-up').removeClass('la-angle-up').addClass('la-angle-down');
         });
     });
