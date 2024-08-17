@@ -448,7 +448,6 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
     {{--    <div class="flash-sale segments no-pd-b">--}}
@@ -496,7 +495,7 @@
                                     <img src="{{asset($akhbar->image)}}" alt="{{$akhbar->title}}">
                                     <div class="text">
                                         <a href="#" class="open-akhbar-modal"><h5
-                                                style="text-align: center">{{$akhbar->title}}</h5></a>
+                                                style="text-align: center;overflow: hidden">{{$akhbar->title}}</h5></a>
                                         <p class="date">{{jdate($akhbar->updated_at)->ago()}}</p>
                                     </div>
                                 </a>
@@ -550,7 +549,7 @@
         <div class="container">
 
             <div class="section-title">
-                <h3>اخبار و رویدادها
+                <h3>محتوای آموزشی حقوقی
                 </h3>
             </div>
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="1"
@@ -567,7 +566,7 @@
                                     <img src="{{asset($post->image)}}" alt="{{$post->title}}">
                                     <div class="text">
                                         <a href="#" class="open-post-modal"><h5
-                                                style="text-align: center">{{$post->title}}</h5></a>
+                                                style="text-align: center; overflow: hidden">{{$post->title}}</h5></a>
                                         <p class="date">{{jdate($post->updated_at)->ago()}}</p>
                                     </div>
                                 </a>
@@ -692,7 +691,7 @@
                                             <a href="#" class="open-department-modal"
                                                dep-data-description="{{ $submenu->description }}"
                                                dep-data-title="{{ $submenu->title }}">
-                                                <div class="icon">
+                                                <div class="icon flex">
                                                     <img src="{{asset($submenu->image)}}" alt="{{$submenu->title}}">
                                                 </div>
                                                 <span style="font-size: 8px;margin-top: 8px">{{$submenu->title}}</span>

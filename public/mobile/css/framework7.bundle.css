@@ -1332,7 +1332,6 @@ html.device-full-viewport body {
   position: relative;
   left: 0;
   top: 0;
-  width: 96%;
   z-index: 500;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;

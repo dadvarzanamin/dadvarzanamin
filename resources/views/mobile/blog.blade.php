@@ -15,20 +15,20 @@
 @endsection
 @section('main')
 <div class="page">
-    <div class="navbar navbar-page">
-        <div class="navbar-inner sliding">
-            <div class="left">
-                <a href="#" class="link back">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-            <div class="title">
-                اخبار و رویدادها
-            </div>
-            <div class="right"></div>
-        </div>
-    </div>
-    <div class="page-content">
+{{--    <div class="navbar navbar-page">--}}
+{{--        <div class="navbar-inner sliding">--}}
+{{--            <div class="left">--}}
+{{--                <a href="#" class="link back">--}}
+{{--                    <i class="fas fa-arrow-left"></i>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <div class="title">--}}
+{{--                اخبار و رویدادها--}}
+{{--            </div>--}}
+{{--            <div class="right"></div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    <div class="page-content" style="padding-bottom: 120px;">
         <div class="blog segments" style="margin-top: 50px">
             <div class="container">
                 @foreach($akhbars as $akhbar)

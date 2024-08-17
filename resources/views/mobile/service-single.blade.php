@@ -15,22 +15,22 @@
 @endsection
 @section('main')
 <div class="page">
-    <div class="navbar navbar-page">
-        <div class="navbar-inner sliding">
-            <div class="left">
-                <a href="#" class="link back">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-            <div class="title">
-                {{$services->title}}
-            </div>
-            <div class="right">
-                <a href="#"><i class="fas fa-bookmark"></i></a>
-                <a href="#"><i class="fas fa-share-alt"></i></a>
-            </div>
-        </div>
-    </div>
+{{--    <div class="navbar navbar-page">--}}
+{{--        <div class="navbar-inner sliding">--}}
+{{--            <div class="left">--}}
+{{--                <a href="{{url('/')}}" class="link back">--}}
+{{--                    <i class="fas fa-arrow-left"></i>--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <div class="title">--}}
+{{--                {{$services->title}}--}}
+{{--            </div>--}}
+{{--            <div class="right">--}}
+{{--                <a href="#"><i class="fas fa-bookmark"></i></a>--}}
+{{--                <a href="#"><i class="fas fa-share-alt"></i></a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <div class="page-content">
         <div class="blog-single segments" style="margin-top:60px">
             <div class="container">
