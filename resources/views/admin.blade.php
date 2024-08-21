@@ -220,9 +220,13 @@
         <div class="off-canvas-menu-close dashboard-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">
             <i class="la la-times"></i>
         </div>
-        <div class="logo-box px-4">
-            <a href="{{route('/')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو" /></a>
+        <div class="row" style="display: flex;justify-content: space-between;padding-right: 12px;padding-left: 12px">
+            <div class="logo-box px-4">
+                <a href="{{route('/')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو" /></a>
+            </div>
+            <a href="{{route('/')}}" class="btn" >بازگشت به خانه</a>
         </div>
+
         <ul class="generic-list-item off-canvas-menu-list off--canvas-menu-list pt-35px">
             @foreach($dashboardmenus as $menu)
             <li class="{{request()->segment(2) == $menu->slug ? 'page-active' : ''}}">

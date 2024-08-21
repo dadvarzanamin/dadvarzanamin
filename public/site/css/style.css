@@ -390,6 +390,10 @@ h6 {
 }
 
 /*amirhossein classes*/
+.br-24 {
+    border-radius: 24px !important;
+
+}
 
 .br-16 {
     border-radius: 16px !important;
@@ -701,15 +705,15 @@ h6 {
 }
 
 .svg-icon-color-1 path {
-    fill: #7e3cf9;
+    fill: #233d63;
 }
 
 .svg-icon-color-2 path {
-    fill: #f68a03;
+    fill: #233d63;
 }
 
 .svg-icon-color-3 path {
-    fill: #358ff7;
+    fill: #233d63;
 }
 
 .svg-icon-color-4 path {
@@ -1763,6 +1767,7 @@ h6 {
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
     .section__title {
+        text-align: center;
         font-size: 1.2rem;
     }
 }
@@ -1944,7 +1949,7 @@ h6 {
 }
 
 .generic-list-item li a {
-    color: #333!important;
+    color: #333;
     display: block;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -1952,12 +1957,12 @@ h6 {
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
-.a-text-black{
-    color: #252525!important;
-}
-.a-text-black:hover{
-    color: #cea54a!important;
-}
+/*.a-text-black{*/
+/*    color: #252525!important;*/
+/*}*/
+/*.a-text-black:hover{*/
+/*    color: #cea54a!important;*/
+/*}*/
 .generic-list-item li a:hover {
     color: #cea54a;
 }
@@ -6287,7 +6292,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 .card-bg50{
     color: #242424;
-    background-color: rgba(255, 255, 255, 0.9)!important;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .card-bg50:hover{
     transform: translateY(0);
@@ -10245,6 +10250,7 @@ div.datedropper .picker .pick-lg-b li {
 .dark-theme .category-item-layout-2,
 .dark-theme .filter-bar {
     background-color: #292929;
+    border: 1px solid #444;
     -webkit-box-shadow: 0 0 40px rgb(0 0 0 / 0.1);
     -moz-box-shadow: 0 0 40px rgb(0 0 0 / 0.1);
     box-shadow: 0 0 40px rgb(0 0 0 / 0.1);
@@ -10390,6 +10396,11 @@ div.datedropper .picker .pick-lg-b li {
     color: #cea54a;
 }
 
+.dark-theme .single-blog-area {
+    background-image: url(../images/dark-single-post.webp);
+);
+}
+
 .yahoo-bg {
     background-color: #5f01d1;
 }
@@ -10473,5 +10484,17 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .dark-theme .footer-theme * {
-    color: #0c0e13 !important;
+    color: #eee !important;
+}
+.dark-theme .header-bg {
+    background-color: rgba(69, 69, 69, 0.7);
+    border: 1px solid #444a51;
+}
+.dark-theme .card-bg50{
+    background-color: rgba(10, 10, 10, 0.8);
+    color: #eee;
+}
+.dark-theme .form-control {
+    background-color: #444;
+    color:#eee;
 }

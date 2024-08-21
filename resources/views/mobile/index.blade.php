@@ -616,6 +616,10 @@
         </div>
     </div>
     <div class="recommended product segments-bottom">
+        <div id="employee-modal" class="employee-modal">
+
+        </div>
+
         <div class="container">
             <div class="section-title">
                 <h3>تیم ما</h3>
@@ -627,12 +631,25 @@
                     @foreach($emploees as $emploee)
                         <div class="swiper-slide m-4">
                             <div class="content content-shadow-product">
-                                <a href="#">
+                                <a href="#" class="employee-open-modal"
+                                    employee-data-name="{{$emploee->fullname}}"
+                                    employee-data-image="{{$emploee->image}}">
+
                                     <img src="{{asset($emploee->image)}}" alt="{{$emploee->fullname}}">
                                     <div class="text" style="text-align: center">
                                         <p class="title-product" style="font-size: 9px;">{{$emploee->fullname}}</p>
                                         <p class="price" style="font-size: 7px;">{{$emploee->side}}</p>
                                     </div>
+                                </a>
+                                <a href="#" class="open-modal"
+                                   data-description="{{ $servicelawyer->description }}"
+                                   data-title="{{ $servicelawyer->title }}">
+                                    <div class="icon">
+                                        <img src="{{asset($servicelawyer->image)}}"
+                                             alt="{{$servicelawyer->title}}">
+                                    </div>
+                                    <span
+                                        style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
                                 </a>
                             </div>
                         </div>

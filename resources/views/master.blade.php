@@ -108,8 +108,8 @@
 
 </style>
 <body>
-<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0" style="z-index: 1000">
-    <div class="container-fluid px-4 py-3 border br-16 header-bg justify-content-between">
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-16" style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
+    <div class="container-fluid px-4 py-3 br-24 header-bg justify-content-between">
         <a href="{{route('/')}}" class="navbar-brand mx-xl-auto">
             <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
         </a>
@@ -170,10 +170,10 @@
             </button>
             <div class="d-flex">
                 @if(Auth()->check())
-                    <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
+                    <a type="button" class="btn btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>
                     <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">حساب کاربری</a>
                 @else
-                    <a type="button" class="btn btn-light btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
+                    <a type="button" class="btn btn btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
                     <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('register')}}">ثبت نام</a>
                 @endif
             </div>
@@ -483,9 +483,9 @@
                                        href='https://trustseal.enamad.ir/?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'><img
                                             referrerpolicy='origin'
                                             src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
-                                            alt='' style='cursor:pointer' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'>
+                                            alt='' style='cursor:pointer;max-height: 80px' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'>
                                     </a>
-                                    <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer'
+                                    <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer;max-height: 80px'
                                          onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=371088&p=xlaojyoerfthobpdmcsimcsi", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
                                          alt='logo-samandehi'
                                          src='https://logo.samandehi.ir/logo.aspx?id=371088&p=qftiyndtnbpdlymaaqgwaqgw'/>

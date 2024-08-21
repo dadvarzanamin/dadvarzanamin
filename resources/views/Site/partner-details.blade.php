@@ -105,7 +105,7 @@
                                     </g>
                                     </svg>
                             </div>
-                            <h4 class="counter__title counter text-color-2 fs-35">24</h4>
+                            <h4 class="counter__title counter fs-35">24</h4>
                             <p class="counter__meta">موکلان</p>
                         </div>
                         <!-- end counter-item -->
@@ -182,7 +182,7 @@
                                     </g>
                                     </svg>
                             </div>
-                            <h4 class="counter__title counter text-color-3 fs-35">154</h4>
+                            <h4 class="counter__title counter fs-35">154</h4>
                             <p class="counter__meta">پرونده های موفق</p>
                         </div>
                         <!-- end counter-item -->
@@ -238,7 +238,7 @@
                                         </g>
                                     </svg>
                             </div>
-                            <h4 class="counter__title counter text-color-4 fs-35">4</h4>
+                            <h4 class="counter__title counter fs-35">4</h4>
                             <p class="counter__meta">کارگاه ها و دوره ها</p>
                         </div>
                         <!-- end counter-item -->
