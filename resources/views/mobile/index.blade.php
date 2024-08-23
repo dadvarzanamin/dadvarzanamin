@@ -31,7 +31,7 @@
 @endsection
 @section('main')
     <style>
-        .modal, .service-modal ,.dep-modal, .akhbar-modal, .post-modal{
+        .modal, .service-modal ,.dep-modal, .akhbar-modal, .post-modal,.employee-modal{
             display: none;
             position: fixed;
             z-index: 600;
@@ -44,7 +44,7 @@
             padding-top: 60px;
         }
 
-        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content{
+        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content,.employee-modal-content{
             display: flex;
             flex-direction: column;
             background-color: #fefefe;
@@ -57,7 +57,7 @@
             height: fit-content;
         }
 
-        .close, .dep-close, .akhbar-close, .post-close{
+        .close, .dep-close, .akhbar-close, .post-close,.employee-close{
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -73,7 +73,9 @@
         .service-close:hover,
         .service-close:focus,
         .post-close:hover,
-        .post-close:focus
+        .post-close:focus,
+        .employee-close:hover,
+        .employee-close:focus
         {
             color: black;
             text-decoration: none;
@@ -366,6 +368,7 @@
                 <p id="serviceModalDescription"></p>
             </div>
         </div>
+
         <div class="container">
             <div
                 style="border: 1px solid rgba(51,51,51,0.15); border-radius: 16px; padding-top: 24px;
@@ -616,10 +619,13 @@
         </div>
     </div>
     <div class="recommended product segments-bottom">
-        <div id="employee-modal" class="employee-modal">
-
+        <div id="employeeModal" class="employee-modal">
+            <div class="employee-modal-content">
+                <span class="employee-close">&times;</span>
+                <h2 id="employeeModalTitle" style="margin-top: 20px;margin-bottom: 20px"></h2>
+                <p id="employeeModalDescription"></p>
+            </div>
         </div>
-
         <div class="container">
             <div class="section-title">
                 <h3>تیم ما</h3>
@@ -641,19 +647,39 @@
                                         <p class="price" style="font-size: 7px;">{{$emploee->side}}</p>
                                     </div>
                                 </a>
-                                <a href="#" class="open-modal"
-                                   data-description="{{ $servicelawyer->description }}"
-                                   data-title="{{ $servicelawyer->title }}">
-                                    <div class="icon">
-                                        <img src="{{asset($servicelawyer->image)}}"
-                                             alt="{{$servicelawyer->title}}">
-                                    </div>
-                                    <span
-                                        style="font-size: 8px;margin-top: 8px">{{$servicelawyer->title}}</span>
-                                </a>
                             </div>
                         </div>
                     @endforeach
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                var modal = document.getElementById("employeeModal");
+                                var modalTitle = document.getElementById("employeeModalTitle");
+                                var modalDescription = document.getElementById("employeeModalDescription");
+                                var span = document.getElementsByClassName("employee-close")[0];
+
+                                document.querySelectorAll(".employee-open-modal").forEach(function (element) {
+                                    element.addEventListener("click", function (event) {
+                                        event.preventDefault();
+                                        var name = this.getAttribute("employee-data-name");
+                                        var image = this.getAttribute("employee-data-image");
+                                        modalTitle.image = image;
+                                        modalDescription.innerHTML = name;
+                                        modal.style.display = "flex";
+                                        modal.style.justifyContent = "center";
+                                    });
+                                });
+
+                                span.onclick = function () {
+                                    modal.style.display = "none";
+                                }
+
+                                window.onclick = function (event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                            });
+                        </script>
                 </div>
             </div>
         </div>

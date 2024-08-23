@@ -103,7 +103,7 @@
         </div>
     </section>
 
-    <section class="get-started-area bg-gray">
+    <section class="get-started-area bg-gray py-4">
         <span class="ring-shape ring-shape-1"></span>
         <span class="ring-shape ring-shape-2"></span>
         <span class="ring-shape ring-shape-3"></span>
@@ -117,8 +117,8 @@
                         <div class="card-body">
                             <img src="{{asset('site/images/img-loading.png')}}"
                                  data-src="{{asset('site/images/img7.jpg')}}" alt="تصویر کارت"
-                                 class="img-fluid lazy rounded-full" style="width: 150px;height: 150px"/>
-                            <h5 class="card-title pt-4 pb-2">تخصص و تجربه</h5>
+                                 class="img-fluid lazy rounded-full" style="width: 200px;height: 200px"/>
+                            <h5 class="card-title pb-2">تخصص و تجربه</h5>
                             <p class="card-text1 text-justify">وکلا و کارشناسان ما در زمینه‌های مختلف حقوقی تخصص و تجربه
                                 چندین ساله‌ای دارند و تنها یک وکیل در مسیر رسیدن شما به هدفتان همراهتان نخواهد بود، بلکه
                                 کل تیم دادورزان امین شما را در این مسیر همراهی خواهند کرد.</p>
@@ -130,8 +130,8 @@
                         <div class="card-body">
                             <img src="{{asset('site/images/img-loading.png')}}"
                                  data-src="{{asset('site/images/img13.jpg')}}" alt="تصویر کارت"
-                                 class="img-fluid lazy rounded-full" style="width: 150px;height: 150px"/>
-                            <h5 class="card-title pt-4 pb-2">صداقت و تعهد</h5>
+                                 class="img-fluid lazy rounded-full" style="width: 200px;height: 200px"/>
+                            <h5 class="card-title pb-2">صداقت و تعهد</h5>
                             <p class="card-text1 text-justify">ما برای پایبندی به اصولی چون صداقت و تعهد بستری آنلاین
                                 فراهم نموده‌ایم تا تمامی خدمات و روند امور شما در لحظه و به صورت شفاف قابل روئیت و
                                 پیگیری باشد.</p>
@@ -143,8 +143,8 @@
                         <div class="card-body">
                             <img src="{{asset('site/images/img-loading.png')}}"
                                  data-src="{{asset('site/images/img14.jpg')}}" alt="تصویر کارت"
-                                 class="img-fluid lazy rounded-full" style="width: 150px;height: 150px"/>
-                            <h5 class="card-title pt-4 pb-2">کیفیت خدمات</h5>
+                                 class="img-fluid lazy rounded-full" style="width: 200px;height: 200px"/>
+                            <h5 class="card-title pb-2">کیفیت خدمات</h5>
                             <p class="card-text1 text-justify">برای رسیدن به این امر مهم از تلاش خود بازنمی‌ایستیم و
                                 همواره در مسیر بهبود کیفیت خدمات ارائه شده برای موکلین، وکلا خواهیم بود. اگر چه تا این
                                 لحظه هم تمام دغدغه موسسه این‌چنین بوده است.</p>
@@ -156,8 +156,8 @@
                         <div class="card-body">
                             <img src="{{asset('site/images/img-loading.png')}}"
                                  data-src="{{asset('site/images/img14.jpg')}}" alt="تصویر کارت"
-                                 class="img-fluid lazy rounded-full" style="width: 150px;height: 150px"/>
-                            <h5 class="card-title pt-4 pb-2">پشتیبانی و پاسخگویی</h5>
+                                 class="img-fluid lazy rounded-full" style="width: 200px;height: 200px"/>
+                            <h5 class="card-title pb-2">پشتیبانی و پاسخگویی</h5>
                             <p class="card-text1 text-justify">همکاران ما در بخش پشتیبانی و امور دفتری همواره از طریق
                                 سایت، شماره‌های تماس و شبکه‌های اجتماعی به صورت 24 ساعته در خدمت شما هستند.</p>
                         </div>
@@ -172,41 +172,48 @@
         </div>
     </section>
 
-    <section class="our-mission-area">
+    <section class="our-mission-area py-4">
         <div class="container p-0">
             <h2 class="section__title pb-3 lh-50">خدمات ما</h2>
             <p class="section__desc pb-3">موسسه حقوقی دادورزان امین متشکل از سه دپارتمان
                 اصلی دعاوی، قراردادها و آموزش و پژوهش به ارائه خدمات در زمینه های مختلف می‌پردازد:
             </p>
             <div class="row ">
-                <div class="card col-md-4 col-12 p-0 br-16">
-                    <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">دپارتمان دعاوی</h5>
-                        <p class="card-text">دپارتمان دعاوی شامل بخش‌های حقوقی، کیفری و تجاری است که در هر
-                            بخش بصورت تخصصی خدمات ارائه مشاوره، دعاوی، داوری و نظرات شورای حقوقی است.
-                        </p>
+                <div class="col-md-4 col-12">
+                    <div class="card h-100 br-16">
+                        <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">دپارتمان دعاوی</h5>
+                            <p class="card-text">دپارتمان دعاوی شامل بخش‌های حقوقی، کیفری و تجاری است که در هر
+                                بخش بصورت تخصصی خدمات ارائه مشاوره، دعاوی، داوری و نظرات شورای حقوقی است.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="card col-md-4 col-12 p-0 br-16">
-                    <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">دپارتمان قراردادها</h5>
-                        <p class="card-text">این دپارتمان نیز شامل اکثریت موضوعات قراردادی
-                            داخلی و بین‌المللی است که خدمات تنظیم و مشاوره قراردادها در این دپارتمان انجام
-                            می‌پذیرد.
-                        </p>
+                <div class="col-md-4 col-12">
+                    <div class="card h-100 br-16">
+                        <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">دپارتمان قراردادها</h5>
+                            <p class="card-text">این دپارتمان نیز شامل اکثریت موضوعات قراردادی
+                                داخلی و بین‌المللی است که خدمات تنظیم و مشاوره قراردادها در این دپارتمان انجام
+                                می‌پذیرد.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
-                <div class="card col-md-4 col-12 p-0 br-16">
-                    <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">دپارتمان آموزش و پژوهش</h5>
-                        <p class="card-text">در این دپارتمان موسسه حقوقی دادورزان
-                            امین خدماتی برای دانشپذیران رشته حقوق در نظر گرفته است و با برگزاری کارگاه‌های
-                            آموزشی،
-                            نشست‌های حقوقی و ارائه ویدئو و جزوات و مطالب کاربردی خدمات خود را ارائه می‌دهد.
-                        </p>
+                <div class="col-md-4 col-12 h-100">
+                    <div class="card h-100 br-16">
+                        <img class="card-img-top" src="{{asset('site/images/lawsuit.webp')}}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">دپارتمان آموزش و پژوهش</h5>
+                            <p class="card-text">در این دپارتمان موسسه حقوقی دادورزان
+                                امین خدماتی برای دانشپذیران رشته حقوق در نظر گرفته است و با برگزاری کارگاه‌های
+                                آموزشی،
+                                نشست‌های حقوقی و ارائه ویدئو و جزوات و مطالب کاربردی خدمات خود را ارائه می‌دهد.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -251,7 +258,7 @@
 
     <div class="section-block"></div>
 
-    <section class="team-member-area">
+    <section class="team-member-area py-4">
         <div class="container">
             <div class="team-member-heading-content text-center">
                 <div class="section-heading">
@@ -374,48 +381,6 @@
                                 می‌نماید
                             </p>
                             <br>
-                            <strong>شرایط عمومی استخدام:</strong>
-                            <ul class="generic-list-item pt-3">
-                                <li><i class="la la-check-circle mr-2 text-success"></i>تخصص و تجربه: داشتن مدرک
-                                    کارشناسی، کارشناسی ارشد یا دکترای حقوق و سابقه کار مرتبط در زمینه‌های مختلف حقوقی
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>مهارت‌های ارتباطی: توانایی
-                                    برقراری ارتباط موثر با مراجعین، سایر وکلا و همکاران
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>مهارت‌های حل مسئله: توانایی
-                                    تجزیه و تحلیل مسائل حقوقی و ارائه راهکارهای مناسب
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>تعهد و صداقت: پایبندی به اصول و
-                                    اخلاق حرفه‌ای و تعهد به ارائه خدمات حقوقی با کیفیت
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>انضباط و نظم: توانایی مدیریت
-                                    زمان و انجام وظایف محوله در چارچوب زمان‌بندی تعیین شده
-                                </li>
-                            </ul>
-                            <strong>شرایط اختصاصی استخدام:</strong>
-                            <ul class="generic-list-item pt-3">
-                                <li><i class="la la-check-circle mr-2 text-success"></i>تسلط به قوانین و مقررات حقوقی
-                                    مرتبط با زمینه تخصصی مورد نظر
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>توانایی نگارش متون حقوقی اعم از
-                                    لایحه، دفاعیات حقوقی قوی و ...
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>توانایی انجام تحقیقات حقوقی</li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>آشنایی با نرم‌افزارهای حقوقی
-                                </li>
-                            </ul>
-                            <strong>مزایای استخدام:</strong>
-                            <ul class="generic-list-item pt-3">
-                                <li><i class="la la-check-circle mr-2 text-success"></i>محیط کاری پویا و چالش‌برانگیز
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>فرصت‌های رشد و پیشرفت</li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>حقوق و مزایای مناسب</li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>همکاری با تیمی مجرب و متخصص</li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>ارتباط با طیف وسیعی از مراجعین
-                                </li>
-                                <li><i class="la la-check-circle mr-2 text-success"></i>پشتیبانی و آموزش‌های مستمر</li>
-                            </ul>
-
                         </div>
                         <div class="btn-box pt-35px">
                             <a href="#" class="btn theme-btn">به تیم ما بپیوندید <i
@@ -426,7 +391,7 @@
                 <div class="col-lg-6">
                     <div class="generic-img-box generic-img-box-layout-3">
                         <img src="{{asset('site/images/img-loading.png')}}"
-                             data-src="{{asset('site/images/img16.jpg')}}" alt="درباره تصویر"
+                             data-src="{{asset('site/images/hire.webp')}}" alt="درباره تصویر"
                              class="img__item lazy img__item-1"/>
                     </div>
                 </div>

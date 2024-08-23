@@ -17,9 +17,9 @@
 @endsection
 @section('main')
 
-    <section class="breadcrumb-area">
-        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">
-    </section>
+{{--    <section class="breadcrumb-area">--}}
+{{--        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">--}}
+{{--    </section>--}}
 
 <section class="blog-area pt-100px pb-100px">
     <div class="container">
@@ -106,30 +106,46 @@
                 <div class="sidebar">
                     <div class="card card-item">
                         <div class="card-body">
-                            <h3 class="card-title fs-18 pb-2">آرشیوها</h3>
+                            <h3 class="card-title fs-18 pb-2">مطالب مرتبط</h3>
                             <div class="divider"><span></span></div>
-                            <ul class="generic-list-item">
-                                <li><a href="#">1402/05/01</a></li>
-                                <li><a href="#">1402/04/01</a></li>
-                                <li><a href="#">1402/03/01</a></li>
-                                <li><a href="#">1402/02/01</a></li>
-                                <li><a href="#">1402/01/01</a></li>
-                            </ul>
+                            <div class="container d-flex flex-column align-items-center">
+                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
+                                <h5>شورای حقوقی حل اختلاف</h5>
+                            </div>
+                            <div class="divider"><span></span></div>
+                            <div class="container d-flex flex-column align-items-center">
+                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
+                                <h5>شورای حقوقی حل اختلاف</h5>
+                            </div>
+                            <div class="divider"><span></span></div>
+                            <div class="container d-flex flex-column align-items-center">
+                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
+                                <h5>شورای حقوقی حل اختلاف</h5>
+                            </div>
+{{--                            <h3 class="card-title fs-18 pb-2">آرشیوها</h3>--}}
+{{--                            <div class="divider"><span></span></div>--}}
+{{--                            <ul class="generic-list-item">--}}
+{{--                                <li><a href="#">1402/05/01</a></li>--}}
+{{--                                <li><a href="#">1402/04/01</a></li>--}}
+{{--                                <li><a href="#">1402/03/01</a></li>--}}
+{{--                                <li><a href="#">1402/02/01</a></li>--}}
+{{--                                <li><a href="#">1402/01/01</a></li>--}}
+{{--                            </ul>--}}
                         </div>
                     </div>
-                    <div class="card card-item">
-                        <div class="card-body">
-                            <h3 class="card-title fs-18 pb-2">برچسب های پست</h3>
-                            <div class="divider"><span></span></div>
-                            <ul class="generic-list-item generic-list-item-boxed d-flex flex-wrap fs-15">
-                                @if($akhbars['keyword'])
-                                    @foreach (json_decode($akhbars['keyword']) as $item)
-                                        <li class="mr-2"><a href="#">{{$item}}</a></li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
+{{--                    <div class="card card-item">--}}
+{{--                        <div class="card-body">--}}
+{{--                            <h3 class="card-title fs-18 pb-2">برچسب های پست</h3>--}}
+{{--                            <div class="divider"><span></span></div>--}}
+{{--                            <ul class="generic-list-item generic-list-item-boxed d-flex flex-wrap fs-15">--}}
+{{--                                @if($akhbars['keyword'])--}}
+{{--                                    @foreach (json_decode($akhbars['keyword']) as $item)--}}
+{{--                                        <li class="mr-2"><a href="#">{{$item}}</a></li>--}}
+{{--                                    @endforeach--}}
+{{--                                @endif--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
         </div>

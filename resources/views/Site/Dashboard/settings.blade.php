@@ -112,10 +112,8 @@
                     <div class="input-box col-lg-3">
                         <label for="date-input">تاریخ تولد</label>
 
-{{--                        <label class="label-text">تاریخ تولد</label>--}}
                         <div class="form-group">
-                            <input type="text" class="form-control" id="date-input" name="birthday value="{{Auth::user()->birthday}}">
-{{--                        <input class="form-control" type="text" name="birthday" value="{{Auth::user()->birthday}}" />--}}
+                            <input type="text" class="form-control" id="date-input" name="birthday" value="{{ Auth::user()->birthday }}">
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
@@ -540,9 +538,11 @@
     <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('#date-input').persianDatepicker({
-                format: 'YYYY/MM/DD'
+                format: 'YYYY/MM/DD', // فرمت مورد نیاز شما
+                initialValue: false,
+                // سایر تنظیمات مورد نیاز
             });
         });
     </script>
