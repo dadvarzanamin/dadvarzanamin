@@ -108,7 +108,8 @@
 
 </style>
 <body>
-<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-16" style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-16"
+     style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
     <div class="container-fluid px-4 py-3 br-24 header-bg justify-content-between">
         <a href="{{route('/')}}" class="navbar-brand mx-xl-auto">
             <img src="{{asset('/site/images/dark-logo.png')}}" alt="{{$companies['title']}}">
@@ -483,9 +484,11 @@
                                        href='https://trustseal.enamad.ir/?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'><img
                                             referrerpolicy='origin'
                                             src='https://trustseal.enamad.ir/logo.aspx?id=505224&Code=bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'
-                                            alt='' style='cursor:pointer;max-height: 80px' code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'>
+                                            alt='' style='cursor:pointer;max-height: 80px'
+                                            code='bnNzNuo0IO4Nk4MlNtlewJlt8Hrcv5Q0'>
                                     </a>
-                                    <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk' style='cursor:pointer;max-height: 80px'
+                                    <img referrerpolicy='origin' id='rgvjjzpejxlzesgtoeukoeuk'
+                                         style='cursor:pointer;max-height: 80px'
                                          onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=371088&p=xlaojyoerfthobpdmcsimcsi", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
                                          alt='logo-samandehi'
                                          src='https://logo.samandehi.ir/logo.aspx?id=371088&p=qftiyndtnbpdlymaaqgwaqgw'/>
@@ -500,10 +503,10 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                        <p class="copy-desc dark-bg-p">کلیه حقوق مادی و معنوی وبسایت برای {{$companies['title']}}
+                        <span class="copy-desc dark-bg-p">کلیه حقوق مادی و معنوی وبسایت برای {{$companies['title']}}
                             محفوظ
                             می
-                            باشد</p>
+                            باشد</span>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex flex-wrap align-items-center justify-content-end">
@@ -519,6 +522,9 @@
                             {{--                        </div>--}}
                         </div>
                     </div>
+                </div>
+                <div class="row d-none justify-content-center" >
+                    <p>طراحی و توسعه توسط <a href="https://bestagroup.ir/" style="color: #cea54a">Besta Group</a> </p>
                 </div>
             </div>
         </div>

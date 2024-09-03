@@ -708,17 +708,17 @@
                     <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
                          class="swiper-container swiper-init swiper-container-horizontal">
                         <div class="swiper-pagination"></div>
-                        <div class="swiper-wrapper">
-                            @foreach($slides as $slide)
-                                <div class="swiper-slide">
-                                    <div class="content">
-                                        <div class="mask"></div>
-                                        <img src="{{asset('storage/'.$slide->file_link)}}"
-                                             alt="{{$companies['title']}}">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+{{--                        <div class="swiper-wrapper">--}}
+{{--                            @foreach($slides as $slide)--}}
+{{--                                <div class="swiper-slide">--}}
+{{--                                    <div class="content">--}}
+{{--                                        <div class="mask"></div>--}}
+{{--                                        <img src="{{asset('storage/'.$slide->file_link)}}"--}}
+{{--                                             alt="{{$companies['title']}}">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="popular-brand segments-bottom">
