@@ -104,7 +104,7 @@ class MenuController extends Controller
             }
             $menu->page_description = $request->input('page_description');
             $menu->submenu          = $request->input('submenu');
-            $menu->class            = $request->input('class');
+            $menu->class            = $request->input('classcontroller');
             $menu->mega_menu        = $request->input('mega_menu');
             //$menu->userlevel        = explode("،", $request->input('userlevel'));
             $menu->mega_title1      = $request->input('mega_title1');

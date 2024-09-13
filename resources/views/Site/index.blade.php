@@ -439,16 +439,18 @@
             <div class="blog-post-carousel owl-action-styled half-shape">
                 @foreach($emploees as $emploee)
                     <div class="responsive-column-half ">
+                        <a href="{{url('تیم-ما/رزومه/'.$emploee->slug)}}">
                         <div class="card card-item member-card text-center br-16">
                             <div class="card-image">
                                 <img class="card-img-top" src="{{asset($emploee->image)}}" alt="{{$emploee->fullname}}" />
                             </div>
                             <div class="card-body">
-                                <h2 class="card-title"><a href="#">{{$emploee->fullname}}</a></h2>
+                                <h2 class="card-title">{{$emploee->fullname}}</h2>
                                 <p class="card-text">{{$emploee->side}}</p>
 
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

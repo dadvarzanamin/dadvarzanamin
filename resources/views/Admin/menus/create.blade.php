@@ -97,7 +97,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <p class="mg-b-10">کلاس کنترلر</p>
-                                                <input type="text" name="class" id="class" data-required="1" placeholder="کلاس کنترلر را وارد کنید" class="form-control" />
+                                                <input type="text" name="classcontroller" id="classcontroller" data-required="1" placeholder="کلاس کنترلر را وارد کنید" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -156,6 +156,7 @@
                         data: {
                             "_token": "{{ csrf_token() }}",
                             title            : jQuery('#title').val(),
+                            classcontroller  : jQuery('#classcontroller').val(),
                             tab_title        : jQuery('#tab_title').val(),
                             page_title       : jQuery('#page_title').val(),
                             level            : jQuery('#level').val(),

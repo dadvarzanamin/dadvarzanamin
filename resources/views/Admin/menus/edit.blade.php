@@ -80,8 +80,10 @@
                                                     <select name="userlevel" id="userlevel" class="form-control select-lg select2">
                                                         <option value="">انتخاب کنید</option>
                                                         @foreach($typeusers as $typeuser)
+                                                            @if($menus->userlevel)
                                                             <option value="{{$typeuser->id}}" {{(string)$typeuser->id == implode("," , json_decode($menus->userlevel)) ? 'selected' : ''}}>{{$typeuser->title_fa}}</option>
 {{--                                                            <option value="{{$typeuser->id}}" {{$typeuser->id == $menus->userlevel ? 'selected' : ''}}>{{$typeuser->title_fa}}</option>--}}
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>

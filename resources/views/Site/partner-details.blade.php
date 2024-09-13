@@ -1,23 +1,50 @@
-
-
 @extends('master')
+@section('style')
+    @if($thispage->page_description)
+        <meta name="description" content="{{$thispage->page_description}}">
+    @endif
+    @if(json_decode($thispage->keyword))
+        <meta name="keyword" content="{{implode("،" , json_decode($thispage->keyword))}}">
+    @endif
+    <meta name="twitter:card" content="summary"/>
+    @if($thispage->tab_title)
+        <meta name="twitter:title" content="{{$thispage->tab_title}}"/>
+    @endif
+    @if($thispage->page_description)
+        <meta name="twitter:description" content="{{$thispage->page_description}}"/>
+    @endif
+    @if($thispage->tab_title)
+        <meta itemprop="name" content="{{$thispage->tab_title}}">
+    @endif
+    @if($thispage->page_description)
+        <meta itemprop="description" content="{{$thispage->page_description}}">
+    @endif
+    <meta property="og:url" content="{{url()->current()}}"/>
+    @if($thispage->tab_title)
+        <meta property="og:title" content="{{$thispage->tab_title}}"/>
+    @endif
+    @if($thispage->page_description)
+        <meta property="og:description" content="{{$thispage->page_description}}"/>
+    @endif
+    <link rel="canonical" href="{{url()->current()}}"/>
+    <link rel="stylesheet" href="{{asset('site/css/animated-headline.css')}}"/>
+    <title>{{$thispage->tab_title .' '. $emploees->fullname}}</title>
+@endsection
 @section('main')
-
     <section class="breadcrumb-area py-5 bg-white pattern-bg mt-4">
         <div class="container">
             <div class="breadcrumb-content">
                 <div class="media media-card align-items-center pb-4">
                     <div class="media-img media--img media-img-md rounded-full">
-                        <img class="rounded-full" src="{{asset('site/images/123.png')}}" alt="استاد محمد علی پسند" />
+                        <img class="rounded-full" src="{{asset($emploees->image)}}" alt="{{$emploees->fullname}}" />
                     </div>
                     <div class="media-body">
-                        <h2 class="section__title fs-30">دکتر امیر محمدی</h2>
-                        <p class="lh-30">کارشناس حقوقی </p>
+                        <h2 class="section__title fs-30">{{$emploees->fullname}}</h2>
+                        <p class="lh-30">{{$emploees->side}}</p>
                         <p class="lh-30">دادستان امور جنایی</p>
                         <p class="lh-30">عضو اصلی مجمع وکلا</p>
                     </div>
                 </div>
-                <!-- end media -->
                 <ul class="social-icons social-icons-styled social--icons-styled">
                     <li>
                         <a href="#"><i class="la la-facebook"></i></a>
@@ -36,11 +63,8 @@
                     </li>
                 </ul>
             </div>
-            <!-- end breadcrumb-content -->
         </div>
-        <!-- end container -->
     </section>
-
     <section class="teacher-details-area pt-50px">
         <div class="container">
             <div class="student-details-wrap pb-20px">
@@ -108,9 +132,7 @@
                             <h4 class="counter__title counter fs-35">24</h4>
                             <p class="counter__meta">موکلان</p>
                         </div>
-                        <!-- end counter-item -->
                     </div>
-                    <!-- end col-lg-4 -->
                     <div class="col-lg-4 responsive-column-half">
                         <div class="counter-item">
                             <div class="counter__icon icon-element mb-3 shadow-sm">
@@ -185,9 +207,7 @@
                             <h4 class="counter__title counter fs-35">154</h4>
                             <p class="counter__meta">پرونده های موفق</p>
                         </div>
-                        <!-- end counter-item -->
                     </div>
-                    <!-- end col-lg-4 -->
                     <div class="col-lg-4 responsive-column-half">
                         <div class="counter-item">
                             <div class="counter__icon icon-element mb-3 shadow-sm">
@@ -241,28 +261,18 @@
                             <h4 class="counter__title counter fs-35">4</h4>
                             <p class="counter__meta">کارگاه ها و دوره ها</p>
                         </div>
-                        <!-- end counter-item -->
                     </div>
-                    <!-- end col-lg-4 -->
                 </div>
-                <!-- end row -->
             </div>
-            <!-- end team-single-wrap -->
         </div>
-        <!-- end container -->
         <div class="bg-gray py-5">
             <div class="container">
                 <ul class="nav nav-tabs generic-tab justify-content-center" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="about-me-tab" data-toggle="tab" href="#about-me" role="tab" aria-controls="about-me" aria-selected="false">
-                            درباره استاد ابراهیمی
+                           درباره   {{$emploees->fullname}}
                         </a>
                     </li>
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link" id="experience-tab" data-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">--}}
-                    {{--                            تجربه--}}
-                    {{--                        </a>--}}
-                    {{--                    </li>--}}
                 </ul>
                 <div class="tab-content pt-40px" id="myTabContent">
 
@@ -291,55 +301,9 @@
                             </div>
                         </div>
                     </div>
-
-                    {{--                    <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">--}}
-                    {{--                        <div class="card card-item">--}}
-                    {{--                            <div class="card-body">--}}
-                    {{--                                <p>--}}
-                    {{--                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و--}}
-                    {{--                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد--}}
-                    {{--                                </p>--}}
-                    {{--                                <div class="skills-wrap pt-30px">--}}
-                    {{--                                    <div class="skills">--}}
-                    {{--                                        <div class="skill">--}}
-                    {{--                                            <div class="d-flex flex-wrap align-items-center justify-content-between">--}}
-                    {{--                                                <span class="fs-16 text-black font-weight-semi-bold pr-3">HTML </span>--}}
-                    {{--                                                <span>99%</span>--}}
-                    {{--                                            </div>--}}
-                    {{--                                            <div class="progress_bg">--}}
-                    {{--                                                <div class="progress_bar"></div>--}}
-                    {{--                                            </div>--}}
-                    {{--                                        </div>--}}
-                    {{--                                        <div class="skill">--}}
-                    {{--                                            <div class="d-flex flex-wrap align-items-center justify-content-between">--}}
-                    {{--                                                <span class="fs-16 text-black font-weight-semi-bold pr-3">CSS </span>--}}
-                    {{--                                                <span>99%</span>--}}
-                    {{--                                            </div>--}}
-                    {{--                                            <div class="progress_bg">--}}
-                    {{--                                                <div class="progress_bar"></div>--}}
-                    {{--                                            </div>--}}
-                    {{--                                        </div>--}}
-                    {{--                                        <div class="skill">--}}
-                    {{--                                            <div class="d-flex flex-wrap align-items-center justify-content-between">--}}
-                    {{--                                                <span class="fs-16 text-black font-weight-semi-bold pr-3">جاوا اسکریپت </span>--}}
-                    {{--                                                <span>95%</span>--}}
-                    {{--                                            </div>--}}
-                    {{--                                            <div class="progress_bg">--}}
-                    {{--                                                <div class="progress_bar"></div>--}}
-                    {{--                                            </div>--}}
-                    {{--                                        </div>--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <!-- end skills-->--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-
                 </div>
             </div>
         </div>
     </section>
-
     <div class="section-block"></div>
-
 @endsection
