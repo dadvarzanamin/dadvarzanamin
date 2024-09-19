@@ -4963,7 +4963,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .pattern-bg {
-    background-image: url(../images/pattern.png);
+    background-image: url(../images/union.png);
 }
 
 .generic-img-box {
@@ -6626,8 +6626,8 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .media-card .media-img-lg {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
 }
 
 .media-card .media-body h5 {
@@ -8621,7 +8621,7 @@ div.datedropper .picker .pick-lg-b li {
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
     .breadcrumb-content .media-card {
         flex-direction: column;
     }

@@ -108,7 +108,7 @@
 
 </style>
 <body>
-<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-16"
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-24"
      style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
     <div class="container-fluid px-4 py-3 br-24 header-bg justify-content-between">
         <a href="{{route('/')}}" class="navbar-brand mx-xl-auto">

@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                             <div class="card-body" style="border-bottom-left-radius: 16px !important;">
-                                <h5 class="card-title"><a href="#">{{$post->title}}</a></h5>
+                                <h5 class="card-title"><a href="{{url('محتوای-آموزشی/'.$post->slug)}}">{{$post->title}}</a></h5>
                                 <p class="card-text">
                                     {{ strip_tags(Str::words($post->description, 10, ' ...')) }}
                                 </p>
