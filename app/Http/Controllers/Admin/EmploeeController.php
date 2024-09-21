@@ -100,6 +100,10 @@ class EmploeeController extends Controller
             $emploees->instagram   = $request->input('instagram');
             $emploees->twitter     = $request->input('twitter');
             $emploees->status      = $request->input('status');
+            $emploees->description = $request->input('description');
+            if($request->input('positions')) {
+                $emploees->positions = json_encode(explode("،", $request->input('positions')));
+            }
             if($request->hasfile('image')) {
                 $file = $request->file('image');
                 $imagePath  =public_path("emploee");
@@ -177,6 +181,10 @@ class EmploeeController extends Controller
             $emploees->instagram   = $request->input('instagram');
             $emploees->twitter     = $request->input('twitter');
             $emploees->status      = $request->input('status');
+            $emploees->description = $request->input('description');
+            if($request->input('positions')) {
+                $emploees->positions = json_encode(explode("،", $request->input('positions')));
+            }
             if($request->hasfile('image')) {
                 $file = $request->file('image');
                 $imagePath  =public_path("emploee");
