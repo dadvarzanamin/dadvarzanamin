@@ -82,6 +82,26 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">سمت ها</p>
+                                                    <input type="text" name="positions" id="positions" @if($emploees->positions)value="{{implode("،" , json_decode($emploees->positions))}}" @endif class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group" >
+                                                    <p class="mg-b-10"> توضیحات</p>
+                                                    <textarea name="description" id="editor" cols="30" rows="5" class="form-control" >{{$emploees->description}}</textarea>
+                                                </div>
+                                            </div>
                                             <div  class="col-lg-12 mg-b-10 text-center">
                                                 <div class="form-group">
                                                     <button type="submit"  class="btn btn-info  btn-lg m-r-20">ذخیره اطلاعات</button>
@@ -110,6 +130,8 @@
     <script src="{{asset('admin/assets/plugins/fileuploads/js/file-upload.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.ui.widget.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.fileupload.js')}}"></script>
-
+    <script src="{{asset('admin/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
 @endsection
-
