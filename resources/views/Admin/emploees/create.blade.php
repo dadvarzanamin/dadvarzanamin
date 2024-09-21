@@ -63,6 +63,18 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <p class="mg-b-10">سمت ها</p>
+                                                <input type="text" name="positions" id="positions" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" >
+                                                <p class="mg-b-10"> توضیحات</p>
+                                                <textarea name="description" id="editor" cols="30" rows="5" class="form-control" ></textarea>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-12 mg-b-10 text-center">
                                             <div class="form-group">
                                                 <button type="button" id="submit" class="btn btn-info  btn-lg m-r-20">ذخیره اطلاعات</button>
@@ -93,6 +105,10 @@
     <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.iframe-transport.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.fancy-fileupload.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/fancyuploder/fancy-uploader.js')}}"></script>
+    <script src="{{asset('admin/assets/plugins/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace( 'editor' );
+    </script>
     <script>
         jQuery(document).ready(function(){
             jQuery('#submit').click(function(e){
@@ -107,6 +123,8 @@
 
                 let    _token       = jQuery('input[name="_token"]').val();
                 let    fullname     = jQuery('#fullname').val();
+                let    positions    = jQuery('#positions').val();
+                let    description  = jQuery('#description').val();
                 let    side         = jQuery('#side').val();
                 let    status       = jQuery('#status').val();
                 let    phone        = jQuery('#phone').val();
@@ -114,6 +132,8 @@
 
                 let formData = new FormData();
                 formData.append('fullname'      , fullname);
+                formData.append('positions'     , positions);
+                formData.append('description'   , description);
                 formData.append('side'          , side);
                 formData.append('status'        , status);
                 formData.append('phone'         , phone);
