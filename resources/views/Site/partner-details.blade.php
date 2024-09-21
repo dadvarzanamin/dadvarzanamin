@@ -63,9 +63,11 @@
 
                     <div class="media-body">
                         <h2 class="section__title fs-50 pb-4">{{$emploees->fullname}}</h2>
-                        <h4 class="lh-40 fs-20">{{$emploees->side}}</h4>
-                        <h4 class="lh-40 fs-20">دادستان امور جنایی</h4>
-                        <h4 class="lh-40 fs-20">عضو اصلی مجمع وکلا</h4>
+                            @if($emploees['positions'])
+                                @foreach (json_decode($emploees['positions']) as $item)
+                                <h4 class="lh-40 fs-20">{{$item}}</h4>
+                                @endforeach
+                            @endif
                     </div>
                     <div class="media-img media--img media-img-lg br-24" style="border: 1px #cea54a dashed">
                         <img class="br-24" src="{{asset($emploees->image)}}" alt="{{$emploees->fullname}}"/>
@@ -293,52 +295,10 @@
                                 <h5 id="about-me-tab" style="font-weight: 700;">
                                     رزومه و تجربیات {{$emploees->fullname}}
                                 </h5>
-                                <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                                    accusamus architecto, consequuntur deserunt dolor eius et eum fugit nemo nobis, odit
-                                    quibusdam repudiandae sit soluta temporibus, voluptatem voluptatibus. Earum,
-                                    officiis.</p>
-                                <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                                    accusamus architecto, consequuntur deserunt dolor eius et eum fugit nemo nobis, odit
-                                    quibusdam repudiandae sit soluta temporibus, voluptatem voluptatibus. Earum,
-                                    officiis.</p>
-                                <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                                    accusamus architecto, consequuntur deserunt dolor eius et eum fugit nemo nobis, odit
-                                    quibusdam repudiandae sit soluta temporibus, voluptatem voluptatibus. Earum,
-                                    officiis.</p>
-                                <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-                                    accusamus architecto, consequuntur deserunt dolor eius et eum fugit nemo nobis, odit
-                                    quibusdam repudiandae sit soluta temporibus, voluptatem voluptatibus. Earum,
-                                    officiis.</p>
-                                <div class="collapse" id="collapseReadMore">
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                    <p class="card-text pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        A at, commodi corporis delectus, earum eligendi eveniet fuga id natus nisi
-                                        nostrum porro quo repudiandae rerum sapiente sequi, sunt veritatis voluptas!</p>
-                                </div>
-                                <div class="text-center">
-                                    <a class="collapse-btn collapse--btn fs-15" data-toggle="collapse"
-                                       href="#collapseReadMore" role="button" aria-expanded="false"
-                                       aria-controls="collapseReadMore">
-                                        <span class="collapse-btn-hide">ادامه مطلب<i
-                                                class="la la-angle-down ml-1 fs-14"></i></span>
-                                        <span class="collapse-btn-show">کمتر بخوان<i
-                                                class="la la-angle-up ml-1 fs-14"></i></span>
-                                    </a>
-                                </div>
+
+                                <p class="card-text pb-3">
+                                    {!! $emploees->description !!}
+                                </p>
                             </div>
                         </div>
                     </div>
