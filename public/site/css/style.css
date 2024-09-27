@@ -518,6 +518,15 @@ h6 {
     background-attachment: fixed;
 }
 
+.single-partner-area{
+    max-width: 100%;
+    background-image: url(../images/dark-single-post.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+}
+
 /*amirhossein classes*/
 
 @media (min-width: 576px) {
