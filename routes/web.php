@@ -65,7 +65,6 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         // Authentication Routes...
         Route::get('profile'            , 'ProfileController@profile')              ->name('profile');
         Route::get('usernotif'          , 'ProfileController@usernotif')            ->name('usernotif');
-        Route::get('usernotif'          , 'ProfileController@usernotif')            ->name('usernotif');
         Route::get('setting'            , 'ProfileController@setting')              ->name('setting');
         Route::get('message'            , 'ProfileController@message')              ->name('message');
         Route::get('userrequest'        , 'ProfileController@userrequest')          ->name('user-request');
