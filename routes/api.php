@@ -3,8 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->namespace('Api\v1')->group(function (){
-    Route::get('/index'                             , 'IndexController@index');
+use App\Http\Controllers\Api\v1\IndexController;
+
+Route::get('/index', [IndexController::class, 'index']);
+
+//Route::prefix('v1')->namespace('Api\v1')->group(function (){
+//    Route::get('/index'                             , 'IndexController@index');
 //    Route::get('/appversion'                , 'IndexController@appversion');
 //    Route::post('/login'                            , 'UserController@login');
 //    Route::post('/register'                         , 'UserController@register');
@@ -85,7 +89,7 @@ Route::prefix('v1')->namespace('Api\v1')->group(function (){
 //
 //    });
 
-});
+//});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
