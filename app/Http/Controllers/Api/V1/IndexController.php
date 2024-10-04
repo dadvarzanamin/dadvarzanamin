@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Response;
 class IndexController extends Controller
 {
     public function index(){
-        $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
+        $emploees       = Emploee::select('id' , 'priority' , 'fullname' , 'image' , 'side' , 'status')->whereStatus(4)->orderBy('priority')->get();
         $response = [
             'emploees'          => $emploees ,
         ];
