@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\IndexController;
 
 Route::middleware('api')->group(function () {
-    Route::get('/index', [IndexController::class, 'index']);
+    Route::get('api/v1/index', [IndexController::class, 'index']);
 });
 
 //Route::prefix('v1')->namespace('Api\v1')->group(function (){
