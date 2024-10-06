@@ -12,6 +12,14 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+    protected function convertPersianToEnglishNumbers($string) {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
+
     public function login(Request $request){
 
         $validData = $this->validate($request, [
@@ -66,18 +74,11 @@ class UserController extends Controller
         $user = User::wherePhone($request->input('phone'))->first();
         if ($user === null) {
 
-            $states = State::where('id' , $request->input('state_id'))->get();
-            foreach ($states as $state){
-                $lat = $state->lat;
-                $lng = $state->lng;
-            }
-
             $validData = $this->validate($request, [
                 'phone'     => 'required',
                 'name'      => 'required|string',
+                'type_id'   => 'required|string',
                 'password'  => 'required|string|min:8|confirmed',
-                'state_id'  => 'required',
-                'city_id'   => 'required',
             ]);
 
             $user = User::create([
@@ -85,11 +86,8 @@ class UserController extends Controller
                 'phone'     => $validData['phone'],
                 'name'      => $validData['name'],
                 'password'  => bcrypt($validData['password']),
-                'state_id'  => $validData['state_id'],
-                'city_id'   => $validData['city_id'],
-                'type_id'   => 4,
-                'lng'       => $lng,
-                'lat'       => $lat,
+                'type_id'   => $validData['type_id'],
+
             ]);
 
             $user->update([

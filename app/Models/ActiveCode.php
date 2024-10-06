@@ -16,6 +16,10 @@ class ActiveCode extends Model
 
     public $timestamps = false;
 
+    public static function generateCode($user)
+    {
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

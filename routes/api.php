@@ -50,7 +50,14 @@ use App\Http\Controllers\Api\v1\IndexController;
 //    Route::get('productvariety/{slug}/{id}'         , 'ProductController@subproductvariety');
 //    Route::get('/company/{slug}'                    , 'IndexController@company');
 
-//    Route::middleware('auth:api')->group(function (){
+   Route::middleware('auth:api')->group(function (){
+
+    Route::post('/user/store'                       , 'UserController@store');
+    Route::get('/profile'                           , 'UserController@profile');
+    Route::post('/user/update'                      , 'UserController@update');
+
+   });
+
 //
 //        Route::post('/supplier/store'                   , 'SupplierController@store');
 //        Route::post('/supplier/edit/{id}'               , 'SupplierController@updatesupplier');
@@ -73,7 +80,6 @@ use App\Http\Controllers\Api\v1\IndexController;
 //        Route::delete('/offer/carofferdelete/{id}'      , 'OfferController@carofferdelete')->name('carofferdelete');
 //
 //        Route::post('/recoverpass'                      , 'UserController@recoverpass');
-//        Route::get('/profile'                           , 'UserController@profile');
 //        Route::get('bmpsupplier'                        , 'SupplierController@bmpsupplier');
 //        Route::get('bmptechnical'                       , 'TechnicalunitController@bmptechnical');
 //        Route::get('bmpsell'                            , 'MarketController@bmpsell');
@@ -83,7 +89,6 @@ use App\Http\Controllers\Api\v1\IndexController;
 //        Route::get('productvariety'                     , 'ProductController@productvariety');
 //        Route::delete('/productvariety/delete/{id}'     , 'ProductController@productbrandvaritydelete');
 //
-//        Route::post('/user/update'                      , 'UserController@update');
 //        Route::get('/mark'                              , 'IndexController@markuser');
 //        Route::post('/mark'                             , 'IndexController@markusercreate');
 //        Route::delete('/unmark/{id}'                    , 'IndexController@markdelete');
@@ -91,7 +96,7 @@ use App\Http\Controllers\Api\v1\IndexController;
 //
 //    });
 
-//});
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
