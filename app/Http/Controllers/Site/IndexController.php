@@ -14,6 +14,7 @@ use App\Models\Emploee;
 use App\Models\mega_menu;
 use App\Models\Menu;
 use App\Models\Dashboard\Post;
+use App\Models\Profile\Workshop;
 use App\Models\Submenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -313,9 +314,35 @@ class IndexController extends Controller
         $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
         $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
+        $workshops          = Workshop::select()->get();
 
-        return view('Site.singleservice')->with(compact('menus','thispage' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services' , 'megacounts' , 'megamenus' , 'servicelawyers'));
+        return view('Site.workshop')->with(compact('menus','thispage','workshops' , 'companies' , 'slides' , 'customers' , 'submenus' , 'services' , 'megacounts' , 'megamenus' , 'servicelawyers'));
 
+    }
+
+    public function singleworkshop(Request $request , $slug)
+    {
+        $url = $request->segments();
+        $menus = Menu::select('id', 'title', 'slug', 'submenu', 'priority', 'mega_menu')->MenuSite()->orderBy('priority')->get();
+        if (count($url) == 1) {
+            $thispage = Menu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->MenuSite()->whereSlug($url[0])->first();
+        } else {
+            $thispage = Submenu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->whereSlug('اخبار')->first();
+        }
+        $megacounts = mega_menu::selectRaw('COUNT(*) as count, menu_id')
+            ->groupBy('menu_id')
+            ->get()
+            ->toArray();
+        $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
+        $megamenus = mega_menu::all();
+        $submenus = Submenu::select('title', 'slug', 'menu_id', 'megamenu_id')->whereStatus(4)->get();
+        $companies = Company::first();
+        $services = Submenu::select('title', 'slug', 'menu_id', 'image')->whereStatus(4)->whereMenu_id(64)->get();
+        $slides = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
+        $customers = Customer::select('name', 'image')->whereStatus(4)->whereHome_show(1)->get();
+        $singleworkshops = Workshop::whereSlug($slug)->first();
+
+        return view('Site.single-workshop')->with(compact('menus', 'thispage', 'companies', 'slides', 'customers', 'submenus', 'services', 'megacounts', 'megamenus', 'singleworkshops', 'servicelawyers'));
     }
 
     public function departmangharardad(Request $request){
