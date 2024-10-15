@@ -65,22 +65,45 @@
                 {{--            </div>--}}
                 {{--        </div>--}}
             </section>
-            <section class="pt-50px pb-50px">
+            <section>
                 <div class="container team-title">
                     <div class="breadcrumb-content">
                         <div class="media media-card">
 
                             <div class="media-body">
-                                <h2 class="section__title fs-50 pb-4">{{$emploees->fullname}}</h2>
+                                <h2 class="section__title fs-30 pb-2">{{$emploees->fullname}}</h2>
                                 @if($emploees['positions'])
                                     @foreach (json_decode($emploees['positions']) as $item)
-                                        <h4 class="lh-40 fs-20">{{$item}}</h4>
+                                        <h4 class="fs-20">{{$item}}</h4>
                                     @endforeach
                                 @endif
                             </div>
                             <div class="media-img media-img-lg">
                                 <img class="" src="{{asset($emploees->image)}}" alt="{{$emploees->fullname}}"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                {{--                        <a id="about-me-tab" data-toggle="tab" href="#about-me" role="tab" aria-controls="about-me" aria-selected="false">--}}
+                                {{--                           رزومه و تجربیات   {{$emploees->fullname}}--}}
+                                {{--                        </a>--}}
+
+                            </li>
+                        </ul>
+                        <div class="tab-pane fade show active" id="about-me" role="tabpanel"
+                             aria-labelledby="about-me-tab">
+
+                            {{--                                <h5 id="about-me-tab" style="font-weight: 700;">--}}
+                            {{--                                    <img src="{{asset('/site/images/experience_2303915 (1).png')}}" alt=""--}}
+                            {{--                                         style="width: 24px;padding-top: 6px"></img>--}}
+                            {{--                                    رزومه و تجربیات {{$emploees->fullname}}--}}
+                            {{--                                </h5>--}}
+                            <h6>{{$emploees->position}}</h6>
+                            <p class="pb-1" style="color: #1a252f">
+                                {!! $emploees->description !!}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -285,7 +308,7 @@
                 {{--                </div>--}}
                 {{--            </div>--}}
                 {{--        </div>--}}
-                <div class="py-5">
+                <div>
                     <div class="container">
                         <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
                             <li class="nav-item">
@@ -300,12 +323,13 @@
                             <div class="tab-pane fade show active" id="about-me" role="tabpanel"
                                  aria-labelledby="about-me-tab">
 
-                                <h5 id="about-me-tab" style="font-weight: 700;">
-                                    <img src="{{asset('/site/images/experience_2303915 (1).png')}}" alt="" style="width: 24px;padding-top: 6px"></img>
-                                    رزومه و تجربیات {{$emploees->fullname}}
-                                </h5>
+                                {{--                                <h5 id="about-me-tab" style="font-weight: 700;">--}}
+                                {{--                                    <img src="{{asset('/site/images/experience_2303915 (1).png')}}" alt=""--}}
+                                {{--                                         style="width: 24px;padding-top: 6px"></img>--}}
+                                {{--                                    رزومه و تجربیات {{$emploees->fullname}}--}}
+                                {{--                                </h5>--}}
                                 <h6>{{$emploees->position}}</h6>
-                                <p class="card-text pb-3">
+                                <p class="pb-3" style="color: #1a252f">
                                     {!! $emploees->description !!}
                                 </p>
                             </div>
