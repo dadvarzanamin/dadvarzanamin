@@ -31,7 +31,7 @@
 @endsection
 @section('main')
     <style>
-        .modal, .service-modal ,.dep-modal, .akhbar-modal, .post-modal,.employee-modal{
+        .modal, .service-modal, .dep-modal, .akhbar-modal, .post-modal, .employee-modal {
             display: none;
             position: fixed;
             z-index: 600;
@@ -44,7 +44,7 @@
             padding-top: 60px;
         }
 
-        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content,.employee-modal-content{
+        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content, .employee-modal-content {
             display: flex;
             flex-direction: column;
             background-color: #fefefe;
@@ -57,7 +57,7 @@
             height: fit-content;
         }
 
-        .close, .dep-close, .akhbar-close, .post-close,.employee-close{
+        .close, .dep-close, .akhbar-close, .post-close, .employee-close {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -75,8 +75,7 @@
         .post-close:hover,
         .post-close:focus,
         .employee-close:hover,
-        .employee-close:focus
-        {
+        .employee-close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -231,6 +230,40 @@
             margin-top: 15px;
             font-size: 20px;
         }
+
+        .highlight-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #4CAF50, #009688);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-text:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: transform 0.5s ease;
+        }
+
+        .highlight-text:hover {
+            transform: scale(1.05);
+        }
+
+        .highlight-text:hover:before {
+            transform: rotate(360deg);
+        }
     </style>
     <div class="slider">
         <div class="container">
@@ -252,27 +285,35 @@
         </div>
     </div>
 
-    <!--     <div class="categories segments">
+    <div class="categories segments">
         <div class="container">
-
-            <div class="row">
-                <div class="content" style="margin: 20px auto;">
-                    <p style="font-size: 20px;margin-bottom: 10px;margin-top: -20px;text-align: center">قانون جدید شورای
-                        حل اختلاف</p>
-                    <h3 class="text-center">تفسیر | تطبیق | تمایز</h3>
-                    <h4 class="text-center" style="margin: 20px 0px;">با تدریس: آقای یحیی ابراهیمی</h4>
-                    <h6 class="text-center">دادستان سابق دادگستری</h6>
-                    <h5 class="text-center" style="margin: 20px;">زمان:پنجشنبه 11 مرداد ماه از ساعت 10 الی 14 </h5>
+            <div class="row justify-content-center">
+                <div class="content content-shadow-product" style="margin:20px auto;">
+                    <img src="{{asset('/workshops/second_workshop.jpg')}}" style="width: 200px"
+                         alt="دوره ضربتی قانون اساسی">
                 </div>
-                <div class="content content-shadow-product" style="margin:0 auto;">
-                    <img src="{{asset('site/images/123.png')}}" style="width: 200px" alt="قانون جدید شورای حل اختلاف">
+                <div class="content" style="margin: 20px auto;">
+                    <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
+
+                        دوره ضربتی قانون اساسی</p>
+                    <hr style="border: none; height: 1px; background-color: #cea54a;">
+                    <h6 class="text-center" style="margin: 4px 0;">با تدریس: جناب دکتر محمد مهدی سیفی</h6>
+                    <hr style="border: none; height: 1px; background-color: #cea54a;">
+                    <h6 class="text-center">مدرس دانشگاه در دروس حقوق اساسی</h6>
+                    <hr style="border: none; height: 1px; background-color: #cea54a;">
+                    <h6 class="text-center" style="margin: 4px;">زمان:پنجشنبه و جمعه 3 و 4 آبان ماه
+                        12 الی 18 </h6>
+                </div>
+                <div class="d-flex highlight-text m-5">
+                    ویژه متقاضیان آزمون وکالت 1403
                 </div>
             </div>
-            <div class="row pt-4"style="margin-top: 24px">
+            <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">
                 <div class="col-lg-12 responsive-column-half">
                     <div class="info-icon-box mb-3 text-center">
                         <div class="row justify-content-center">
-                            <div class="time-segment" style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
+                            <div class="time-segment"
+                                 style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
                                 <span id="days">0</span>
                                 <span>روز</span>
                             </div>
@@ -284,7 +325,8 @@
                                 <span id="minutes">0</span>
                                 <span>دقیقه</span>
                             </div>
-                            <div class="time-segment" style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
+                            <div class="time-segment"
+                                 style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
                                 <span id="seconds">0</span>
                                 <span>ثانیه</span>
                             </div>
@@ -293,73 +335,64 @@
                 </div>
             </div>
             <div class="row">
-                <div class="content" style="margin: 0px auto;">
+                <div class="content" style="margin: 0 auto;">
                     @if(Auth::check())
-        <div class="content-button">
-            <a href="#tab-workshop" class="mobile-button tab-link"
-               style="margin: auto; border-radius: 16px;">ثبت نام جهت حضور در کارگاه
-                آموزشی</a>
+                        <div class="content-button">
+                            <a href="#tab-workshop" class="mobile-button tab-link"
+                               style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;
+">ثبت نام جهت حضور در کارگاه
+                                آموزشی</a>
+                        </div>
+
+                    @else
+                        <div class="content-button">
+                            <a href="#tab-login" class="mobile-button tab-link"
+                               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                                سایت</a>
+                        </div>
+
+                    @endif
+                </div>
+            </div>
         </div>
-
-
-
-
-
-
-    @else
-        <div class="content-button">
-            <a href="#tab-login" class="mobile-button tab-link"
-               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
-                سایت</a>
-        </div>
-
-
-
-
-
-
-    @endif
     </div>
-</div>
-</div>
-</div> -->
-    <!--     <script>
-            // Set the date we're counting down to
-            var countDownDate = new Date("August 01, 2024 16:00:00").getTime();
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("October 24, 2024 16:00:00").getTime();
 
-            // Update the count down every 1 second
-            var x = setInterval(function() {
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-                // Get today's date and time
-                var now = new Date().getTime();
+            // Get today's date and time
+            var now = new Date().getTime();
 
-                // Find the distance between now and the count down date
-                var distance = countDownDate - now;
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
 
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                // // Display the result in the element with id="demo"
-                // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
-                // //+ minutes + " دقیقه " + seconds + " ثانیه ";
-                document.getElementById("days").innerHTML = days;
-                document.getElementById("hours").innerHTML = hours;
-                document.getElementById("minutes").innerHTML = minutes;
-                document.getElementById("seconds").innerHTML = seconds;
-                // If the count down is finished, write some text
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("days").innerHTML = "EXPIRED";
-                    document.getElementById("hours").innerHTML = "EXPIRED";
-                    document.getElementById("minutes").innerHTML = "EXPIRED";
-                    document.getElementById("seconds").innerHTML = "EXPIRED";
-                }
+            // // Display the result in the element with id="demo"
+            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
+            // //+ minutes + " دقیقه " + seconds + " ثانیه ";
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("days").innerHTML = "EXPIRED";
+                document.getElementById("hours").innerHTML = "EXPIRED";
+                document.getElementById("minutes").innerHTML = "EXPIRED";
+                document.getElementById("seconds").innerHTML = "EXPIRED";
+            }
 
-            }, 1000);
-        </script> -->
+        }, 1000);
+    </script>
     <div class="categories segments">
         <div id="serviceDescriptionModal" class="modal">
             <div class="modal-content">
@@ -393,36 +426,36 @@
                             </div>
                         </div>
                     @endforeach
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                var modal = document.getElementById("serviceDescriptionModal");
-                                var modalTitle = document.getElementById("serviceModalTitle");
-                                var modalDescription = document.getElementById("serviceModalDescription");
-                                var span = document.getElementsByClassName("service-close")[0];
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var modal = document.getElementById("serviceDescriptionModal");
+                            var modalTitle = document.getElementById("serviceModalTitle");
+                            var modalDescription = document.getElementById("serviceModalDescription");
+                            var span = document.getElementsByClassName("service-close")[0];
 
-                                document.querySelectorAll(".service-open-modal").forEach(function (element) {
-                                    element.addEventListener("click", function (event) {
-                                        event.preventDefault();
-                                        var description = this.getAttribute("service-data-description");
-                                        var title = this.getAttribute("service-data-title");
-                                        modalTitle.textContent = title;
-                                        modalDescription.innerHTML = description;
-                                        modal.style.display = "flex";
-                                        modal.style.justifyContent = "center";
-                                    });
+                            document.querySelectorAll(".service-open-modal").forEach(function (element) {
+                                element.addEventListener("click", function (event) {
+                                    event.preventDefault();
+                                    var description = this.getAttribute("service-data-description");
+                                    var title = this.getAttribute("service-data-title");
+                                    modalTitle.textContent = title;
+                                    modalDescription.innerHTML = description;
+                                    modal.style.display = "flex";
+                                    modal.style.justifyContent = "center";
                                 });
+                            });
 
-                                span.onclick = function () {
+                            span.onclick = function () {
+                                modal.style.display = "none";
+                            }
+
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
                                     modal.style.display = "none";
                                 }
-
-                                window.onclick = function (event) {
-                                    if (event.target == modal) {
-                                        modal.style.display = "none";
-                                    }
-                                }
-                            });
-                        </script>
+                            }
+                        });
+                    </script>
                 </div>
             </div>
             <div
@@ -638,48 +671,48 @@
                         <div class="swiper-slide m-4">
                             <div class="content content-shadow-product">
                                 <a href="#" class="employee-open-modal"
-                                    employee-data-name="{{$emploee->fullname}}"
-                                    employee-data-image="{{$emploee->image}}">
+                                   employee-data-name="{{$emploee->fullname}}"
+                                   employee-data-image="{{$emploee->image}}">
 
                                     <img src="{{asset($emploee->image)}}" alt="{{$emploee->fullname}}">
                                     <div class="text" style="text-align: center">
-                                        <p class="title-product" style="font-size: 9px;">{{$emploee->fullname}}</p>
-                                        <p class="price" style="font-size: 7px;">{{$emploee->side}}</p>
+                                        <p class="title-product" style="font-size: 7px;">{{$emploee->fullname}}</p>
+                                        <p class="price" style="font-size: 6px;">{{$emploee->side}}</p>
                                     </div>
                                 </a>
                             </div>
                         </div>
                     @endforeach
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                var modal = document.getElementById("employeeModal");
-                                var modalTitle = document.getElementById("employeeModalTitle");
-                                var modalDescription = document.getElementById("employeeModalDescription");
-                                var span = document.getElementsByClassName("employee-close")[0];
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var modal = document.getElementById("employeeModal");
+                            var modalTitle = document.getElementById("employeeModalTitle");
+                            var modalDescription = document.getElementById("employeeModalDescription");
+                            var span = document.getElementsByClassName("employee-close")[0];
 
-                                document.querySelectorAll(".employee-open-modal").forEach(function (element) {
-                                    element.addEventListener("click", function (event) {
-                                        event.preventDefault();
-                                        var name = this.getAttribute("employee-data-name");
-                                        var image = this.getAttribute("employee-data-image");
-                                        modalTitle.image = image;
-                                        modalDescription.innerHTML = name;
-                                        modal.style.display = "flex";
-                                        modal.style.justifyContent = "center";
-                                    });
+                            document.querySelectorAll(".employee-open-modal").forEach(function (element) {
+                                element.addEventListener("click", function (event) {
+                                    event.preventDefault();
+                                    var name = this.getAttribute("employee-data-name");
+                                    var image = this.getAttribute("employee-data-image");
+                                    modalTitle.image = image;
+                                    modalDescription.innerHTML = name;
+                                    modal.style.display = "flex";
+                                    modal.style.justifyContent = "center";
                                 });
+                            });
 
-                                span.onclick = function () {
+                            span.onclick = function () {
+                                modal.style.display = "none";
+                            }
+
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
                                     modal.style.display = "none";
                                 }
-
-                                window.onclick = function (event) {
-                                    if (event.target == modal) {
-                                        modal.style.display = "none";
-                                    }
-                                }
-                            });
-                        </script>
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -708,17 +741,17 @@
                     <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
                          class="swiper-container swiper-init swiper-container-horizontal">
                         <div class="swiper-pagination"></div>
-{{--                        <div class="swiper-wrapper">--}}
-{{--                            @foreach($slides as $slide)--}}
-{{--                                <div class="swiper-slide">--}}
-{{--                                    <div class="content">--}}
-{{--                                        <div class="mask"></div>--}}
-{{--                                        <img src="{{asset('storage/'.$slide->file_link)}}"--}}
-{{--                                             alt="{{$companies['title']}}">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
+                        {{--                        <div class="swiper-wrapper">--}}
+                        {{--                            @foreach($slides as $slide)--}}
+                        {{--                                <div class="swiper-slide">--}}
+                        {{--                                    <div class="content">--}}
+                        {{--                                        <div class="mask"></div>--}}
+                        {{--                                        <img src="{{asset('storage/'.$slide->file_link)}}"--}}
+                        {{--                                             alt="{{$companies['title']}}">--}}
+                        {{--                                    </div>--}}
+                        {{--                                </div>--}}
+                        {{--                            @endforeach--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
                 <div class="popular-brand segments-bottom">
