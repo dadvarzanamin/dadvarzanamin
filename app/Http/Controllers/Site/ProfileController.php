@@ -554,14 +554,19 @@ class ProfileController extends Controller
         // Use $request->transactionId() to match the payment record stored
         // in your persistence database and get expected amount, which is required
         // for verification. Take care of Double Spending.
+        \Log::info('Payment callback received', ['request' => $request->all()]);
+
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->where('workshopsigns.pricestatus', '=', null)
+            ->whereNull('workshopsigns.pricestatus')
             ->first();
 
+        \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
+
         $payment = $request->amount($workshopsign->price)->verify();
+        \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
 
         if ($payment->successful()) {
             $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
