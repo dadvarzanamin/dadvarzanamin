@@ -497,8 +497,9 @@ class ProfileController extends Controller
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
     }
 
-    public function pay()
+    public function pay(Request $request)
     {
+        // ابتدا چک کنید که ایمیل و شماره تلفن وارد شده است
         if (Auth::user()->email == null) {
             alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
@@ -506,35 +507,46 @@ class ProfileController extends Controller
         } elseif (Auth::user()->phone == null) {
             alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
-
         } else {
+            // دریافت workshopid از درخواست یا از session
+            $workshopid = $request->query('workshopid');
+
+            // بررسی اینکه آیا دوره انتخاب شده معتبر است یا خیر
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
                 ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->where('workshopsigns.pricestatus', '=', null)
+                ->where('workshopsigns.workshop_id', '=', $workshopid) // افزودن شرط برای workshopid
+                ->whereNull('workshopsigns.pricestatus') // فقط دوره‌هایی که پرداخت نشده‌اند
                 ->first();
 
-            $request = Toman::amount($workshopsigns->price)
-                ->description($workshopsigns->title)
-                ->callback(route('payment.callback'))
-                ->mobile(Auth::user()->phone)
-                ->email(Auth::user()->email)
-                ->request();
+            if ($workshopsigns) {
+                // تنظیم پرداخت
+                $request = Toman::amount($workshopsigns->price)
+                    ->description($workshopsigns->title)
+                    ->callback(route('payment.callback'))
+                    ->mobile(Auth::user()->phone)
+                    ->email(Auth::user()->email)
+                    ->request();
 
-            if ($request->successful()) {
-                // Store created transaction details for verification
-                $transactionId = $request->transactionId();
+                if ($request->successful()) {
+                    // ذخیره اطلاعات تراکنش برای تایید بعدی
+                    $transactionId = $request->transactionId();
 
-                // Redirect to payment URL
-                return $request->pay();
-            }
-
-            if ($request->failed()) {
-                // Handle transaction request failure.
+                    // ریدایرکت به URL پرداخت
+                    return $request->pay();
+                } elseif ($request->failed()) {
+                    // هندل کردن خطای درخواست پرداخت
+                    alert()->error('', 'خطایی در ارسال درخواست پرداخت به وجود آمد.');
+                    return Redirect::back();
+                }
+            } else {
+                alert()->error('', 'دوره‌ای برای پرداخت یافت نشد.');
+                return Redirect::back();
             }
         }
     }
+
 
     public function callbackpay(CallbackRequest $request)
     {
