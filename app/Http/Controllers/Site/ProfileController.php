@@ -588,7 +588,7 @@ class ProfileController extends Controller
 //                    throw new \Exception('Failed to update the database.');
 //                }
 //
-//                DB::commit();
+                DB::commit();
 //
 //                // Send SMS notification
 //                $this->sendSmsNotification($workshopsign);
