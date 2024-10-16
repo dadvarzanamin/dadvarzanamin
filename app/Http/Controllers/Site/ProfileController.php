@@ -551,7 +551,7 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
-        \Log::info('Payment callback received', ['request' => $request->all()]);
+//        \Log::info('Payment callback received', ['request' => $request->all()]);
 
         try {
             $workshopsign = DB::table('workshops')
@@ -562,14 +562,14 @@ class ProfileController extends Controller
                 ->orderBy('workshopsigns.id', 'DESC')
                 ->first();
 
-            \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
+//            \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
 
             if (!$workshopsign) {
                 throw new \Exception('No unpaid workshop found for the user.');
             }
 
             $payment = $request->amount($workshopsign->price)->verify();
-            \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
+//            \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
 
             if ($payment->successful() || $payment->alreadyVerified()) {
                 DB::beginTransaction();
@@ -582,7 +582,7 @@ class ProfileController extends Controller
                         'price' => $workshopsign->price
                     ]);
 
-                \Log::info('Database update result', ['updatedRows' => $updatedRows]);
+//                \Log::info('Database update result', ['updatedRows' => $updatedRows]);
 
                 if ($updatedRows === 0) {
                     throw new \Exception('Failed to update the database.');
