@@ -578,20 +578,20 @@ class ProfileController extends Controller
                     ->where('id', $workshopsign->workshopsign_id)
                     ->update([
                         'referenceId' => $payment->referenceId(),
-                        'pricestatus' => '4',
+                        'pricestatus' => 4,
                         'price' => $workshopsign->price
                     ]);
 
 //                \Log::info('Database update result', ['updatedRows' => $updatedRows]);
 
-                if ($updatedRows === 0) {
-                    throw new \Exception('Failed to update the database.');
-                }
-
-                DB::commit();
-
-                // Send SMS notification
-                $this->sendSmsNotification($workshopsign);
+//                if ($updatedRows === 0) {
+//                    throw new \Exception('Failed to update the database.');
+//                }
+//
+//                DB::commit();
+//
+//                // Send SMS notification
+//                $this->sendSmsNotification($workshopsign);
 
                 return view('Site.Dashboard.payment-success');
             }
@@ -601,8 +601,8 @@ class ProfileController extends Controller
                 ->where('id', $workshopsign->workshopsign_id)
                 ->update([
                     'referenceId' => $request->transactionId(),
-                    'pricestatus' => '3',
-                    'price' => '111'
+                    'pricestatus' => null,
+                    'price' => null
                 ]);
 
             return view('Site.Dashboard.payment-failed');
