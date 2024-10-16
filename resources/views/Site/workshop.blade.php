@@ -25,10 +25,10 @@
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                             <div class="card-image">
                                 <a href="{{url('دوره-آموزشی/'.$workshop->slug)}}" class="d-block">
-                                    <img class="card-img-top img-index" src="{{asset($workshop->image)}}" alt="{{$workshop->title}}">
+                                    <img class="card-img-top img-index" src="{{asset($workshop->image)}}" alt="{{$workshop->title}}" style="object-fit: cover;">
                                 </a>
                                 <div class="course-badge-labels">
-                                    <div class="course-badge">{{jdate($workshop->updated_at)->ago()}}</div>
+                                    <div class="course-badge">{{jdate($workshop->created_at)->ago()}}</div>
                                 </div>
                             </div>
                             <div class="card-body">
