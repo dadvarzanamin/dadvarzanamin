@@ -551,90 +551,67 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
-        // Use $request->transactionId() to match the payment record stored
-        // in your persistence database and get expected amount, which is required
-        // for verification. Take care of Double Spending.
         \Log::info('Payment callback received', ['request' => $request->all()]);
 
-        $workshopsign = DB::table('workshops')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
-            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->whereNull('workshopsigns.pricestatus')
-            ->first();
+        try {
+            $workshopsign = DB::table('workshops')
+                ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
+                ->where('workshopsigns.user_id', '=', Auth::user()->id)
+                ->whereNull('workshopsigns.pricestatus')
+                ->orderBy('workshopsigns.id', 'DESC')
+                ->first();
 
-        \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
+            \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
 
-        $payment = $request->amount($workshopsign->price)->verify();
-        \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
-
-        if ($payment->successful()) {
-            $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
-            Workshopsign::where('id', $workshoppay->id)->update([
-                'referenceId' => $payment->referenceId(),
-                'pricestatus' => 4,
-                'price' => $workshopsign->price
-            ]);
-
-            if ($workshopsign->typeuse == 1) {
-                $workshoptype = 'حضوری';
-
-            } elseif ($workshopsign->typeuse == 2) {
-                $workshoptype = 'آنلاین';
+            if (!$workshopsign) {
+                throw new \Exception('No unpaid workshop found for the user.');
             }
 
-            try {
+            $payment = $request->amount($workshopsign->price)->verify();
+            \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
 
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => http_build_query([
-                        'type' => '1',
-                        'param1' => Auth::user()->name,
-                        'param2' => $workshopsign->title,
-                        'param3' => $workshoptype,
-                        'receptor' => Auth::user()->phone, // شماره گیرنده را جایگزین کنید
-                        'template' => 'workshop',
-                    ]),
-                    CURLOPT_HTTPHEADER => array(
-                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
-                        "cache-control: no-cache",
-                        "content-type: application/x-www-form-urlencoded",
-                    ),
-                ));
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-                curl_close($curl);
+            if ($payment->successful() || $payment->alreadyVerified()) {
+                DB::beginTransaction();
 
-            } catch (Exception $exception) {
+                $updatedRows = DB::table('workshopsigns')
+                    ->where('id', $workshopsign->workshopsign_id)
+                    ->update([
+                        'referenceId' => $payment->referenceId(),
+                        'pricestatus' => 4,
+                        'price' => $workshopsign->price
+                    ]);
 
+                \Log::info('Database update result', ['updatedRows' => $updatedRows]);
+
+                if ($updatedRows === 0) {
+                    throw new \Exception('Failed to update the database.');
+                }
+
+                DB::commit();
+
+                // Send SMS notification
+                $this->sendSmsNotification($workshopsign);
+
+                return view('Site.Dashboard.payment-success');
             }
 
-            return view('Site.Dashboard.payment-success');
-        }
+            // If payment is not successful
+            DB::table('workshopsigns')
+                ->where('id', $workshopsign->workshopsign_id)
+                ->update([
+                    'referenceId' => $request->transactionId(),
+                    'pricestatus' => null,
+                    'price' => null
+                ]);
 
-        if ($payment->alreadyVerified()) {
-            $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
-            Workshopsign::where('id', $workshoppay->id)->update([
-                'referenceId' => $payment->referenceId(),
-                'pricestatus' => 4,
-                'price' => $workshopsign->price
-            ]);
-            return view('Site.Dashboard.payment-success');
+            return view('Site.Dashboard.payment-failed');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error in callbackpay', ['error' => $e->getMessage()]);
+            return view('Site.Dashboard.payment-failed')->with('error', $e->getMessage());
         }
-        $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
-        Workshopsign::where('id', $workshoppay->id)->update([
-            'referenceId' => $request->transactionid(),
-            'pricestatus' => null,
-            'price' => null
-        ]);
-        return view('Site.Dashboard.payment-failed');
     }
 
     public function edituserprofile(Request $request)
