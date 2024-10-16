@@ -515,7 +515,7 @@ class ProfileController extends Controller
 
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.id' , 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
+                ->select('workshops.title', 'workshops.price', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->where('workshopsigns.workshop_id', '=', $workshopid) // افزودن شرط برای workshopid
                 ->where('workshops.id', '=', $workshopid) // اضافه کردن این خط
@@ -578,7 +578,7 @@ class ProfileController extends Controller
                     ->where('id', $workshopsign->workshopsign_id)
                     ->update([
                         'referenceId' => $payment->referenceId(),
-                        'pricestatus' => 4,
+                        'pricestatus' => '4',
                         'price' => $workshopsign->price
                     ]);
 
@@ -601,8 +601,8 @@ class ProfileController extends Controller
                 ->where('id', $workshopsign->workshopsign_id)
                 ->update([
                     'referenceId' => $request->transactionId(),
-                    'pricestatus' => null,
-                    'price' => null
+                    'pricestatus' => '3',
+                    'price' => '111'
                 ]);
 
             return view('Site.Dashboard.payment-failed');
