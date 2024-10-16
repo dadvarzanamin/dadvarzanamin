@@ -469,7 +469,6 @@ class ProfileController extends Controller
             $Workshopsign->user_id = Auth::user()->id;
 
             $Workshopsign->save();
-//            dd($request->input('workshopid'));
             return Redirect::route('paymentpage', ['workshopid' => $Workshopsign->workshop_id]);
         }
     }
@@ -488,17 +487,20 @@ class ProfileController extends Controller
 
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
             ->where('workshopsigns.user_id', '=', $user->id)
-            ->where('workshopsigns.workshop_id', '=', $workshopid) // اضافه کردن شرط workshopid
-            ->whereNull('workshopsigns.pricestatus') // تغییر '=' به whereNull
+            ->where('workshopsigns.workshop_id', '=', $workshopid)
+            ->whereNull('workshopsigns.pricestatus')
             ->first();
 //        dd($workshopsigns);
+
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
     }
 
+
     public function pay(Request $request)
     {
+//        dd($request->all());
         // ابتدا چک کنید که ایمیل و شماره تلفن وارد شده است
         if (Auth::user()->email == null) {
             alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
@@ -511,15 +513,14 @@ class ProfileController extends Controller
             // دریافت workshopid از درخواست یا از session
             $workshopid = $request->query('workshopid');
 
-            // بررسی اینکه آیا دوره انتخاب شده معتبر است یا خیر
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+                ->select('workshops.title', 'workshops.price', 'workshops.id' , 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->where('workshopsigns.workshop_id', '=', $workshopid) // افزودن شرط برای workshopid
+                ->where('workshops.id', '=', $workshopid) // اضافه کردن این خط
                 ->whereNull('workshopsigns.pricestatus') // فقط دوره‌هایی که پرداخت نشده‌اند
                 ->first();
-
             if ($workshopsigns) {
                 // تنظیم پرداخت
                 $request = Toman::amount($workshopsigns->price)

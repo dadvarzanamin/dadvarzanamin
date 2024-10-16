@@ -7,21 +7,30 @@
     <div class="dashboard-heading mb-5">
         <h3 class="fs-22 font-weight-semi-bold">پرداخت هزینه کارگاه یا دوره آموزشی</h3>
     </div>
-
+{{--    @if($workshopsigns)--}}
+{{--        <p>Workshop ID: {{$workshopsigns->workshop_id}}</p>--}}
+{{--        <p>Title: {{$workshopsigns->title}}</p>--}}
+{{--        <p>Price: {{number_format($workshopsigns->price)}} تومان</p>--}}
+{{--        <p>Date: {{$workshopsigns->date}}</p>--}}
+{{--        <p>Type Use: {{$workshopsigns->typeuse == 1 ? 'حضوری' : 'آنلاین'}}</p>--}}
+{{--    @else--}}
+{{--        <p>دوره‌ای برای پرداخت یافت نشد.</p>--}}
+{{--    @endif--}}
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">
             <div class="setting-body">
-                <form method="get" action="{{route('pay')}}" class="row pt-40px">
+                <form method="get" action="{{ route('pay') }}" class="row pt-40px">
                     @csrf
+                    <input type="hidden" name="workshopid" value="{{ $workshopsigns->workshop_id }}">
                     <div class="input-box col-lg-3">
                         <label class="label-text">نام دوره</label>
-                       <p>{{$workshopsigns->title}}</p>
+                        <p>{{ $workshopsigns->title }}</p>
                     </div>
 
                     <div class="input-box col-lg-3">
                         <label class="label-text">مبلغ هزینه دوره</label>
                         <div class="form-group">
-                            <p>{{number_format($workshopsigns->price)}} تومان </p>
+                            <p>{{ number_format($workshopsigns->price) }} تومان </p>
                         </div>
                     </div>
 
@@ -29,9 +38,9 @@
                         <label class="label-text">نوع استفاده</label>
                         <div class="form-group">
                             @if($workshopsigns->typeuse == 1)
-                            <p> حضوری </p>
+                                <p> حضوری </p>
                             @else
-                            <p> آنلاین </p>
+                                <p> آنلاین </p>
                             @endif
                         </div>
                     </div>
@@ -39,7 +48,7 @@
                     <div class="input-box col-lg-3">
                         <label class="label-text">تاریخ دوره</label>
                         <div class="form-group">
-                            <p>{{$workshopsigns->date}}</p>
+                            <p>{{ $workshopsigns->date }}</p>
                         </div>
                     </div>
                     <div class="input-box col-lg-12 py-2">
