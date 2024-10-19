@@ -192,7 +192,6 @@ trait AuthenticatesUsers
         ]);
 
         $phone      = $this->convertPersianToEnglishNumbers($validData['phone']);
-
         $user = User::wherePhone($phone)->first();
         $user = User::find($user->id);
         $request->session()->flash('auth', [
@@ -200,6 +199,7 @@ trait AuthenticatesUsers
         ]);
 
         $code = ActiveCode::generateCode($user);
+        dd($code);
 
         $user->notify(new ActiveCodeNotification($code , $user->phone));
 
