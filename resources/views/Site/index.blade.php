@@ -266,7 +266,7 @@
                             <h6 class="text-center" style="margin: 8px 0;">زمان:پنجشنبه و جمعه 3 و 4 آبان ماه از ساعت
                                 12 الی 18
                             </h6>
-                            <div class="highlight-text m-5">
+                            <div class="text-center m-5">
                                 ویژه متقاضیان آزمون وکالت 1403
                             </div>
                         </div>
@@ -297,12 +297,9 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-                            @if(Auth::check())
-                                <a href="{{url('دوره-آموزشی/دوره-ضربتی-قانون-اساسی')}}" class="btn pr-button br-16 py-3">جهت تکمیل ثبت نام در
-                                    کارگاه آموزشی کلیک کنید</a>
-                            @else
-                                <a href="{{route('register')}}" class="btn pr-button br-8">جهت ثبت نام کلیک کنید</a>
-                            @endif
+                            <a href="{{url('دوره-آموزشی/دوره-ضربتی-قانون-اساسی')}}" class="btn pr-button br-16 py-3">
+                                مشاهده اطلاعات دوره </a>
+
                         </div>
                     </div>
                 </div>
