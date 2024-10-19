@@ -298,7 +298,7 @@
                         </div>
                         <div class="btn-box text-center">
                             @if(Auth::check())
-                                <a href="{{route('profile')}}" class="btn pr-button br-16 py-3">جهت تکمیل ثبت نام در
+                                <a href="{{url('دوره-آموزشی/دوره-ضربتی-قانون-اساسی')}}" class="btn pr-button br-16 py-3">جهت تکمیل ثبت نام در
                                     کارگاه آموزشی کلیک کنید</a>
                             @else
                                 <a href="{{route('register')}}" class="btn pr-button br-8">جهت ثبت نام کلیک کنید</a>
