@@ -38,6 +38,7 @@ class PayuserController extends Controller
                    ->select('users.name as name', 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
                    ->join('users', 'workshopsigns.user_id', '=', 'users.id')
                    ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
+                    ->orderBy('workshopsigns.created_at' , 'DESC')
                    ->get();
 
 
