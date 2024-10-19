@@ -199,7 +199,6 @@ trait AuthenticatesUsers
         ]);
 
         $code = ActiveCode::generateCode($user);
-        dd($code);
 
         $user->notify(new ActiveCodeNotification($code , $user->phone));
 
