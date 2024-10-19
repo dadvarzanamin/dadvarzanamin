@@ -36,6 +36,7 @@
                                     <table id="sample1" class="table table-striped table-bordered yajra-datatable">
                                         <thead>
                                         <tr>
+                                            <th class="wd-10p"> سریال پرداخت </th>
                                             <th class="wd-10p"> نام کاربر </th>
                                             <th class="wd-10p"> عنوان دوره </th>
                                             <th class="wd-10p"> نوع شرکت در دوره </th>
@@ -70,6 +71,7 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
+                    {data: 'id'         , name: 'id'},
                     {data: 'name'       , name: 'name'},
                     {data: 'title'      , name: 'title'},
                     {data: 'typeuse'    , name: 'typeuse'},

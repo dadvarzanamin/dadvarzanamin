@@ -35,15 +35,17 @@ class PayuserController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('workshopsigns')
-                   ->select('users.name as name', 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
+                   ->select( 'workshopsigns.id', 'users.name as name', 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
                    ->join('users', 'workshopsigns.user_id', '=', 'users.id')
                    ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
-                    ->orderBy('workshopsigns.created_at' , 'DESC')
                    ->get();
 
 
             return Datatables::of($data)
 
+                ->addColumn('id', function ($data) {
+                    return ($data->id);
+                })
                 ->addColumn('name', function ($data) {
                     return ($data->name);
                 })
