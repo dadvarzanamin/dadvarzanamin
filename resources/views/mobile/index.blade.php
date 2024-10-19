@@ -31,7 +31,7 @@
 @endsection
 @section('main')
     <style>
-        .modal, .service-modal, .dep-modal, .akhbar-modal, .post-modal, .employee-modal {
+        .modal, .service-modal, .dep-modal, .akhbar-modal, .post-modal, .employee-modal, .dore-modal {
             display: none;
             position: fixed;
             z-index: 600;
@@ -44,7 +44,7 @@
             padding-top: 60px;
         }
 
-        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content, .employee-modal-content {
+        .modal-content, .dep-modal-content, .akhbar-modal-content, .post-modal-content, .employee-modal-content, .dore-modal-content {
             display: flex;
             flex-direction: column;
             background-color: #fefefe;
@@ -57,7 +57,7 @@
             height: fit-content;
         }
 
-        .close, .dep-close, .akhbar-close, .post-close, .employee-close {
+        .close, .dep-close, .akhbar-close, .post-close, .employee-close, .dore-close {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -75,7 +75,9 @@
         .post-close:hover,
         .post-close:focus,
         .employee-close:hover,
-        .employee-close:focus {
+        .employee-close:focus,
+        .dore-close:hover,
+        .dore-close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -289,7 +291,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="content content-shadow-product" style="margin:20px auto;">
-                    <img src="{{asset('/workshops/second_workshop.jpg')}}" style="width: 200px"
+                    <img src="{{asset('/workshops/second_workshop.jpg')}}" style="width: 300px;border-radius: 16px"
                          alt="دوره ضربتی قانون اساسی">
                 </div>
                 <div class="content" style="margin: 20px auto;">
@@ -304,7 +306,7 @@
                     <h6 class="text-center" style="margin: 4px;">زمان:پنجشنبه و جمعه 3 و 4 آبان ماه
                         12 الی 18 </h6>
                 </div>
-                <div class="d-flex highlight-text m-5">
+                <div class="text-center">
                     ویژه متقاضیان آزمون وکالت 1403
                 </div>
             </div>
@@ -334,26 +336,249 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="content" style="margin: 0 auto;">
-                    @if(Auth::check())
-                        <div class="content-button">
-                            <a href="#tab-workshop" class="mobile-button tab-link"
-                               style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;
-">ثبت نام جهت حضور در کارگاه
-                                آموزشی</a>
-                        </div>
 
-                    @else
-                        <div class="content-button">
-                            <a href="#tab-login" class="mobile-button tab-link"
-                               style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
-                                سایت</a>
-                        </div>
-
-                    @endif
+            <div class="content-button mx-4 ">
+                <div class="content-button mx-4">
+                    <a href="#" class="dore-open-modal mobile-button br-16"
+                       style="display: flex;justify-content: center">مشاهده اطلاعات دوره</a>
                 </div>
             </div>
+            <style>
+                * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                }
+
+                .content-button {
+                    text-align: center;
+                    padding: 20px;
+                }
+
+                .mobile-button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    /*background-color: #007bff;*/
+                    /*color: white;*/
+                    text-decoration: none;
+                    border-radius: 16px;
+                    font-size: 16px;
+                }
+
+                .dore-modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+                    background-color: rgba(0, 0, 0, 0.4);
+                }
+
+                .dore-modal-content {
+                    background-color: #fefefe;
+                    margin: 10% auto;
+                    padding: 20px;
+                    border: 1px solid #888;
+                    width: 90%;
+                    max-width: 800px;
+                    border-radius: 10px;
+                    position: relative;
+                }
+
+                .dore-close {
+                    z-index: 1010;
+                    color: #aaa;
+                    position: absolute;
+                    top: 10px;
+                    right: 20px;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                .course-title {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+
+                .course-info {
+                    margin-bottom: 20px;
+                }
+
+                .course-description {
+                    margin-bottom: 20px;
+                }
+
+                .instructor-info {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 40px;
+                }
+
+                .instructor-img {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    margin-left: 15px;
+                }
+
+                .course-features {
+                    background-color: #f8f9fa;
+                    padding: 15px;
+                    border-radius: 8px;
+                }
+
+                .feature-item {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                }
+                .course-image-container {
+                    border-radius: 16px;
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                }
+                .course-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                @media (max-width: 768px) {
+                    .dore-modal-content {
+                        margin: 5% auto;
+                        width: 95%;
+                        padding: 15px;
+                    }
+
+                    .course-title {
+                        font-size: 20px;
+                    }
+
+                    .instructor-info {
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                    .instructor-img {
+                        margin-bottom: 10px;
+                    }
+                }
+            </style>
+            <div id="doreModal" class="dore-modal">
+                <div class="dore-modal-content">
+                    <span class="dore-close">&times;</span>
+                    <div id="doreModalContent">
+                        <div class="course-image-container" style="margin-top: 32px">
+                            <img src="{{asset('workshops/second_workshop.jpg')}}" alt="تصویر دوره" class="course-image">
+                        </div>
+                        <h3 class="course-title" style="padding-top: 12px">دوره ضربتی قانون اساسی</h3>
+
+                        <div class="course-info">
+                            <p>ارائه توسط: دکتر محمد مهدی سیفی</p>
+                            <p>نوع برگزاری: حضوری و آنلاین</p>
+                            <p>تاریخ برگزاری: 1403/8/3</p>
+                        </div>
+
+                        <div class="course-description">
+                            <h3 style="margin-bottom: 20px">شرح دوره</h3>
+                            <p>
+                                1- تسلط بر مباحث سوال خیز حقوق اساسی
+                            </p>
+                            <p>
+                                2- مرور سریع مباحث تخصصی حقوق اساسی
+                            </p>
+                            <p>
+                                3- رفع اشکال مسائلی که اکثر داوطلبان دچار اشتباه می‌شوند.
+                            </p>
+                            <p>
+                                4- افزایش بهینه سرعت در پاسخگویی به تست‌های آزمون‌های قبل</p>
+                        </div>
+
+                        <div class="instructor-info">
+                            <img src="{{asset('/emploee/PelmgmRasZ0mjRkRzCJYCYMoX5Q9Ij.jpg')}}" alt="تصویر استاد"
+                                 class="instructor-img">
+                            <div>
+                                <h3 style="margin-bottom: 20px">درباره استاد</h3>
+                                <p>دوره ضربتی حقوق اساسی طی دو روز متوالی در روزهای 3 و 4 آبان ماه 1403 برگزار خواهد شد
+                                    که جمعاً 16 ساعت کلاس خواهد بود. مدرس این دوره جناب آقای دکتر محمد مهدی سیفی از
+                                    مدرسان دانشگاه در دروس حقوق اساسی هستند که رزومه ایشان در ادامه در خدمت شما
+                                    دانشپذیران گرامی قرار گرفته است. با شرکت در این دوره بر تمام موضوعات سوال خیز آزمون
+                                    وکالت (کانون وکلا و مرکز قوه قضاییه) مسلط خواهد شد و در کمترین زمان مطالعه این درس
+                                    را به اتمام خواهید رساند. لازم به ذکر است که ظرفیت شرکت در این دوره به صورت حضوری
+                                    محدود است و دوره بصورت آنلاین در پلتفرم قابل تعامل با استاد برگزار خواهد شد . البته
+                                    تمامی دوره به صورت ویدئو در دسترس دانشپذیران محترم قرار خواهد گرفت.</p>
+                            </div>
+                        </div>
+
+                        <div class="course-features">
+                            <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
+                            <div class="feature-item">
+                                <span>مدت زمان:</span>
+                                <span>16 ساعت</span>
+                            </div>
+                            <div class="feature-item">
+                                <span>سطح مهارت:</span>
+                                <span>همه سطوح</span>
+                            </div>
+                            <div class="feature-item">
+                                <span>آزمون ورودی:</span>
+                                <span>ندارد</span>
+                            </div>
+                        </div>
+                        <div class="content" style="margin: 0 auto 80px;">
+                            @if(Auth::check())
+                                <div class="content-button">
+                                    <a href="#tab-workshop" class="mobile-button tab-link"
+                                       style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;
+            ">ثبت نام جهت حضور در کارگاه
+                                        آموزشی</a>
+                                </div>
+
+                            @else
+                                <div class="content-button">
+                                    <a href="#tab-login" class="mobile-button tab-link"
+                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                                        سایت</a>
+                                </div>
+
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var modal = document.getElementById("doreModal");
+                    var btn = document.querySelector(".dore-open-modal");
+                    var span = document.getElementsByClassName("dore-close")[0];
+
+                    btn.onclick = function (event) {
+                        event.preventDefault();
+                        modal.style.display = "block";
+                    }
+
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                });
+            </script>
         </div>
     </div>
     <script>
@@ -1322,6 +1547,105 @@
             </div>
         </div>
     </div>
+    <div id="tab-register" class="page-content tab">
+        <div class="navbar navbar-page">
+            <div class="navbar-inner">
+                <div class="title"> عضویت</div>
+                <div class="right"><a href="#tab-login" class="tab-link"><i class="fas fa-arrow-left"></i></a></div>
+            </div>
+        </div>
+        <div class="recommended product segments-bottom">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <img src="{{url('/mobile/images/login-mobile.png/')}}" alt="login" style="width: 50%">
+                </div>
+                <div class="row">
+                    <div class="col-100">
+                        <div class="password-settings segments">
+                            <div class="container">
+                                <form method="POST" action="{{ route('mobile-register') }}" class="list">
+                                    @csrf
+                                    <ul>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="name" autocomplete="off"
+                                                           placeholder="نام و نام خانوادگی" required
+                                                           class="form-control @error('name') is-invalid @enderror">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="phone" autocomplete="off"
+                                                           placeholder="موبایل" required
+                                                           class="form-control @error('phone') is-invalid @enderror">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="email" autocomplete="off"
+                                                           placeholder="ایمیل" required
+                                                           class="form-control @error('email') is-invalid @enderror">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="text" name="username" autocomplete="off"
+                                                           placeholder="نام کاربری" required
+                                                           class="form-control @error('username') is-invalid @enderror">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <select name="type_user" class="form-control" required>
+                                                        <option value="">انتخاب کنید</option>
+                                                        @foreach(\App\Models\TypeUser::select('id' , 'title_fa')->whereIn('id' , [4,5,6,7])->get() as $type)
+                                                            <option value="{{$type->id}}">{{$type->title_fa}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="password" id="pass" autocomplete="off"
+                                                           placeholder="رمز عبور" required name="password"
+                                                           class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <input type="password" required name="password_confirmation"
+                                                           placeholder="تکرار رمز عبور" class="form-control"/>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="content-button">
+                                        <button type="submit" class="mobile-button primary-button"><i
+                                                class="fas fa-paper-plane"></i>عضویت در سایت
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @if(Auth::check())
         <div id="tab-profile" class="page-content tab">
             <div class="navbar navbar-page">
