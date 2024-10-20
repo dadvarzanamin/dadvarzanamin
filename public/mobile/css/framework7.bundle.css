@@ -2291,7 +2291,7 @@ html.device-full-viewport body {
 .views > .toolbar,
 .view > .toolbar,
 .page > .toolbar {
-  position: absolute;
+  position: fixed;
 }
 .toolbar-top,
 .ios .toolbar-top-ios,

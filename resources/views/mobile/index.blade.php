@@ -307,12 +307,12 @@
 
         .dore-modal-content {
             background-color: #fefefe;
-            margin: 10% auto;
+            margin: 0;
             padding: 20px;
             border: 1px solid #888;
-            width: 90%;
+            width: 100%;
             max-width: 800px;
-            border-radius: 10px;
+            border-radius: 16px;
             position: relative;
         }
 
@@ -379,11 +379,11 @@
         }
 
         @media (max-width: 768px) {
-            .dore-modal-content {
-                margin: 5% auto;
-                width: 95%;
-                padding: 15px;
-            }
+            /*.dore-modal-content {*/
+            /*    margin: 5% auto;*/
+            /*    width: 95%;*/
+            /*    padding: 15px;*/
+            /*}*/
 
             .course-title {
                 font-size: 20px;
