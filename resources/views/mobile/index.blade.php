@@ -426,12 +426,17 @@
                     <img src="{{asset('/workshops/second_workshop.jpg')}}" style="width: 300px;border-radius: 16px"
                          alt="دوره ضربتی قانون اساسی">
                 </div>
+                @php
+                    if($workshops->isNotEmpty()) {
+                        $workshop = $workshops[0];
+                    }
+                @endphp
                 <div class="content" style="margin: 20px auto;">
                     <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
-                        {{$workshops->title}}
+                        {{$workshop->title}}
                     </p>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center" style="margin: 4px 0;">با تدریس: جناب دکتر {{$workshops->teacher}}
+                    <h6 class="text-center" style="margin: 4px 0;">با تدریس: جناب دکتر {{$workshop->teacher}}
                     </h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">مدرس دانشگاه در دروس حقوق اساسی</h6>
@@ -486,12 +491,12 @@
                         <div class="course-image-container" style="margin-top: 32px">
                             <img src="{{asset('workshops/second_workshop.jpg')}}" alt="تصویر دوره" class="course-image">
                         </div>
-                        <h3 class="course-title" style="padding-top: 12px">{{$workshops->title}}</h3>
+                        <h3 class="course-title" style="padding-top: 12px">{{$workshop->title}}</h3>
 
                         <div class="course-info">
-                            <p>ارائه توسط: دکتر {{$workshops->teacher}}</p>
-                            <p>نوع برگزاری: {{$workshops->type}}</p>
-                            <p>تاریخ برگزاری: {{$workshops->date}}</p>
+                            <p>ارائه توسط: دکتر {{$workshop->teacher}}</p>
+                            <p>نوع برگزاری: {{$workshop->type}}</p>
+                            <p>تاریخ برگزاری: {{$workshop->date}}</p>
                         </div>
 
                         <div class="course-description">
@@ -500,7 +505,7 @@
                                 اهداف دوره
                             </h3>
                             @php
-                                $lines = explode("\n", $workshops->target);
+                                $lines = explode("\n", $workshop->target);
                             @endphp
                             <ul>
                                 @foreach ($lines as $line)
@@ -513,17 +518,17 @@
 
                             <h3 style="margin-bottom: 20px">شرح دوره</h3>
                             <p>
-                                {{$workshops->description}}
+                                {{$workshop->description}}
                             </p>
 
                         </div>
 
                         <div class="instructor-info">
-                            <img src="{{asset($workshops->teacher_image)}}" alt="تصویر استاد"
+                            <img src="{{asset($workshop->teacher_image)}}" alt="تصویر استاد"
                                  class="instructor-img">
                             <div>
                                 @php
-                                    $resumes = explode("\n", $workshops->teacher_resume);
+                                    $resumes = explode("\n", $workshop->teacher_resume);
                                 @endphp
                                 <h3 style="margin-bottom: 20px">درباره استاد</h3>
                                 <ul>
@@ -538,7 +543,7 @@
                             <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
                             <div class="feature-item">
                                 <span>مدت زمان:</span>
-                                <span>{{$workshops->duration}} ساعت</span>
+                                <span>{{$workshop->duration}} ساعت</span>
                             </div>
                             <div class="feature-item">
                                 <span>سطح مهارت:</span>

@@ -21,11 +21,11 @@
 {{--        <img @if($slides) src="{{asset('storage/'.$slides->file_link)}}" @else src="{{asset('site/images/img1.jpg')}}" @endif alt="" style="width: 100%">--}}
 {{--    </section>--}}
 
-<section class="blog-area pt-100px pb-100px">
+<section class="single-blog-area pt-100px pb-100px">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mb-5">
-                <div class="card card-item">
+                <div class="card card-item  br-16 card-bg50">
                     <div class="card-body">
                         <h3>{{$akhbars->title}}</h3>
                         <p class="card-text pb-3">
@@ -108,20 +108,26 @@
                         <div class="card-body">
                             <h3 class="card-title fs-18 pb-2">مطالب مرتبط</h3>
                             <div class="divider"><span></span></div>
-                            <div class="container d-flex flex-column align-items-center">
-                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
-                                <h5>شورای حقوقی حل اختلاف</h5>
+                            <a href="{{url('/محتوای-آموزشی/چه-کسانی-مجاز-به-امضای-قرارداد-هستند')}}">چه کسانی
+                                مجاز به امضای قرارداد هستند؟
+                            </a>
+                            <div class="divider">
+                                    <span>
+                                    </span>
                             </div>
+                            <a href="{{url('/محتوای-آموزشی/دعوای-خلع-ید-ملک-مشاعی')}}">دعوای خلع ید ملک
+                                مشاعی</a>
                             <div class="divider"><span></span></div>
-                            <div class="container d-flex flex-column align-items-center">
-                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
-                                <h5>شورای حقوقی حل اختلاف</h5>
-                            </div>
+                            <a href="{{url('/محتوای-آموزشی/ساده-ترین-روش-دریافت-مهریه')}}">ساده‌ترین
+                                روش دریافت مهریه</a>
                             <div class="divider"><span></span></div>
-                            <div class="container d-flex flex-column align-items-center">
-                                <img src="{{asset('/site/images/hire.webp')}}" style="width: 100%" class="br-8 mb-2" alt="">
-                                <h5>شورای حقوقی حل اختلاف</h5>
-                            </div>
+                            <a href="{{url('/محتوای-آموزشی/معرفی-سامانه-میخک')}}">معرفی سامانه میخک
+                            </a>
+                            <div class="divider"><span></span></div>
+                            <a href="{{url('/محتوای-آموزشی/نحوه-مطالبه-مهریه-در-ازدواج-موقت')}}">نحوه مطالبه
+                                مهریه در ازدواج موقت
+
+                            </a>
 {{--                            <h3 class="card-title fs-18 pb-2">آرشیوها</h3>--}}
 {{--                            <div class="divider"><span></span></div>--}}
 {{--                            <ul class="generic-list-item">--}}
