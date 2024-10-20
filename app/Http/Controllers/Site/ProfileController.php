@@ -487,7 +487,7 @@ class ProfileController extends Controller
 
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price','workshops.offer','workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
             ->where('workshopsigns.user_id', '=', $user->id)
             ->where('workshopsigns.workshop_id', '=', $workshopid)
             ->whereNull('workshopsigns.pricestatus')
@@ -515,7 +515,7 @@ class ProfileController extends Controller
 
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
+                ->select('workshops.title', 'workshops.price' ,'workshops.offer' , 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->where('workshopsigns.workshop_id', '=', $workshopid) // افزودن شرط برای workshopid
                 ->where('workshops.id', '=', $workshopid) // اضافه کردن این خط
@@ -556,7 +556,7 @@ class ProfileController extends Controller
         try {
             $workshopsign = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
+                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.offer' , 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->whereNull('workshopsigns.pricestatus')
                 ->orderBy('workshopsigns.id', 'DESC')
