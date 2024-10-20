@@ -308,7 +308,7 @@
         .dore-modal-content {
             background-color: #fefefe;
             margin: 0;
-            padding: 20px;
+            padding-top: 20px;
             border: 1px solid #888;
             width: 100%;
             max-width: 800px;
@@ -558,7 +558,7 @@
                             <p style="font-size: 16px;">مبلغ دوره</p>
                         </div>
                         <div style="text-align: center;padding: 20px">
-                            <p class="d-flex align-items-center pb-2">
+                            <p class="align-items-center pb-2">
                                 @if($workshop->offer)
                                     <span style="font-size: 24px">{{number_format($workshop->offer)}} تومان </span>
                                     <span style="    text-decoration: line-through;font-size: 16px
@@ -566,7 +566,7 @@
                                 @endif
                             </p>
                         </div>
-                        <div class="content" style="margin: 0 auto 80px;">
+                        <div class="content" style="padding-bottom: 60px;">
                             @if(Auth::check())
                                 <div class="content-button">
                                     <a href="#tab-workshop" class="mobile-button tab-link"
