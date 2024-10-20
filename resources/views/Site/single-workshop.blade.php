@@ -34,7 +34,6 @@
         </div>
     </section>
     @php
-        // تبدیل متن به آرایه با استفاده از خط جدید
         $lines = explode("\n", $singleworkshops->target);
     @endphp
     <section class="course-details-area pb-20px">

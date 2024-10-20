@@ -266,6 +266,138 @@
         .highlight-text:hover:before {
             transform: rotate(360deg);
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .content-button {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .mobile-button {
+            display: inline-block;
+            padding: 10px 20px;
+            /*background-color: #007bff;*/
+            /*color: white;*/
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 16px;
+        }
+
+        .dore-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .dore-modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .dore-close {
+            z-index: 1010;
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .course-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .course-info {
+            margin-bottom: 20px;
+        }
+
+        .course-description {
+            margin-bottom: 20px;
+        }
+
+        .instructor-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .instructor-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-left: 15px;
+        }
+
+        .course-features {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .feature-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .course-image-container {
+            border-radius: 16px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .course-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .dore-modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 15px;
+            }
+
+            .course-title {
+                font-size: 20px;
+            }
+
+            .instructor-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .instructor-img {
+                margin-bottom: 10px;
+            }
+        }
     </style>
     <div class="slider">
         <div class="container">
@@ -296,10 +428,11 @@
                 </div>
                 <div class="content" style="margin: 20px auto;">
                     <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
-
-                        دوره ضربتی قانون اساسی</p>
+                        {{$workshops->title}}
+                    </p>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center" style="margin: 4px 0;">با تدریس: جناب دکتر محمد مهدی سیفی</h6>
+                    <h6 class="text-center" style="margin: 4px 0;">با تدریس: جناب دکتر {{$workshops->teacher}}
+                    </h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">مدرس دانشگاه در دروس حقوق اساسی</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
@@ -344,135 +477,7 @@
                 </div>
             </div>
             <style>
-                * {
-                    box-sizing: border-box;
-                    margin: 0;
-                    padding: 0;
-                }
 
-                body {
-                    font-family: Arial, sans-serif;
-                    line-height: 1.6;
-                }
-
-                .content-button {
-                    text-align: center;
-                    padding: 20px;
-                }
-
-                .mobile-button {
-                    display: inline-block;
-                    padding: 10px 20px;
-                    /*background-color: #007bff;*/
-                    /*color: white;*/
-                    text-decoration: none;
-                    border-radius: 16px;
-                    font-size: 16px;
-                }
-
-                .dore-modal {
-                    display: none;
-                    position: fixed;
-                    z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    overflow: auto;
-                    background-color: rgba(0, 0, 0, 0.4);
-                }
-
-                .dore-modal-content {
-                    background-color: #fefefe;
-                    margin: 10% auto;
-                    padding: 20px;
-                    border: 1px solid #888;
-                    width: 90%;
-                    max-width: 800px;
-                    border-radius: 10px;
-                    position: relative;
-                }
-
-                .dore-close {
-                    z-index: 1010;
-                    color: #aaa;
-                    position: absolute;
-                    top: 10px;
-                    right: 20px;
-                    font-size: 28px;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-
-                .course-title {
-                    font-size: 24px;
-                    margin-bottom: 20px;
-                }
-
-                .course-info {
-                    margin-bottom: 20px;
-                }
-
-                .course-description {
-                    margin-bottom: 20px;
-                }
-
-                .instructor-info {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 40px;
-                }
-
-                .instructor-img {
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    margin-left: 15px;
-                }
-
-                .course-features {
-                    background-color: #f8f9fa;
-                    padding: 15px;
-                    border-radius: 8px;
-                }
-
-                .feature-item {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 10px;
-                }
-                .course-image-container {
-                    border-radius: 16px;
-                    position: relative;
-                    width: 100%;
-                    overflow: hidden;
-                }
-                .course-image {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                @media (max-width: 768px) {
-                    .dore-modal-content {
-                        margin: 5% auto;
-                        width: 95%;
-                        padding: 15px;
-                    }
-
-                    .course-title {
-                        font-size: 20px;
-                    }
-
-                    .instructor-info {
-                        flex-direction: column;
-                        align-items: flex-start;
-                    }
-
-                    .instructor-img {
-                        margin-bottom: 10px;
-                    }
-                }
             </style>
             <div id="doreModal" class="dore-modal">
                 <div class="dore-modal-content">
@@ -481,42 +486,51 @@
                         <div class="course-image-container" style="margin-top: 32px">
                             <img src="{{asset('workshops/second_workshop.jpg')}}" alt="تصویر دوره" class="course-image">
                         </div>
-                        <h3 class="course-title" style="padding-top: 12px">دوره ضربتی قانون اساسی</h3>
+                        <h3 class="course-title" style="padding-top: 12px">{{$workshops->title}}</h3>
 
                         <div class="course-info">
-                            <p>ارائه توسط: دکتر محمد مهدی سیفی</p>
-                            <p>نوع برگزاری: حضوری و آنلاین</p>
-                            <p>تاریخ برگزاری: 1403/8/3</p>
+                            <p>ارائه توسط: دکتر {{$workshops->teacher}}</p>
+                            <p>نوع برگزاری: {{$workshops->type}}</p>
+                            <p>تاریخ برگزاری: {{$workshops->date}}</p>
                         </div>
 
                         <div class="course-description">
+
+                            <h3>
+                                اهداف دوره
+                            </h3>
+                            @php
+                                $lines = explode("\n", $workshops->target);
+                            @endphp
+                            <ul>
+                                @foreach ($lines as $line)
+                                    <p>{{ $line }}</p>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="course-description">
+
+
                             <h3 style="margin-bottom: 20px">شرح دوره</h3>
                             <p>
-                                1- تسلط بر مباحث سوال خیز حقوق اساسی
+                                {{$workshops->description}}
                             </p>
-                            <p>
-                                2- مرور سریع مباحث تخصصی حقوق اساسی
-                            </p>
-                            <p>
-                                3- رفع اشکال مسائلی که اکثر داوطلبان دچار اشتباه می‌شوند.
-                            </p>
-                            <p>
-                                4- افزایش بهینه سرعت در پاسخگویی به تست‌های آزمون‌های قبل</p>
+
                         </div>
 
                         <div class="instructor-info">
-                            <img src="{{asset('/emploee/PelmgmRasZ0mjRkRzCJYCYMoX5Q9Ij.jpg')}}" alt="تصویر استاد"
+                            <img src="{{asset($workshops->teacher_image)}}" alt="تصویر استاد"
                                  class="instructor-img">
                             <div>
+                                @php
+                                    $resumes = explode("\n", $workshops->teacher_resume);
+                                @endphp
                                 <h3 style="margin-bottom: 20px">درباره استاد</h3>
-                                <p>دوره ضربتی حقوق اساسی طی دو روز متوالی در روزهای 3 و 4 آبان ماه 1403 برگزار خواهد شد
-                                    که جمعاً 16 ساعت کلاس خواهد بود. مدرس این دوره جناب آقای دکتر محمد مهدی سیفی از
-                                    مدرسان دانشگاه در دروس حقوق اساسی هستند که رزومه ایشان در ادامه در خدمت شما
-                                    دانشپذیران گرامی قرار گرفته است. با شرکت در این دوره بر تمام موضوعات سوال خیز آزمون
-                                    وکالت (کانون وکلا و مرکز قوه قضاییه) مسلط خواهد شد و در کمترین زمان مطالعه این درس
-                                    را به اتمام خواهید رساند. لازم به ذکر است که ظرفیت شرکت در این دوره به صورت حضوری
-                                    محدود است و دوره بصورت آنلاین در پلتفرم قابل تعامل با استاد برگزار خواهد شد . البته
-                                    تمامی دوره به صورت ویدئو در دسترس دانشپذیران محترم قرار خواهد گرفت.</p>
+                                <ul>
+                                    @foreach ($resumes as $resume)
+                                        <p class="generic-list-item overview-list-item">{{ $resume }}</p>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
 
@@ -524,7 +538,7 @@
                             <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
                             <div class="feature-item">
                                 <span>مدت زمان:</span>
-                                <span>16 ساعت</span>
+                                <span>{{$workshops->duration}} ساعت</span>
                             </div>
                             <div class="feature-item">
                                 <span>سطح مهارت:</span>
@@ -756,7 +770,8 @@
                                     <img src="{{asset($akhbar->image)}}" alt="{{$akhbar->title}}">
                                     <div class="text">
                                         <a href="#" class="open-akhbar-modal"><h5
-                                                style="text-align: center;overflow: hidden">{{$akhbar->title}}</h5></a>
+                                                style="text-align: center;overflow: hidden">{{$akhbar->title}}</h5>
+                                        </a>
                                         <p class="date">{{jdate($akhbar->updated_at)->ago()}}</p>
                                     </div>
                                 </a>
@@ -827,7 +842,8 @@
                                     <img src="{{asset($post->image)}}" alt="{{$post->title}}">
                                     <div class="text">
                                         <a href="#" class="open-post-modal"><h5
-                                                style="text-align: center; overflow: hidden">{{$post->title}}</h5></a>
+                                                style="text-align: center; overflow: hidden">{{$post->title}}</h5>
+                                        </a>
                                         <p class="date">{{jdate($post->updated_at)->ago()}}</p>
                                     </div>
                                 </a>
@@ -880,66 +896,191 @@
         <div id="employeeModal" class="employee-modal">
             <div class="employee-modal-content">
                 <span class="employee-close">&times;</span>
-                <h2 id="employeeModalTitle" style="margin-top: 20px;margin-bottom: 20px"></h2>
+                <h2 id="employeeModalTitle" style="margin-top: 20px;margin-bottom: 20px">
+                </h2>
                 <p id="employeeModalDescription"></p>
             </div>
         </div>
         <div class="container">
+            <style>
+                .employee-swiper {
+                    padding: 20px 10px;
+                    box-sizing: border-box;
+                }
+
+                .employee-card {
+                    background: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .employee-card img {
+                    width: 100%;
+                    /*height: 150px;*/
+                    object-fit: cover;
+                }
+
+                .employee-info {
+                    padding: 10px;
+                    text-align: center;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
+                .employee-info h3 {
+                    margin: 0;
+                    font-size: 10px;
+                    color: #333;
+                }
+
+                .employee-info p {
+                    margin: 5px 0 0;
+                    font-size: 8px;
+                    color: #666;
+                }
+
+                .employee-modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+                    background-color: rgba(0, 0, 0, 0.8);
+                }
+
+                .employee-modal-content {
+                    background-color: #fefefe;
+                    margin: 10% auto;
+                    padding: 20px;
+                    border-radius: 8px;
+                    width: 90%;
+                    max-width: 400px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                }
+
+                .employee-close {
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+
+                .employee-close:hover,
+                .employee-close:focus {
+                    color: #000;
+                    text-decoration: none;
+                }
+
+                #employeeModalTitle {
+                    margin-top: 0;
+                    color: #333;
+                    font-size: 18px;
+                }
+
+                #employeeModalDescription img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                }
+
+                #employeeModalDescription p {
+                    font-size: 12px;
+                    line-height: 2;
+                    margin-bottom: 20px;
+                }
+            </style>
             <div class="section-title">
                 <h3>تیم ما</h3>
             </div>
-            <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10" data-slides-per-view="3"
-                 class="swiper-container swiper-init">
-                <div class="swiper-pagination"></div>
-                <div class="swiper-wrapper" style="display: flex;align-items: stretch;margin-bottom: 32px">
+            <div class="swiper-container employee-swiper">
+                <div class="swiper-wrapper" style="padding-bottom: 20px">
                     @foreach($emploees as $emploee)
-                        <div class="swiper-slide m-4">
-                            <div class="content content-shadow-product">
-                                <a href="#" class="employee-open-modal"
-                                   employee-data-name="{{$emploee->fullname}}"
-                                   employee-data-image="{{$emploee->image}}">
-
-                                    <img src="{{asset($emploee->image)}}" alt="{{$emploee->fullname}}">
-                                    <div class="text" style="text-align: center">
-                                        <p class="title-product" style="font-size: 7px;">{{$emploee->fullname}}</p>
-                                        <p class="price" style="font-size: 6px;">{{$emploee->side}}</p>
-                                    </div>
-                                </a>
+                        <div class="swiper-slide">
+                            <div class="employee-card"
+                                 data-name="{{ $emploee->fullname }}"
+                                 data-image="{{ $emploee->image }}"
+                                 data-side="{{ $emploee->side }}"
+                                 data-description="{{ $emploee->description }}">
+                                <img src="{{ asset($emploee->image) }}" alt="{{ $emploee->fullname }}">
+                                <div class="employee-info">
+                                    <h3>{{ $emploee->fullname }}</h3>
+                                    <p>{{ $emploee->side }}</p>
+                                </div>
                             </div>
                         </div>
                     @endforeach
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            var modal = document.getElementById("employeeModal");
-                            var modalTitle = document.getElementById("employeeModalTitle");
-                            var modalDescription = document.getElementById("employeeModalDescription");
-                            var span = document.getElementsByClassName("employee-close")[0];
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
 
-                            document.querySelectorAll(".employee-open-modal").forEach(function (element) {
-                                element.addEventListener("click", function (event) {
-                                    event.preventDefault();
-                                    var name = this.getAttribute("employee-data-name");
-                                    var image = this.getAttribute("employee-data-image");
-                                    modalTitle.image = image;
-                                    modalDescription.innerHTML = name;
-                                    modal.style.display = "flex";
-                                    modal.style.justifyContent = "center";
-                                });
-                            });
-
-                            span.onclick = function () {
-                                modal.style.display = "none";
-                            }
-
-                            window.onclick = function (event) {
-                                if (event.target == modal) {
-                                    modal.style.display = "none";
-                                }
-                            }
-                        });
-                    </script>
+            <div id="employeeModal" class="employee-modal">
+                <div class="employee-modal-content">
+                    <span class="employee-close">&times;</span>
+                    <h2 id="employeeModalTitle"></h2>
+                    <div id="employeeModalDescription"></div>
                 </div>
             </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const modal = document.getElementById("employeeModal");
+                    const modalTitle = document.getElementById("employeeModalTitle");
+                    const modalDescription = document.getElementById("employeeModalDescription");
+                    const closeBtn = document.getElementsByClassName("employee-close")[0];
+
+                    // Initialize Swiper
+                    new Swiper('.employee-swiper', {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        }
+                    });
+
+                    // Add click event to all employee cards
+                    document.querySelectorAll('.employee-card').forEach(card => {
+                        card.addEventListener('click', function () {
+                            const name = this.dataset.name;
+                            const image = this.dataset.image;
+                            const side = this.dataset.side;
+                            const description = this.dataset.description;
+
+                            modalTitle.textContent = name;
+                            modalDescription.innerHTML = `
+                <img src="${image}" alt="${name}">
+                <p><strong>سمت:</strong> ${side}</p>
+                <p><strong>توضیحات:</strong> ${description}</p>
+            `;
+                            modal.style.display = "block";
+                            document.body.style.overflow = "hidden"; // Prevent scrolling
+                        });
+                    });
+
+                    // Close modal when clicking on close button or outside the modal
+                    closeBtn.onclick = closeModal;
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
+                            closeModal();
+                        }
+                    }
+
+                    function closeModal() {
+                        modal.style.display = "none";
+                        document.body.style.overflow = "auto"; // Re-enable scrolling
+                    }
+                });
+            </script>
         </div>
     </div>
     </div>
