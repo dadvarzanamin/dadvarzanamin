@@ -645,9 +645,8 @@
     <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
-                <video controls preload="metadata" poster="{{asset($singleworkshops->image)}}" id="player" style="width: 100%">
-                    <div id="50800584024"><script type="text/JavaScript" src="https://www.aparat.com/embed/exdd6pu?data[rnddiv]=50800584024&data[responsive]=yes&recom=self"></script></div>
-                </video>
+{{--                <video controls preload="metadata" poster="{{asset($singleworkshops->image)}}" id="player" style="width: 100%">--}}
+                    <div id="95462141916"><script type="text/JavaScript" src="https://www.aparat.com/embed/exdd6pu?data[rnddiv]=95462141916&data[responsive]=yes&titleShow=true&autoplay=true&recom=self"></script></div>                </video>
             </div>
         </div>
     </div>
