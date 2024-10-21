@@ -37,6 +37,7 @@
         // تبدیل متن به آرایه با استفاده از خط جدید
         $lines = explode("\n", $singleworkshops->target);
     @endphp
+
     <section class="course-details-area pb-20px">
         <div class="container">
             <div class="row">
@@ -505,6 +506,7 @@
                     <!-- end course-details-content-wrap -->
                 </div>
                 <!-- end col-lg-8 -->
+
                 <div class="col-lg-4">
                     <div class="sidebar sidebar-negative">
                         <div class="card card-item">
@@ -641,7 +643,15 @@
             </div>
         </div>
     </section>
-
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <video controls preload="metadata" poster="{{asset($singleworkshops->image)}}" id="player" style="width: 100%">
+                    <div id="50800584024"><script type="text/JavaScript" src="https://www.aparat.com/embed/exdd6pu?data[rnddiv]=50800584024&data[responsive]=yes&recom=self"></script></div>
+                </video>
+            </div>
+        </div>
+    </div>
     {{--    <section class="related-course-area bg-gray pt-60px pb-60px">--}}
     {{--        <div class="container">--}}
     {{--            <div class="related-course-wrap">--}}
