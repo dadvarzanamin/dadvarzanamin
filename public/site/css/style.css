@@ -6256,6 +6256,7 @@ div.datedropper .picker .pick-lg-b li {
 /*    color: #fff;*/
 /*}*/
 .card-item .card-title {
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

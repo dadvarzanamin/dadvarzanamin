@@ -30,7 +30,11 @@
                     <div class="input-box col-lg-3">
                         <label class="label-text">مبلغ هزینه دوره</label>
                         <div class="form-group">
-                            <p>{{ number_format($workshopsigns->price) }} تومان </p>
+                            @if($workshopsigns->offer)
+                                <p>{{ number_format($workshopsigns->offer) }} تومان </p>
+                            @else
+                                <p>{{ number_format($workshopsigns->price) }} تومان </p>
+                            @endif
                         </div>
                     </div>
 

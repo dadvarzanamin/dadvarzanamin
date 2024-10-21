@@ -57,7 +57,7 @@
 @php
     $times = \App\Models\ActiveCode::select('expired_at')->whereUser_id(\Illuminate\Support\Facades\Session::get('auth.user_id'))->first();
     $time_now = jdate();
-    //dd($times);
+//    dd($times);
 @endphp
 @endsection
 @section('script')
