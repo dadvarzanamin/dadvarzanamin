@@ -430,7 +430,9 @@
                         $workshop = $workshops[0];
                     }
                 @endphp
+
                 <div class="content" style="margin: 20px auto;">
+
                     <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
                         {{$workshop->title}}
                     </p>
@@ -480,15 +482,12 @@
                        style="display: flex;justify-content: center">مشاهده اطلاعات دوره</a>
                 </div>
             </div>
-            <style>
-
-            </style>
             <div id="doreModal" class="dore-modal">
                 <div class="dore-modal-content">
                     <span class="dore-close">&times;</span>
                     <div id="doreModalContent">
                         <div class="course-image-container" style="margin-top: 32px">
-                            <img src="{{asset('workshops/second_workshop.jpg')}}" alt="تصویر دوره" class="course-image">
+                            <img src="{{$workshop->image}}" alt="تصویر دوره" class="course-image">
                         </div>
                         <h3 class="course-title" style="padding-top: 12px">{{$workshop->title}}</h3>
 
@@ -498,11 +497,36 @@
                             <p>تاریخ برگزاری: {{$workshop->date}}</p>
                         </div>
 
-                        <div class="course-description">
+                        <!-- ویدئو آپارات -->
+                        <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
+                        <style>
+                            .modal-body {
+                                padding: 0;
+                            }
+                            .video-container {
+                                position: relative;
+                                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                                height: 0;
+                                overflow: hidden;
+                                max-width: 100%;
+                                background-color: #000;
+                            }
 
-                            <h3>
-                                اهداف دوره
-                            </h3>
+                            .video-container iframe {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                border: 0;
+                            }
+                        </style>
+                        <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
+                            <iframe width="100%" height="220" src="https://www.aparat.com/video/video/embed/videohash/{{$workshop->video}}/vt/frame/showvideo/true"
+                                    allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                        <div class="course-description">
+                            <h3>اهداف دوره</h3>
                             @php
                                 $lines = explode("\n", $workshop->target);
                             @endphp
@@ -512,19 +536,14 @@
                                 @endforeach
                             </ul>
                         </div>
+
                         <div class="course-description">
-
-
                             <h3 style="margin-bottom: 20px">شرح دوره</h3>
-                            <p>
-                                {{$workshop->description}}
-                            </p>
-
+                            <p>{{$workshop->description}}</p>
                         </div>
 
                         <div class="instructor-info">
-                            <img src="{{asset($workshop->teacher_image)}}" alt="تصویر استاد"
-                                 class="instructor-img">
+                            <img src="{{asset($workshop->teacher_image)}}" alt="تصویر استاد" class="instructor-img">
                             <div>
                                 @php
                                     $resumes = explode("\n", $workshop->teacher_resume);
@@ -552,8 +571,8 @@
                                 <span>آزمون ورودی:</span>
                                 <span>ندارد</span>
                             </div>
-
                         </div>
+
                         <div style="text-align: center; padding: 20px">
                             <p style="font-size: 16px;">مبلغ دوره</p>
                         </div>
@@ -561,33 +580,29 @@
                             <p class="align-items-center pb-2">
                                 @if($workshop->offer)
                                     <span style="font-size: 24px">{{number_format($workshop->offer)}} تومان </span>
-                                    <span style="    text-decoration: line-through;font-size: 16px
-"> {{number_format($workshop->price)}} تومان </span>
+                                    <span style="text-decoration: line-through;font-size: 16px">{{number_format($workshop->price)}} تومان</span>
                                 @endif
                             </p>
                         </div>
+
                         <div class="content" style="padding-bottom: 60px;">
                             @if(Auth::check())
                                 <div class="content-button">
                                     <a href="#tab-workshop" class="mobile-button tab-link"
-                                       style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;
-            ">ثبت نام جهت حضور در کارگاه
-                                        آموزشی</a>
+                                       style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">
+                                        ثبت نام جهت حضور در کارگاه آموزشی
+                                    </a>
                                 </div>
-
                             @else
                                 <div class="content-button">
                                     <a href="#tab-login" class="mobile-button tab-link"
-                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
-                                        سایت</a>
+                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به سایت</a>
                                 </div>
-
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
-
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var modal = document.getElementById("doreModal");

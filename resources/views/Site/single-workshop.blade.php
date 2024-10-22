@@ -278,103 +278,103 @@
                             <!-- end instructor-wrap -->
                         </div>
 
-{{--                        <div class="course-overview-card pt-4">--}}
-{{--                            <h3 class="fs-24 font-weight-semi-bold pb-40px">بازخورد دانش پذیر</h3>--}}
-{{--                            <div class="feedback-wrap">--}}
-{{--                                <div class="media media-card align-items-center">--}}
-{{--                                    <div class="review-rating-summary">--}}
-{{--                                        <span class="stats-average__count">4.6</span>--}}
-{{--                                        <div class="rating-wrap pt-1">--}}
-{{--                                            <div class="review-stars">--}}
-{{--                                                <span class="la la-star"></span>--}}
-{{--                                                <span class="la la-star"></span>--}}
-{{--                                                <span class="la la-star"></span>--}}
-{{--                                                <span class="la la-star"></span>--}}
-{{--                                                <span class="la la-star-half-alt"></span>--}}
-{{--                                            </div>--}}
-{{--                                            <span class="rating-total d-block">(2533) </span>--}}
-{{--                                            <span>رتبه بندی دوره</span>--}}
-{{--                                        </div>--}}
+                        {{--                        <div class="course-overview-card pt-4">--}}
+                        {{--                            <h3 class="fs-24 font-weight-semi-bold pb-40px">بازخورد دانش پذیر</h3>--}}
+                        {{--                            <div class="feedback-wrap">--}}
+                        {{--                                <div class="media media-card align-items-center">--}}
+                        {{--                                    <div class="review-rating-summary">--}}
+                        {{--                                        <span class="stats-average__count">4.6</span>--}}
+                        {{--                                        <div class="rating-wrap pt-1">--}}
+                        {{--                                            <div class="review-stars">--}}
+                        {{--                                                <span class="la la-star"></span>--}}
+                        {{--                                                <span class="la la-star"></span>--}}
+                        {{--                                                <span class="la la-star"></span>--}}
+                        {{--                                                <span class="la la-star"></span>--}}
+                        {{--                                                <span class="la la-star-half-alt"></span>--}}
+                        {{--                                            </div>--}}
+                        {{--                                            <span class="rating-total d-block">(2533) </span>--}}
+                        {{--                                            <span>رتبه بندی دوره</span>--}}
+                        {{--                                        </div>--}}
 
-{{--                                    </div>--}}
-{{--                                    <!-- end review-rating-summary -->--}}
-{{--                                    <div class="media-body">--}}
-{{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
-{{--                                            <div class="review-bars__text">5 ستاره</div>--}}
-{{--                                            <div class="review-bars__fill">--}}
-{{--                                                <div class="skillbar-box">--}}
-{{--                                                    <div class="skillbar" data-percent="77%">--}}
-{{--                                                        <div class="skillbar-bar bg-3"></div>--}}
-{{--                                                    </div>--}}
+                        {{--                                    </div>--}}
+                        {{--                                    <!-- end review-rating-summary -->--}}
+                        {{--                                    <div class="media-body">--}}
+                        {{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
+                        {{--                                            <div class="review-bars__text">5 ستاره</div>--}}
+                        {{--                                            <div class="review-bars__fill">--}}
+                        {{--                                                <div class="skillbar-box">--}}
+                        {{--                                                    <div class="skillbar" data-percent="77%">--}}
+                        {{--                                                        <div class="skillbar-bar bg-3"></div>--}}
+                        {{--                                                    </div>--}}
 
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
 
-{{--                                            <div class="review-bars__percent">77%</div>--}}
-{{--                                        </div>--}}
+                        {{--                                            <div class="review-bars__percent">77%</div>--}}
+                        {{--                                        </div>--}}
 
-{{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
-{{--                                            <div class="review-bars__text">4 ستاره</div>--}}
-{{--                                            <div class="review-bars__fill">--}}
-{{--                                                <div class="skillbar-box">--}}
-{{--                                                    <div class="skillbar" data-percent="54%">--}}
-{{--                                                        <div class="skillbar-bar bg-3"></div>--}}
-{{--                                                    </div>--}}
+                        {{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
+                        {{--                                            <div class="review-bars__text">4 ستاره</div>--}}
+                        {{--                                            <div class="review-bars__fill">--}}
+                        {{--                                                <div class="skillbar-box">--}}
+                        {{--                                                    <div class="skillbar" data-percent="54%">--}}
+                        {{--                                                        <div class="skillbar-bar bg-3"></div>--}}
+                        {{--                                                    </div>--}}
 
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
 
-{{--                                            <div class="review-bars__percent">54%</div>--}}
-{{--                                        </div>--}}
+                        {{--                                            <div class="review-bars__percent">54%</div>--}}
+                        {{--                                        </div>--}}
 
-{{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
-{{--                                            <div class="review-bars__text">3 ستاره</div>--}}
-{{--                                            <div class="review-bars__fill">--}}
-{{--                                                <div class="skillbar-box">--}}
-{{--                                                    <div class="skillbar" data-percent="14%">--}}
-{{--                                                        <div class="skillbar-bar bg-3"></div>--}}
-{{--                                                    </div>--}}
+                        {{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
+                        {{--                                            <div class="review-bars__text">3 ستاره</div>--}}
+                        {{--                                            <div class="review-bars__fill">--}}
+                        {{--                                                <div class="skillbar-box">--}}
+                        {{--                                                    <div class="skillbar" data-percent="14%">--}}
+                        {{--                                                        <div class="skillbar-bar bg-3"></div>--}}
+                        {{--                                                    </div>--}}
 
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
 
-{{--                                            <div class="review-bars__percent">14%</div>--}}
-{{--                                        </div>--}}
+                        {{--                                            <div class="review-bars__percent">14%</div>--}}
+                        {{--                                        </div>--}}
 
-{{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
-{{--                                            <div class="review-bars__text">2 ستاره</div>--}}
-{{--                                            <div class="review-bars__fill">--}}
-{{--                                                <div class="skillbar-box">--}}
-{{--                                                    <div class="skillbar" data-percent="5%">--}}
-{{--                                                        <div class="skillbar-bar bg-3"></div>--}}
-{{--                                                    </div>--}}
+                        {{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
+                        {{--                                            <div class="review-bars__text">2 ستاره</div>--}}
+                        {{--                                            <div class="review-bars__fill">--}}
+                        {{--                                                <div class="skillbar-box">--}}
+                        {{--                                                    <div class="skillbar" data-percent="5%">--}}
+                        {{--                                                        <div class="skillbar-bar bg-3"></div>--}}
+                        {{--                                                    </div>--}}
 
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
 
-{{--                                            <div class="review-bars__percent">5%</div>--}}
-{{--                                        </div>--}}
+                        {{--                                            <div class="review-bars__percent">5%</div>--}}
+                        {{--                                        </div>--}}
 
-{{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
-{{--                                            <div class="review-bars__text">1 ستاره</div>--}}
-{{--                                            <div class="review-bars__fill">--}}
-{{--                                                <div class="skillbar-box">--}}
-{{--                                                    <div class="skillbar" data-percent="2%">--}}
-{{--                                                        <div class="skillbar-bar bg-3"></div>--}}
-{{--                                                    </div>--}}
+                        {{--                                        <div class="review-bars d-flex align-items-center mb-2">--}}
+                        {{--                                            <div class="review-bars__text">1 ستاره</div>--}}
+                        {{--                                            <div class="review-bars__fill">--}}
+                        {{--                                                <div class="skillbar-box">--}}
+                        {{--                                                    <div class="skillbar" data-percent="2%">--}}
+                        {{--                                                        <div class="skillbar-bar bg-3"></div>--}}
+                        {{--                                                    </div>--}}
 
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
 
-{{--                                            <div class="review-bars__percent">2%</div>--}}
-{{--                                        </div>--}}
+                        {{--                                            <div class="review-bars__percent">2%</div>--}}
+                        {{--                                        </div>--}}
 
-{{--                                    </div>--}}
+                        {{--                                    </div>--}}
 
-{{--                                </div>--}}
-{{--                            </div>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
 
-{{--                        </div>--}}
+                        {{--                        </div>--}}
 
                         {{--                        <div class="course-overview-card pt-4">--}}
                         {{--                            <h3 class="fs-24 font-weight-semi-bold pb-4">نظرات درباره دوره</h3>--}}
@@ -571,7 +571,9 @@
                                 <div class="divider"><span></span></div>
                                 <ul class="generic-list-item generic-list-item-flash">
                                     <li class="d-flex align-items-center justify-content-between">
-                                        <span><i class="mr-2 text-color"></i>مدت زمان</span>  {{$singleworkshops->duration}} ساعت
+                                        <span><i
+                                                class="mr-2 text-color"></i>مدت زمان</span> {{$singleworkshops->duration}}
+                                        ساعت
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between">
                                         <span><i class="mr-2 text-color"></i>نوع برگزاری : </span> حضوری و آنلاین
@@ -642,11 +644,37 @@
             </div>
         </div>
     </section>
+    <style>
+        .modal-body {
+            padding: 0;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
     <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
-{{--                <video controls preload="metadata" poster="{{asset($singleworkshops->image)}}" id="player" style="width: 100%">--}}
-                    <div id="95462141916"><script type="text/JavaScript" src="https://www.aparat.com/embed/exdd6pu?data[rnddiv]=95462141916&data[responsive]=yes&titleShow=true&autoplay=true&recom=self"></script></div>                </video>
+                <div class="modal-body">
+                    <div class="video-container">
+                        <iframe src="https://www.aparat.com/video/video/embed/videohash/{{$singleworkshops->video}}/vt/frame/showvideo/true"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
