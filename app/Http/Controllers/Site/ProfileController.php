@@ -500,12 +500,10 @@ class ProfileController extends Controller
 
     public function pay(Request $request)
     {
-//        dd($request->all());
         // ابتدا چک کنید که ایمیل و شماره تلفن وارد شده است
         if (Auth::user()->email == null) {
-            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            alert()->error('', 'اطلاعات آدرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
-
         } elseif (Auth::user()->phone == null) {
             alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
@@ -515,15 +513,20 @@ class ProfileController extends Controller
 
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price' ,'workshops.offer' , 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id') // اضافه کردن workshop_id
+                ->select('workshops.title', 'workshops.price', 'workshops.offer', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->where('workshopsigns.workshop_id', '=', $workshopid) // افزودن شرط برای workshopid
-                ->where('workshops.id', '=', $workshopid) // اضافه کردن این خط
-                ->whereNull('workshopsigns.pricestatus') // فقط دوره‌هایی که پرداخت نشده‌اند
+                ->where('workshopsigns.workshop_id', '=', $workshopid)
+                ->where('workshops.id', '=', $workshopid)
+                ->whereNull('workshopsigns.pricestatus')
                 ->first();
+
             if ($workshopsigns) {
+                // ارسال قیمت نهایی به درگاه پرداخت: اگر offer موجود بود، آن را ارسال می‌کنیم، در غیر این صورت price را ارسال می‌کنیم
+                $finalAmount = $workshopsigns->offer ? $workshopsigns->offer : $workshopsigns->price;
+//                dd($finalAmount);
+
                 // تنظیم پرداخت
-                $request = Toman::amount($workshopsigns->price)
+                $request = Toman::amount($finalAmount)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
                     ->mobile(Auth::user()->phone)
@@ -551,52 +554,49 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
-//        \Log::info('Payment callback received', ['request' => $request->all()]);
-
         try {
+            // دریافت اطلاعات کارگاه و ثبت نام مرتبط با کاربر
             $workshopsign = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.offer' , 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
+                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.offer', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->whereNull('workshopsigns.pricestatus')
                 ->orderBy('workshopsigns.id', 'DESC')
                 ->first();
 
-//            \Log::info('Workshop sign retrieved', ['workshopsign' => $workshopsign]);
-
             if (!$workshopsign) {
                 throw new \Exception('No unpaid workshop found for the user.');
             }
 
-            $payment = $request->amount($workshopsign->price)->verify();
-//            \Log::info('Payment verification result', ['success' => $payment->successful(), 'alreadyVerified' => $payment->alreadyVerified()]);
+            // چک کردن مقدار offer (اگر وجود داشت) یا استفاده از price
+            $finalAmount = $workshopsign->offer ? $workshopsign->offer : $workshopsign->price;
+
+            // تایید پرداخت با استفاده از مقدار نهایی
+            $payment = $request->amount($finalAmount)->verify();
 
             if ($payment->successful() || $payment->alreadyVerified()) {
                 DB::beginTransaction();
 
+                // بروزرسانی اطلاعات پرداخت در دیتابیس
                 $updatedRows = DB::table('workshopsigns')
                     ->where('id', $workshopsign->workshopsign_id)
                     ->update([
                         'referenceId' => $payment->referenceId(),
-                        'pricestatus' => 4,
-                        'price' => $workshopsign->price
+                        'pricestatus' => 4, // پرداخت موفق
+                        'price' => $finalAmount // ثبت قیمت نهایی (با تخفیف یا بدون تخفیف)
                     ]);
 
-//                \Log::info('Database update result', ['updatedRows' => $updatedRows]);
+                if ($updatedRows === 0) {
+                    throw new \Exception('Failed to update the database.');
+                }
 
-//                if ($updatedRows === 0) {
-//                    throw new \Exception('Failed to update the database.');
-//                }
-//
                 DB::commit();
-//
-//                // Send SMS notification
-//                $this->sendSmsNotification($workshopsign);
 
+                // در صورت موفقیت پرداخت
                 return view('Site.Dashboard.payment-success');
             }
 
-            // If payment is not successful
+            // اگر پرداخت موفق نبود
             DB::table('workshopsigns')
                 ->where('id', $workshopsign->workshopsign_id)
                 ->update([
