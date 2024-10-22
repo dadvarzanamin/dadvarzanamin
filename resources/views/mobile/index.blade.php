@@ -476,10 +476,13 @@
                 </div>
             </div>
 
-            <div class="content-button mx-4 ">
+            <div class="content-button mx-4">
                 <div class="content-button mx-4">
-                    <a href="#" class="dore-open-modal mobile-button br-16"
-                       style="display: flex;justify-content: center">مشاهده اطلاعات دوره</a>
+                    <a href="#" class=" br-16"
+                       style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">
+                        تکمیل
+                        ظرفیت
+                    </a>
                 </div>
             </div>
             <div id="doreModal" class="dore-modal">
@@ -503,6 +506,7 @@
                             .modal-body {
                                 padding: 0;
                             }
+
                             .video-container {
                                 position: relative;
                                 padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -522,7 +526,8 @@
                             }
                         </style>
                         <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
-                            <iframe width="100%" height="220" src="https://www.aparat.com/video/video/embed/videohash/{{$workshop->video}}/vt/frame/showvideo/true"
+                            <iframe width="100%" height="220"
+                                    src="https://www.aparat.com/video/video/embed/videohash/{{$workshop->video}}/vt/frame/showvideo/true"
                                     allow="autoplay; fullscreen" allowfullscreen></iframe>
                         </div>
                         <div class="course-description">
@@ -596,7 +601,8 @@
                             @else
                                 <div class="content-button">
                                     <a href="#tab-login" class="mobile-button tab-link"
-                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به سایت</a>
+                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                                        سایت</a>
                                 </div>
                             @endif
                         </div>

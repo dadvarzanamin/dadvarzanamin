@@ -297,9 +297,8 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-                            <a href="{{url('دوره-آموزشی/دوره-ضربتی-قانون-اساسی')}}" class="btn pr-button br-16 py-3">
-                                مشاهده اطلاعات دوره </a>
-
+                            <p class="btn btn-danger br-16 py-3">
+                                تکمیل ظرفیت </p>
                         </div>
                     </div>
                 </div>
