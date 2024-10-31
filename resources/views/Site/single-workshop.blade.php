@@ -71,8 +71,7 @@
 
                             </p>
                         </div>
-
-                                                <div class="course-overview-card">
+                        {{--                        <div class="course-overview-card">--}}
                         {{--                            <div class="curriculum-header d-flex align-items-center justify-content-between pb-4">--}}
                         {{--                                <h3 class="fs-24 font-weight-semi-bold">محتوای دوره</h3>--}}
                         {{--                                <div class="curriculum-duration fs-15">--}}
@@ -648,6 +647,7 @@
         .modal-body {
             padding: 0;
         }
+
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -666,13 +666,15 @@
             border: 0;
         }
     </style>
-    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle" aria-hidden="true">
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle"
+         aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="video-container">
-                        <iframe src="https://www.aparat.com/video/video/embed/videohash/{{$singleworkshops->video}}/vt/frame/showvideo/true"
-                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        <iframe
+                            src="https://www.aparat.com/video/video/embed/videohash/{{$singleworkshops->video}}/vt/frame/showvideo/true"
+                            allow="autoplay; fullscreen" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
