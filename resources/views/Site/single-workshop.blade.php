@@ -543,24 +543,30 @@
                                 </div>
                                 <!-- end preview-course-video -->
                                 <div class="preview-course-feature-content pt-40px">
-                                    <p class="d-flex align-items-center pb-2">
+                                    <p class="d-flex align-items-center justify-content-center pb-2">
                                         @if($singleworkshops->offer)
                                             <span class="fs-20 font-weight-semi-bold text-black">{{number_format($singleworkshops->offer)}} تومان </span>
                                             <span class="before-price mx-1"> {{number_format($singleworkshops->price)}} تومان </span>
+                                        @else
+                                            <span style="font-size: 24px">{{number_format($singleworkshops->price)}} تومان </span>
                                         @endif
-                                            <span style="font-size: 24px">{{number_format($workshop->price)}} تومان </span>
-
                                     </p>
                                     <div class="buy-course-btn-box">
-                                        @if(Auth::check())
-                                            <a href="{{route('profile')}}"
-                                               class="btn theme-btn w-100 theme-btn-white mb-2">جهت تکمیل ثبت نام در
-                                                کارگاه آموزشی کلیک کنید</a>
+                                        @if($singleworkshops->status==4)
+                                            @if(Auth::check())
+                                                <a href="{{route('profile')}}"
+                                                   class="btn theme-btn w-100 theme-btn-white mb-2">جهت تکمیل ثبت نام در
+                                                    کارگاه آموزشی کلیک کنید</a>
+                                            @else
+                                                <a href="{{route('register')}}"
+                                                   class="btn theme-btn w-100 theme-btn-white mb-2">جهت ثبت نام کلیک
+                                                    کنید</a>
+                                            @endif
                                         @else
-                                            <a href="{{route('register')}}"
-                                               class="btn theme-btn w-100 theme-btn-white mb-2">جهت ثبت نام کلیک
-                                                کنید</a>
+                                            <a href="#"
+                                               class="btn w-100 btn-danger mb-2">دوره پایان یافته</a>
                                         @endif
+
                                     </div>
                                 </div>
                             </div>
