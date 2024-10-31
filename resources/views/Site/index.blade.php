@@ -241,78 +241,82 @@
         </div>
     </section>
 
-{{--    <section class="about-area overflow-hidden">--}}
-{{--        <div class="container">--}}
-{{--            @if(Auth::check())--}}
-{{--                <div class="alert alert-success" role="alert">--}}
-{{--                    <a href="{{route('profile')}}">--}}
-{{--                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی--}}
-{{--                            کلیک نمایید--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            @endif--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-6">--}}
-{{--                    <div class="about-content pb-5">--}}
-{{--                        <div class="section-heading">--}}
-{{--                            <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>--}}
-{{--                            <span class="section-divider"></span>--}}
-{{--                            <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">دوره--}}
-{{--                                ضربتی قانون اساسی</h3>--}}
-{{--                            <h5 class="text-center" style="margin: 8px 0;">با تدریس: جناب دکتر محمد مهدی سیفی</h5>--}}
-{{--                            <h6 class="text-center">مدرس دانشگاه در دروس حقوق اساسی--}}
-{{--                            </h6>--}}
-{{--                            <h6 class="text-center" style="margin: 8px 0;">زمان:پنجشنبه و جمعه 3 و 4 آبان ماه از ساعت--}}
-{{--                                12 الی 18--}}
-{{--                            </h6>--}}
-{{--                            <div class="text-center m-5">--}}
-{{--                                ویژه متقاضیان آزمون وکالت 1403--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="row pt-5 pb-3">--}}
-{{--                            <div class="col-lg-12 responsive-column-half">--}}
-{{--                                <div class="info-icon-box mb-3 text-center">--}}
-{{--                                    <div class="row justify-content-center">--}}
-{{--                                        <div class="time-segment"--}}
-{{--                                             style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">--}}
-{{--                                            <span id="days">0</span>--}}
-{{--                                            <span>روز</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="time-segment">--}}
-{{--                                            <span id="hours">0</span>--}}
-{{--                                            <span>ساعت</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="time-segment">--}}
-{{--                                            <span id="minutes">0</span>--}}
-{{--                                            <span>دقیقه</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="time-segment"--}}
-{{--                                             style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">--}}
-{{--                                            <span id="seconds">0</span>--}}
-{{--                                            <span>ثانیه</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="btn-box text-center">--}}
+    <section class="about-area overflow-hidden">
+        <div class="container">
+            @if(Auth::check())
+                <div class="alert alert-success" role="alert">
+                    <a href="{{route('profile')}}">
+                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی
+                            کلیک نمایید
+                        </p>
+                    </a>
+                </div>
+            @endif
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-content pb-5">
+                        <div class="section-heading">
+                            <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>
+                            <span class="section-divider"></span>
+                            <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
+                                کارگاه اصول قراردادنویسی
+                            </h3>
+                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>
+                            <h6 class="text-center">مدرس دانشگاه
+                            </h6>
+                            <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14
+                            </h6>
+                            <div class="text-center m-5">
+                                ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا
+                            </div>
+                        </div>
+                        <div class="row pt-5 pb-3">
+                            <div class="col-lg-12 responsive-column-half">
+                                <div class="info-icon-box mb-3 text-center">
+                                    <div class="row justify-content-center">
+                                        <div class="time-segment"
+                                             style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
+                                            <span id="seconds">0</span>
+                                            <span>ثانیه</span>
+                                        </div>
+                                        <div class="time-segment">
+                                            <span id="minutes">0</span>
+                                            <span>دقیقه</span>
+                                        </div>
+                                        <div class="time-segment">
+                                            <span id="hours">0</span>
+                                            <span>ساعت</span>
+                                        </div>
+                                        <div class="time-segment"
+                                             style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
+                                            <span id="days">0</span>
+                                            <span>روز</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-box text-center">
+                            <a href="{{url('دوره-آموزشی/کارگاه-اصول-قراردادنویسی')}}" class="btn pr-button br-16 py-3">
+                                مشاهده اطلاعات دوره
+                            </a>
 {{--                            <p class="btn btn-danger br-16 py-3">--}}
-{{--                                تکمیل ظرفیت </p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-5 ml-auto">--}}
-{{--                    <div class="generic-img-box d-none d-md-block">--}}
-{{--                        <img src="{{asset('site/images/img-loading.png')}}" data-src="/workshops/second_workshop.jpg"--}}
-{{--                             alt="موسسه حقوقی" class="img__item img__item-1 lazy">--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+{{--                                تکمیل ظرفیت--}}
+{{--                            </p>--}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 ml-auto">
+                    <div class="generic-img-box d-none d-md-block">
+                        <img src="{{asset('site/images/img-loading.png')}}" data-src="/workshops/third-workshop.jpg"
+                             alt="موسسه حقوقی" class="img__item img__item-1 lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    {{--  Start partners Area  --}}
+{{--      Start partners Area--}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
             <div class="section-heading">
@@ -578,7 +582,7 @@
 @section('script')
     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("October 24, 2024 12:00:00").getTime();
+        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {

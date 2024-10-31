@@ -548,6 +548,8 @@
                                             <span class="fs-20 font-weight-semi-bold text-black">{{number_format($singleworkshops->offer)}} تومان </span>
                                             <span class="before-price mx-1"> {{number_format($singleworkshops->price)}} تومان </span>
                                         @endif
+                                            <span style="font-size: 24px">{{number_format($workshop->price)}} تومان </span>
+
                                     </p>
                                     <div class="buy-course-btn-box">
                                         @if(Auth::check())
