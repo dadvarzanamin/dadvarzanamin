@@ -440,28 +440,25 @@ class ProfileController extends Controller
 
     public function workshopsign(Request $request)
     {
+        $request->validate([
+            'workshopid' => ['numeric'],
+            'typeuse' => ['numeric'],
+        ]);
+
+        // چک کردن آیا کاربر در کارگاه خاص ثبت‌نام کرده است
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
+            ->where('workshops.id', '=', $request->input('workshopid')) // فقط برای کارگاه خاص
             ->where('workshopsigns.pricestatus', '=', 4)
             ->first();
-//        dd($request->input('workshopid'));
 
         if ($workshopsigns != null) {
-
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
-
             return Redirect::back();
-
         } else {
-            $request->validate([
-                'workshopid' => ['numeric'],
-                'typeuse' => ['numeric'],
-            ]);
-
             $Workshopsign = new Workshopsign();
-
             $Workshopsign->workshop_id = $request->input('workshopid');
             $Workshopsign->typeuse = $request->input('typeuse');
             $Workshopsign->price = $request->input('price');
