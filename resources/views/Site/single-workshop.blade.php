@@ -72,7 +72,7 @@
                             </p>
                         </div>
 
-                        {{--                        <div class="course-overview-card">--}}
+                                                <div class="course-overview-card">
                         {{--                            <div class="curriculum-header d-flex align-items-center justify-content-between pb-4">--}}
                         {{--                                <h3 class="fs-24 font-weight-semi-bold">محتوای دوره</h3>--}}
                         {{--                                <div class="curriculum-duration fs-15">--}}
