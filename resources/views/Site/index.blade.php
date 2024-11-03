@@ -444,7 +444,7 @@
                         <div class="section-heading">
                             <h2 class="section__title dark-bg-h">ارائه دهنده خدمات جامع حقوقی به سبکی نوین</h2>
                             <span class="section-divider"></span>
-                            <p class="section__desc text-justify">
+                            <p class="section__desc text-justify" style="color: white">
                                 تفاوتی ندارد یک کسب و کار کوچک داشته باشید یا یک هلدینگ بین المللی، در برابر چالش‌های
                                 حقوقی همواره نیاز به یک مشاور حقوقی با تجربه و قراردادهای منسجم خواهید داشت. موسسه حقوقی
                                 دادورزان امین، این امکان را برای شما به ارمغان آورده است تا تمام امور حقوقی و ثبتی خود
@@ -510,7 +510,7 @@
                         <div class="card-body br-16">
                             <h3 class="card-title" style="font-size: 16px"><a href="#">{{$post->title}}</a></h3>
                             <p class="card-text">
-                                {{ strip_tags(Str::words($post->description, 10, ' ...')) }}
+                                {{ Str::words(preg_replace('/&[^;]+;/', ' ', strip_tags($post->description)), 10, ' ...') }}
                             </p>
                             <div class="line"></div>
                             <div class="rating-wrap d-flex align-items-center justify-content-center pt-3">

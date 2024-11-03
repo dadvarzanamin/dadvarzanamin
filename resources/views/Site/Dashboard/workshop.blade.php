@@ -81,7 +81,7 @@
                                         @if($workshopsign->typeuse == 1)
                                             <button class="btn btn-success">حضوری</button>
                                         @elseif($workshopsign->typeuse == 2)
-                                            <button class="btn btn-danger">آنلاین</button>
+                                            <button class="btn btn-warning">آنلاین</button>
                                         @endif
                                     </ul>
                                 </td>
