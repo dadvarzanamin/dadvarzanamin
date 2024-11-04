@@ -438,10 +438,14 @@
                     <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده
                     </h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">مدرس دانشگاه در دروس حقوق اساسی</h6>
+                    <h6 class="text-center">مشاور حقوقی ریاست جمهوری</h6>
+                    <hr style="border: none; height: 1px; background-color: #cea54a;">
+                    <h6 class="text-center">مدرس دانشگاه</h6>
+                    <hr style="border: none; height: 1px; background-color: #cea54a;">
+                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center" style="margin: 4px;">
-                        تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14
+                        تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14
                     </h6>
                 </div>
                 <div class="text-center">
@@ -584,7 +588,7 @@
                                     </div>
 
                                     <div style="text-align: center; padding: 20px">
-                                        <p style="font-size: 16px;">مبلغ دوره</p>
+                                        <p style="font-size: 16px;">مبلغ التزام به حضور</p>
                                     </div>
                                     <div style="text-align: center;padding: 20px">
                                         <p class="align-items-center pb-2">

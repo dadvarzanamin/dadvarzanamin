@@ -543,6 +543,7 @@
                                 </div>
                                 <!-- end preview-course-video -->
                                 <div class="preview-course-feature-content pt-40px">
+                                    <p class="text-center">مبلغ التزام به حضور</p>
                                     <p class="d-flex align-items-center justify-content-center pb-2">
                                         @if($singleworkshops->offer)
                                             <span class="fs-20 font-weight-semi-bold text-black">{{number_format($singleworkshops->offer)}} تومان </span>
