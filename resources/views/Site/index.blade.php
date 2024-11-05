@@ -261,15 +261,15 @@
                             <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
                                 کارگاه اصول قراردادنویسی
                             </h3>
-                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>
+{{--                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>--}}
+                            <hr style="border: none; height: 1px; background-color: #cea54a;">
+                            <h6 class="text-center"> معاون حقوقی و قراردادی شرکت های دولتی و خصوصی
+                            </h6>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
                             <h6 class="text-center"> مشاور حقوقی ریاست جمهوری
                             </h6>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
                             <h6 class="text-center">مدرس دانشگاه
-                            </h6>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center"> معاون حقوقی و قراردادی شرکت های دولتی و خصوصی
                             </h6>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
                             <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14
@@ -316,7 +316,7 @@
                 </div>
                 <div class="col-lg-5 ml-auto">
                     <div class="generic-img-box d-none d-md-block">
-                        <img src="{{asset('site/images/img-loading.png')}}" data-src="/workshops/third_workshop.jpg"
+                        <img src="{{asset('site/images/img-loading.png')}}" data-src="/workshops/index-third-workshop.jpg"
                              alt="موسسه حقوقی" class="img__item img__item-1 lazy">
                     </div>
                 </div>

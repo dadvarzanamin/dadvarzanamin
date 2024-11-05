@@ -422,7 +422,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="content content-shadow-product" style="margin:20px auto;">
-                    <img src="{{asset('/workshops/third-workshop.jpg')}}" style="width: 300px;border-radius: 16px"
+                    <img src="{{asset('/workshops/index-third-workshop.jpg')}}" style="width: 300px;border-radius: 16px"
                          alt="دوره ضربتی قانون اساسی">
                 </div>
                 @php
@@ -434,15 +434,15 @@
                     <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
                         کارگاه اصول قراردادنویسی
                     </p>
+{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده--}}
+{{--                    </h6>--}}
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده
-                    </h6>
+                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">مشاور حقوقی ریاست جمهوری</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">مدرس دانشگاه</h6>
-                    <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center" style="margin: 4px;">
                         تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14
