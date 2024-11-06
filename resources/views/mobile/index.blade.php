@@ -501,7 +501,7 @@
                                     <h3 class="course-title" style="padding-top: 12px">{{$workshop->title}}</h3>
 
                                     <div class="course-info">
-                                        <p>ارائه توسط: دکتر {{$workshop->teacher}}</p>
+                                        <p>ارائه توسط:  {{$workshop->teacher}}</p>
                                         <p>نوع برگزاری: {{$workshop->type}}</p>
                                         <p>تاریخ برگزاری: {{$workshop->date}}</p>
                                     </div>

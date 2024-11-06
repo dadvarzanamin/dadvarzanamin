@@ -261,7 +261,8 @@
                             <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
                                 کارگاه اصول قراردادنویسی
                             </h3>
-{{--                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>--}}
+                            <hr style="border: none; height: 1px; background-color: #cea54a;">
+                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
                             <h6 class="text-center"> معاون حقوقی و قراردادی شرکت های دولتی و خصوصی
                             </h6>
