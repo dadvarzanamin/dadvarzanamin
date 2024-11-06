@@ -440,7 +440,7 @@
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">مشاور حقوقی ریاست جمهوری</h6>
+                    <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">
                     <h6 class="text-center">مدرس دانشگاه</h6>
                     <hr style="border: none; height: 1px; background-color: #cea54a;">

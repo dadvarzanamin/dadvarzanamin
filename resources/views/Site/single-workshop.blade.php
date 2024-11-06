@@ -567,7 +567,6 @@
                                             <a href="#"
                                                class="btn w-100 btn-danger mb-2">دوره پایان یافته</a>
                                         @endif
-
                                     </div>
                                 </div>
                             </div>
