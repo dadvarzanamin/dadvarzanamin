@@ -14,7 +14,7 @@
                         <h2 class="section__title">{{$singleworkshops->title}}</h2>
                     </div>
                     <div class="d-flex flex-wrap align-items-center pt-3">
-                        <h6 class="ribbon ribbon-lg mr-2 bg-3 text-white">{{$singleworkshops->type}}</h6>
+                        <h6 class="ribbon ribbon-lg mr-2 bg-3 text-white">{{implode("،" , json_decode($singleworkshops['type']))}}</h6>
                     </div>
                     <p class="pt-2 pb-1">ارائه توسط : {{$singleworkshops->teacher}}</p>
                     <div class="d-flex flex-wrap align-items-center">
