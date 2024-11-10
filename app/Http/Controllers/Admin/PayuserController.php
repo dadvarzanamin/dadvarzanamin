@@ -56,7 +56,7 @@ class PayuserController extends Controller
                     return ($data->phone);
                 })
                 ->addColumn('date', function ($data) {
-                    return (jdate($data->date)->format('y/m/d'));
+                    return (jdate($data->date)->format('Y/m/d'));
                 })
                 ->addColumn('typeuse', function ($data) {
                     if ($data->typeuse == "1") {
