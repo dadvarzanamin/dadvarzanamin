@@ -104,7 +104,7 @@
                         }
                     });
                     jQuery.ajax({
-                        url: "{{ route('deleteworksshop') }}",
+                        url: "{{ route('deleteworkshop') }}",
                         method: 'delete',
                         data: {
                             "_token": "{{ csrf_token() }}",

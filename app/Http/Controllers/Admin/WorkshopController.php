@@ -212,7 +212,8 @@ class WorkshopController extends Controller
 
         return Redirect::back();
     }
-    public function deleteslide(Request $request)
+
+    public function deleteworkshop(Request $request)
     {
         try {
 
