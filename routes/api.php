@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
     Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
     Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
+    Route::post('v1/token'          ,[App\Http\Controllers\Api\V1\UserController::class    , 'token']);
 //});
 
 //Route::prefix('v1')->namespace('Api\v1')->group(function (){

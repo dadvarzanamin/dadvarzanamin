@@ -51,7 +51,7 @@ class UserController extends Controller
         ]);
 
         $response = [
-            'api_token'=>auth()->user()->api_token,
+            'token'=>auth()->user()->api_token,
         ];
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
