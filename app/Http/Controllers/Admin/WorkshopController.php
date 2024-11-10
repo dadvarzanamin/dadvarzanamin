@@ -217,8 +217,8 @@ class WorkshopController extends Controller
     {
         try {
 
-            $slide = Slide::findOrfail($request->input('id'));
-            $result1 = $slide->delete();
+            $workshop = Workshop::findOrfail($request->input('id'));
+            $result1 = $workshop->delete();
             if ($result1 == true) {
                 $success = true;
                 $flag = 'success';
