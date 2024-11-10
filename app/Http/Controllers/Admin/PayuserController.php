@@ -35,7 +35,7 @@ class PayuserController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('workshopsigns')
-                   ->select( 'workshopsigns.id', 'users.name as name', 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
+                   ->select( 'workshopsigns.id', 'users.name as name' ,'users.phone as phone' , 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.created_at as date', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
                    ->join('users', 'workshopsigns.user_id', '=', 'users.id')
                    ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
                    ->get();
@@ -51,6 +51,12 @@ class PayuserController extends Controller
                 })
                 ->addColumn('title', function ($data) {
                     return ($data->title);
+                })
+                ->addColumn('phone', function ($data) {
+                    return ($data->phone);
+                })
+                ->addColumn('date', function ($data) {
+                    return (jdate($data->date)->format('y/m/d'));
                 })
                 ->addColumn('typeuse', function ($data) {
                     if ($data->typeuse == "1") {

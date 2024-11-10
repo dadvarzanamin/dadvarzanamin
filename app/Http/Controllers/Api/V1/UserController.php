@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
 use App\Models\Profile\State;
+use App\Models\TypeUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -56,9 +57,10 @@ class UserController extends Controller
     }
 
     public function getregister(){
-
-        $citis              = City::select('id as city_id','title as city' , 'state_id')->get()->toArray();
-        $state              = State::select('id as state_id','title as state')->get()->toArray();
+        $typeuser           = TypeUser::select('id','title_fa as title')->where('id','>','3')->get()->toArray();
+dd($typeuser);
+        //$citis              = City::select('id as city_id','title as city' , 'state_id')->get()->toArray();
+        //$state              = State::select('id as state_id','title as state')->get()->toArray();
         $response = [
             'city' => $citis,
             'state' => $state,

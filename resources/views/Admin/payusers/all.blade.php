@@ -38,10 +38,12 @@
                                         <tr>
                                             <th class="wd-10p"> سریال پرداخت </th>
                                             <th class="wd-10p"> نام کاربر </th>
+                                            <th class="wd-10p"> شماره موبایل </th>
                                             <th class="wd-10p"> عنوان دوره </th>
                                             <th class="wd-10p"> نوع شرکت در دوره </th>
                                             <th class="wd-10p"> مبلغ پرداخت شده </th>
                                             <th class="wd-10p"> وضعیت پرداخت </th>
+                                            <th class="wd-10p"> تاریخ پرداخت </th>
                                             <th class="wd-10p"> کد پیگیری پرداخت </th>
                                         </tr>
                                         </thead>
@@ -73,10 +75,12 @@
                 columns: [
                     {data: 'id'         , name: 'id'},
                     {data: 'name'       , name: 'name'},
+                    {data: 'phone'      , name: 'phone'},
                     {data: 'title'      , name: 'title'},
                     {data: 'typeuse'    , name: 'typeuse'},
                     {data: 'price'      , name: 'price'},
                     {data: 'pricestatus', name: 'pricestatus'},
+                    {data: 'date'       , name: 'date'},
                     {data: 'referenceId', name: 'referenceId'},
                 ]
             });
