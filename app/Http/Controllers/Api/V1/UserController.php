@@ -7,6 +7,7 @@ use App\Models\ActiveCode;
 use App\Models\Profile\State;
 use App\Models\TypeUser;
 use App\Models\User;
+use App\Notifications\ActiveCode as ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
@@ -58,12 +59,12 @@ class UserController extends Controller
 
     public function getregister(){
         $typeuser           = TypeUser::select('id','title_fa as title')->where('id','>','3')->get()->toArray();
-dd($typeuser);
+
         //$citis              = City::select('id as city_id','title as city' , 'state_id')->get()->toArray();
         //$state              = State::select('id as state_id','title as state')->get()->toArray();
         $response = [
-            'city' => $citis,
-            'state' => $state,
+            'city' => $typeuser,
+
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
@@ -83,11 +84,14 @@ dd($typeuser);
                 'password'  => 'required|string|min:8|confirmed',
             ]);
 
+            $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
+            $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
+
             $user = User::create([
 
-                'phone'     => $validData['phone'],
+                'phone'     => $phone,
                 'name'      => $validData['name'],
-                'password'  => bcrypt($validData['password']),
+                'password'  => bcrypt($password),
                 'type_id'   => $validData['type_id'],
 
             ]);
@@ -98,7 +102,7 @@ dd($typeuser);
 
             $code = ActiveCode::generateCode($user);
 
-            $user->notify(new ActiveCodeNotification($code , $validData['phone']));
+            $user->notify(new ActiveCodeNotification($code , $phone));
             $response = [
                 'token' => $user->api_token,
             ];

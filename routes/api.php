@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\IndexController;
 
 //Route::middleware('api')->group(function () {
-    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class, 'index']);
-    Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class, 'login']);
-
+    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
+    Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
+    Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
+    Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
 //});
 
 //Route::prefix('v1')->namespace('Api\v1')->group(function (){
 //    Route::get('/index'                             , 'IndexController@index');
 //    Route::get('/appversion'                , 'IndexController@appversion');
-//    Route::post('/register'                         , 'UserController@register');
-//    Route::get('/register'                          , 'UserController@getregister');
+
 //    Route::get('/product'                           , 'ProductController@index');
 //    Route::get('/product/search'                    , 'ProductController@sproduct');
 //    Route::get('/product/variety'                   , 'ProductController@variety');

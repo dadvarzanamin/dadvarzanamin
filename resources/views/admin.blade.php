@@ -217,7 +217,7 @@
 
 
 
-<section class="dashboard-area" style="height: auto">
+<section class="dashboard-area">
     <div class="off-canvas-menu dashboard-off-canvas-menu off--canvas-menu custom-scrollbar-styled pt-20px">
         <div class="off-canvas-menu-close dashboard-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">
             <i class="la la-times"></i>
