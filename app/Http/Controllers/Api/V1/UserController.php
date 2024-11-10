@@ -137,7 +137,7 @@ class UserController extends Controller
             $user->update();
 
             $response = [
-                'api_token'=>$user->api_token,
+                'token'=>$user->api_token,
             ];
 
             return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
