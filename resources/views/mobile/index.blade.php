@@ -2185,31 +2185,31 @@
                                 @csrf
                                 <div class="input-box col-lg-3">
                                     <label class="label-text">نام دوره</label>
-                                    <p>{{$workshopsigns->title}}</p>
+{{--                                    <p>{{$workshopsigns->title}}</p>--}}
                                 </div>
 
                                 <div class="input-box col-lg-3">
                                     <label class="label-text">مبلغ هزینه دوره</label>
                                     <div class="form-group">
-                                        <p>{{number_format($workshopsigns->price)}} تومان </p>
+{{--                                        <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
                                     </div>
                                 </div>
 
                                 <div class="input-box col-lg-3">
                                     <label class="label-text">نوع استفاده</label>
-                                    <div class="form-group">
-                                        @if($workshopsigns->typeuse == 1)
-                                            <p> حضوری </p>
-                                        @else
-                                            <p> آنلاین </p>
-                                        @endif
-                                    </div>
+{{--                                    <div class="form-group">--}}
+{{--                                        @if($workshopsigns->typeuse == 1)--}}
+{{--                                            <p> حضوری </p>--}}
+{{--                                        @else--}}
+{{--                                            <p> آنلاین </p>--}}
+{{--                                        @endif--}}
+{{--                                    </div>--}}
                                 </div>
 
                                 <div class="input-box col-lg-3">
                                     <label class="label-text">تاریخ دوره</label>
                                     <div class="form-group">
-                                        <p>{{$workshopsigns->date}}</p>
+{{--                                        <p>{{$workshopsigns->date}}</p>--}}
                                     </div>
                                 </div>
                                 <div class="input-box col-lg-12 py-2">
