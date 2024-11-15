@@ -60,6 +60,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card card-item br-16 card-bg50">
+                        @foreach($medias as $media)
+                            <div class="card-image m-3">
+                                @if($media->file_link)
+                                    <video controls preload="metadata" poster="{{asset($media->cover)}}" id="player"
+                                           style="width: 100%">
+                                        <source src="{{asset($media->file_link)}}" type="video/mp4"/>
+                                    </video>
+                                @elseif($media->aparat)
+                                    {!! $media->aparat !!}
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                     <div class="section-block"></div>
                     {{--                <div class="comments-wrap pt-5" id="comments">--}}
                     {{--                    <div class="d-flex align-items-center justify-content-between pb-4">--}}
