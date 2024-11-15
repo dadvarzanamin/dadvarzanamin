@@ -287,7 +287,7 @@ class IndexController extends Controller
         $megamenus          = mega_menu::all();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id' , 'megamenu_id' )->whereStatus(4)->get();
         $companies          = Company::first();
-        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
+        $services           = Submenu::select('id','title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
         $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
         $medias             = Media::select('aparat','title' , 'file_link' , 'cover')->whereStatus(4)->whereSubmenu_id($services->id)->get();
@@ -314,7 +314,7 @@ class IndexController extends Controller
         $megamenus          = mega_menu::all();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id' , 'megamenu_id')->whereStatus(4)->get();
         $companies          = Company::first();
-        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
+        $services           = Submenu::select('id','title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
         $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
         $workshops          = Workshop::select()->get();
@@ -367,7 +367,7 @@ class IndexController extends Controller
         $megamenus          = mega_menu::all();
         $submenus           = Submenu::select('title' , 'slug' , 'menu_id' , 'megamenu_id')->whereStatus(4)->get();
         $companies          = Company::first();
-        $services           = Submenu::select('title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
+        $services           = Submenu::select('id','title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
         //dd($services);
         $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
