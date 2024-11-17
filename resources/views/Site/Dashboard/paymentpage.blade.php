@@ -4,58 +4,94 @@
 @endsection
 @section('main')
     @include('sweetalert::alert')
+
+    <style>
+        @media (max-width: 600px) {
+            .mobile-font {
+                font-size: 11px;
+            }
+        }
+    </style>
     <div class="dashboard-heading mb-5">
-        <h3 class="fs-22 font-weight-semi-bold">پرداخت هزینه کارگاه یا دوره آموزشی</h3>
+        <h3 class="fs-22 font-weight-semi-bold text-center">پرداخت هزینه کارگاه یا دوره آموزشی</h3>
     </div>
-{{--    @if($workshopsigns)--}}
-{{--        <p>Workshop ID: {{$workshopsigns->workshop_id}}</p>--}}
-{{--        <p>Title: {{$workshopsigns->title}}</p>--}}
-{{--        <p>Price: {{number_format($workshopsigns->price)}} تومان</p>--}}
-{{--        <p>Date: {{$workshopsigns->date}}</p>--}}
-{{--        <p>Type Use: {{$workshopsigns->typeuse == 1 ? 'حضوری' : 'آنلاین'}}</p>--}}
-{{--    @else--}}
-{{--        <p>دوره‌ای برای پرداخت یافت نشد.</p>--}}
-{{--    @endif--}}
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">
-            <div class="setting-body">
-                <form method="get" action="{{ route('pay') }}" class="row pt-40px">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card card-custom p-4 br-16">
+                <form method="get" action="{{ route('pay') }}">
                     @csrf
                     <input type="hidden" name="workshopid" value="{{ $workshopsigns->workshop_id }}">
-                    <div class="input-box col-lg-3">
-                        <label class="label-text">نام دوره</label>
-                        <p>{{ $workshopsigns->title }}</p>
-                    </div>
 
-                    <div class="input-box col-lg-3">
-                        <label class="label-text">مبلغ هزینه دوره</label>
-                        <div class="form-group">
-                            @if($workshopsigns->offer)
-                                <p>{{ number_format($workshopsigns->offer) }} تومان </p>
-                            @else
-                                <p>{{ number_format($workshopsigns->price) }} تومان </p>
-                            @endif
+                    <div class="row">
+                        <!-- نام دوره -->
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">نام دوره</p>
+                                    <hr class="solid flex-grow-1 mx-3">
+                                    <p class="mb-0 mobile-font">{{ $workshopsigns->title }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- مبلغ دوره -->
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">مبلغ هزینه دوره</p>
+                                    <hr class="solid flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font" id="final-price">
+                                        @if($workshopsigns->offer)
+                                            {{ number_format($workshopsigns->offer) }} تومان
+                                        @else
+                                            {{ number_format($workshopsigns->price) }} تومان
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="input-box col-lg-3">
-                        <label class="label-text">نوع استفاده</label>
-                        <div class="form-group">
-                            @if($workshopsigns->typeuse == 1)
-                                <p> حضوری </p>
-                            @else
-                                <p> آنلاین </p>
-                            @endif
+                    <div class="row">
+                        <!-- نوع استفاده -->
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">نوع استفاده</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">
+                                        {{ $workshopsigns->typeuse == 1 ? 'حضوری' : 'آنلاین' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- تاریخ دوره -->
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">تاریخ دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">{{ $workshopsigns->date }}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="input-box col-lg-3">
-                        <label class="label-text">تاریخ دوره</label>
-                        <div class="form-group">
-                            <p>{{ $workshopsigns->date }}</p>
+                    <div class="row my-4">
+                        <div class="col-lg-12">
+                            <p class="text-center">کد تخفیف</p>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="discount_code" id="discount-code"
+                                       placeholder="کد تخفیف خود را وارد کنید">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-success" id="apply-discount">اعمال
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-box col-lg-12 py-2">
+
+                    <div class="text-center">
                         <button type="submit" class="btn theme-btn">تایید و پرداخت</button>
                     </div>
                 </form>
@@ -63,6 +99,7 @@
         </div>
     </div>
 @endsection
+
 @section('script')
     @if ($errors->any())
         <script>
@@ -73,4 +110,31 @@
             });
         </script>
     @endif
+    <script>
+        document.getElementById('apply-discount').addEventListener('click', function () {
+            const discountCode = document.getElementById('discount-code').value;
+            const originalPrice = {{ $workshopsigns->offer ?? $workshopsigns->price }};
+
+            let discountedPrice = originalPrice;
+            if (discountCode === 'DISCOUNT50') {
+                discountedPrice = originalPrice * 0.5;
+            } else if (discountCode === 'DISCOUNT20') {
+                discountedPrice = originalPrice * 0.8;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'کد تخفیف نامعتبر است',
+                    text: 'لطفاً یک کد معتبر وارد کنید.',
+                });
+                return;
+            }
+
+            document.getElementById('final-price').innerText = discountedPrice.toLocaleString('fa-IR') + ' تومان';
+            Swal.fire({
+                icon: 'success',
+                title: 'کد تخفیف اعمال شد',
+                text: 'مبلغ نهایی به‌روزرسانی شد.',
+            });
+        });
+    </script>
 @endsection

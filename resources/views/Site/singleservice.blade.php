@@ -48,6 +48,24 @@
                                 {!! $services->description !!}
                             </p>
                             <div class="section-block"></div>
+                            <div class="col my-4 container">
+                                <p class="text-center">
+                                    برای استفاده از خدمات ما می توانید از پروفایل کاربری اقدام کنید.
+                                </p>
+                                <div class="d-flex my-3 justify-content-center">
+                                    @if(Auth()->check())
+                                        {{--                            <a type="button" class="btn btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>--}}
+                                        <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">ورود به حساب
+                                            کاربری</a>
+                                    @else
+                                        <a type="button" class="btn btn btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
+                                        <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('register')}}">ثبت
+                                            نام در سایت</a>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="section-block"></div>
                             <h3 class="fs-18 font-weight-semi-bold pt-3">برچسب ها</h3>
                             <div class="d-flex flex-wrap justify-content-between align-items-center pt-3">
                                 <ul class="generic-list-item generic-list-item-boxed d-flex flex-wrap fs-15">
@@ -60,6 +78,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="card card-item br-16 card-bg50">
                         @foreach($medias as $media)
                             <div class="card-image m-3">

@@ -18,12 +18,14 @@
     font-weight: 700;
     src: url(../fonts/Pinar/Pinar-FD-Bold.woff2);
 }
+
 @font-face {
     font-family: 'Pinar-FD';
     font-style: normal;
     font-weight: 800;
     src: url(../fonts/Pinar/Pinar-FD-ExtraBold.woff2);
 }
+
 @font-face {
     font-family: KalamehWeb;
     font-style: normal;
@@ -336,8 +338,16 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6, a {
     color: #233d63;
+}
+
+a {
+    color: #CEA54B;
+}
+
+a:hover, a:active, a:focus {
+    color: #fdd16d;
 }
 
 h1,
@@ -430,8 +440,9 @@ h6 {
     color: rgba(35, 35, 34);
     box-shadow: 0 0 0 .2rem rgb(35, 35, 34) !important;
 }
+
 .time-segment {
-    color:#CEA54B;
+    color: #CEA54B;
     width: 80px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -450,8 +461,9 @@ h6 {
 .btn-fs {
     font-size: 16px;
 }
+
 @media (max-width: 1440px) {
-    .btn-fs{
+    .btn-fs {
         font-size: 12px !important;
     }
 
@@ -469,21 +481,25 @@ h6 {
 }
 
 .bg-dark {
-    background: linear-gradient(54deg, rgba(30,46,69,1) 0%, rgba(10,23,40,1) 100%);
+    background: linear-gradient(54deg, rgba(30, 46, 69, 1) 0%, rgba(10, 23, 40, 1) 100%);
 }
-.navbar-expand-lg .fixed-top{
-    -webkit-transition:padding 0.2s ease;
-    -moz-transition:padding 0.2s ease;
-    -o-transition:padding 0.2s ease;
-    transition:padding 0.2s ease;
+
+.navbar-expand-lg .fixed-top {
+    -webkit-transition: padding 0.2s ease;
+    -moz-transition: padding 0.2s ease;
+    -o-transition: padding 0.2s ease;
+    transition: padding 0.2s ease;
 }
-.dark-bg-h{
+
+.dark-bg-h {
     color: #CEA54B;
 }
-.dark-bg-p{
-    color: rgba(238, 238, 238, 0.8)!important;
+
+.dark-bg-p {
+    color: rgba(238, 238, 238, 0.8) !important;
 }
-.footer-area{
+
+.footer-area {
     padding-top: 40px;
     background-image: url(../images/footer-bg-dark.jpg);
     background-repeat: no-repeat;
@@ -498,18 +514,22 @@ h6 {
     border-color: rgba(85, 85, 85, 0.1);
     height: calc(2em + .75rem + 2px);
 }
-.form--control:focus{
-    background-color: rgba(238, 238, 238, 0.53)!important;
+
+.form--control:focus {
+    background-color: rgba(238, 238, 238, 0.53) !important;
     border-color: rgba(85, 85, 85, 0.5) !important;
 }
-.form-control:focus{
+
+.form-control:focus {
     border-color: #CEA54B;
     box-shadow: 0 0 0 .2rem rgba(206, 165, 75, 0.4);
 }
-.la-angle-down{
+
+.la-angle-down {
     margin-right: 6px;
 }
-.single-blog-area{
+
+.single-blog-area {
     max-width: 100%;
     background-image: url(../images/single-bg.webp);
     background-repeat: no-repeat;
@@ -518,13 +538,18 @@ h6 {
     background-attachment: fixed;
 }
 
-.single-partner-area{
+.single-partner-area {
     max-width: 100%;
     background-image: url(../images/dark-single-post.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
     background-attachment: fixed;
+}
+
+.vl {
+    border-left: 6px solid green;
+    height: 100%;
 }
 
 /*amirhossein classes*/
@@ -1966,6 +1991,7 @@ h6 {
     -o-transition: all 0.3s;
     transition: all 0.3s;
 }
+
 /*.a-text-black{*/
 /*    color: #252525!important;*/
 /*}*/
@@ -2132,8 +2158,7 @@ h6 {
 .social-icons-styled li a.twitter-bg,
 .social-icons-styled li a.instagram-bg,
 .social-icons-styled li a.linkedin-bg,
-.social-icons-styled li a.youtube-bg
-{
+.social-icons-styled li a.youtube-bg {
     background-color: rgba(206, 165, 74, 0.7);
 }
 
@@ -2716,7 +2741,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .icon-element-lg {
-    background: linear-gradient(62deg, rgba(30,46,69,0.9) 0%, rgba(30,46,69,1) 100%);
+    background: linear-gradient(62deg, rgba(30, 46, 69, 0.9) 0%, rgba(30, 46, 69, 1) 100%);
     width: 130px;
     height: 130px;
     line-height: 60px;
@@ -6036,8 +6061,9 @@ div.datedropper .picker .pick-lg-b li {
     -o-transition: all 0.2s;
     transition: all 0.2s;
 }
-@media screen and (max-width: 500px){
-    .generic-tab .nav-link{
+
+@media screen and (max-width: 500px) {
+    .generic-tab .nav-link {
         font-size: 12px;
         padding: 4px 4px;
     }
@@ -6247,8 +6273,10 @@ div.datedropper .picker .pick-lg-b li {
     border: 1px solid #f4f4f4;
     border-radius: 16px;
 }
+
 .card-item:hover {
 }
+
 /*.card-item:hover .btn {*/
 /*    transition: all 0.3s;*/
 /*    background-color: #233d63;*/
@@ -6266,11 +6294,13 @@ div.datedropper .picker .pick-lg-b li {
     margin-bottom: 1px;
     font-size: 20px;
 }
-.card-text{
+
+.card-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .card-item .card-title a {
     color: #233d63;
     -webkit-transition: all 0.3s;
@@ -6300,11 +6330,13 @@ div.datedropper .picker .pick-lg-b li {
 .card-item .card-body {
     border-radius: 16px !important;
 }
-.card-bg50{
+
+.card-bg50 {
     color: #242424;
     background-color: rgba(255, 255, 255, 0.9);
 }
-.card-bg50:hover{
+
+.card-bg50:hover {
     transform: translateY(0);
 }
 
@@ -6378,7 +6410,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .course-badge {
-    background: linear-gradient(62deg, rgba(30,46,69,0.8) 0%, rgba(30,46,69,1) 100%);
+    background: linear-gradient(62deg, rgba(30, 46, 69, 0.8) 0%, rgba(30, 46, 69, 1) 100%);
     color: #fff;
     font-weight: 700;
     display: inline-block;
@@ -7078,6 +7110,9 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .logo-box {
+    border-radius: 16px;
+    padding: 8px;
+    background: linear-gradient(62deg, rgba(30, 46, 69, 0.8) 0%, rgba(30, 46, 69, 1) 100%);
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
@@ -7361,8 +7396,9 @@ div.datedropper .picker .pick-lg-b li {
     transition: all 0.3s;
     padding-bottom: 32px;
 }
+
 @media screen and (max-width: 1440px) {
-    .main-menu > ul > li a{
+    .main-menu > ul > li a {
         font-size: 12px;
     }
 }
@@ -9962,9 +9998,11 @@ div.datedropper .picker .pick-lg-b li {
 .dark-theme .svg-icon-color-1 path {
     fill: #eee;
 }
+
 .dark-theme .svg-icon-color-2 path {
     fill: #eee;
 }
+
 .dark-theme .svg-icon-color-3 path {
     fill: #eee;
 }
@@ -10477,7 +10515,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .client-logo-carousel {
-    background: linear-gradient(62deg, rgba(245,245,245,0.4) 0%, rgba(245,245,245,0.6) 100%);
+    background: linear-gradient(62deg, rgba(245, 245, 245, 0.4) 0%, rgba(245, 245, 245, 0.6) 100%);
     border: 1px solid #f4f4f4;
     height: 120px;
     padding: 10px;
@@ -10506,15 +10544,18 @@ div.datedropper .picker .pick-lg-b li {
 .dark-theme .footer-theme * {
     color: #eee !important;
 }
+
 .dark-theme .header-bg {
     background-color: rgba(69, 69, 69, 0.7);
     border: 1px solid #444a51;
 }
-.dark-theme .card-bg50{
+
+.dark-theme .card-bg50 {
     background-color: rgba(10, 10, 10, 0.8);
     color: #eee;
 }
+
 .dark-theme .form-control {
     background-color: #444;
-    color:#eee;
+    color: #eee;
 }

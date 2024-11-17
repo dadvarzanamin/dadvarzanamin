@@ -8,8 +8,8 @@
     <meta name="robots" content="index, follow">
 
     <!-- Google fonts -->
-{{--    <link rel="preconnect" href="https://fonts.gstatic.com/">--}}
-{{--    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">--}}
+    {{--    <link rel="preconnect" href="https://fonts.gstatic.com/">--}}
+    {{--    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">--}}
 
 
     <link rel="icon" href="{{$companies['favicon16']}}" sizes="16x16" type="image/png">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{asset('site/css/fancybox.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
 
-@yield('style')
+    @yield('style')
 </head>
 <body>
 
@@ -49,7 +49,8 @@
                     </div>
                     <div class="col-3">
                         <div class="logo-box logo--box">
-                            <a href="{{url('پروفایل-من')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو" /></a>
+                            <a href="{{url('پروفایل-من')}}" class="logo"><img src="{{asset($companies['image'])}}"
+                                                                              alt="لوگو"/></a>
                         </div>
                         <div class="menu-wrapper float-left">
                             <div class="nav-left-button d-flex align-items-center">
@@ -71,7 +72,8 @@
                                                     <li>
                                                         <div class="notification-body">
                                                             @foreach($notifs as $notif)
-                                                                <a href="{{route('usernotif')}}" class="media media-card align-items-center">
+                                                                <a href="{{route('usernotif')}}"
+                                                                   class="media media-card align-items-center">
                                                                     <div class="media-body">
                                                                         <h5>{{$notif->title}}</h5>
                                                                     </div>
@@ -80,7 +82,8 @@
                                                         </div>
                                                     </li>
                                                     <li class="menu-heading-block">
-                                                        <a href="{{route('usernotif')}}" class="btn theme-btn w-100">نمایش همه اعلان ها <i class="la la-arrow-left icon ml-1"></i></a>
+                                                        <a href="{{route('usernotif')}}" class="btn theme-btn w-100">نمایش
+                                                            همه اعلان ها <i class="la la-arrow-left icon ml-1"></i></a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -91,39 +94,59 @@
                                             <li>
                                                 <div class="shop-cart-btn">
                                                     <div class="avatar-xs">
-                                                        <img class="rounded-full img-fluid" @if(Auth::user()->image)  src="{{Auth::user()->image}}" @else src="{{asset('admin/assets/img/users/1.jpg')}}" @endif alt="{{(Auth::user()->name)}}" />
+                                                        <img class="rounded-full img-fluid"
+                                                             @if(Auth::user()->image)  src="{{Auth::user()->image}}"
+                                                             @else src="{{asset('admin/assets/img/users/1.jpg')}}"
+                                                             @endif alt="{{(Auth::user()->name)}}"/>
                                                     </div>
                                                     <span class="dot-status bg-1"></span>
                                                 </div>
                                                 <ul class="cart-dropdown-menu after-none p-0 notification-dropdown-menu">
                                                     <li class="menu-heading-block d-flex align-items-center">
                                                         <a href="" class="avatar-sm flex-shrink-0 d-block">
-                                                            <img class="rounded-full img-fluid" @if(Auth::user()->image)  src="{{Auth::user()->image}}" @else src="{{asset('admin/assets/img/users/1.jpg')}}" @endif alt="{{Auth::user()->name}}" />
+                                                            <img class="rounded-full img-fluid"
+                                                                 @if(Auth::user()->image)  src="{{Auth::user()->image}}"
+                                                                 @else src="{{asset('admin/assets/img/users/1.jpg')}}"
+                                                                 @endif alt="{{Auth::user()->name}}"/>
                                                         </a>
                                                         <div class="ml-2">
-                                                            <h4><a href="" class="text-black">{{Auth::user()->name}}</a></h4>
-                                                            <span class="d-block fs-14 lh-20">{{Auth::user()->email}}</span>
+                                                            <h4><a href="" class="text-black">{{Auth::user()->name}}</a>
+                                                            </h4>
+                                                            <span
+                                                                class="d-block fs-14 lh-20">{{Auth::user()->email}}</span>
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <div class="theme-picker d-flex align-items-center justify-content-center lh-40">
-                                                            <button class="theme-picker-btn dark-mode-btn w-100 font-weight-semi-bold justify-content-center" title="حالت تاریک">
-                                                                <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                                        <div
+                                                            class="theme-picker d-flex align-items-center justify-content-center lh-40">
+                                                            <button
+                                                                class="theme-picker-btn dark-mode-btn w-100 font-weight-semi-bold justify-content-center"
+                                                                title="حالت تاریک">
+                                                                <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path
+                                                                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                                                                 </svg>
                                                                 حالت تاریک
                                                             </button>
-                                                            <button class="theme-picker-btn light-mode-btn w-100 font-weight-semi-bold justify-content-center" title="حالت نور">
-                                                                <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                            <button
+                                                                class="theme-picker-btn light-mode-btn w-100 font-weight-semi-bold justify-content-center"
+                                                                title="حالت نور">
+                                                                <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
                                                                     <circle cx="12" cy="12" r="5"></circle>
                                                                     <line x1="12" y1="1" x2="12" y2="3"></line>
                                                                     <line x1="12" y1="21" x2="12" y2="23"></line>
-                                                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                                                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                                                    <line x1="4.22" y1="4.22" x2="5.64"
+                                                                          y2="5.64"></line>
+                                                                    <line x1="18.36" y1="18.36" x2="19.78"
+                                                                          y2="19.78"></line>
                                                                     <line x1="1" y1="12" x2="3" y2="12"></line>
                                                                     <line x1="21" y1="12" x2="23" y2="12"></line>
-                                                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                                                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                                                    <line x1="4.22" y1="19.78" x2="5.64"
+                                                                          y2="18.36"></line>
+                                                                    <line x1="18.36" y1="5.64" x2="19.78"
+                                                                          y2="4.22"></line>
                                                                 </svg>
                                                                 حالت نور
                                                             </button>
@@ -132,19 +155,24 @@
                                                     <li>
                                                         <ul class="generic-list-item">
                                                             <li>
-                                                                <a href="{{route('setting')}}"> <i class="la la-gear mr-1"></i> تنظیمات </a>
+                                                                <a href="{{route('setting')}}"> <i
+                                                                        class="la la-gear mr-1"></i> تنظیمات </a>
                                                             </li>
                                                             <li>
                                                                 <a href="{{route('message')}}">
                                                                     <i class="la la-envelope mr-1"></i>پیام های
-                                                                    <span class="badge bg-info text-white ml-2 p-1">12+</span>
+                                                                    <span
+                                                                        class="badge bg-info text-white ml-2 p-1">12+</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{route('user-request')}}"> <i class="la la-question mr-1"></i> درخواست مشاوره </a>
+                                                                <a href="{{route('user-request')}}"> <i
+                                                                        class="la la-question mr-1"></i> درخواست مشاوره
+                                                                </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{route('logout')}}"> <i class="la la-power-off mr-1"></i> خروج </a>
+                                                                <a href="{{route('logout')}}"> <i
+                                                                        class="la la-power-off mr-1"></i> خروج </a>
                                                             </li>
                                                         </ul>
                                                     </li>
@@ -161,7 +189,8 @@
         </div>
     </div>
     <div class="off-canvas-menu custom-scrollbar-styled main-off-canvas-menu">
-        <div class="off-canvas-menu-close main-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">
+        <div class="off-canvas-menu-close main-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip"
+             data-placement="right" title="بستن منو">
             <i class="la la-times"></i>
         </div>
         <!-- end off-canvas-menu-close -->
@@ -191,13 +220,17 @@
             <li><a href="contact.html">کمک</a></li>
         </ul>
         <div class="theme-picker d-flex align-items-center justify-content-center mt-4 px-3">
-            <button class="theme-picker-btn dark-mode-btn btn theme-btn-sm theme-btn-white w-100 font-weight-semi-bold justify-content-center" title="حالت تاریک">
+            <button
+                class="theme-picker-btn dark-mode-btn btn theme-btn-sm theme-btn-white w-100 font-weight-semi-bold justify-content-center"
+                title="حالت تاریک">
                 <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
                 حالت تاریک
             </button>
-            <button class="theme-picker-btn light-mode-btn btn theme-btn-sm theme-btn-white w-100 font-weight-semi-bold justify-content-center" title="حالت نور">
+            <button
+                class="theme-picker-btn light-mode-btn btn theme-btn-sm theme-btn-white w-100 font-weight-semi-bold justify-content-center"
+                title="حالت نور">
                 <svg class="mr-1" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -216,32 +249,39 @@
 </header>
 
 
-
 <section class="dashboard-area">
     <div class="off-canvas-menu dashboard-off-canvas-menu off--canvas-menu custom-scrollbar-styled pt-20px">
-        <div class="off-canvas-menu-close dashboard-menu-close icon-element icon-element-sm shadow-sm" data-toggle="tooltip" data-placement="right" title="بستن منو">
+        <div class="off-canvas-menu-close dashboard-menu-close icon-element icon-element-sm shadow-sm"
+             data-toggle="tooltip" data-placement="right" title="بستن منو">
             <i class="la la-times"></i>
         </div>
-        <div class="d-flex flex-direction-row justify-content-space-between" style="padding-right: 12px;padding-left: 12px; justify-content: space-between">
+        <div class="d-flex flex-direction-row justify-content-space-between"
+             style="padding-right: 12px;padding-left: 12px; justify-content: space-between">
             <div class="logo-box px-4">
-                <a href="{{route('/')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو" /></a>
+                <a href="{{route('/')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو"/></a>
             </div>
-            <a type="button" href="{{route('/')}}" class="btn btn-dark btn-fs" style="margin-top: 6px ">بازگشت به خانه</a>
+            <div class="logo-box px-4">
+                <a href="{{route('/')}}" class="">بازگشت به
+                    خانه</a>
+
+            </div>
         </div>
 
         <ul class="generic-list-item off-canvas-menu-list off--canvas-menu-list pt-35px">
             @foreach($dashboardmenus as $menu)
-            <li class="{{request()->segment(2) == $menu->slug ? 'page-active' : ''}}">
-                <a href="{{route($menu->class)}}">
-                    {{$menu->title}}
-{{--                    <span class="badge badge-info p-1 ml-2">2</span>--}}
-                </a>
-            </li>
+                <li class="{{request()->segment(2) == $menu->slug ? 'page-active' : ''}}">
+                    <a href="{{route($menu->class)}}">
+                        {{$menu->title}}
+                        {{--                    <span class="badge badge-info p-1 ml-2">2</span>--}}
+                    </a>
+                </li>
             @endforeach
         </ul>
     </div>
     <div class="dashboard-content-wrap">
-        <div class="dashboard-menu-toggler btn theme-btn theme-btn-sm lh-28 theme-btn-transparent mb-4 ml-3"><i class="la la-bars mr-1"></i> منو</div>
+        <div class="dashboard-menu-toggler btn theme-btn theme-btn-sm lh-28 theme-btn-transparent mb-4 ml-3"><i
+                class="la la-bars mr-1"></i> منو
+        </div>
         <div class="container-fluid">
             <div class="breadcrumb-content d-flex flex-wrap align-items-center justify-content-between mb-2">
 
@@ -254,7 +294,8 @@
 
 </section>
 <section class="dashboard-area">
-    <div class="dashboard-heading" style="padding: 20px;box-shadow: 1px 1px 1pc rgba(0,0,0,.075);bottom: 0;text-align: center;width: 100%">
+    <div class="dashboard-heading"
+         style="padding: 20px;box-shadow: 1px 1px 1pc rgba(0,0,0,.075);bottom: 0;text-align: center;width: 100%">
         <h6 class="fs-16 text-center">کلیه حقوق این سامانه به موسسه حقوقی دادورزان امین تعلق دارد</h6>
     </div>
 </section>
@@ -262,12 +303,14 @@
     <i class="la la-arrow-up" title="برو بالا"></i>
 </div>
 
-<div class="modal fade modal-container" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+<div class="modal fade modal-container" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body text-center">
                 <span class="la la-exclamation-circle fs-60 text-warning"></span>
-                <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">حساب شما برای همیشه حذف خواهد شد!</h4>
+                <h4 class="modal-title fs-19 font-weight-semi-bold pt-2 pb-1" id="deleteModalTitle">حساب شما برای همیشه
+                    حذف خواهد شد!</h4>
                 <p>آیا مطمئن هستید که می خواهید اکانت خود را حذف کنید؟</p>
                 <div class="btn-box pt-4">
                     <button type="button" class="btn font-weight-medium mr-3" data-dismiss="modal">لغو کنید</button>
