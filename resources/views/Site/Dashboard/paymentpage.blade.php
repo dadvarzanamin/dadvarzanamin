@@ -120,7 +120,15 @@
                 discountedPrice = originalPrice * 0.5;
             } else if (discountCode === 'DISCOUNT20') {
                 discountedPrice = originalPrice * 0.8;
-            } else {
+            }else if((discountCode === 'blackfriday')){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ظرفیت استفاده از این کد تخفیف تمام شده است!',
+                    // text: 'لطفاً یک کد معتبر وارد کنید.',
+                });
+                return;
+            }
+            else {
                 Swal.fire({
                     icon: 'error',
                     title: 'کد تخفیف نامعتبر است',
