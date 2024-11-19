@@ -54,7 +54,7 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4 ">ویرایش</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 text-center">ویرایش</h3>
                 <form method="post" action="{{route('edit-user-profile')}}" class="row pt-40px" enctype="multipart/form-data">
                     @csrf
                     <div class="input-box col-lg-3">
@@ -257,7 +257,7 @@
 
         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4">رمز عبور را تغییر دهید</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 text-center">رمز عبور را تغییر دهید</h3>
                 <form method="post" action="{{route('change-password')}}" class="row">
                     @csrf
                     <div class="input-box col-lg-4">
@@ -304,7 +304,7 @@
 
         <div class="tab-pane fade" id="change-email" role="tabpanel" aria-labelledby="change-email-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4">تغییر ایمیل</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 text-center">تغییر ایمیل</h3>
                 <form method="post" action="{{route('change-email')}}" class="row">
                     @csrf
                     <div class="input-box col-lg-4">
@@ -330,7 +330,7 @@
 
         <div class="tab-pane fade" id="withdraw" role="tabpanel" aria-labelledby="withdraw-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4">اطلاعات حساب بانکی خود را وارد کنید</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 text-center">اطلاعات حساب بانکی خود را وارد کنید</h3>
                 <form method="post" action="{{route('bank-account')}}" class="row">
                     @csrf
                     <h3 class="fs-17 font-weight-semi-bold pb-4 col-lg-12">اطلاعات حساب</h3>
@@ -419,7 +419,7 @@
 
         <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
             <div class="setting-body">
-                <h3 class="fs-17 font-weight-semi-bold pb-4">لیست پرداخت های موفق و نا موفق</h3>
+                <h3 class="fs-17 font-weight-semi-bold pb-4 text-center">لیست پرداخت های موفق و نا موفق</h3>
                 <form method="post" action="{{route('bank-payment')}}" class="row">
                     @csrf
                     <h3 class="fs-17 font-weight-semi-bold pb-4 col-lg-12">اطلاعات واریز</h3>

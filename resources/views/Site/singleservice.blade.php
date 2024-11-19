@@ -78,7 +78,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card card-item br-16 card-bg50">
                         @foreach($medias as $media)
                             <div class="card-image m-3">

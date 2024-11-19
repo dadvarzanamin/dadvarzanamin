@@ -37,13 +37,16 @@
 
 <header class="header-menu-area">
     <div class="header-menu-content dashboard-menu-content pr-30px pl-30px bg-white shadow-sm">
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <div class="main-menu-content">
                 <div class="row align-items-center">
                     <div class="col-9">
                         <div class="media media-card align-items-center">
+                            <div class="dashboard-menu-toggler btn theme-btn theme-btn-sm lh-28 theme-btn-transparent"><i
+                                    class="la la-bars mr-1"></i> منو
+                            </div>
                             <div class="media-body">
-                                <h2 class="section__title fs-20"> سلام؛ {{ Auth::user()->name }}  </h2>
+                                <h2 class="section__title"> سلام {{ Auth::user()->name }}  </h2>
                             </div>
                         </div>
                     </div>
@@ -257,10 +260,10 @@
         </div>
         <div class="d-flex flex-direction-row justify-content-space-between"
              style="padding-right: 12px;padding-left: 12px; justify-content: space-between">
-            <div class="logo-box px-4">
+            <div class="px-4">
                 <a href="{{route('/')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو"/></a>
             </div>
-            <div class="logo-box px-4">
+            <div class="px-4">
                 <a href="{{route('/')}}" class="">بازگشت به
                     خانه</a>
 
@@ -279,9 +282,9 @@
         </ul>
     </div>
     <div class="dashboard-content-wrap">
-        <div class="dashboard-menu-toggler btn theme-btn theme-btn-sm lh-28 theme-btn-transparent mb-4 ml-3"><i
-                class="la la-bars mr-1"></i> منو
-        </div>
+{{--        <div class="dashboard-menu-toggler btn theme-btn theme-btn-sm lh-28 theme-btn-transparent mb-4 ml-3"><i--}}
+{{--                class="la la-bars mr-1"></i> منو--}}
+{{--        </div>--}}
         <div class="container-fluid">
             <div class="breadcrumb-content d-flex flex-wrap align-items-center justify-content-between mb-2">
 

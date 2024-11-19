@@ -4,9 +4,9 @@
 @endsection
 @section('main')
     <div class="dashboard-heading mb-5">
-        <h3 class="fs-22 font-weight-semi-bold d-flex justify-content-center text-align-center">پروفایل من</h3>
+        <h3 class="fs-22 font-weight-semi-bold d-flex justify-content-center text-center">پروفایل من</h3>
     </div>
-    <div class="profile-detail container mb-5 p-5" style="border: 1px solid rgba(0,0,0,0.16);border-radius: 16px;width: fit-content">
+    <div class="profile-detail container mb-5 p-5">
         <ul class="generic-list-item generic-list-item-flash">
 
             <li><span class="profile-name">     تاریخ ثبت نام: </span><span
@@ -132,7 +132,7 @@
                     <span class="profile-desc">
                     @foreach(\App\Models\Profile\Job_title::whereId(Auth::user()->job_title)->pluck('title') as $title)
                             {{ $title }}
-                    @endforeach
+                        @endforeach
                     </span>
                     @if(!Auth::user()->job_title)
                         <span
@@ -193,11 +193,14 @@
                     <span style="color: red;">  کاربر گرامی لطفا شهرستان خود را در تنظیمات پروفایل کامل کنید.</span>
                 @endif
             </li>
-            <li><span class="profile-name">  آدرس: </span>
-                <span class="profile-desc">{{(Auth::user()->address)}}</span>
-                @if(!Auth::user()->address)
-                    <span style="color: red;"> کاربر گرامی لطفا آدرس خود را در تنظیمات پروفایل کامل کنید.</span>
-                @endif</li>
+            <li>
+                <span class="profile-name">  آدرس: </span>
+                @if(Auth::user()->telphone)
+                    <span class="profile-desc">{{ Auth::user()->address }}</span>
+                @else
+                    <span style="color: red;">کاربر گرامی لطفا آدرس خود را در تنظیمات پروفایل کامل کنید.</span>
+                @endif
+            </li>
             <li>
                 <span class="profile-name"> نوع کاربری: </span>
                 <span class="profile-desc">@foreach(\App\Models\TypeUser::whereId(Auth::user()->type_id)->pluck('title_fa') as $title)
