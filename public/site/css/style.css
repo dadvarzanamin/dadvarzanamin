@@ -7031,6 +7031,7 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .header-menu-content.fixed-top {
+    background-color: white;
     -webkit-box-shadow: 0 0 40px rgb(14 16 48 / 0.07);
     -moz-box-shadow: 0 0 40px rgb(14 16 48 / 0.07);
     box-shadow: 0 0 40px rgb(14 16 48 / 0.07);
@@ -7128,7 +7129,22 @@ div.datedropper .picker .pick-lg-b li {
         justify-content: space-between;
     }
 }
-
+.profile-detail {
+    border: 1px solid rgba(34, 34, 34, 0.3);
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+}
+.profile-name {
+    font-weight: bold;
+}
+.profile-desc {
+    color: #222;
+}
+.profile-warning {
+    color: red;
+}
 .logo-box .logo {
     display: inline-block;
 }
@@ -7139,6 +7155,7 @@ div.datedropper .picker .pick-lg-b li {
 
 @media (max-width: 1199px) {
     .logo--box {
+        width: fit-content;
         display: -webkit-flex;
         display: -ms-flex;
         display: flex;
@@ -7759,21 +7776,21 @@ div.datedropper .picker .pick-lg-b li {
 }
 
 .off--canvas-menu-list li a:hover {
-    color: #358ff7;
+    color: #cea54a;
 }
 
 .off--canvas-menu-list li a:hover svg {
-    fill: #358ff7;
+    fill: #cea54a;
 }
 
 .off--canvas-menu-list li.page-active svg {
-    fill: #358ff7;
+    fill: #cea54a;
 }
 
 .off--canvas-menu-list li.page-active a {
     background-color: rgb(53 143 227 / 0.04);
-    color: #358ff7;
-    border-left-color: #358ff7;
+    color: #cea54a;
+    border-left-color: #cea54a;
 }
 
 .mobile-search-form {
@@ -7903,9 +7920,7 @@ div.datedropper .picker .pick-lg-b li {
 
 @media (max-width: 1199px) {
     .dashboard-content-wrap {
-        padding-top: 30px;
-        padding-right: 0;
-        padding-left: 0;
+        padding: 8px 0;
         width: 100%;
     }
 }

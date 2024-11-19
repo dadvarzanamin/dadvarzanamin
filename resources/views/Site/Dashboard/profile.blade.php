@@ -6,7 +6,7 @@
     <div class="dashboard-heading mb-5">
         <h3 class="fs-22 font-weight-semi-bold d-flex justify-content-center text-center">پروفایل من</h3>
     </div>
-    <div class="profile-detail container mb-5 p-5">
+    <div class="profile-detail container p-3">
         <ul class="generic-list-item generic-list-item-flash">
 
             <li><span class="profile-name">     تاریخ ثبت نام: </span><span
