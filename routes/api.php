@@ -13,6 +13,13 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::post('v1/token'          ,[App\Http\Controllers\Api\V1\UserController::class    , 'token']);
 //});
 
+Route::middleware('auth:api')->group(function () {
+    Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class    , 'profile']);
+});
+
+
+
+
 //Route::prefix('v1')->namespace('Api\v1')->group(function (){
 //    Route::get('/index'                             , 'IndexController@index');
 //    Route::get('/appversion'                , 'IndexController@appversion');
@@ -55,7 +62,6 @@ use App\Http\Controllers\Api\v1\IndexController;
    Route::middleware('auth:api')->group(function (){
 
     Route::post('/user/store'                       , 'UserController@store');
-    Route::get('/profile'                           , 'UserController@profile');
     Route::post('/user/update'                      , 'UserController@update');
 
    });
