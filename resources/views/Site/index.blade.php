@@ -241,7 +241,7 @@
         </div>
     </section>
 
-    <section class="about-area overflow-hidden">
+{{--    <section class="about-area overflow-hidden">
         <div class="container">
             @if(Auth::check())
                 <div class="alert alert-success" role="alert">
@@ -309,9 +309,9 @@
                             <a href="{{url('دوره-آموزشی/کارگاه-اصول-قراردادنویسی')}}" class="btn pr-button br-16 py-3">
                                 مشاهده اطلاعات دوره
                             </a>
-                            {{--                            <p class="btn btn-danger br-16 py-3">--}}
-                            {{--                                تکمیل ظرفیت--}}
-                            {{--                            </p>--}}
+                            --}}{{--                            <p class="btn btn-danger br-16 py-3">--}}{{--
+                            --}}{{--                                تکمیل ظرفیت--}}{{--
+                            --}}{{--                            </p>--}}{{--
                         </div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
 
     {{--      Start partners Area--}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
