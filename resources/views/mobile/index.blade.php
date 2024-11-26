@@ -418,78 +418,78 @@
         </div>
     </div>
 
-    <div class="categories segments">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="content content-shadow-product" style="margin:20px auto;">
-                    <img src="{{asset('/workshops/index-third-workshop.jpg')}}" style="width: 300px;border-radius: 16px"
-                         alt="دوره ضربتی قانون اساسی">
-                </div>
-                @php
-                    $workshop = $workshops->firstWhere('status', 4);
-                @endphp
-                <div class="content" style="margin: 20px auto;">
+{{--    <div class="categories segments">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="content content-shadow-product" style="margin:20px auto;">--}}
+{{--                    <img src="{{asset('/workshops/index-third-workshop.jpg')}}" style="width: 300px;border-radius: 16px"--}}
+{{--                         alt="دوره ضربتی قانون اساسی">--}}
+{{--                </div>--}}
+{{--                @php--}}
+{{--                    $workshop = $workshops->firstWhere('status', 4);--}}
+{{--                @endphp--}}
+{{--                <div class="content" style="margin: 20px auto;">--}}
 
-                    <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
-                        کارگاه اصول قراردادنویسی
-                    </p>
-                    {{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-                    {{--                    <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده--}}
-                    {{--                    </h6>--}}
-                    <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>
-                    <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>
-                    <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center">مدرس دانشگاه</h6>
-                    <hr style="border: none; height: 1px; background-color: #cea54a;">
-                    <h6 class="text-center" style="margin: 4px;">
-                        تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14
-                    </h6>
-                </div>
-                <div class="text-center">
-                    ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا
-                </div>
-            </div>
-            <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">
-                <div class="col-lg-12 responsive-column-half">
-                    <div class="info-icon-box mb-3 text-center">
-                        <div class="row justify-content-center">
-                            <div class="time-segment"
-                                 style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
-                                <span id="days">0</span>
-                                <span>روز</span>
-                            </div>
-                            <div class="time-segment">
-                                <span id="hours">0</span>
-                                <span>ساعت</span>
-                            </div>
-                            <div class="time-segment">
-                                <span id="minutes">0</span>
-                                <span>دقیقه</span>
-                            </div>
-                            <div class="time-segment"
-                                 style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
-                                <span id="seconds">0</span>
-                                <span>ثانیه</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--                    <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">--}}
+{{--                        کارگاه اصول قراردادنویسی--}}
+{{--                    </p>--}}
+{{--                    --}}{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    --}}{{--                    <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده--}}
+{{--                    --}}{{--                    </h6>--}}
+{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>--}}
+{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
+{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    <h6 class="text-center">مدرس دانشگاه</h6>--}}
+{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                    <h6 class="text-center" style="margin: 4px;">--}}
+{{--                        تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14--}}
+{{--                    </h6>--}}
+{{--                </div>--}}
+{{--                <div class="text-center">--}}
+{{--                    ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">--}}
+{{--                <div class="col-lg-12 responsive-column-half">--}}
+{{--                    <div class="info-icon-box mb-3 text-center">--}}
+{{--                        <div class="row justify-content-center">--}}
+{{--                            <div class="time-segment"--}}
+{{--                                 style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">--}}
+{{--                                <span id="days">0</span>--}}
+{{--                                <span>روز</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="time-segment">--}}
+{{--                                <span id="hours">0</span>--}}
+{{--                                <span>ساعت</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="time-segment">--}}
+{{--                                <span id="minutes">0</span>--}}
+{{--                                <span>دقیقه</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="time-segment"--}}
+{{--                                 style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">--}}
+{{--                                <span id="seconds">0</span>--}}
+{{--                                <span>ثانیه</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div class="content-button mx-4">
-                <div class="content-button mx-4">
-                    <a href="#" class="dore-open-modal mobile-button br-16"
-                       style="display: flex;justify-content: center">ظرفیت تکمیل شد
-                    </a>
-                    {{--                    <a href="#" class=" br-16"--}}
-                    {{--                       style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">--}}
-                    {{--                        تکمیل--}}
-                    {{--                        ظرفیت--}}
-                    {{--                    </a>--}}
-                </div>
-            </div>
+{{--            <div class="content-button mx-4">--}}
+{{--                <div class="content-button mx-4">--}}
+{{--                    <a href="#" class="dore-open-modal mobile-button br-16"--}}
+{{--                       style="display: flex;justify-content: center">ظرفیت تکمیل شد--}}
+{{--                    </a>--}}
+{{--                    --}}{{--                    <a href="#" class=" br-16"--}}
+{{--                    --}}{{--                       style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">--}}
+{{--                    --}}{{--                        تکمیل--}}
+{{--                    --}}{{--                        ظرفیت--}}
+{{--                    --}}{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 {{--            <div id="doreModal" class="dore-modal">--}}
 {{--                <div class="dore-modal-content">--}}
 {{--                    <span class="dore-close">&times;</span>--}}
@@ -619,67 +619,67 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--            </div>--}}
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var modal = document.getElementById("doreModal");
-                    var btn = document.querySelector(".dore-open-modal");
-                    var span = document.getElementsByClassName("dore-close")[0];
+{{--            <script>--}}
+{{--                document.addEventListener("DOMContentLoaded", function () {--}}
+{{--                    var modal = document.getElementById("doreModal");--}}
+{{--                    var btn = document.querySelector(".dore-open-modal");--}}
+{{--                    var span = document.getElementsByClassName("dore-close")[0];--}}
 
-                    btn.onclick = function (event) {
-                        event.preventDefault();
-                        modal.style.display = "block";
-                    }
+{{--                    btn.onclick = function (event) {--}}
+{{--                        event.preventDefault();--}}
+{{--                        modal.style.display = "block";--}}
+{{--                    }--}}
 
-                    span.onclick = function () {
-                        modal.style.display = "none";
-                    }
+{{--                    span.onclick = function () {--}}
+{{--                        modal.style.display = "none";--}}
+{{--                    }--}}
 
-                    window.onclick = function (event) {
-                        if (event.target == modal) {
-                            modal.style.display = "none";
-                        }
-                    }
-                });
-            </script>
-        </div>
-    </div>
-    <script>
-        // Set the date we're counting down to
-        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();
+{{--                    window.onclick = function (event) {--}}
+{{--                        if (event.target == modal) {--}}
+{{--                            modal.style.display = "none";--}}
+{{--                        }--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            </script>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <script>--}}
+{{--        // Set the date we're counting down to--}}
+{{--        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();--}}
 
-        // Update the count down every 1 second
-        var x = setInterval(function () {
+{{--        // Update the count down every 1 second--}}
+{{--        var x = setInterval(function () {--}}
 
-            // Get today's date and time
-            var now = new Date().getTime();
+{{--            // Get today's date and time--}}
+{{--            var now = new Date().getTime();--}}
 
-            // Find the distance between now and the count down date
-            var distance = countDownDate - now;
+{{--            // Find the distance between now and the count down date--}}
+{{--            var distance = countDownDate - now;--}}
 
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+{{--            // Time calculations for days, hours, minutes and seconds--}}
+{{--            var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
+{{--            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
+{{--            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
+{{--            var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
 
-            // // Display the result in the element with id="demo"
-            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
-            // //+ minutes + " دقیقه " + seconds + " ثانیه ";
-            document.getElementById("days").innerHTML = days;
-            document.getElementById("hours").innerHTML = hours;
-            document.getElementById("minutes").innerHTML = minutes;
-            document.getElementById("seconds").innerHTML = seconds;
-            // If the count down is finished, write some text
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("days").innerHTML = "EXPIRED";
-                document.getElementById("hours").innerHTML = "EXPIRED";
-                document.getElementById("minutes").innerHTML = "EXPIRED";
-                document.getElementById("seconds").innerHTML = "EXPIRED";
-            }
+{{--            // // Display the result in the element with id="demo"--}}
+{{--            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;--}}
+{{--            // //+ minutes + " دقیقه " + seconds + " ثانیه ";--}}
+{{--            document.getElementById("days").innerHTML = days;--}}
+{{--            document.getElementById("hours").innerHTML = hours;--}}
+{{--            document.getElementById("minutes").innerHTML = minutes;--}}
+{{--            document.getElementById("seconds").innerHTML = seconds;--}}
+{{--            // If the count down is finished, write some text--}}
+{{--            if (distance < 0) {--}}
+{{--                clearInterval(x);--}}
+{{--                document.getElementById("days").innerHTML = "EXPIRED";--}}
+{{--                document.getElementById("hours").innerHTML = "EXPIRED";--}}
+{{--                document.getElementById("minutes").innerHTML = "EXPIRED";--}}
+{{--                document.getElementById("seconds").innerHTML = "EXPIRED";--}}
+{{--            }--}}
 
-        }, 1000);
-    </script>
+{{--        }, 1000);--}}
+{{--    </script>--}}
     <div class="categories segments">
         <div id="serviceDescriptionModal" class="modal">
             <div class="modal-content">
