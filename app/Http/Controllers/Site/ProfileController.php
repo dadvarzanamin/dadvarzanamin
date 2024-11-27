@@ -46,107 +46,144 @@ class ProfileController extends Controller
     {
         $token = EstelamToken::select('token', 'appname')->first();
 
+        $headers = [
+            'token:' . $token->token,
+            'appname:' . $token->appname,
+            'Content-Type: application/json',
+        ];
+
         if ($request->input('formId') == 11) {
             try {
-/////////////////////////////////////
+
                 $estelam = Estelam::whereId(1)->first();
-                $url = $estelam->action_route;
-                $data = [
-                    'postCode' => $request->input('postCode')
+                $url     = $estelam->action_route;
+
+                $postalCode = [
+                    "postalCode" => $request->input('postCode')
                 ];
 
-                $headers = [
-                    'token:' . $token->token,
-                    'appname:' . $token->appname,
-                    'Content-Type: application/json',
-                ];
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postalCode));
+                }
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-                $postresponse = curl_exec($ch);
-                curl_close($ch);
-                $responseData = json_decode($postresponse, true);
+                $response = curl_exec($ch);
 
-                $address = $responseData['description']['addressByPostcode']['message']['address'];
-///////////////////////////////////////////
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title        = $estelam->title_fa;
+                $logs->request      = json_encode($postalCode);
+                $logs->response     = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date         = jdate()->format('Y/m/d');
+                $logs->user_id      = Auth::user()->id;
+                $logs->save();
+
+                $address = $responseData['data']['result']['city']
+                    .'-'.$responseData['data']['result']['province']
+                    .'-'.$responseData['data']['result']['township']
+                    .'-'.$responseData['data']['result']['locality']
+                    .'-'.$responseData['data']['result']['avenue']
+                    .'-'.$responseData['data']['result']['stopStreet']
+                    .'-'.$responseData['data']['result']['no']
+                    .'-'.$responseData['data']['result']['floor'];
+
                 $estelam = Estelam::whereId(2)->first();
-                $url = $estelam->action_route;
-                $data = [
-                    'nationalID' => $request->input('nationalID'),
-                    'birthDate' => $request->input('birthDate'),
+                $url     = $estelam->action_route;
+
+                $national = [
+                    "nationalCode"  => $request->input('nationalID'),
+                    "birthDate"     => $request->input('birthDate')
                 ];
-                $headers = [
-                    'token:' . $token->token,
-                    'appname:' . $token->appname,
-                    'Content-Type: application/json',
-                ];
+
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($national));
+                }
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-                $nationalresponse = curl_exec($ch);
+                $response = curl_exec($ch);
+
                 curl_close($ch);
-                $responseData = json_decode($nationalresponse, true);
+                $responseData = json_decode($response, true);
 
-                $nationalCode = $request->input('nationalID');
-                $firstName = $responseData['description']['mixedInquiry']['personalInfo']['name'];
-                $lastName = $responseData['description']['mixedInquiry']['personalInfo']['family'];
-                $fatherName = $responseData['description']['mixedInquiry']['personalInfo']['fatherName'];
-                $birthDate = $request->input('birthDate');
-                $gender = $responseData['description']['mixedInquiry']['personalInfo']['gender'];
-                $alive = $responseData['description']['mixedInquiry']['vitalInfo']['vitalStatus'];
+                $logs = new Log_estelam();
+                $logs->title        = $estelam->title_fa;
+                $logs->request      = json_encode($national);
+                $logs->response     = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date         = jdate()->format('Y/m/d');
+                $logs->user_id      = Auth::user()->id;
+                $logs->save();
 
-                if ($gender == 'MALE') {
+                $firstName  = $responseData['data']['result']['firstName'];
+                $lastName   = $responseData['data']['result']['lastName'];
+                $fatherName = $responseData['data']['result']['fatherName'];
+                $gender     = $responseData['data']['result']['gender'];
+                $alive      = $responseData['data']['result']['liveStatus'];
+
+                if ($gender == 1) {
                     $gender = 'مرد';
-                } elseif ($gender == 'FEMALE') {
+                } elseif ($gender == 2) {
                     $gender = 'زن';
                 }
-                if ($alive == 'ALIVE') {
+                if ($alive == 1) {
                     $alive = 'در قید حیات';
-                } elseif ($alive == 'DEAD') {
+                } elseif ($alive == 0) {
                     $alive = 'فوت شده';
                 }
-/////////////////////////////////////
+
                 $estelam = Estelam::whereId(7)->first();
                 $url = $estelam->action_route;
-                $data = [
-                    'nationalID' => $request->input('nationalID'),
-                    'birthDate' => $request->input('birthDate'),
+
+                $imagedata = [
+                    "nationalCode"  => $request->input('nationalID'),
+                    "birthDate"     => $request->input('birthDate'),
                 ];
 
-                $headers = [
-                    'token:' . $token->token,
-                    'appname:' . $token->appname,
-                    'Content-Type: application/json',
-                ];
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($imagedata));
+                }
                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-                $imgresponse = curl_exec($ch);
-                curl_close($ch);
-                $responseData = json_decode($imgresponse, true);
+                $response = curl_exec($ch);
 
-                $image = $responseData['description']['nationalCardImageInquiry']['image'];
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title        = $estelam->title_fa;
+                $logs->request      = json_encode($imagedata);
+                $logs->response     = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date         = jdate()->format('Y/m/d');
+                $logs->user_id      = Auth::user()->id;
+                $logs->save();
+
+                $image = $responseData['data']['result']['image'];
+
                 $image = '<img src="data:image/jpeg;base64,' . $image . '">';
 
                 $result = [
-                    'کد ملی' => $nationalCode,
-                    'نام' => $firstName,
-                    'نام خانوادگی' => $lastName,
-                    'نام پدر' => $fatherName,
-                    'تاریخ تولد' => $birthDate,
-                    'جنسیت' => $gender,
-                    'وضعیت حیات' => $alive,
-                    'تصویر' => $image,
-                    'آدرس' => $address,
+                    'کد ملی'        => $request->input('nationalID'),
+                    'نام'           => $firstName,
+                    'نام خانوادگی'  => $lastName,
+                    'نام پدر'       => $fatherName,
+                    'تاریخ تولد'    => $request->input('birthDate'),
+                    'جنسیت'         => $gender,
+                    'وضعیت حیات'    => $alive,
+                    'تصویر'         => $image,
+                    'آدرس'          => $address,
                 ];
                 return response()->json(['response' => $result]);
             } catch (Exception $e) {
@@ -166,11 +203,6 @@ class ProfileController extends Controller
                 $url = $estelam->action_route;
             }
 
-            $headers = [
-                'token:'    . $token->token,
-                'appname:'  . $token->appname,
-                'Content-Type: application/json',
-            ];
 
             if ($request->input('formId') == 1) {
 
@@ -216,47 +248,108 @@ class ProfileController extends Controller
                 ];
 
             } elseif ($request->input('formId') == 2) {
-                $nationalCode = $request->input('nationalID');
-                $firstName = $responseData['description']['mixedInquiry']['personalInfo']['name'];
-                $lastName = $responseData['description']['mixedInquiry']['personalInfo']['family'];
-                $fatherName = $responseData['description']['mixedInquiry']['personalInfo']['fatherName'];
-                $birthDate = $request->input('birthDate');
-                $gender = $responseData['description']['mixedInquiry']['personalInfo']['gender'];
-                $alive = $responseData['description']['mixedInquiry']['vitalInfo']['vitalStatus'];
 
-                if ($gender == 'MALE') {
+                $data = [
+                    "nationalCode"  => $request->input('nationalID'),
+                    "birthDate"     => $request->input('birthDate')
+                ];
+
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title = $estelam->title_fa;
+                $logs->request = json_encode($data);
+                $logs->response = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date = jdate()->format('Y/m/d');
+                $logs->user_id = Auth::user()->id;
+                $logs->save();
+
+
+                $firstName  = $responseData['data']['result']['firstName'];
+                $lastName   = $responseData['data']['result']['lastName'];
+                $fatherName = $responseData['data']['result']['fatherName'];
+                $gender     = $responseData['data']['result']['gender'];
+                $alive      = $responseData['data']['result']['liveStatus'];
+
+                if ($gender == 1) {
                     $gender = 'مرد';
-                } elseif ($gender == 'FEMALE') {
+                } elseif ($gender == 2) {
                     $gender = 'زن';
                 }
-                if ($alive == 'ALIVE') {
+                if ($alive == 1) {
                     $alive = 'در قید حیات';
-                } elseif ($alive == 'DEAD') {
+                } elseif ($alive == 0) {
                     $alive = 'فوت شده';
                 }
 
                 $result = [
-                    'کد ملی' => $nationalCode,
-                    'نام' => $firstName,
-                    'نام خانوادگی' => $lastName,
-                    'نام پدر' => $fatherName,
-                    'تاریخ تولد' => $birthDate,
-                    'جنسیت' => $gender,
-                    'وضعیت حیات' => $alive,
+                    'کد ملی'        => $request->input('nationalID'),
+                    'نام'           => $firstName,
+                    'نام خانوادگی'  => $lastName,
+                    'نام پدر'       => $fatherName,
+                    'تاریخ تولد'    => $request->input('birthDate'),
+                    'جنسیت'         => $gender,
+                    'وضعیت حیات'    => $alive,
                 ];
                 //dd($nationalCode , $firstName , $lastName , $fatherName , $birthDate , $alive , $gender);
             } elseif ($request->input('formId') == 3) {
 
-                $ownerName = $responseData['description']['inquiryCard']['cardInfo']['ownerName'];
-                $depositNumber = $responseData['description']['inquiryCard']['cardInfo']['depositNumber'];
-                $bank = $responseData['description']['inquiryCard']['cardInfo']['bank'];
-                $type = $responseData['description']['inquiryCard']['cardInfo']['type'];
+                $data = [
+                    "number"  => $request->input('cardNumber'),
+                ];
+
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title = $estelam->title_fa;
+                $logs->request = json_encode($data);
+                $logs->response = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date = jdate()->format('Y/m/d');
+                $logs->user_id = Auth::user()->id;
+                $logs->save();
+
+                $ownerName     = $responseData['data']['result']['firstName'].' '.$responseData['data']['result']['lastName'];
+                $depositNumber = $responseData['data']['result']['depositNumber'];
+                $iban          = $responseData['data']['result']['iban'];
+                $bank          = $responseData['data']['result']['bankName'];
+                $status        = $responseData['data']['result']['status'];
+
+                if ($status == 'ACTIVE') {
+                    $status = 'فعال';
+                } else {
+                $status = 'غیر فعال';
+                }
 
                 $result = [
                     'نام مالک کارت' => $ownerName,
-                    'شماره حساب' => $depositNumber,
-                    'نام بانک' => $bank,
-                    'نوع حساب' => $type,
+                    'شماره حساب'    => $depositNumber,
+                    'شماره شبا'     => $iban,
+                    'نام بانک'      => $bank,
+                    'وضعیت کارت'    => $status,
                 ];
             } elseif ($request->input('formId') == 4) {
 
@@ -293,7 +386,35 @@ class ProfileController extends Controller
                 ];
             } elseif ($request->input('formId') == 7) {
 
-                $image = $responseData['description']['nationalCardImageInquiry']['image'];
+                $data = [
+                    "nationalCode"  => $request->input('nationalID'),
+                    "birthDate"     => $request->input('birthDate'),
+                ];
+
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title = $estelam->title_fa;
+                $logs->request = json_encode($data);
+                $logs->response = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date = jdate()->format('Y/m/d');
+                $logs->user_id = Auth::user()->id;
+                $logs->save();
+
+                $image = $responseData['data']['result']['image'];
+
                 $image = '<img src="data:image/jpeg;base64,' . $image . '">';
                 $result = [
                     '  تصویر ' => $image,
