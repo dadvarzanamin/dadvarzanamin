@@ -166,45 +166,55 @@ class ProfileController extends Controller
                 $url = $estelam->action_route;
             }
 
-            $data = [
-                "postalCode" => $request->input('postalCode')
-            ];
-
             $headers = [
-                'token:' . $token->token,
-                'appname:' . $token->appname,
+                'token:'    . $token->token,
+                'appname:'  . $token->appname,
                 'Content-Type: application/json',
             ];
 
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
-            if ($estelam->method == 'POST') {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            }
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-            $response = curl_exec($ch);
-            curl_close($ch);
-            $responseData = json_decode($response, true);
-
-            $logs = new Log_estelam();
-            $logs->title = $estelam->title_fa;
-            $logs->request = json_encode($data);
-            $logs->response = json_encode($responseData);
-            $logs->action_route = $estelam->action_route;
-            $logs->date = jdate()->format('Y/m/d');
-            $logs->user_id = Auth::user()->id;
-            $logs->save();
-
-
             if ($request->input('formId') == 1) {
-                $address = $responseData['description']['addressByPostcode']['message']['address'];
-                $status = $responseData['status'];
-                $message = $responseData['description']['addressByPostcode']['message'];
+
+                $data = [
+                    "postalCode" => $request->input('postalCode')
+                ];
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $logs = new Log_estelam();
+                $logs->title = $estelam->title_fa;
+                $logs->request = json_encode($data);
+                $logs->response = json_encode($responseData);
+                $logs->action_route = $estelam->action_route;
+                $logs->date = jdate()->format('Y/m/d');
+                $logs->user_id = Auth::user()->id;
+                $logs->save();
+
+                $address = $responseData['data']['result']['city']
+                    .'-'.$responseData['data']['result']['province']
+                    .'-'.$responseData['data']['result']['township']
+                    .'-'.$responseData['data']['result']['locality']
+                    .'-'.$responseData['data']['result']['avenue']
+                    .'-'.$responseData['data']['result']['stopStreet']
+                    .'-'.$responseData['data']['result']['no']
+                    .'-'.$responseData['data']['result']['floor'];
+
+                $status     = $responseData['isSuccess'];
+                $message    = $responseData['message'];
+
                 $result = [
                     'آدرس' => $address
                 ];
+
             } elseif ($request->input('formId') == 2) {
                 $nationalCode = $request->input('nationalID');
                 $firstName = $responseData['description']['mixedInquiry']['personalInfo']['name'];
