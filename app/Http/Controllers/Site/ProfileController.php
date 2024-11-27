@@ -165,12 +165,17 @@ class ProfileController extends Controller
             } elseif ($estelam->method == 'POST') {
                 $url = $estelam->action_route;
             }
-            $data = $request->all();
+
+            $data = [
+                'postalCode:' . $request->input('postalCode'),
+            ];
+
             $headers = [
                 'token:' . $token->token,
                 'appname:' . $token->appname,
                 'Content-Type: application/json',
             ];
+
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
