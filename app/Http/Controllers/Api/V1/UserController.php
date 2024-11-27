@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
+use App\Models\Profile\City;
 use App\Models\Profile\State;
 use App\Models\TypeUser;
 use App\Models\User;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
@@ -191,11 +193,17 @@ class UserController extends Controller
     public function profile(){
 
         if (Auth::check()) {
+
             $users = User::findOrfail(auth::user()->id);
+            $citis              = City::select('id as city_id','title as city' , 'state_id')->get()->toArray();
+            $state              = State::select('id as state_id','title as state')->get()->toArray();
 
             $response = [
                 'user'          => $users,
+                'state'         => $state,
+                'citis'         => $citis,
             ];
+
             return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
         }else{
             $response = [
