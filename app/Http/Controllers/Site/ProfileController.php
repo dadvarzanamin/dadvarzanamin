@@ -56,7 +56,7 @@ class ProfileController extends Controller
                 ];
 
                 $headers = [
-                    'apikey:' . $token->token,
+                    'token:' . $token->token,
                     'appname:' . $token->appname,
                     'Content-Type: application/json',
                 ];
@@ -79,7 +79,7 @@ class ProfileController extends Controller
                     'birthDate' => $request->input('birthDate'),
                 ];
                 $headers = [
-                    'apikey:' . $token->token,
+                    'token:' . $token->token,
                     'appname:' . $token->appname,
                     'Content-Type: application/json',
                 ];
@@ -120,7 +120,7 @@ class ProfileController extends Controller
                 ];
 
                 $headers = [
-                    'apikey:' . $token->token,
+                    'token:' . $token->token,
                     'appname:' . $token->appname,
                     'Content-Type: application/json',
                 ];
@@ -167,7 +167,7 @@ class ProfileController extends Controller
             }
             $data = $request->all();
             $headers = [
-                'apikey:' . $token->token,
+                'token:' . $token->token,
                 'appname:' . $token->appname,
                 'Content-Type: application/json',
             ];
