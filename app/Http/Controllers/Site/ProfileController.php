@@ -185,7 +185,6 @@ class ProfileController extends Controller
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             $response = curl_exec($ch);
-            dd($response);
             curl_close($ch);
             $responseData = json_decode($response, true);
 
