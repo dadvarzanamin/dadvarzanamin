@@ -418,7 +418,7 @@
         </div>
     </div>
 
-    @if($workshops)
+    @if($currentws)
         <div class="categories segments">
             <div class="container">
                 <div class="row justify-content-center">
@@ -434,15 +434,15 @@
 
                         <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
 
-                            {{$workshops->title}}
+                            {{$currentws->title}}
                         </p>
                         <hr style="border: none; height: 1px; background-color: #cea54a;">
                         <h6 class="text-center" style="margin: 4px 0;">
-                            {{$workshops->teacher}}
+                            {{$currentws->teacher}}
 
                         </h6>
                         <hr style="border: none; height: 1px; background-color: #cea54a;">
-                        <h6 class="text-center">{!! $workshops->description !!}</h6>
+                        <h6 class="text-center">{!! $currentws->description !!}</h6>
                         {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
                         {{--                        <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
                         {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
@@ -482,7 +482,7 @@
 
                 <div class="content-button mx-4">
                     <div class="content-button mx-4">
-                        @if($workshops->status == 5)
+                        @if($currentws->status == 5)
                             <a href="#" class=" br-16"
                                style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">
                                 تکمیل
@@ -500,14 +500,14 @@
                         <span class="dore-close">&times;</span>
                         <div id="doreModalContent">
                             <div class="course-image-container" style="margin-top: 32px">
-                                <img src="{{$workshops->image}}" alt="تصویر دوره" class="course-image">
+                                <img src="{{$currentws->image}}" alt="تصویر دوره" class="course-image">
                             </div>
-                            <h3 class="course-title" style="padding-top: 12px">{{$workshops->title}}</h3>
+                            <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>
 
                             <div class="course-info">
-                                <p>ارائه توسط: {{$workshops->teacher}}</p>
-                                <p>نوع برگزاری: {{$workshops->type}}</p>
-                                <p>تاریخ برگزاری: {{$workshops->date}}</p>
+                                <p>ارائه توسط: {{$currentws->teacher}}</p>
+                                <p>نوع برگزاری: {{$currentws->type}}</p>
+                                <p>تاریخ برگزاری: {{$currentws->date}}</p>
                             </div>
 
 
@@ -534,19 +534,19 @@
                                     border: 0;
                                 }
                             </style>
-                            @if($workshops->video)
+                            @if($currentws->video)
                                 <!-- ویدئو آپارات -->
                                 <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
                                 <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
                                     <iframe width="100%" height="220"
-                                            src="https://www.aparat.com/video/video/embed/videohash/{{$workshops->video}}/vt/frame/showvideo/true"
+                                            src="https://www.aparat.com/video/video/embed/videohash/{{$currentws->video}}/vt/frame/showvideo/true"
                                             allow="autoplay; fullscreen" allowfullscreen></iframe>
                                 </div>
                             @endif
                             <div class="course-description">
                                 <h3>اهداف دوره</h3>
                                 @php
-                                    $lines = explode("\n", $workshops->target);
+                                    $lines = explode("\n", $currentws->target);
                                 @endphp
                                 <ul>
                                     @foreach ($lines as $line)
@@ -557,15 +557,15 @@
 
                             <div class="course-description">
                                 <h3 style="margin-bottom: 20px">شرح دوره</h3>
-                                <p>{{$workshops->description}}</p>
+                                <p>{{$currentws->description}}</p>
                             </div>
 
                             <div class="instructor-info">
-                                <img src="{{asset($workshops->teacher_image)}}" alt="تصویر استاد"
+                                <img src="{{asset($currentws->teacher_image)}}" alt="تصویر استاد"
                                      class="instructor-img">
                                 <div>
                                     @php
-                                        $resumes = explode("\n", $workshops->teacher_resume);
+                                        $resumes = explode("\n", $currentws->teacher_resume);
                                     @endphp
                                     <h3 style="margin-bottom: 20px">درباره استاد</h3>
                                     <ul>
@@ -580,7 +580,7 @@
                                 <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
                                 <div class="feature-item">
                                     <span>مدت زمان:</span>
-                                    <span>{{$workshops->duration}} ساعت</span>
+                                    <span>{{$currentws->duration}} ساعت</span>
                                 </div>
                                 <div class="feature-item">
                                     <span>سطح مهارت:</span>
@@ -597,13 +597,13 @@
                             </div>
                             <div style="text-align: center;padding: 20px">
                                 <p class="align-items-center pb-2">
-                                    @if($workshops->offer)
+                                    @if($currentws->offer)
                                         <span
-                                            style="font-size: 24px">{{ number_format($workshops->offer) }} تومان </span>
-                                        <span style="text-decoration: line-through; font-size: 16px">{{ number_format($workshops->price) }} تومان</span>
+                                            style="font-size: 24px">{{ number_format($currentws->offer) }} تومان </span>
+                                        <span style="text-decoration: line-through; font-size: 16px">{{ number_format($currentws->price) }} تومان</span>
                                     @else
                                         <span
-                                            style="font-size: 24px">{{ number_format($workshops->price) }} تومان </span>
+                                            style="font-size: 24px">{{ number_format($currentws->price) }} تومان </span>
                                     @endif
                                 </p>
                             </div>
@@ -689,10 +689,10 @@
 
     {{--        }, 1000);--}}
     {{--    </script>--}}
-    @if($workshops)
+    @if($currentws)
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $workshops->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
+            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function () {
