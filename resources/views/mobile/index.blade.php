@@ -418,268 +418,313 @@
         </div>
     </div>
 
-{{--    <div class="categories segments">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row justify-content-center">--}}
-{{--                <div class="content content-shadow-product" style="margin:20px auto;">--}}
-{{--                    <img src="{{asset('/workshops/index-third-workshop.jpg')}}" style="width: 300px;border-radius: 16px"--}}
-{{--                         alt="دوره ضربتی قانون اساسی">--}}
-{{--                </div>--}}
-{{--                @php--}}
-{{--                    $workshop = $workshops->firstWhere('status', 4);--}}
-{{--                @endphp--}}
-{{--                <div class="content" style="margin: 20px auto;">--}}
+    @if($workshops)
+        <div class="categories segments">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="content content-shadow-product" style="margin:20px auto;">
+                        <img src="{{asset('/workshops/index-third-workshop.jpg')}}"
+                             style="width: 300px;border-radius: 16px"
+                             alt="دوره ضربتی قانون اساسی">
+                    </div>
+                    {{--                    @php--}}
+                    {{--                        $workshop = $workshops->firstWhere('status', 4);--}}
+                    {{--                    @endphp--}}
+                    <div class="content" style="margin: 20px auto;">
 
-{{--                    <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">--}}
-{{--                        کارگاه اصول قراردادنویسی--}}
-{{--                    </p>--}}
-{{--                    --}}{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                    --}}{{--                    <h6 class="text-center" style="margin: 4px 0;">مدرس جناب دکتر مهدی علی اکبرزاده--}}
-{{--                    --}}{{--                    </h6>--}}
-{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                    <h6 class="text-center">معاون حقوقی و قراردادی شرکت های دولتی و خصوصی</h6>--}}
-{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                    <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
-{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                    <h6 class="text-center">مدرس دانشگاه</h6>--}}
-{{--                    <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                    <h6 class="text-center" style="margin: 4px;">--}}
-{{--                        تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14--}}
-{{--                    </h6>--}}
-{{--                </div>--}}
-{{--                <div class="text-center">--}}
-{{--                    ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">--}}
-{{--                <div class="col-lg-12 responsive-column-half">--}}
-{{--                    <div class="info-icon-box mb-3 text-center">--}}
-{{--                        <div class="row justify-content-center">--}}
-{{--                            <div class="time-segment"--}}
-{{--                                 style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">--}}
-{{--                                <span id="days">0</span>--}}
-{{--                                <span>روز</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="time-segment">--}}
-{{--                                <span id="hours">0</span>--}}
-{{--                                <span>ساعت</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="time-segment">--}}
-{{--                                <span id="minutes">0</span>--}}
-{{--                                <span>دقیقه</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="time-segment"--}}
-{{--                                 style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">--}}
-{{--                                <span id="seconds">0</span>--}}
-{{--                                <span>ثانیه</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+                        <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
 
-{{--            <div class="content-button mx-4">--}}
-{{--                <div class="content-button mx-4">--}}
-{{--                    <a href="#" class="dore-open-modal mobile-button br-16"--}}
-{{--                       style="display: flex;justify-content: center">ظرفیت تکمیل شد--}}
-{{--                    </a>--}}
-{{--                    --}}{{--                    <a href="#" class=" br-16"--}}
-{{--                    --}}{{--                       style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">--}}
-{{--                    --}}{{--                        تکمیل--}}
-{{--                    --}}{{--                        ظرفیت--}}
-{{--                    --}}{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div id="doreModal" class="dore-modal">--}}
-{{--                <div class="dore-modal-content">--}}
-{{--                    <span class="dore-close">&times;</span>--}}
-{{--                    <div id="doreModalContent">--}}
-{{--                        <div class="course-image-container" style="margin-top: 32px">--}}
-{{--                            <img src="{{$workshop->image}}" alt="تصویر دوره" class="course-image">--}}
-{{--                        </div>--}}
-{{--                        <h3 class="course-title" style="padding-top: 12px">{{$workshop->title}}</h3>--}}
+                            {{$workshops->title}}
+                        </p>
+                        <hr style="border: none; height: 1px; background-color: #cea54a;">
+                        <h6 class="text-center" style="margin: 4px 0;">
+                            {{$workshops->teacher}}
 
-{{--                        <div class="course-info">--}}
-{{--                            <p>ارائه توسط: {{$workshop->teacher}}</p>--}}
-{{--                            <p>نوع برگزاری: {{$workshop->type}}</p>--}}
-{{--                            <p>تاریخ برگزاری: {{$workshop->date}}</p>--}}
-{{--                        </div>--}}
+                        </h6>
+                        <hr style="border: none; height: 1px; background-color: #cea54a;">
+                        <h6 class="text-center">{!! $workshops->description !!}</h6>
+                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+                        {{--                        <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
+                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+                        {{--                        <h6 class="text-center">مدرس دانشگاه</h6>--}}
+                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+                        {{--                        <h6 class="text-center" style="margin: 4px;">--}}
+                        {{--                            تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14--}}
+                        {{--                        </h6>--}}
+                    </div>
+                </div>
+                <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">
+                    <div class="col-lg-12 responsive-column-half">
+                        <div class="info-icon-box mb-3 text-center">
+                            <div class="row justify-content-center">
+                                <div class="time-segment"
+                                     style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
+                                    <span id="days">0</span>
+                                    <span>روز</span>
+                                </div>
+                                <div class="time-segment">
+                                    <span id="hours">0</span>
+                                    <span>ساعت</span>
+                                </div>
+                                <div class="time-segment">
+                                    <span id="minutes">0</span>
+                                    <span>دقیقه</span>
+                                </div>
+                                <div class="time-segment"
+                                     style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
+                                    <span id="seconds">0</span>
+                                    <span>ثانیه</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-button mx-4">
+                    <div class="content-button mx-4">
+                        @if($workshops->status == 5)
+                            <a href="#" class=" br-16"
+                               style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">
+                                تکمیل
+                                ظرفیت
+                            </a>
+                        @endif
+                        <a href="#" class="dore-open-modal mobile-button br-16"
+                           style="display: flex;justify-content: center">مشاهده اطلاعات
+                        </a>
+
+                    </div>
+                </div>
+                <div id="doreModal" class="dore-modal">
+                    <div class="dore-modal-content">
+                        <span class="dore-close">&times;</span>
+                        <div id="doreModalContent">
+                            <div class="course-image-container" style="margin-top: 32px">
+                                <img src="{{$workshops->image}}" alt="تصویر دوره" class="course-image">
+                            </div>
+                            <h3 class="course-title" style="padding-top: 12px">{{$workshops->title}}</h3>
+
+                            <div class="course-info">
+                                <p>ارائه توسط: {{$workshops->teacher}}</p>
+                                <p>نوع برگزاری: {{$workshops->type}}</p>
+                                <p>تاریخ برگزاری: {{$workshops->date}}</p>
+                            </div>
 
 
-{{--                        <style>--}}
-{{--                            .modal-body {--}}
-{{--                                padding: 0;--}}
-{{--                            }--}}
+                            <style>
+                                .modal-body {
+                                    padding: 0;
+                                }
 
-{{--                            .video-container {--}}
-{{--                                position: relative;--}}
-{{--                                padding-bottom: 56.25%; /* 16:9 aspect ratio */--}}
-{{--                                height: 0;--}}
-{{--                                overflow: hidden;--}}
-{{--                                max-width: 100%;--}}
-{{--                                background-color: #000;--}}
-{{--                            }--}}
+                                .video-container {
+                                    position: relative;
+                                    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                                    height: 0;
+                                    overflow: hidden;
+                                    max-width: 100%;
+                                    background-color: #000;
+                                }
 
-{{--                            .video-container iframe {--}}
-{{--                                position: absolute;--}}
-{{--                                top: 0;--}}
-{{--                                left: 0;--}}
-{{--                                width: 100%;--}}
-{{--                                height: 100%;--}}
-{{--                                border: 0;--}}
-{{--                            }--}}
-{{--                        </style>--}}
-{{--                        @if($workshop->video)--}}
-{{--                            <!-- ویدئو آپارات -->--}}
-{{--                            <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>--}}
-{{--                            <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">--}}
-{{--                                <iframe width="100%" height="220"--}}
-{{--                                        src="https://www.aparat.com/video/video/embed/videohash/{{$workshop->video}}/vt/frame/showvideo/true"--}}
-{{--                                        allow="autoplay; fullscreen" allowfullscreen></iframe>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-{{--                        <div class="course-description">--}}
-{{--                            <h3>اهداف دوره</h3>--}}
-{{--                            @php--}}
-{{--                                $lines = explode("\n", $workshop->target);--}}
-{{--                            @endphp--}}
-{{--                            <ul>--}}
-{{--                                @foreach ($lines as $line)--}}
-{{--                                    <p>{{ $line }}</p>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
+                                .video-container iframe {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    border: 0;
+                                }
+                            </style>
+                            @if($workshops->video)
+                                <!-- ویدئو آپارات -->
+                                <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
+                                <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
+                                    <iframe width="100%" height="220"
+                                            src="https://www.aparat.com/video/video/embed/videohash/{{$workshops->video}}/vt/frame/showvideo/true"
+                                            allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                </div>
+                            @endif
+                            <div class="course-description">
+                                <h3>اهداف دوره</h3>
+                                @php
+                                    $lines = explode("\n", $workshops->target);
+                                @endphp
+                                <ul>
+                                    @foreach ($lines as $line)
+                                        <p>{{ $line }}</p>
+                                    @endforeach
+                                </ul>
+                            </div>
 
-{{--                        <div class="course-description">--}}
-{{--                            <h3 style="margin-bottom: 20px">شرح دوره</h3>--}}
-{{--                            <p>{{$workshop->description}}</p>--}}
-{{--                        </div>--}}
+                            <div class="course-description">
+                                <h3 style="margin-bottom: 20px">شرح دوره</h3>
+                                <p>{{$workshops->description}}</p>
+                            </div>
 
-{{--                        <div class="instructor-info">--}}
-{{--                            <img src="{{asset($workshop->teacher_image)}}" alt="تصویر استاد" class="instructor-img">--}}
-{{--                            <div>--}}
-{{--                                @php--}}
-{{--                                    $resumes = explode("\n", $workshop->teacher_resume);--}}
-{{--                                @endphp--}}
-{{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
-{{--                                <ul>--}}
-{{--                                    @foreach ($resumes as $resume)--}}
-{{--                                        <p class="generic-list-item overview-list-item">{{ $resume }}</p>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                            <div class="instructor-info">
+                                <img src="{{asset($workshops->teacher_image)}}" alt="تصویر استاد"
+                                     class="instructor-img">
+                                <div>
+                                    @php
+                                        $resumes = explode("\n", $workshops->teacher_resume);
+                                    @endphp
+                                    <h3 style="margin-bottom: 20px">درباره استاد</h3>
+                                    <ul>
+                                        @foreach ($resumes as $resume)
+                                            <p class="generic-list-item overview-list-item">{{ $resume }}</p>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
 
-{{--                        <div class="course-features">--}}
-{{--                            <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>--}}
-{{--                            <div class="feature-item">--}}
-{{--                                <span>مدت زمان:</span>--}}
-{{--                                <span>{{$workshop->duration}} ساعت</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="feature-item">--}}
-{{--                                <span>سطح مهارت:</span>--}}
-{{--                                <span>همه سطوح</span>--}}
-{{--                            </div>--}}
-{{--                            <div class="feature-item">--}}
-{{--                                <span>آزمون ورودی:</span>--}}
-{{--                                <span>ندارد</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                            <div class="course-features">
+                                <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
+                                <div class="feature-item">
+                                    <span>مدت زمان:</span>
+                                    <span>{{$workshops->duration}} ساعت</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span>سطح مهارت:</span>
+                                    <span>همه سطوح</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span>آزمون ورودی:</span>
+                                    <span>ندارد</span>
+                                </div>
+                            </div>
 
-{{--                        <div style="text-align: center; padding: 20px">--}}
-{{--                            <p style="font-size: 16px;">مبلغ التزام به حضور</p>--}}
-{{--                        </div>--}}
-{{--                        <div style="text-align: center;padding: 20px">--}}
-{{--                            <p class="align-items-center pb-2">--}}
-{{--                                @if($workshop->offer)--}}
-{{--                                    <span style="font-size: 24px">{{ number_format($workshop->offer) }} تومان </span>--}}
-{{--                                    <span style="text-decoration: line-through; font-size: 16px">{{ number_format($workshop->price) }} تومان</span>--}}
-{{--                                @else--}}
-{{--                                    <span style="font-size: 24px">{{ number_format($workshop->price) }} تومان </span>--}}
-{{--                                @endif--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
+                            <div style="text-align: center; padding: 20px">
+                                <p style="font-size: 16px;">مبلغ التزام به حضور</p>
+                            </div>
+                            <div style="text-align: center;padding: 20px">
+                                <p class="align-items-center pb-2">
+                                    @if($workshops->offer)
+                                        <span
+                                            style="font-size: 24px">{{ number_format($workshops->offer) }} تومان </span>
+                                        <span style="text-decoration: line-through; font-size: 16px">{{ number_format($workshops->price) }} تومان</span>
+                                    @else
+                                        <span
+                                            style="font-size: 24px">{{ number_format($workshops->price) }} تومان </span>
+                                    @endif
+                                </p>
+                            </div>
 
-{{--                        <div class="content" style="padding-bottom: 60px;">--}}
-{{--                            @if(Auth::check())--}}
-{{--                                <div class="content-button">--}}
-{{--                                    <a href="#tab-workshop" class="mobile-button tab-link"--}}
-{{--                                       style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">--}}
-{{--                                        ثبت نام جهت حضور در کارگاه آموزشی--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            @else--}}
-{{--                                <div class="content-button">--}}
-{{--                                    <a href="#tab-login" class="mobile-button tab-link"--}}
-{{--                                       style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به--}}
-{{--                                        سایت</a>--}}
-{{--                                </div>--}}
-{{--                            @endif--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <script>--}}
-{{--                document.addEventListener("DOMContentLoaded", function () {--}}
-{{--                    var modal = document.getElementById("doreModal");--}}
-{{--                    var btn = document.querySelector(".dore-open-modal");--}}
-{{--                    var span = document.getElementsByClassName("dore-close")[0];--}}
+                            <div class="content" style="padding-bottom: 60px;">
+                                @if(Auth::check())
+                                    <div class="content-button">
+                                        <a href="#tab-workshop" class="mobile-button tab-link"
+                                           style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">
+                                            ثبت نام جهت حضور در کارگاه آموزشی
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="content-button">
+                                        <a href="#tab-login" class="mobile-button tab-link"
+                                           style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                                            سایت</a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var modal = document.getElementById("doreModal");
+                        var btn = document.querySelector(".dore-open-modal");
+                        var span = document.getElementsByClassName("dore-close")[0];
 
-{{--                    btn.onclick = function (event) {--}}
-{{--                        event.preventDefault();--}}
-{{--                        modal.style.display = "block";--}}
-{{--                    }--}}
+                        btn.onclick = function (event) {
+                            event.preventDefault();
+                            modal.style.display = "block";
+                        }
 
-{{--                    span.onclick = function () {--}}
-{{--                        modal.style.display = "none";--}}
-{{--                    }--}}
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                        }
 
-{{--                    window.onclick = function (event) {--}}
-{{--                        if (event.target == modal) {--}}
-{{--                            modal.style.display = "none";--}}
-{{--                        }--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            </script>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--    <script>--}}
-{{--        // Set the date we're counting down to--}}
-{{--        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();--}}
+                        window.onclick = function (event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    @endif
+    {{--    <script>--}}
+    {{--        // Set the date we're counting down to--}}
+    {{--        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();--}}
 
-{{--        // Update the count down every 1 second--}}
-{{--        var x = setInterval(function () {--}}
+    {{--        // Update the count down every 1 second--}}
+    {{--        var x = setInterval(function () {--}}
 
-{{--            // Get today's date and time--}}
-{{--            var now = new Date().getTime();--}}
+    {{--            // Get today's date and time--}}
+    {{--            var now = new Date().getTime();--}}
 
-{{--            // Find the distance between now and the count down date--}}
-{{--            var distance = countDownDate - now;--}}
+    {{--            // Find the distance between now and the count down date--}}
+    {{--            var distance = countDownDate - now;--}}
 
-{{--            // Time calculations for days, hours, minutes and seconds--}}
-{{--            var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
-{{--            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
-{{--            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
-{{--            var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
+    {{--            // Time calculations for days, hours, minutes and seconds--}}
+    {{--            var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
+    {{--            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
+    {{--            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
+    {{--            var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
 
-{{--            // // Display the result in the element with id="demo"--}}
-{{--            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;--}}
-{{--            // //+ minutes + " دقیقه " + seconds + " ثانیه ";--}}
-{{--            document.getElementById("days").innerHTML = days;--}}
-{{--            document.getElementById("hours").innerHTML = hours;--}}
-{{--            document.getElementById("minutes").innerHTML = minutes;--}}
-{{--            document.getElementById("seconds").innerHTML = seconds;--}}
-{{--            // If the count down is finished, write some text--}}
-{{--            if (distance < 0) {--}}
-{{--                clearInterval(x);--}}
-{{--                document.getElementById("days").innerHTML = "EXPIRED";--}}
-{{--                document.getElementById("hours").innerHTML = "EXPIRED";--}}
-{{--                document.getElementById("minutes").innerHTML = "EXPIRED";--}}
-{{--                document.getElementById("seconds").innerHTML = "EXPIRED";--}}
-{{--            }--}}
+    {{--            // // Display the result in the element with id="demo"--}}
+    {{--            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;--}}
+    {{--            // //+ minutes + " دقیقه " + seconds + " ثانیه ";--}}
+    {{--            document.getElementById("days").innerHTML = days;--}}
+    {{--            document.getElementById("hours").innerHTML = hours;--}}
+    {{--            document.getElementById("minutes").innerHTML = minutes;--}}
+    {{--            document.getElementById("seconds").innerHTML = seconds;--}}
+    {{--            // If the count down is finished, write some text--}}
+    {{--            if (distance < 0) {--}}
+    {{--                clearInterval(x);--}}
+    {{--                document.getElementById("days").innerHTML = "EXPIRED";--}}
+    {{--                document.getElementById("hours").innerHTML = "EXPIRED";--}}
+    {{--                document.getElementById("minutes").innerHTML = "EXPIRED";--}}
+    {{--                document.getElementById("seconds").innerHTML = "EXPIRED";--}}
+    {{--            }--}}
 
-{{--        }, 1000);--}}
-{{--    </script>--}}
+    {{--        }, 1000);--}}
+    {{--    </script>--}}
+    @if($workshops)
+        <script>
+            // Set the date we're counting down to
+            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $workshops->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the elements with IDs
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").innerHTML = "EXPIRED";
+                    document.getElementById("hours").innerHTML = "EXPIRED";
+                    document.getElementById("minutes").innerHTML = "EXPIRED";
+                    document.getElementById("seconds").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        </script>
+    @endif
     <div class="categories segments">
         <div id="serviceDescriptionModal" class="modal">
             <div class="modal-content">
@@ -2168,56 +2213,57 @@
         <div id="tab-workshop-sign" class="page-content tab">
 
         </div>
-                <div id="tap-payment" class="tab-payment tab">
-                    <div class="navbar navbar-page">
-                        <div class="navbar-inner">
-                            <div class="title">پرداخت هزینه کارگاه</div>
-                            <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>
+        <div id="tap-payment" class="tab-payment tab">
+            <div class="navbar navbar-page">
+                <div class="navbar-inner">
+                    <div class="title">پرداخت هزینه کارگاه</div>
+                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tap-payment" class="tab-payment tab">
+            <div class="tab-pane fade show active" id="store-workshop" role="tabpanel"
+                 aria-labelledby="store-workshop-tab">
+                <div class="setting-body">
+                    <form method="get" action="{{route('pay')}}" class="row pt-40px">
+                        @csrf
+                        <div class="input-box col-lg-3">
+                            <label class="label-text">نام دوره</label>
+                            {{--                                    <p>{{$workshopsigns->title}}</p>--}}
+                        </div>
+
+                        <div class="input-box col-lg-3">
+                            <label class="label-text">مبلغ هزینه دوره</label>
+                            <div class="form-group">
+                                {{--                                        <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tap-payment" class="tab-payment tab">
-                    <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">
-                        <div class="setting-body">
-                            <form method="get" action="{{route('pay')}}" class="row pt-40px">
-                                @csrf
-                                <div class="input-box col-lg-3">
-                                    <label class="label-text">نام دوره</label>
-{{--                                    <p>{{$workshopsigns->title}}</p>--}}
-                                </div>
 
-                                <div class="input-box col-lg-3">
-                                    <label class="label-text">مبلغ هزینه دوره</label>
-                                    <div class="form-group">
-{{--                                        <p>{{number_format($workshopsigns->price)}} تومان </p>--}}
-                                    </div>
-                                </div>
-
-                                <div class="input-box col-lg-3">
-                                    <label class="label-text">نوع استفاده</label>
-{{--                                    <div class="form-group">--}}
-{{--                                        @if($workshopsigns->typeuse == 1)--}}
-{{--                                            <p> حضوری </p>--}}
-{{--                                        @else--}}
-{{--                                            <p> آنلاین </p>--}}
-{{--                                        @endif--}}
-{{--                                    </div>--}}
-                                </div>
-
-                                <div class="input-box col-lg-3">
-                                    <label class="label-text">تاریخ دوره</label>
-                                    <div class="form-group">
-{{--                                        <p>{{$workshopsigns->date}}</p>--}}
-                                    </div>
-                                </div>
-                                <div class="input-box col-lg-12 py-2">
-                                    <button type="submit" class="btn theme-btn">تایید و پرداخت</button>
-                                </div>
-                            </form>
+                        <div class="input-box col-lg-3">
+                            <label class="label-text">نوع استفاده</label>
+                            {{--                                    <div class="form-group">--}}
+                            {{--                                        @if($workshopsigns->typeuse == 1)--}}
+                            {{--                                            <p> حضوری </p>--}}
+                            {{--                                        @else--}}
+                            {{--                                            <p> آنلاین </p>--}}
+                            {{--                                        @endif--}}
+                            {{--                                    </div>--}}
                         </div>
-                    </div>
+
+                        <div class="input-box col-lg-3">
+                            <label class="label-text">تاریخ دوره</label>
+                            <div class="form-group">
+                                {{--                                        <p>{{$workshopsigns->date}}</p>--}}
+                            </div>
+                        </div>
+                        <div class="input-box col-lg-12 py-2">
+                            <button type="submit" class="btn theme-btn">تایید و پرداخت</button>
+                        </div>
+                    </form>
                 </div>
+            </div>
+        </div>
 
         @endif
         </div>
