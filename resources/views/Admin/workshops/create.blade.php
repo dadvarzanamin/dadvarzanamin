@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group" style="margin-top: 65px;">
-                                                <p class="mg-b-10">رزومه استاد دوره</p>
+                                                <p class="mg-b-10">درباره دوره</p>
                                                 <textarea name="text" id="editor" cols="30" rows="5" class="form-control" ></textarea>
                                             </div>
                                         </div>
@@ -146,7 +146,7 @@
                     processData : false,
                 });
 
-                let    text         = CKEDITOR.instances.editor.getData();
+                let    description  = CKEDITOR.instances.editor.getData();
                 let    _token       = jQuery('input[name="_token"]').val();
                 let    title        = jQuery('#title').val();
                 let    teacher      = jQuery('#teacher').val();
@@ -159,15 +159,16 @@
                 let    file_link    = jQuery('#file_link')[0].files[0];
 
                 let formData = new FormData();
-                formData.append('title'     , title);
-                formData.append('teacher'   , teacher);
-                formData.append('price'     , price);
-                formData.append('offer'     , offer);
-                formData.append('status'    , status);
-                formData.append('date'      , date);
-                formData.append('type'      , type);
-                formData.append('file_link' , file_link);
-                formData.append('_token'    , _token);
+                formData.append('title'         , title);
+                formData.append('teacher'       , teacher);
+                formData.append('price'         , price);
+                formData.append('offer'         , offer);
+                formData.append('status'        , status);
+                formData.append('date'          , date);
+                formData.append('type'          , type);
+                formData.append('description'   , description);
+                formData.append('file_link'     , file_link);
+                formData.append('_token'        , _token);
 
                 swal({
                         title: "Are you sure to delete this  of ?",

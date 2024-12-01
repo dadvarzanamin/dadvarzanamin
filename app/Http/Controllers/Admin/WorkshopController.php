@@ -102,7 +102,6 @@ class WorkshopController extends Controller
 
     public function store(Request $request)
     {
-
         try{
             $workshops = new Workshop();
             $workshops->title           = $request->input('title');
@@ -110,6 +109,7 @@ class WorkshopController extends Controller
             $workshops->price           = $request->input('price');
             $workshops->offer           = $request->input('offer');
             $workshops->date            = $request->input('date');
+            $workshops->description     = $request->input('description');
             $workshops->teacher_resume  = $request->input('teacher_resume');
             if($request->input('type')) {
                 $workshops->type = json_encode(explode('،', $request->input('type')));
@@ -119,9 +119,9 @@ class WorkshopController extends Controller
             if ($request->file('file_link')) {
 
                 $file       = $request->file('file_link');
-                $imagePath  ="public/slides";
+                $imagePath  ="public/workshops";
                 $imageName  = Str::random(30).".".$file->clientExtension();
-                $workshops->teacher_image = 'workshop/'.$imageName;
+                $workshops->teacher_image = 'workshops/'.$imageName;
                 $file->storeAs($imagePath, $imageName);
 
             }
@@ -181,6 +181,7 @@ class WorkshopController extends Controller
             $workshops->price           = $request->input('price');
             $workshops->offer           = $request->input('offer');
             $workshops->date            = $request->input('date');
+            $workshops->description     = $request->input('description');
             $workshops->teacher_resume  = $request->input('teacher_resume');
             if($request->input('type')) {
                 $workshops->type = json_encode(explode('،', $request->input('type')));
@@ -190,9 +191,9 @@ class WorkshopController extends Controller
             if ($request->file('file_link')) {
 
                 $file       = $request->file('file_link');
-                $imagePath  ="public/slides";
+                $imagePath  ="public/workshops";
                 $imageName  = Str::random(30).".".$file->clientExtension();
-                $workshops->teacher_image = 'workshop/'.$imageName;
+                $workshops->teacher_image = 'workshops/'.$imageName;
                 $file->storeAs($imagePath, $imageName);
 
             }

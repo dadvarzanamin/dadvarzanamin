@@ -32,29 +32,46 @@
                                             <div class="col-md-12">
 {{--                                                @include('error')--}}
                                             </div>
-                                            <input type="hidden" name="slide_id" id="slide_id" data-required="1" value="{{$workshops->id}}" class="form-control" />
+                                            <input type="hidden" name="id" id="id" data-required="1" value="{{$workshops->id}}" class="form-control" />
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تیتر1</p>
-                                                    <input type="text" name="title1" id="title1"  value="{{$workshops->title}}"  class="form-control" />
+                                                    <p class="mg-b-10">عنوان دوره</p>
+                                                    <input type="text" name="title" id="title" value="{{$workshops->title}}" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div  class="col-md-3">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تیتر2</p>
-                                                    <input type="text" name="title2" id="title2" value="{{$workshops->teacher}}"  class="form-control" />
+                                                    <p class="mg-b-10">استاد دوره</p>
+                                                    <input type="text" name="teacher" id="teacher" value="{{$workshops->teacher}}" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div  class="col-md-3">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تیتر3</p>
-                                                    <input type="text" name="title3" id="title3" value="{{$workshops->price}}"  class="form-control" />
+                                                    <p class="mg-b-10">قیمت دوره(تومان)</p>
+                                                    <input type="text" name="price" id="price" value="{{$workshops->price}}" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div  class="col-md-3">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تیتر3</p>
-                                                    <input type="text" name="title3" id="title3" value="{{$workshops->offer}}"  class="form-control" />
+                                                    <p class="mg-b-10">قیمت با تخفیف دوره(تومان)</p>
+                                                    <input type="text" name="offer" id="offer" value="{{$workshops->offer}}" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">تاریخ برگزاری دوره</p>
+                                                    <input type="text" name="date" id="date" value="{{$workshops->date}}" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">نوع برگزاری</p>
+                                                    <select name="type" id="type" multiple="multiple" class="form-control select-lg select2">
+                                                        <option value="">انتخاب نوع برگزاری</option>
+                                                        <option value="حضوری" {{ in_array('حضوری', json_decode($workshops->type, true) ?? []) ? 'selected' : '' }}>حضوری</option>
+                                                        <option value="آنلاین" {{ in_array('آنلاین', json_decode($workshops->type, true) ?? []) ? 'selected' : '' }}>آنلاین</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -67,33 +84,19 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">انتخاب منو</p>
-                                                    <select name="menu_id" id="menu_id" class="form-control select-lg select2">
-                                                        <option value="">انتخاب منو</option>
-                                                        @foreach($menus as $menu)
-                                                            <option value="{{$menu->id}}" {{$menu->id == $workshops->menu_id ? 'selected' : ''}}>{{$menu->title}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                <div class="form-group" style="position: absolute;">
+                                                    <p class="mg-b-10">تصویر بنر دوره</p>
+                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset($workshops->teacher_image)}}" data-height="200">
                                                 </div>
                                             </div>
-                                            <div  class="col-md-6">
+                                            <div  class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">موارد نمایش در اسلاید</p>
-                                                    <input type="text" name="word" id="word" @if($workshops['type']) value="{{implode("،" , json_decode($workshops['type']))}}" @endif class="form-control" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">تصویر اسلاید</p>
-                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset('storage/'.$workshops->teacher_image)}}" data-height="200">
-                                                </div>
-                                            </div>
-
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10"> توضیحات</p>
-                                                    <textarea name="text" id="editor" cols="30" rows="5" class="form-control" >{{$workshops->teacher_resume}}</textarea>
+                                                <div class="form-group" style="margin-top: 65px;">
+                                                    <p class="mg-b-10">درباره دوره</p>
+                                                    <textarea name="description" id="editor" cols="30" rows="5" class="form-control" >{{$workshops->description}}</textarea>
                                                 </div>
                                             </div>
 

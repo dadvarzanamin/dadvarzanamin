@@ -240,18 +240,18 @@
             </div>
         </div>
     </section>
-
-{{--    <section class="about-area overflow-hidden">
+@if($workshops)
+    <section class="about-area overflow-hidden">
         <div class="container">
-            @if(Auth::check())
-                <div class="alert alert-success" role="alert">
-                    <a href="{{route('profile')}}">
-                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی
-                            کلیک نمایید
-                        </p>
-                    </a>
-                </div>
-            @endif
+{{--            @if(Auth::check())--}}
+{{--                <div class="alert alert-success" role="alert">--}}
+{{--                    <a href="{{route('profile')}}">--}}
+{{--                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی--}}
+{{--                            کلیک نمایید--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            @endif--}}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="about-content pb-5">
@@ -259,25 +259,23 @@
                             <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>
                             <span class="section-divider"></span>
                             <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
-                                کارگاه اصول قراردادنویسی
+                                 کارگاه {{$workshops->title}}
                             </h3>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h5 class="text-center" style="margin: 8px 0;">مدرس جناب دکتر مهدی علی اکبرزاده</h5>
+                            <h5 class="text-center" style="margin: 8px 0;">مدرس {{$workshops->teacher}}</h5>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center"> معاون حقوقی و قراردادی شرکت های دولتی و خصوصی
-                            </h6>
+                            <h6 class="text-center">{!! $workshops->description !!}</h6>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center"> مشاور معاونت حقوقی ریاست جمهوری
-                            </h6>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center">مدرس دانشگاه
-                            </h6>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14
-                            </h6>
-                            <div class="text-center m-5">
-                                ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا
-                            </div>
+{{--                            <h6 class="text-center"> مشاور معاونت حقوقی ریاست جمهوری--}}
+{{--                            </h6>--}}
+{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                            <h6 class="text-center">مدرس دانشگاه--}}
+{{--                            </h6>--}}
+{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                            <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14</h6>--}}
+{{--                            <div class="text-center m-5">--}}
+{{--                                ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا--}}
+{{--                            </div>--}}
                         </div>
                         <div class="row pt-5 pb-3">
                             <div class="col-lg-12 responsive-column-half">
@@ -306,12 +304,12 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-                            <a href="{{url('دوره-آموزشی/کارگاه-اصول-قراردادنویسی')}}" class="btn pr-button br-16 py-3">
+                            <a href="{{url('دوره-آموزشی/'.$workshops->slug)}}" class="btn pr-button br-16 py-3">
                                 مشاهده اطلاعات دوره
                             </a>
-                            --}}{{--                            <p class="btn btn-danger br-16 py-3">--}}{{--
-                            --}}{{--                                تکمیل ظرفیت--}}{{--
-                            --}}{{--                            </p>--}}{{--
+{{--                            <p class="btn btn-danger br-16 py-3">--}}
+{{--                                تکمیل ظرفیت--}}
+{{--                            </p>--}}
                         </div>
                     </div>
                 </div>
@@ -324,8 +322,8 @@
                 </div>
             </div>
         </div>
-    </section>--}}
-
+    </section>
+@endif
     {{--      Start partners Area--}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
@@ -590,9 +588,10 @@
 
 @endsection
 @section('script')
+    @if($workshops)
     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();
+        var countDownDate = new Date({{Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $workshops->date)->toCarbon()->format('F d, Y H:i:s')}}).getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {
@@ -627,6 +626,7 @@
 
         }, 1000);
     </script>
+    @endif
     <script>
         jQuery(document).ready(function () {
             jQuery('#setclass').click(function (e) {
