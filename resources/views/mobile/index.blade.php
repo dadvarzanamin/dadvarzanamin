@@ -506,11 +506,9 @@
 
                             <div class="course-info">
                                 <p>ارائه توسط: {{$currentws->teacher}}</p>
-                                <p>نوع برگزاری: {{$currentws->type}}</p>
+                                <p>نوع برگزاری: {{implode("،" , json_decode($currentws->type))}}</p>
                                 <p>تاریخ برگزاری: {{$currentws->date}}</p>
                             </div>
-
-
                             <style>
                                 .modal-body {
                                     padding: 0;
@@ -548,11 +546,11 @@
                                 @php
                                     $lines = explode("\n", $currentws->target);
                                 @endphp
-                                <ul>
-                                    @foreach ($lines as $line)
-                                        <p>{{ $line }}</p>
-                                    @endforeach
-                                </ul>
+                                {{--                                <ul>--}}
+                                {{--                                    @foreach ($lines as $line)--}}
+                                {{--                                        <p>{{ $line }}</p>--}}
+                                {{--                                    @endforeach--}}
+                                {{--                                </ul>--}}
                             </div>
 
                             <div class="course-description">
@@ -652,43 +650,43 @@
             </div>
         </div>
     @endif
-    {{--    <script>--}}
-    {{--        // Set the date we're counting down to--}}
-    {{--        var countDownDate = new Date("November 22, 2024 10:00:00").getTime();--}}
+        <script>
+            // Set the date we're counting down to
+            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
 
-    {{--        // Update the count down every 1 second--}}
-    {{--        var x = setInterval(function () {--}}
+            // Update the count down every 1 second
+            var x = setInterval(function () {
 
-    {{--            // Get today's date and time--}}
-    {{--            var now = new Date().getTime();--}}
+                // Get today's date and time
+                var now = new Date().getTime();
 
-    {{--            // Find the distance between now and the count down date--}}
-    {{--            var distance = countDownDate - now;--}}
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
 
-    {{--            // Time calculations for days, hours, minutes and seconds--}}
-    {{--            var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
-    {{--            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
-    {{--            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
-    {{--            var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    {{--            // // Display the result in the element with id="demo"--}}
-    {{--            // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;--}}
-    {{--            // //+ minutes + " دقیقه " + seconds + " ثانیه ";--}}
-    {{--            document.getElementById("days").innerHTML = days;--}}
-    {{--            document.getElementById("hours").innerHTML = hours;--}}
-    {{--            document.getElementById("minutes").innerHTML = minutes;--}}
-    {{--            document.getElementById("seconds").innerHTML = seconds;--}}
-    {{--            // If the count down is finished, write some text--}}
-    {{--            if (distance < 0) {--}}
-    {{--                clearInterval(x);--}}
-    {{--                document.getElementById("days").innerHTML = "EXPIRED";--}}
-    {{--                document.getElementById("hours").innerHTML = "EXPIRED";--}}
-    {{--                document.getElementById("minutes").innerHTML = "EXPIRED";--}}
-    {{--                document.getElementById("seconds").innerHTML = "EXPIRED";--}}
-    {{--            }--}}
+                // // Display the result in the element with id="demo"
+                // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;
+                // //+ minutes + " دقیقه " + seconds + " ثانیه ";
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").innerHTML = "EXPIRED";
+                    document.getElementById("hours").innerHTML = "EXPIRED";
+                    document.getElementById("minutes").innerHTML = "EXPIRED";
+                    document.getElementById("seconds").innerHTML = "EXPIRED";
+                }
 
-    {{--        }, 1000);--}}
-    {{--    </script>--}}
+            }, 1000);
+        </script>
     @if($currentws)
         <script>
             // Set the date we're counting down to
