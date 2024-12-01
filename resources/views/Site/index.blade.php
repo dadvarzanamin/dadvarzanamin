@@ -304,8 +304,11 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-                            <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshops->slug)}}" class="btn pr-button br-16 py-3">
-                                مشاهده اطلاعات دوره
+{{--                            <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshops->slug)}}" class="btn pr-button br-16 py-3">--}}
+{{--                                مشاهده اطلاعات دوره--}}
+{{--                            </a>--}}
+                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">
+                                ثبت نام دوره
                             </a>
 {{--                            <p class="btn btn-danger br-16 py-3">--}}
 {{--                                تکمیل ظرفیت--}}
