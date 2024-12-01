@@ -193,17 +193,11 @@ class UserController extends Controller
     public function profile(){
 
         if (Auth::check()) {
-
             $users = User::findOrfail(auth::user()->id);
-            $citis              = City::select('id as city_id','title as city' , 'state_id')->get()->toArray();
-            $state              = State::select('id as state_id','title as state')->get()->toArray();
 
             $response = [
                 'user'          => $users,
-                'state'         => $state,
-                'citis'         => $citis,
             ];
-
             return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
         }else{
             $response = [

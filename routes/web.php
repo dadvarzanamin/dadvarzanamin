@@ -101,7 +101,8 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
     Route::get('اخبار'.'/'.'{slug}'         , [App\Http\Controllers\Site\IndexController::class, 'singleakhbar']);
     Route::get('تیم-ما'.'/'.'رزومه'.'/'.'{slug}'  , [App\Http\Controllers\Site\IndexController::class, 'emploeeresume']);
     Route::get('محتوای-آموزشی'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'singlepost']);
-    Route::get('دوره-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
+    //Route::get('دوره-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
+    Route::get('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
     Route::get('/reload-captcha'            , [App\Http\Controllers\Site\IndexController::class, 'reloadCaptcha']);
 
 
