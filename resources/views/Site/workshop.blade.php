@@ -24,7 +24,7 @@
                     <div class="col-lg-4">
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                             <div class="card-image">
-                                <a href="{{url('دوره-های-آموزشی/'.$workshop->slug)}}" class="d-block">
+                                <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshop->slug)}}" class="d-block">
                                     <img class="card-img-top img-index" src="{{asset($workshop->image)}}" alt="{{$workshop->title}}" style="object-fit: cover;">
                                 </a>
                                 <div class="course-badge-labels">
@@ -35,7 +35,7 @@
                                 <h5 class="card-title"><a href="#">{{$workshop->title}}</a></h5>
                                 <div class="line"></div>
                                 <div class="rating-wrap d-flex align-items-center justify-content-center pt-3">
-                                    <a href="{{url('دوره-های-آموزشی/'.$workshop->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
+                                    <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshop->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
                                 </div>
                             </div>
                         </div>
