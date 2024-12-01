@@ -65,7 +65,7 @@ class IndexController extends Controller
         $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
         $akhbars        = Akhbar::leftjoin('users', 'akhbars.user_id', '=', 'users.id')->
         select('akhbars.title', 'akhbars.slug', 'akhbars.image', 'akhbars.description', 'users.name as username', 'akhbars.updated_at')->where('akhbars.status', 4)->where('akhbars.home_show', 1)->get();
-        $workshops          = Workshop::whereStatus(4)->get();
+        $workshops      = Workshop::whereStatus(4)->first();
 
 
         $userAgent = request()->header('User-Agent');
