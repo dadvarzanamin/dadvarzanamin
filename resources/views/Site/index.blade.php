@@ -304,9 +304,9 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-                            <a href="{{url($currentws->slug)}}" class="btn pr-button br-16 py-3">
-                                مشاهده اطلاعات دوره
-                            </a>
+{{--                            <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$currentws->slug)}}" class="btn pr-button br-16 py-3">--}}
+{{--                                مشاهده اطلاعات دوره--}}
+{{--                            </a>--}}
 {{--                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">--}}
 {{--                                ثبت نام دوره--}}
 {{--                            </a>--}}
