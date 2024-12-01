@@ -259,12 +259,12 @@
                             <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>
                             <span class="section-divider"></span>
                             <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
-                                 کارگاه {{$workshops->title}}
+                                 کارگاه {{$currentws->title}}
                             </h3>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h5 class="text-center" style="margin: 8px 0;">مدرس {{$workshops->teacher}}</h5>
+                            <h5 class="text-center" style="margin: 8px 0;">مدرس {{$currentws->teacher}}</h5>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center">{!! $workshops->description !!}</h6>
+                            <h6 class="text-center">{!! $currentws->description !!}</h6>
                             <hr style="border: none; height: 1px; background-color: #cea54a;">
 {{--                            <h6 class="text-center"> مشاور معاونت حقوقی ریاست جمهوری--}}
 {{--                            </h6>--}}
@@ -304,12 +304,12 @@
                             </div>
                         </div>
                         <div class="btn-box text-center">
-{{--                            <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshops->slug)}}" class="btn pr-button br-16 py-3">--}}
-{{--                                مشاهده اطلاعات دوره--}}
-{{--                            </a>--}}
-                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">
-                                ثبت نام دوره
+                            <a href="{{url($currentws->slug)}}" class="btn pr-button br-16 py-3">
+                                مشاهده اطلاعات دوره
                             </a>
+{{--                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">--}}
+{{--                                ثبت نام دوره--}}
+{{--                            </a>--}}
 {{--                            <p class="btn btn-danger br-16 py-3">--}}
 {{--                                تکمیل ظرفیت--}}
 {{--                            </p>--}}
@@ -591,10 +591,10 @@
 
 @endsection
 @section('script')
-    @if($workshops)
+    @if($currentws)
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $workshops->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
+            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function () {

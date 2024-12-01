@@ -442,7 +442,7 @@
 
                         </h6>
                         <hr style="border: none; height: 1px; background-color: #cea54a;">
-                        <h6 class="text-center">{!! $currentws->description !!}</h6>
+                        <h6>{!! $currentws->description !!}</h6>
                         {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
                         {{--                        <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
                         {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
@@ -581,7 +581,7 @@
                                     <span>{{$currentws->duration}} ساعت</span>
                                 </div>
                                 <div class="feature-item">
-                                    <span>سطح مهارت:</span>
+                                    <span>سطح مهارت :</span>
                                     <span>همه سطوح</span>
                                 </div>
                                 <div class="feature-item">
