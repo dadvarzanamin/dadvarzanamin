@@ -62,11 +62,11 @@ class IndexController extends Controller
         $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
         $posts          = Post::whereStatus(4)->whereHome_show(1)->orderBy('id' , 'DESC')->limit(6)->get();
         $workshops      = Workshop::whereStatus(4)->get();
-        $workshop      = Workshop::whereStatus(4)->first();
+        $currentws      = Workshop::whereStatus(4)->first();
         $akhbars        = Akhbar::leftjoin('users', 'akhbars.user_id', '=', 'users.id')->
         select('akhbars.title', 'akhbars.slug', 'akhbars.image', 'akhbars.description', 'users.name as username', 'akhbars.matn as matn', 'akhbars.updated_at')->where('akhbars.status', 4)->where('akhbars.home_show', 1)->get();
 
-        return view('Site.index')->with(compact('menus', 'thispage', 'workshops', 'companies', 'slides', 'customers', 'submenus', 'posts', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
+        return view('Site.index')->with(compact('menus', 'thispage', 'workshops' , 'currentws' , 'companies', 'slides', 'customers', 'submenus', 'posts', 'servicelawyers', 'serviceclients', 'akhbars', 'megamenus', 'megacounts', 'emploees'));
 
     }
 
