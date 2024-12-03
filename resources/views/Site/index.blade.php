@@ -316,14 +316,14 @@
                                             </h2>
                                             <span class="section-divider"></span>
                                             <h3 style="margin-bottom: 10px; margin-top: -20px; text-align: center">
-                                                کارگاه {{ $workshops[$currentIndex]->title }}
+                                                {{ $workshops[$currentIndex]->title }}
                                             </h3>
                                             <hr style="border: none; height: 1px; background-color: #cea54a;">
                                             <h5 class="text-center" style="margin: 8px 0;">
                                                 مدرس {{ $workshops[$currentIndex]->teacher }}</h5>
                                             <hr style="border: none; height: 1px; background-color: #cea54a;">
-                                            <h6 class="text-center">{!! $workshops[$currentIndex]->description !!}</h6>
-                                            <hr style="border: none; height: 1px; background-color: #cea54a;">
+{{--                                            <h6 class="text-center">{!! $workshops[$currentIndex]->description !!}</h6>--}}
+{{--                                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
                                         </div>
                                         <div class="btn-box text-center">
                                             <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshops[$currentIndex]->slug) }}"
