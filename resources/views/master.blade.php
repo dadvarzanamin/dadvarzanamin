@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('site/css/fancybox.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/tooltipster.bundle.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     @yield('style')
 </head>
 <style>

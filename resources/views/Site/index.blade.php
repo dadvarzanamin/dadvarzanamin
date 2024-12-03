@@ -65,6 +65,60 @@
         .highlight-text:hover:before {
             transform: rotate(360deg);
         }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .navigation-btn {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navigation-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navigation-btn i {
+            margin: 0;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-primary {
+            background-color: #cea54a;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #e3a928;
+        }
+
+        .btn-primary:focus {
+            background-color: #e3a928;
+        }
+
+        .btn-primary:active {
+            background-color: #e3a928;
+        }
+
     </style>
     <section class="hero-area">
         {{--        <div class="hero-slider owl-action-styled">--}}
@@ -240,93 +294,221 @@
             </div>
         </div>
     </section>
-@if($workshops)
-    <section class="about-area overflow-hidden">
+
+    <section class="blog-area section--padding overflow-hidden">
         <div class="container">
-{{--            @if(Auth::check())--}}
-{{--                <div class="alert alert-success" role="alert">--}}
-{{--                    <a href="{{route('profile')}}">--}}
-{{--                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی--}}
-{{--                            کلیک نمایید--}}
-{{--                        </p>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            @endif--}}
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about-content pb-5">
-                        <div class="section-heading">
-                            <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>
-                            <span class="section-divider"></span>
-                            <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">
-                                 کارگاه {{$currentws->title}}
-                            </h3>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h5 class="text-center" style="margin: 8px 0;">مدرس {{$currentws->teacher}}</h5>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-                            <h6 class="text-center">{!! $currentws->description !!}</h6>
-                            <hr style="border: none; height: 1px; background-color: #cea54a;">
-{{--                            <h6 class="text-center"> مشاور معاونت حقوقی ریاست جمهوری--}}
-{{--                            </h6>--}}
-{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                            <h6 class="text-center">مدرس دانشگاه--}}
-{{--                            </h6>--}}
-{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                            <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14</h6>--}}
-{{--                            <div class="text-center m-5">--}}
-{{--                                ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا--}}
-{{--                            </div>--}}
-                        </div>
-                        <div class="row pt-5 pb-3">
-                            <div class="col-lg-12 responsive-column-half">
-                                <div class="info-icon-box mb-3 text-center">
-                                    <div class="row justify-content-center">
-                                        <div class="time-segment"
-                                             style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
-                                            <span id="seconds">0</span>
-                                            <span>ثانیه</span>
+            <div class="section-heading text-center">
+                <h2 class="section__title">کارگاه های فعال ما</h2>
+                <span class="section-divider"></span>
+            </div>
+
+            @if($workshops->count() > 0)
+                <div class="current-workshop" style="background-color: aliceblue; padding: 24px; border-radius: 32px">
+                    @php $currentIndex = 0; @endphp
+                    <section class="about-area overflow-hidden">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="about-content pb-5">
+                                        <div class="section-heading">
+                                            <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار
+                                                می‌کند</h2>
+                                            <span class="section-divider"></span>
+                                            <h3 style="margin-bottom: 10px; margin-top: -20px; text-align: center">
+                                                کارگاه {{ $workshops[$currentIndex]->title }}
+                                            </h3>
+                                            <hr style="border: none; height: 1px; background-color: #cea54a;">
+                                            <h5 class="text-center" style="margin: 8px 0;">
+                                                مدرس {{ $workshops[$currentIndex]->teacher }}</h5>
+                                            <hr style="border: none; height: 1px; background-color: #cea54a;">
+                                            <h6 class="text-center">{!! $workshops[$currentIndex]->description !!}</h6>
+                                            <hr style="border: none; height: 1px; background-color: #cea54a;">
                                         </div>
-                                        <div class="time-segment">
-                                            <span id="minutes">0</span>
-                                            <span>دقیقه</span>
+                                        <div class="btn-box text-center">
+                                            <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshops[$currentIndex]->slug) }}"
+                                               class="btn pr-button br-16 py-3">
+                                                مشاهده اطلاعات دوره
+                                            </a>
                                         </div>
-                                        <div class="time-segment">
-                                            <span id="hours">0</span>
-                                            <span>ساعت</span>
-                                        </div>
-                                        <div class="time-segment"
-                                             style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
-                                            <span id="days">0</span>
-                                            <span>روز</span>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 ml-auto">
+                                    <div class="generic-img-box d-none d-md-block">
+                                        <img src="{{ asset('site/images/img-loading.png') }}"
+                                             data-src="/workshops/{{ $workshops[$currentIndex]->slug }}.jpg"
+                                             alt="{{ $workshops[$currentIndex]->title }}"
+                                             class="img__item img__item-1 lazy">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="btn-box text-center">
-{{--                            <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$currentws->slug)}}" class="btn pr-button br-16 py-3">--}}
-{{--                                مشاهده اطلاعات دوره--}}
-{{--                            </a>--}}
-{{--                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">--}}
-{{--                                ثبت نام دوره--}}
-{{--                            </a>--}}
-{{--                            <p class="btn btn-danger br-16 py-3">--}}
-{{--                                تکمیل ظرفیت--}}
-{{--                            </p>--}}
-                        </div>
-                    </div>
+                    </section>
                 </div>
-                <div class="col-lg-5 ml-auto">
-                    <div class="generic-img-box d-none d-md-block">
-                        <img src="{{asset('site/images/img-loading.png')}}"
-                             data-src="/workshops/index-third-workshop.jpg"
-                             alt="موسسه حقوقی" class="img__item img__item-1 lazy">
-                    </div>
+
+                <!-- Navigation Buttons -->
+                <div class="navigation-buttons text-center mt-4">
+                    <button class="btn btn-secondary rounded-circle navigation-btn" id="prevButton"
+                            onclick="showPrev()">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-primary rounded-circle navigation-btn" id="nextButton" onclick="showNext()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
                 </div>
-            </div>
+            @else
+                <p class="text-center">هیچ کارگاهی برای نمایش وجود ندارد.</p>
+            @endif
         </div>
     </section>
-@endif
+
+    <script>
+        let currentIndex = 0;
+        const workshops = @json($workshops);
+
+        function updateWorkshopDisplay() {
+            const workshop = workshops[currentIndex];
+            document.querySelector('.current-workshop .section__title').textContent = workshop.title;
+            document.querySelector('.current-workshop h5').textContent = "مدرس " + workshop.teacher;
+            document.querySelector('.current-workshop h6').innerHTML = workshop.description;
+            document.querySelector('.current-workshop .btn').href = "/دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/" + workshop.slug;
+            const img = document.querySelector('.generic-img-box img');
+            img.setAttribute('data-src', "/workshops/" + workshop.slug + ".jpg");
+            img.setAttribute('alt', workshop.title);
+            img.src = "/site/images/img-loading.png"; // تصویر موقت برای lazy loading
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + workshops.length) % workshops.length;
+            updateWorkshopDisplay();
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % workshops.length;
+            updateWorkshopDisplay();
+        }
+    </script>
+
+    {{--    @if($workshops)--}}
+    {{--        <section class="about-area overflow-hidden">--}}
+    {{--            <div class="container">--}}
+    {{--                --}}{{--            @if(Auth::check())--}}
+    {{--                --}}{{--                <div class="alert alert-success" role="alert">--}}
+    {{--                --}}{{--                    <a href="{{route('profile')}}">--}}
+    {{--                --}}{{--                        <p class="text-center"> شما موفق شدید در سایت ثبت نام نمایید جهت تکمیل ثبت نام در کارگاه آموزشی--}}
+    {{--                --}}{{--                            کلیک نمایید--}}
+    {{--                --}}{{--                        </p>--}}
+    {{--                --}}{{--                    </a>--}}
+    {{--                --}}{{--                </div>--}}
+    {{--                --}}{{--            @endif--}}
+    {{--                <div class="row">--}}
+    {{--                    <div class="col-lg-6">--}}
+    {{--                        <div class="about-content pb-5">--}}
+    {{--                            <div class="section-heading">--}}
+    {{--                                <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار می کند</h2>--}}
+    {{--                                <span class="section-divider"></span>--}}
+    {{--                                <h3 style="margin-bottom: 10px;margin-top: -20px;text-align: center">--}}
+    {{--                                    کارگاه {{$currentws->title}}--}}
+    {{--                                </h3>--}}
+    {{--                                <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+    {{--                                <h5 class="text-center" style="margin: 8px 0;">مدرس {{$currentws->teacher}}</h5>--}}
+    {{--                                <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+    {{--                                <h6 class="text-center">{!! $currentws->description !!}</h6>--}}
+    {{--                                <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+    {{--                                --}}{{--                            <h6 class="text-center"> مشاور معاونت حقوقی ریاست جمهوری--}}
+    {{--                                --}}{{--                            </h6>--}}
+    {{--                                --}}{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+    {{--                                --}}{{--                            <h6 class="text-center">مدرس دانشگاه--}}
+    {{--                                --}}{{--                            </h6>--}}
+    {{--                                --}}{{--                            <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+    {{--                                --}}{{--                            <h6 class="text-center" style="margin: 8px 0;">تاریخ برگزاری 2 آذر ماه از ساعت 10 الی 14</h6>--}}
+    {{--                                --}}{{--                            <div class="text-center m-5">--}}
+    {{--                                --}}{{--                                ویژه دانشجویان و فارغ التحصیلان رشته حقوق و وکلا--}}
+    {{--                                --}}{{--                            </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="row pt-5 pb-3">--}}
+    {{--                                <div class="col-lg-12 responsive-column-half">--}}
+    {{--                                    <div class="info-icon-box mb-3 text-center">--}}
+    {{--                                        <div class="row justify-content-center">--}}
+    {{--                                            <div class="time-segment"--}}
+    {{--                                                 style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">--}}
+    {{--                                                <span id="seconds">0</span>--}}
+    {{--                                                <span>ثانیه</span>--}}
+    {{--                                            </div>--}}
+    {{--                                            <div class="time-segment">--}}
+    {{--                                                <span id="minutes">0</span>--}}
+    {{--                                                <span>دقیقه</span>--}}
+    {{--                                            </div>--}}
+    {{--                                            <div class="time-segment">--}}
+    {{--                                                <span id="hours">0</span>--}}
+    {{--                                                <span>ساعت</span>--}}
+    {{--                                            </div>--}}
+    {{--                                            <div class="time-segment"--}}
+    {{--                                                 style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">--}}
+    {{--                                                <span id="days">0</span>--}}
+    {{--                                                <span>روز</span>--}}
+    {{--                                            </div>--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <div class="btn-box text-center">--}}
+    {{--                                <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$currentws->slug)}}"--}}
+    {{--                                   class="btn pr-button br-16 py-3">--}}
+    {{--                                    مشاهده اطلاعات دوره--}}
+    {{--                                </a>--}}
+    {{--                                --}}{{--                            <a href="{{url('کارگاه-آموزشی/')}}" class="btn pr-button br-16 py-3">--}}
+    {{--                                --}}{{--                                ثبت نام دوره--}}
+    {{--                                --}}{{--                            </a>--}}
+    {{--                                --}}{{--                            <p class="btn btn-danger br-16 py-3">--}}
+    {{--                                --}}{{--                                تکمیل ظرفیت--}}
+    {{--                                --}}{{--                            </p>--}}
+    {{--                            </div>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="col-lg-5 ml-auto">--}}
+    {{--                        <div class="generic-img-box d-none d-md-block">--}}
+    {{--                            <img src="{{asset('site/images/img-loading.png')}}"--}}
+    {{--                                 data-src="/workshops/index-third-workshop.jpg"--}}
+    {{--                                 alt="موسسه حقوقی" class="img__item img__item-1 lazy">--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+
+    {{--                <section>--}}
+    {{--                    <div class="section-heading">--}}
+    {{--                        <h2 class="section__title mb-4 text-center">کارگاه های فعال ما</h2>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="blog-post-carousel owl-action-styled half-shape br-16">--}}
+
+    {{--                        @foreach($workshops as $workshop)--}}
+    {{--                            <div class="item">--}}
+    {{--                                <div class="card br-16">--}}
+    {{--                                    <div class="card-image">--}}
+    {{--                                        <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}"--}}
+    {{--                                           class="d-block">--}}
+    {{--                                            <img class="card-img-top img-index" src="{{ asset($workshop->image) }}"--}}
+    {{--                                                 alt="{{ $workshop->title }}" style="object-fit: cover;">--}}
+    {{--                                        </a>--}}
+    {{--                                        <div class="course-badge-labels">--}}
+    {{--                                            <div class="course-badge">{{ jdate($workshop->created_at)->ago() }}</div>--}}
+    {{--                                        </div>--}}
+    {{--                                    </div>--}}
+    {{--                                    <div class="card-body text-center">--}}
+    {{--                                        <h5 class="card-title"><a--}}
+    {{--                                                href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->title }}</a>--}}
+    {{--                                        </h5>--}}
+    {{--                                        <div class="line"></div>--}}
+    {{--                                        <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}"--}}
+    {{--                                           class="btn theme-btn theme-btn-sm theme-btn-transparent mt-3">مشاهده</a>--}}
+    {{--                                    </div>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                        @endforeach--}}
+    {{--                    </div>--}}
+    {{--                </section>--}}
+    {{--            </div>--}}
+    {{--        </section>--}}
+    {{--    @endif--}}
     {{--      Start partners Area--}}
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
@@ -392,7 +574,7 @@
             </div>
             <div class="blog-post-carousel owl-action-styled half-shape">
                 @foreach($serviceclients as $serviceclient)
-                    <div class="col-lg-12 responsive-column-half text-center">
+                    <div class="col-lg-12 responsive-column-half text-center bg-black">
                         <div class="icon-element icon-element-lg shadow-sm"
                              style="margin-bottom: -70px;position: relative;">
                             <img src="{{asset($serviceclient->image)}}" style="width: 100px;margin: 25px auto;"
@@ -442,7 +624,6 @@
                 @endforeach
             </div>
         </div>
-
     </section>
     {{--  End events cards  --}}
 
@@ -563,7 +744,6 @@
                 @endforeach
             </div>
         </div>
-
     </section>
     {{--  End Team Area  --}}
 
