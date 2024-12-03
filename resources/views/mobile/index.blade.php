@@ -427,9 +427,6 @@
                              style="width: 300px;border-radius: 16px"
                              alt="دوره ضربتی قانون اساسی">
                     </div>
-                    {{--                    @php--}}
-                    {{--                        $workshop = $workshops->firstWhere('status', 4);--}}
-                    {{--                    @endphp--}}
                     <div class="content" style="margin: 20px auto;">
 
                         <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
@@ -437,20 +434,24 @@
                             {{$currentws->title}}
                         </p>
                         <hr style="border: none; height: 1px; background-color: #cea54a;">
-                        <h6 class="text-center" style="margin: 4px 0;">
+                        <h6>
                             {{$currentws->teacher}}
-
                         </h6>
-                        <hr style="border: none; height: 1px; background-color: #cea54a;">
-                        <h6>{!! $currentws->description !!}</h6>
-                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-                        {{--                        <h6 class="text-center">مشاور معاونت حقوقی ریاست جمهوری</h6>--}}
-                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-                        {{--                        <h6 class="text-center">مدرس دانشگاه</h6>--}}
-                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-                        {{--                        <h6 class="text-center" style="margin: 4px;">--}}
-                        {{--                            تاریخ برگزاری جمعه 2 آذر ماه از ساعت 10 الی 14--}}
-                        {{--                        </h6>--}}
+{{--                        <h6 class="" style="margin: 4px 0;">--}}
+{{--                                @php--}}
+{{--                                    $targets = explode("\n", $currentws->target);--}}
+{{--                                @endphp--}}
+{{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
+{{--                                <ul>--}}
+{{--                                    @foreach ($targets as $target)--}}
+{{--                                        <p class="generic-list-item overview-list-item">{{ $target }}</p>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+
+{{--                        </h6>--}}
+{{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                        <h6>{{ $currentws->target}}</h6>--}}
+
                     </div>
                 </div>
                 <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">
@@ -542,15 +543,15 @@
                                 </div>
                             @endif
                             <div class="course-description">
-                                <h3>اهداف دوره</h3>
+                                <h3 style="margin-bottom: 20px">اهداف دوره</h3>
                                 @php
                                     $lines = explode("\n", $currentws->target);
                                 @endphp
-                                {{--                                <ul>--}}
-                                {{--                                    @foreach ($lines as $line)--}}
-                                {{--                                        <p>{{ $line }}</p>--}}
-                                {{--                                    @endforeach--}}
-                                {{--                                </ul>--}}
+                                <ul>
+                                    @foreach ($lines as $line)
+                                        <p>{{ $line }}</p>
+                                    @endforeach
+                                </ul>
                             </div>
 
                             <div class="course-description">

@@ -312,7 +312,8 @@
                                     <div class="about-content pb-5">
                                         <div class="section-heading">
                                             <h2 class="section__title text-center">موسسه حقوقی دادورزان امین برگزار
-                                                می‌کند</h2>
+                                                می‌کند
+                                            </h2>
                                             <span class="section-divider"></span>
                                             <h3 style="margin-bottom: 10px; margin-top: -20px; text-align: center">
                                                 کارگاه {{ $workshops[$currentIndex]->title }}
@@ -335,9 +336,10 @@
                                 <div class="col-lg-5 ml-auto">
                                     <div class="generic-img-box d-none d-md-block">
                                         <img src="{{ asset('site/images/img-loading.png') }}"
-                                             data-src="/workshops/{{ $workshops[$currentIndex]->slug }}.jpg"
+                                             data-src="{{ asset($workshops[$currentIndex]->image) }}"
                                              alt="{{ $workshops[$currentIndex]->title }}"
-                                             class="img__item img__item-1 lazy">
+                                             class="img__item img__item-1 lazy"/>
+
                                     </div>
                                 </div>
                             </div>
