@@ -194,9 +194,13 @@ class UserController extends Controller
 
         if (Auth::check()) {
             $users = User::findOrfail(auth::user()->id);
+            $states = State::all();
+            $citis = City::all();
 
             $response = [
                 'user'          => $users,
+                'state'         => $states,
+                'city'          => $citis,
             ];
             return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
         }else{
