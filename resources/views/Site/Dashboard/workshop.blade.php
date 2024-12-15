@@ -42,6 +42,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="input-box col-lg-3">
+                        <label class="label-text">دریافت گواهی شرکت در دوره</label>
+                        <div class="form-group">
+                            <select name="certificate" class="form-control" id="certificate">
+                                <option value="">انتخاب کنید</option>
+                                <option value="1">تمایل به دریافت گواهی شرکت در دوره دارم</option>
+                                <option value="2"> مایل به دریافت گواهی شرکت در دوره نیستم</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="input-box col-lg-12 py-2">
                         <button type="submit" class="btn theme-btn">ثبت و پرداخت</button>
                     </div>

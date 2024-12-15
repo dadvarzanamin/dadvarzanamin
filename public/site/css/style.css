@@ -1979,7 +1979,7 @@ h6 {
 .generic-list-item li {
     color: #1E2E45;
     line-height: 24px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
 
 .generic-list-item li a {
