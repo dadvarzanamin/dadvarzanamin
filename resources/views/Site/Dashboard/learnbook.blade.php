@@ -24,11 +24,9 @@
                         <thead>
                         <tr>
                             <th scope="col"> ردیف</th>
-                            <th scope="col">نام دوره</th>
-                            <th scope="col">تاریخ دوره</th>
-                            <th scope="col">نوع حضور</th>
-                            <th scope="col">مبلغ پرداخت</th>
-                            <th scope="col">وضعیت پرداخت</th>
+                            <th scope="col">نام فایل</th>
+                            <th scope="col">تصویر فایل</th>
+                            <th scope="col">منبع </th>
                         </tr>
                         </thead>
                         <tbody>
