@@ -107,9 +107,12 @@ class WorkshopController extends Controller
             $workshops->title           = $request->input('title');
             $workshops->teacher         = $request->input('teacher');
             $workshops->price           = $request->input('price');
+            $workshops->level           = $request->input('level');
+            $workshops->duration        = $request->input('duration');
             $workshops->offer           = $request->input('offer');
             $workshops->date            = $request->input('date');
             $workshops->description     = $request->input('description');
+            $workshops->target     = $request->input('target');
             $workshops->teacher_resume  = $request->input('teacher_resume');
             if($request->input('type')) {
                 $workshops->type = json_encode(explode('،', $request->input('type')));
