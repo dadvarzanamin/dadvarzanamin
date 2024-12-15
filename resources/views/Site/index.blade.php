@@ -336,7 +336,7 @@
                                 <div class="col-lg-5 ml-auto">
                                     <div class="generic-img-box d-none d-md-block">
                                         <img src="{{ asset('site/images/img-loading.png') }}"
-                                             data-src="{{ asset($workshops[$currentIndex]->image) }}"
+                                             data-src="{{ asset('storage/'.$workshops[$currentIndex]->image) }}"
                                              alt="{{ $workshops[$currentIndex]->title }}"
                                              class="img__item img__item-1 lazy"/>
 

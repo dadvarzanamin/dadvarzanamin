@@ -8,7 +8,6 @@ use App\Models\Dashboard\Submenu_panel;
 use App\Models\Menu;
 use App\Models\Profile\Workshop;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -20,8 +19,6 @@ class WorkshopController extends Controller
 {
     public function index(Request $request)
     {
-
-        Artisan::call('storage:link');
         $thispage       = [
             'title'         => 'مدیریت دوره های آموزشی',
             'list_title'    => 'لیست دوره های آموزشی',
