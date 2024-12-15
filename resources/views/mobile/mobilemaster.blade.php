@@ -65,14 +65,25 @@
                                     <i class="fas fa-phone" style="color: #1E2E45"></i>
                                 </a>
 
+{{--                                @if(Auth::check())--}}
+{{--                                    <a href="#tab-profile" class="tab-link">--}}
+{{--                                        <i class="fas fa-user" style="color: #1E2E45"></i>--}}
+{{--                                    </a>--}}
+{{--                                @else--}}
+{{--                                    <a href="#tab-login" class="tab-link">--}}
+{{--                                        <i class="fas fa-lock" style="color: #1E2E45"></i>--}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
                                 @if(Auth::check())
-                                    <a href="#tab-profile" class="tab-link">
+                                    <a href="{{url('پروفایل-من/')}}"
+                                       class="btn theme-btn w-100 theme-btn-white mb-2">
                                         <i class="fas fa-user" style="color: #1E2E45"></i>
+
                                     </a>
                                 @else
-                                    <a href="#tab-login" class="tab-link">
-                                        <i class="fas fa-lock" style="color: #1E2E45"></i>
-                                    </a>
+                                    <a href="{{route('register')}}"
+                                       class="btn theme-btn w-100 theme-btn-white mb-2">جهت ثبت نام کلیک
+                                        کنید</a>
                                 @endif
                             </div>
                         </div>
