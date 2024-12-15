@@ -511,7 +511,7 @@ class ProfileController extends Controller
         $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
         $learnfiles = Learnfile::all();
 
-        return view('Site.Dashboard.message')->with(compact('companies', 'learnfiles', 'dashboardmenus', 'notifs'));
+        return view('Site.Dashboard.learnbook')->with(compact('companies', 'learnfiles', 'dashboardmenus', 'notifs'));
 
     }
     public function setting()
