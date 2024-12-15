@@ -47,14 +47,14 @@
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            <img src="{{asset($learnfile->image)}}"></li>
+                                            <img src="{{asset($learnfile->image)}}" style="max-width: 160px"></li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
                                             <a href="{{ asset( $learnfile->file) }}" target="_blank">
-                                                {{ $learnfile->file }}
+                                               دانلود
                                             </a>
                                         </li>
                                     </ul>

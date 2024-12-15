@@ -509,7 +509,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
         $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
-        $learnfiles = Learnfile::all();
+        $learnfiles = Learnfile::whereStatus(4)->get();
 
         return view('Site.Dashboard.learnbook')->with(compact('companies', 'learnfiles', 'dashboardmenus', 'notifs'));
 
