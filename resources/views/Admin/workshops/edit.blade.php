@@ -83,10 +83,31 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <div class="form-group" style="position: absolute;">
                                                     <p class="mg-b-10">تصویر بنر دوره</p>
                                                     <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset('storage/'.$workshops->image)}}" data-height="200">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">مدت زمان</p>
+                                                    <input type="text" name="duration" id="duration"
+                                                           value="{{$workshops->duration}}"
+                                                           class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">سطح دوره</p>
+                                                    <select name="level" id="level"
+                                                            class="form-control select-lg select2">
+                                                        <option value={{$workshops->level == 'مقدماتی' ? 'selected' : '' }}>مقدماتی</option>
+                                                        <option value={{$workshops->level == 'متوسط' ? 'selected' : '' }}>متوسط</option>
+                                                        <option value={{$workshops->level == 'پیشرفته' ? 'selected' : '' }}>پیشرفته</option>
+                                                        <option value={{$workshops->level == 'همه موارد' ? 'selected' : '' }}>همه موارد</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div  class="col-md-3">
@@ -97,6 +118,21 @@
                                                 <div class="form-group" style="margin-top: 65px;">
                                                     <p class="mg-b-10">درباره دوره</p>
                                                     <textarea name="description" id="editor" cols="30" rows="5" class="form-control" >{{$workshops->description}}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="margin-top: 65px;">
+                                                    <p class="mg-b-10"> اهداف دوره</p>
+                                                    <textarea name="text" id="editor2" cols="30" rows="5"
+                                                              class="form-control">{{$workshops->target}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group" style="margin-top: 65px;">
+                                                    <p class="mg-b-10">رزومه مدرس دوره</p>
+                                                    <textarea name="text" id="editor3" cols="30" rows="5"
+                                                              class="form-control">{{$workshops->teacher_resume}}</textarea>
                                                 </div>
                                             </div>
 
@@ -133,6 +169,8 @@
     <script src="{{asset('admin/assets/plugins/ckeditor/ckeditor.js')}}"></script>
     <script>
         CKEDITOR.replace( 'editor' );
+        CKEDITOR.replace( 'editor2' );
+        CKEDITOR.replace( 'editor3' );
     </script>
 @endsection
 

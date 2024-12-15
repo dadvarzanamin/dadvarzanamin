@@ -97,6 +97,14 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
+                                                <p class="mg-b-10">مدت زمان</p>
+                                                <input type="text" name="duration" id="duration"
+                                                       placeholder="مدت دوره را وارد نمایید"
+                                                       class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
                                                 <p class="mg-b-10">سطح دوره</p>
                                                 <select name="level" id="level"
                                                         class="form-control select-lg select2">
@@ -139,14 +147,7 @@
                                                           class="form-control"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <p class="mg-b-10">مدت زمان</p>
-                                                <input type="text" name="duration" id="duration"
-                                                       placeholder="مدت دوره را وارد نمایید"
-                                                       class="form-control"/>
-                                            </div>
-                                        </div>
+
                                         <div class="col-lg-12 mg-b-10 text-center">
                                             <div class="form-group">
                                                 <button type="button" id="submit" class="btn btn-info  btn-lg m-r-20">
