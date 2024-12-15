@@ -86,7 +86,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group" style="position: absolute;">
                                                     <p class="mg-b-10">تصویر بنر دوره</p>
-                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset($workshops->teacher_image)}}" data-height="200">
+                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset($workshops->image)}}" data-height="200">
                                                 </div>
                                             </div>
                                             <div  class="col-md-3">

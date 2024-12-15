@@ -193,7 +193,7 @@ class WorkshopController extends Controller
                 $file       = $request->file('file_link');
                 $imagePath  ="public/workshops";
                 $imageName  = Str::random(30).".".$file->clientExtension();
-                $workshops->teacher_image = 'workshops/'.$imageName;
+                $workshops->image = 'workshops/'.$imageName;
                 $file->storeAs($imagePath, $imageName);
 
             }
