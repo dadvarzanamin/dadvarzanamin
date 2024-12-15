@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
 use App\Models\Company;
 use App\Models\Dashboard\Estelam;
+use App\Models\Dashboard\Learnfile;
 use App\Models\Dashboard\notif_user;
 use App\Models\Dashboard\Subestelam;
 use App\Models\Menu;
@@ -501,6 +502,18 @@ class ProfileController extends Controller
 
     }
 
+    public function learnbook()
+    {
+
+        $companies = Company::first();
+        $user = Auth::user();
+        $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
+        $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
+        $learnfiles = Learnfile::all();
+
+        return view('Site.Dashboard.message')->with(compact('companies', 'learnfiles', 'dashboardmenus', 'notifs'));
+
+    }
     public function setting()
     {
 
