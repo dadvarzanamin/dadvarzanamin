@@ -1839,9 +1839,8 @@ h6 {
     }
 }
 
-.text-primary {
+.service-item .text-primary {
     color: #cea54a !important;
-
 }
 
 .highlight-text {
