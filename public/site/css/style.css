@@ -1915,30 +1915,30 @@ h6 {
 }
 
 .btn-primary {
-    background-color: #cea54a;
+    background-color: #cea54a !important;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #e3a928;
+    background-color: #e3a928 !important;
 }
 
 .btn-primary:focus {
-    background-color: #e3a928;
+    background-color: #e3a928 !important;
 }
 
 .btn-primary:active {
-    background-color: #e3a928;
+    background-color: #e3a928 !important;
 }
 
 .btn-outline-primary {
-    border: 1px solid #cea54a;
-    color: #22223a;
+    border: 1px solid #cea54a !important;
+    color: #22223a !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: #cea54a;
-    border: 1px solid #cea54a;
+    background-color: #cea54a !important;
+    border: 1px solid #cea54a !important;
 }
 
 .section-divider {
