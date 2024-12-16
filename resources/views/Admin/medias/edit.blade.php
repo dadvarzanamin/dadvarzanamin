@@ -1,6 +1,6 @@
 @extends('Admin.admin')
 @section('title')
-    <title> ویرایش  اسلاید ها </title>
+    <title>{{$thispage['create_title']}}</title>
     <link href="{{asset('admin/assets/plugins/spectrum-colorpicker/spectrum.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet">
     <link href="{{asset('admin/assets/plugins/ion-rangeslider/css/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
@@ -20,74 +20,74 @@
                         <div class="card custom-card">
                             <div class="card-body" style="background-color: #0000000a;border-radius: 10px 10px 0px 0px;">
                                 <div class="row">
-                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">ویرایش اطلاعات اسلاید</a></div>
+                                    <div class="col"><a href="{{url()->current()}}" class="btn btn-link btn-xs">{{$thispage['create_title']}}</a></div>
                                     <div class="col text-left"><a href="{{url(request()->segment(1).'/'.request()->segment(2))}}" class="btn btn-link btn-xs">بازگشت</a></div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                    <form action="{{route(request()->segment(2).'.'.'update', $slides->id)}}" method="post" enctype="multipart/form-data">
+                                    <form action="{{route(request()->segment(2).'.'.'update', $medias->id)}}" method="post" enctype="multipart/form-data">
                                         {{csrf_field()}}
                                         {{method_field('PATCH')}}
                                         <div class="row row-sm">
                                             <div class="col-md-12">
 {{--                                                @include('error')--}}
                                             </div>
-                                            <input type="hidden" name="slide_id" id="slide_id" data-required="1" value="{{$slides->id}}" class="form-control" />
+                                            <input type="hidden" name="media_id" id="media_id" data-required="1" value="{{$medias->id}}" class="form-control" />
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تیتر1</p>
-                                                    <input type="text" name="title1" id="title1"  value="{{$slides->title1}}"  class="form-control" />
+                                                    <p class="mg-b-10">تیتر</p>
+                                                    <input type="text" name="title1" id="title1"  value="{{$medias->title}}"  class="form-control" />
                                                 </div>
                                             </div>
-                                            <div  class="col-md-3">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">تیتر2</p>
-                                                    <input type="text" name="title2" id="title2" value="{{$slides->title2}}"  class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div  class="col-md-3">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">تیتر3</p>
-                                                    <input type="text" name="title3" id="title3" value="{{$slides->title3}}"  class="form-control" />
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">انتخاب وضعیت نمایش</p>
                                                     <select name="status" id="status" class="form-control select-lg select2">
-                                                        <option value="0" {{$slides->status == 0 ? 'selected' : '' }}>عدم نمایش</option>
-                                                        <option value="4" {{$slides->status == 4 ? 'selected' : '' }}>در حال نمایش</option>
+                                                        <option value="0" {{$medias->status == 0 ? 'selected' : '' }}>عدم نمایش</option>
+                                                        <option value="4" {{$medias->status == 4 ? 'selected' : '' }}>در حال نمایش</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">انتخاب منو</p>
-                                                    <select name="menu_id" id="menu_id" class="form-control select-lg select2">
-                                                        <option value="">انتخاب منو</option>
-                                                        @foreach($menus as $menu)
-                                                            <option value="{{$menu->id}}" {{$menu->id == $slides->menu_id ? 'selected' : ''}}>{{$menu->title}}</option>
+                                                    <p class="mg-b-10">نمایش در صفحه</p>
+                                                    <select name="submenu_id" id="submenu_id" class="form-control select-lg select2">
+                                                        <option value="" >انتخاب صفحه</option>
+                                                        @foreach($submenus as $submenu)
+                                                            <option value="{{$submenu->id}}" {{$medias->submenu_id == $submenu->id ? 'selected' : '' }}>{{$submenu->title}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div  class="col-md-6">
-                                                <div class="form-group">
-                                                    <p class="mg-b-10">موارد نمایش در اسلاید</p>
-                                                    <input type="text" name="word" id="word" @if($slides['word']) value="{{implode("،" , json_decode($slides['word']))}}" @endif class="form-control" />
-                                                </div>
-                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <p class="mg-b-10">تصویر اسلاید</p>
-                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset('storage/'.$slides->file_link)}}" data-height="200">
+                                                    <p class="mg-b-10">تصویر کاور</p>
+                                                    <input type="file" name="file_link" id="file_link" class="dropify" data-default-file="{{asset('storage/'.$medias->file_link)}}" data-height="200">
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">کلمات کلیدی</p>
+                                                    <input type="text" name="keyword" id="keyword" data-required="1" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">لینک آپارات</p>
+                                                    <input type="text" name="aparat" id="aparat" data-required="1" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">فایل ویدئو</p>
+                                                    <input type="file" name="file" id="file" data-required="1" class="form-control" />
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <p class="mg-b-10"> توضیحات</p>
-                                                    <textarea name="text" id="editor" cols="30" rows="5" class="form-control" >{{$slides->text}}</textarea>
+                                                    <textarea name="text" id="editor" cols="30" rows="5" class="form-control" >{{$medias->text}}</textarea>
                                                 </div>
                                             </div>
 

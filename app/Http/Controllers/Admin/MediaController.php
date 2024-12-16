@@ -169,38 +169,46 @@ class MediaController extends Controller
             'enter_title'   => 'ورود اطلاعات مدیا',
         ];
         $menus          =   Menu::whereStatus(4)->get();
-        $slides         =   Slide::whereId($id)->first();
+        $medias         =   Media::whereId($id)->first();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
-        return view('Admin.slides.edit')
-            ->with(compact(['menupanels' , 'submenupanels'  , 'slides' , 'menus' , 'thispage']));
+        return view('Admin.medias.edit')
+            ->with(compact(['menupanels' , 'submenupanels'  , 'medias' , 'menus' , 'thispage']));
 
     }
 
     public function update(Request $request)
     {
         try{
-            $slide = Slide::whereId($request->input('slide_id'))->first();
-            $slide->title1      = $request->input('title1');
-            $slide->title2      = $request->input('title2');
-            $slide->title3      = $request->input('title3');
-            $slide->menu_id     = $request->input('menu_id');
-            $slide->text        = $request->input('text');
-            if($request->input('word')) {
-                $slide->word = json_encode(explode('،', $request->input('word')));
-            }
-            $slide->status      = $request->input('status');
-
-            if ($request->hasfile('file_link')) {
-                $file             = $request->file('file_link');
-                $imagePath        ="public/slides";
-                $imageName        = Str::random(30).".".$file->clientExtension();
-                $slide->file_link = 'slides/'.$imageName;
-                $file->storeAs($imagePath, $imageName);
+            $medias = Media::whereId($request->input('media_id'))->first();
+            $medias->title       = $request->input('title');
+            $medias->description = $request->input('description');
+            $medias->aparat      = $request->input('aparat');
+            $medias->status      = $request->input('status');
+            $medias->submenu_id  = $request->input('submenu_id');
+            $medias->user_id     = Auth::user()->id;
+            if($request->input('keyword')) {
+                $medias->keyword = json_encode(explode("،", $request->input('keyword')));
             }
 
-            $result = $slide->save();
+            $id = md5(random_int(10 , 999999));
+
+            if ($request->hasFile('file')) {
+                $file              = $request->file('file');
+                $Name              = md5(uniqid(rand(), true)) .'.'. $file->clientExtension();
+                $Path              = "medias/$id";
+                $medias->file_link        = 'medias/'.$id.'/'.$Name;
+                $file->move($Path, $Name);
+            }
+            if ($request->hasFile('image')) {
+                $cover = $request->file('image');
+                $imagePath ="medias/$id";
+                $imageName = md5(uniqid(rand(), true)) .'.'. $cover->clientExtension();
+                $medias->cover = 'medias/'.$id.'/'.$imageName;
+                $cover->move($imagePath, $imageName);
+            }
+            $result = $medias->save();
 
             if ($result == true) {
                 Alert::success('عملیات موفق', 'اطلاعات با موفقیت ثبت شد')->autoclose(3000);
