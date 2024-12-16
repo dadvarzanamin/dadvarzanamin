@@ -23,10 +23,10 @@
                     <table class="table generic-table">
                         <thead>
                         <tr>
-                            <th scope="col"> ردیف</th>
-                            <th scope="col">نام فایل</th>
-                            <th scope="col">تصویر فایل</th>
-                            <th scope="col">منبع </th>
+                            <th scope="col">ردیف</th>
+                            <th scope="col">نام</th>
+                            <th scope="col">تصویر</th>
+                            <th scope="col">فایل ضمیمه</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,7 +45,7 @@
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            <img src="{{asset($learnfile->image)}}" style="max-width: 160px"></li>
+                                            <img src="{{asset($learnfile->image)}}" style="max-width: 100px;border-radius: 8px" alt="learn file"></li>
                                     </ul>
                                 </td>
                                 <td>

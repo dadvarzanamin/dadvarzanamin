@@ -1,6 +1,28 @@
 @extends('master')
 @section('main')
+    <style>
+        .modal-body {
+            padding: 0;
+        }
 
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
     <section class="breadcrumb-area pt-50px pb-50px bg-white pattern-bg">
         <div class="container">
             <div class="col-lg-8 mr-auto">
@@ -270,7 +292,6 @@
                                                 مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                                             </p>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -555,7 +576,7 @@
                                     <div class="buy-course-btn-box">
                                         @if($singleworkshops->status==4)
                                             @if(Auth::check())
-                                                <a href="{{route('profile')}}"
+                                                <a href="{{url('/کارگاه-آموزشی')}}"
                                                    class="btn theme-btn w-100 theme-btn-white mb-2">جهت تکمیل ثبت نام در
                                                     کارگاه آموزشی کلیک کنید</a>
                                             @else
@@ -652,27 +673,7 @@
         </div>
     </section>
     <style>
-        .modal-body {
-            padding: 0;
-        }
 
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background-color: #000;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
     </style>
     <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalTitle"
          aria-hidden="true">

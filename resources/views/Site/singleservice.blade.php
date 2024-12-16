@@ -48,22 +48,45 @@
                                 {!! $services->description !!}
                             </p>
                             <div class="section-block"></div>
-                            <div class="col my-4 container">
-                                <p class="text-center">
-                                    برای استفاده از خدمات ما می توانید از پروفایل کاربری اقدام کنید.
-                                </p>
-                                <div class="d-flex my-3 justify-content-center">
-                                    @if(Auth()->check())
-                                        {{--                            <a type="button" class="btn btn-fs br-8 mr-2" href="{{route('logout')}}">خروج</a>--}}
-                                        <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('profile')}}">ورود به حساب
-                                            کاربری</a>
-                                    @else
-                                        <a type="button" class="btn btn btn-fs br-8 mr-2" href="{{route('login')}}">ورود</a>
-                                        <a type="button" class="btn btn-dark btn-fs br-8 mr-2" href="{{route('register')}}">ثبت
-                                            نام در سایت</a>
-                                    @endif
+                            <div class="services-section container my-5 py-4 border rounded shadow">
+                                <div class="text-center">
+                                    <h3 class="mb-3 text-primary">خدمات ما</h3>
+                                    <p class="text-muted">
+                                        برای استفاده از خدمات متنوع ما، ابتدا در سایت ثبت‌نام کنید یا وارد حساب کاربری
+                                        خود شوید.
+                                    </p>
+                                </div>
+                                <div class="d-flex flex-column align-items-center mt-4">
+                                    <div class="service-icons d-flex justify-content-around w-75 mb-4">
+                                        <div class="service-item text-center">
+                                            <i class="fa fa-briefcase text-primary fa-3x mb-2"></i>
+                                            <p>خدمات وکلا</p>
+                                        </div>
+                                        <div class="service-item text-center">
+                                            <i class="fa fa-file text-primary fa-3x mb-2"></i>
+                                            <p>خدمات موکلین</p>
+                                        </div>
+                                    </div>
+                                    <div class="user-actions d-flex mt-4">
+                                        @if(Auth()->check())
+                                            <a type="button" class="btn btn-success btn-lg mx-2"
+                                               href="{{route('profile')}}">
+                                                ورود به حساب کاربری
+                                            </a>
+                                        @else
+                                            <a type="button" class="btn btn-primary btn-lg mx-2"
+                                               href="{{route('login')}}">
+                                                ورود
+                                            </a>
+                                            <a type="button" class="btn btn-outline-primary btn-lg mx-2"
+                                               href="{{route('register')}}">
+                                                ثبت‌نام
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
+
 
                             <div class="section-block"></div>
                             <h3 class="fs-18 font-weight-semi-bold pt-3">برچسب ها</h3>
@@ -160,15 +183,17 @@
                                 </a>
                                 <div class="divider"><span></span></div>
                                 <a href="{{url('/دپارتمان-دعاوی/املاک')}}">املاک
-                                    <div class="divider"><span></span></div>
-                                    <a href="{{url('/دپارتمان-دعاوی/خانواده')}}">خانواده
-                                    </a>
-                                    <div class="divider"><span></span></div>
-                                    <a href="{{url('/دپارتمان-دعاوی/شهرداری')}}">شهرداری
-                                    </a>
-                                    <div class="divider"><span></span></div>
-                                    <a href="{{url('/دپارتمان-دعاوی/حقوق-معادن')}}">حقوق معادن
-                                    </a>
+                                </a>
+                                <div class="divider"><span></span></div>
+                                <a href="{{url('/دپارتمان-دعاوی/خانواده')}}">خانواده
+                                </a>
+                                <div class="divider"><span></span></div>
+                                <a href="{{url('/دپارتمان-دعاوی/شهرداری')}}">شهرداری
+                                </a>
+                                <div class="divider"><span></span></div>
+                                <a href="{{url('/دپارتمان-دعاوی/حقوق-معادن')}}">حقوق معادن
+                                </a>
+
                                 {{--                            <h3 class="card-title fs-18 pb-2">مطالب مرتبط</h3>--}}
                                 {{--                            <div class="divider"><span></span></div>--}}
                                 {{--                            <ul class="generic-list-item a-text-black">--}}
