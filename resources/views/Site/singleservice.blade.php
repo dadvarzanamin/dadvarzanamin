@@ -50,7 +50,7 @@
                             <div class="section-block"></div>
                             <div class="services-section container my-5 py-4 border rounded shadow">
                                 <div class="text-center">
-                                    <h3 class="mb-3 text-primary">خدمات ما</h3>
+                                    <h3 class="mb-3 text-color">خدمات ما</h3>
                                     <p class="text-muted">
                                         برای استفاده از خدمات متنوع ما، ابتدا در سایت ثبت‌نام کنید یا وارد حساب کاربری
                                         خود شوید.
@@ -59,11 +59,11 @@
                                 <div class="d-flex flex-column align-items-center mt-4">
                                     <div class="service-icons d-flex justify-content-around w-75 mb-4">
                                         <div class="service-item text-center">
-                                            <i class="fa fa-briefcase text-primary fa-3x mb-2"></i>
+                                            <i class="fa fa-briefcase .text-color fa-3x mb-2"></i>
                                             <p>خدمات وکلا</p>
                                         </div>
                                         <div class="service-item text-center">
-                                            <i class="fa fa-file text-primary fa-3x mb-2"></i>
+                                            <i class="fa fa-file .text-color fa-3x mb-2"></i>
                                             <p>خدمات موکلین</p>
                                         </div>
                                     </div>
