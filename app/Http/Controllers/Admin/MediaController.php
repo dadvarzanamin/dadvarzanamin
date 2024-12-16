@@ -94,7 +94,7 @@ class MediaController extends Controller
             'create_title'  => 'ایجاد مدیا',
             'enter_title'   => 'ورود اطلاعات مدیا',
         ];
-        $submenus          =   Submenu::whereStatus(4)->get();
+        $submenus       =   Submenu::whereStatus(4)->get();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
@@ -171,10 +171,11 @@ class MediaController extends Controller
         $menus          =   Menu::whereStatus(4)->get();
         $medias         =   Media::whereId($id)->first();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
+        $submenus       =   Submenu::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         return view('Admin.medias.edit')
-            ->with(compact(['menupanels' , 'submenupanels'  , 'medias' , 'menus' , 'thispage']));
+            ->with(compact(['menupanels' , 'submenupanels'  , 'medias' , 'menus' , 'thispage' , 'submenus']));
 
     }
 
