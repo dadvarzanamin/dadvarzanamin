@@ -24,7 +24,7 @@ class LearnfileController extends Controller
 {
     public function index(Request $request)
     {
-        $thispage       = [
+        $thispage = [
             'title'         => 'مدیریت فایل آموزشی ',
             'list_title'    => 'لیست فایل آموزشی',
             'add_title'     => 'افزودن فایل آموزشی',
@@ -32,15 +32,14 @@ class LearnfileController extends Controller
             'enter_title'   => 'ورود اطلاعات فایل آموزشی',
             'edit_title'    => 'ویرایش اطلاعات فایل آموزشی',
         ];
-        $learnfiles     =   Learnfile::all();
-        $menupanels     =   Menu_panel::whereStatus(4)->get();
-        $submenupanels  =   Submenu_panel::whereStatus(4)->get();
+        $learnfiles     = Learnfile::all();
+        $menupanels     = Menu_panel::whereStatus(4)->get();
+        $submenupanels  = Submenu_panel::whereStatus(4)->get();
 
         if ($request->ajax()) {
             $data = DB::table('learnfiles')->get();
 
             return Datatables::of($data)
-
                 ->addColumn('id', function ($data) {
                     return ($data->id);
                 })
@@ -53,8 +52,7 @@ class LearnfileController extends Controller
                 ->addColumn('status', function ($data) {
                     if ($data->status == "0") {
                         return "عدم نمایش";
-                    }
-                    elseif ($data->status == "4") {
+                    } elseif ($data->status == "4") {
                         return "در حال نمایش";
                     }
                 })
@@ -63,72 +61,70 @@ class LearnfileController extends Controller
                 })
                 ->editColumn('action', function ($data) {
                     $actionBtn = '<a href="' . route('learn-file.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
-                    <button type="button" id="submit" data-toggle="modal" data-target="#myModal'.$data->id.'" class="btn ripple btn-outline-danger btn-icon " style="float: right;"><i class="fe fe-trash-2 "></i></button>';
+                    <button type="button" id="submit" data-toggle="modal" data-target="#myModal' . $data->id . '" class="btn ripple btn-outline-danger btn-icon " style="float: right;"><i class="fe fe-trash-2 "></i></button>';
 
                     return $actionBtn;
                 })
-
-                ->rawColumns(['action' , 'image'])
+                ->rawColumns(['action', 'image'])
                 ->make(true);
         }
 
         return view('Admin.learnfiles.all')
-            ->with(compact(['menupanels' , 'submenupanels' , 'learnfiles' , 'thispage']));
+            ->with(compact(['menupanels', 'submenupanels', 'learnfiles', 'thispage']));
     }
 
     public function create()
     {
-        $thispage       = [
-            'title'         => 'مدیریت فایل آموزشی ',
-            'list_title'    => 'لیست فایل آموزشی',
-            'add_title'     => 'افزودن فایل آموزشی',
-            'create_title'  => 'ایجاد فایل آموزشی',
-            'enter_title'   => 'ورود اطلاعات فایل آموزشی',
-            'edit_title'    => 'ویرایش اطلاعات فایل آموزشی',
+        $thispage = [
+            'title' => 'مدیریت فایل آموزشی ',
+            'list_title' => 'لیست فایل آموزشی',
+            'add_title' => 'افزودن فایل آموزشی',
+            'create_title' => 'ایجاد فایل آموزشی',
+            'enter_title' => 'ورود اطلاعات فایل آموزشی',
+            'edit_title' => 'ویرایش اطلاعات فایل آموزشی',
         ];
-        $menupanels         =   Menu_panel::whereStatus(4)->get();
-        $submenupanels      =   Submenu_panel::whereStatus(4)->get();
+        $menupanels = Menu_panel::whereStatus(4)->get();
+        $submenupanels = Submenu_panel::whereStatus(4)->get();
 
         return view('Admin.learnfiles.create')
-            ->with(compact(['menupanels' , 'submenupanels' , 'thispage']));
+            ->with(compact(['menupanels', 'submenupanels', 'thispage']));
     }
 
     public function store(Request $request)
     {
 
-        try{
+        try {
 
             $learnfile = new Learnfile();
-            $learnfile->title       = $request->input('title');
+            $learnfile->title = $request->input('title');
             $learnfile->description = $request->input('description');
-            $learnfile->status      = $request->input('status');
-            $learnfile->user_id     = Auth::user()->id;
-            $id = md5(random_int(10 , 999999));
+            $learnfile->status = $request->input('status');
+            $learnfile->user_id = Auth::user()->id;
+            $id = md5(random_int(10, 999999));
 
             if ($request->hasFile('file')) {
-                $file              = $request->file('file');
-                $Name              = md5(uniqid(rand(), true)) .'.'. $file->clientExtension();
-                $Path              = "learnfiles/$id";
-                $learnfile->file   = 'learnfiles/'.$id.'/'.$Name;
+                $file = $request->file('file');
+                $Name = md5(uniqid(rand(), true)) . '.' . $file->clientExtension();
+                $Path = "learnfiles/$id";
+                $learnfile->file = 'learnfiles/' . $id . '/' . $Name;
                 $file->move($Path, $Name);
             }
             if ($request->hasFile('image')) {
                 $cover = $request->file('image');
-                $imagePath ="learnfiles/$id";
-                $imageName = md5(uniqid(rand(), true)) .'.'. $cover->clientExtension();
-                $learnfile->image = 'learnfiles/'.$id.'/'.$imageName;
+                $imagePath = "learnfiles/$id";
+                $imageName = md5(uniqid(rand(), true)) . '.' . $cover->clientExtension();
+                $learnfile->image = 'learnfiles/' . $id . '/' . $imageName;
                 $cover->move($imagePath, $imageName);
             }
             $result = $learnfile->save();
             if ($result == true) {
                 $success = true;
-                $flag    = 'success';
+                $flag = 'success';
                 $subject = 'عملیات موفق';
                 $message = 'اطلاعات با موفقیت ثبت شد';
-            }
-            else {
+            } else {
                 $success = false;
-                $flag    = 'error';
+                $flag = 'error';
                 $subject = 'عملیات نا موفق';
                 $message = 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید';
             }
@@ -136,31 +132,31 @@ class LearnfileController extends Controller
         } catch (Exception $e) {
 
             $success = false;
-            $flag    = 'error';
+            $flag = 'error';
             $subject = 'خطا در ارتباط با سرور';
             //$message = strchr($e);
             $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
         }
 
-        return response()->json(['success'=>$success , 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
+        return response()->json(['success' => $success, 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
     }
 
     public function edit($id)
     {
-        $thispage       = [
-            'title'         => 'مدیریت فایل آموزشی ',
-            'list_title'    => 'لیست فایل آموزشی',
-            'add_title'     => 'افزودن فایل آموزشی',
-            'create_title'  => 'ایجاد فایل آموزشی',
-            'enter_title'   => 'ورود اطلاعات فایل آموزشی',
-            'edit_title'    => 'ویرایش اطلاعات فایل آموزشی',
+        $thispage = [
+            'title' => 'مدیریت فایل آموزشی ',
+            'list_title' => 'لیست فایل آموزشی',
+            'add_title' => 'افزودن فایل آموزشی',
+            'create_title' => 'ایجاد فایل آموزشی',
+            'enter_title' => 'ورود اطلاعات فایل آموزشی',
+            'edit_title' => 'ویرایش اطلاعات فایل آموزشی',
         ];
-        $learnfiles         =   Learnfile::whereId($id)->first();
-        $menupanels         =   Menu_panel::whereStatus(4)->get();
-        $submenupanels      =   Submenu_panel::whereStatus(4)->get();
+        $learnfiles = Learnfile::whereId($id)->first();
+        $menupanels = Menu_panel::whereStatus(4)->get();
+        $submenupanels = Submenu_panel::whereStatus(4)->get();
 
         return view('Admin.learnfiles.edit')
-            ->with(compact(['menupanels' , 'submenupanels'  , 'learnfiles' , 'thispage']));
+            ->with(compact(['menupanels', 'submenupanels', 'learnfiles', 'thispage']));
 
     }
 
@@ -168,31 +164,30 @@ class LearnfileController extends Controller
     {
         try {
             $learnfile = Learnfile::whereId($id)->first();
-            $learnfile->title       = $request->input('title');
+            $learnfile->title = $request->input('title');
             $learnfile->description = $request->input('description');
-            $learnfile->status      = $request->input('status');
-            $learnfile->user_id     = Auth::user()->id;
-            $id = md5(random_int(10 , 999999));
+            $learnfile->status = $request->input('status');
+            $learnfile->user_id = Auth::user()->id;
+            $id = md5(random_int(10, 999999));
 
             if ($request->hasFile('file')) {
-                $file              = $request->file('file');
-                $Name              = md5(uniqid(rand(), true)) .'.'. $file->clientExtension();
-                $Path              = "learnfiles/$id";
-                $learnfile->file        = 'learnfiles/'.$id.'/'.$Name;
+                $file = $request->file('file');
+                $Name = md5(uniqid(rand(), true)) . '.' . $file->clientExtension();
+                $Path = "learnfiles/$id";
+                $learnfile->file = 'learnfiles/' . $id . '/' . $Name;
                 $file->move($Path, $Name);
             }
             if ($request->hasFile('image')) {
                 $cover = $request->file('image');
-                $imagePath ="learnfiles/$id";
-                $imageName = md5(uniqid(rand(), true)) .'.'. $cover->clientExtension();
-                $learnfile->image = 'learnfiles/'.$id.'/'.$imageName;
+                $imagePath = "learnfiles/$id";
+                $imageName = md5(uniqid(rand(), true)) . '.' . $cover->clientExtension();
+                $learnfile->image = 'learnfiles/' . $id . '/' . $imageName;
                 $cover->move($imagePath, $imageName);
             }
             $result = $learnfile->save();
             if ($result == true) {
                 Alert::success('عملیات موفق', 'اطلاعات با موفقیت ثبت شد')->autoclose(3000);
-            }
-            else {
+            } else {
                 Alert::error('عملیات نا موفق', 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید')->autoclose(3000);
             }
         } catch (Exception $e) {
@@ -203,18 +198,18 @@ class LearnfileController extends Controller
 
     public function deletelearnfile(Request $request)
     {
-        try{
+        try {
             $learnfile = Learnfile::findOrfail($request->input('id'));
             $result = $learnfile->delete();
 
             if ($result == true) {
                 $success = true;
-                $flag    = 'success';
+                $flag = 'success';
                 $subject = 'عملیات موفق';
                 $message = 'اطلاعات با موفقیت پاک شد';
-            }else{
+            } else {
                 $success = false;
-                $flag    = 'error';
+                $flag = 'error';
                 $subject = 'عملیات ناموفق';
                 $message = 'اطلاعات پاک نشد، لطفا مجددا تلاش نمایید';
             }
@@ -222,11 +217,11 @@ class LearnfileController extends Controller
         } catch (Exception $e) {
 
             $success = false;
-            $flag    = 'error';
+            $flag = 'error';
             $subject = 'خطا در ارتباط با سرور';
             $message = 'اطلاعات پاک نشد،لطفا بعدا مجدد تلاش نمایید ';
         }
-        return response()->json(['success'=>$success , 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
+        return response()->json(['success' => $success, 'subject' => $subject, 'flag' => $flag, 'message' => $message]);
     }
 
     public function download($id)
@@ -283,8 +278,6 @@ class LearnfileController extends Controller
         $pdf->Output($outputFilePath, 'F');
 
 
-
-
 //
 //        $pdf = new TCPDF();
 //
@@ -318,8 +311,6 @@ class LearnfileController extends Controller
 //
 //        // خروجی PDF
 //        $pdf->Output('example.pdf', 'D'); // 'D' برای دانلود
-
-
 
 
 //        $pdf = new \TCPDF();

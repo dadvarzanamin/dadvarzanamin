@@ -22,9 +22,11 @@
         "morilog/jalali": "*",
         "php-open-source-saver/jwt-auth": "^2.1",
         "realrashid/sweet-alert": "^7.1",
+        "setasign/fpdi": "^2.6",
         "spatie/ignition": "^1.15",
         "symfony/mailer": "^6.4",
         "symfony/mailgun-mailer": "^6.4",
+        "tecnickcom/tcpdf": "^6.7",
         "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {

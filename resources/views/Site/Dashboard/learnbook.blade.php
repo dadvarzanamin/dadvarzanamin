@@ -51,8 +51,8 @@
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            <a href="{{ asset( $learnfile->file) }}" target="_blank">
-                                               دانلود
+                                            <a href="{{ route('learn-file-download', $learnfile->id) }}" target="_blank">
+                                                مشاهده
                                             </a>
                                         </li>
                                     </ul>
