@@ -222,7 +222,7 @@
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_{{ $loop->index }}">
                             <div class="card-image">
                                 <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}" class="d-block">
-                                    <img class="card-img-top" src="{{ asset($workshop->image) }}" alt="{{ $workshop->title }}">
+                                    <img class="card-img-top" src="{{ asset('storage/'.$workshops->image) }}" alt="{{ $workshop->title }}">
                                 </a>
                                 <div class="course-badge-labels">
 {{--                                    <div class="course-badge">کتاب پرفروش</div>--}}
