@@ -82,87 +82,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-        /*.dep-modal {*/
-        /*    display: none;*/
-        /*    position: fixed;*/
-        /*    z-index: 600;*/
-        /*    left: 0;*/
-        /*    top: 0;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    overflow: auto;*/
-        /*    background-color: rgba(35, 35, 34, 0.4);*/
-        /*    padding-top: 60px;*/
-        /*}*/
-
-        /*.dep-modal-content {*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*    background-color: #fefefe;*/
-        /*    margin: 5% auto;*/
-        /*    padding-left: 20px;*/
-        /*    padding-right: 20px;*/
-        /*    padding-bottom: 120px;*/
-        /*    border: 1px solid rgba(136, 136, 136, 0.55);*/
-        /*    border-radius: 24px;*/
-        /*    height: fit-content;*/
-        /*}*/
-
-        /*.dep-close {*/
-        /*    color: #aaa;*/
-        /*    float: right;*/
-        /*    font-size: 28px;*/
-        /*    font-weight: bold;*/
-        /*}*/
-
-        /*.dep-close:hover,*/
-        /*.dep-close:focus {*/
-        /*    color: black;*/
-        /*    text-decoration: none;*/
-        /*    cursor: pointer;*/
-        /*}*/
-
-        /*.akhbar-modal {*/
-        /*    display: none;*/
-        /*    position: fixed;*/
-        /*    z-index: 600;*/
-        /*    left: 0;*/
-        /*    top: 0;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    overflow: auto;*/
-        /*    background-color: rgba(35, 35, 34, 0.4);*/
-        /*    padding-top: 60px;*/
-        /*}*/
-
-        /*.akhbar-modal-content {*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*    background-color: #fefefe;*/
-        /*    margin: 5% auto;*/
-        /*    padding-left: 20px;*/
-        /*    padding-right: 20px;*/
-        /*    padding-bottom: 120px;*/
-        /*    border: 1px solid rgba(136, 136, 136, 0.55);*/
-        /*    border-radius: 24px;*/
-        /*    height: fit-content;*/
-        /*}*/
-
-        /*.akhbar-close {*/
-        /*    color: #aaa;*/
-        /*    float: right;*/
-        /*    font-size: 28px;*/
-        /*    font-weight: bold;*/
-        /*}*/
-
-        /*.akhbar-close:hover,*/
-        /*.akhbar-close:focus {*/
-        /*    color: black;*/
-        /*    text-decoration: none;*/
-        /*    cursor: pointer;*/
-        /*}*/
-
         .post-modal {
             display: none;
             position: fixed;
@@ -231,40 +150,6 @@
         .item-content h2 {
             margin-top: 15px;
             font-size: 20px;
-        }
-
-        .highlight-text {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(45deg, #4CAF50, #009688);
-            padding: 20px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .highlight-text:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            transition: transform 0.5s ease;
-        }
-
-        .highlight-text:hover {
-            transform: scale(1.05);
-        }
-
-        .highlight-text:hover:before {
-            transform: rotate(360deg);
         }
 
         * {
@@ -501,7 +386,7 @@
                         <span class="dore-close">&times;</span>
                         <div id="doreModalContent">
                             <div class="course-image-container" style="margin-top: 32px">
-                                <img src="{{$currentws->image}}" alt="تصویر دوره" class="course-image">
+                                <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره" class="course-image">
                             </div>
                             <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>
 
@@ -556,7 +441,7 @@
 
                             <div class="course-description">
                                 <h3 style="margin-bottom: 20px">شرح دوره</h3>
-                                <p>{{$currentws->description}}</p>
+                                <p>{!! $currentws->description !!}</p>
                             </div>
 
                             <div class="instructor-info">
@@ -651,43 +536,6 @@
             </div>
         </div>
     @endif
-{{--        <script>--}}
-{{--            // Set the date we're counting down to--}}
-{{--            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();--}}
-
-{{--            // Update the count down every 1 second--}}
-{{--            var x = setInterval(function () {--}}
-
-{{--                // Get today's date and time--}}
-{{--                var now = new Date().getTime();--}}
-
-{{--                // Find the distance between now and the count down date--}}
-{{--                var distance = countDownDate - now;--}}
-
-{{--                // Time calculations for days, hours, minutes and seconds--}}
-{{--                var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
-{{--                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
-{{--                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
-{{--                var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
-
-{{--                // // Display the result in the element with id="demo"--}}
-{{--                // document.getElementById("demo").innerHTML = days + " روز " + hours + " ساعت " + minutes +" دقیقه "+ seconds + " ثانیه " ;--}}
-{{--                // //+ minutes + " دقیقه " + seconds + " ثانیه ";--}}
-{{--                document.getElementById("days").innerHTML = days;--}}
-{{--                document.getElementById("hours").innerHTML = hours;--}}
-{{--                document.getElementById("minutes").innerHTML = minutes;--}}
-{{--                document.getElementById("seconds").innerHTML = seconds;--}}
-{{--                // If the count down is finished, write some text--}}
-{{--                if (distance < 0) {--}}
-{{--                    clearInterval(x);--}}
-{{--                    document.getElementById("days").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("hours").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("minutes").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
-{{--                }--}}
-
-{{--            }, 1000);--}}
-{{--        </script>--}}
     @if($currentws)
         <script>
             // Set the date we're counting down to
