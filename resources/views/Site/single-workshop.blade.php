@@ -43,7 +43,7 @@
                         <p class="pr-3 d-flex align-items-center">
                             <svg class="svg-icon-color-gray mr-1" width="16px" viewBox="0 0 24 24">
                                 <path
-                                    d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 5h-2v-2h2v2zm0-4h-2V7h2v6z"
+                                        d="M23 12l-2.44-2.78.34-3.68-3.61-.82-1.89-3.18L12 3 8.6 1.54 6.71 4.72l-3.61.81.34 3.68L1 12l2.44 2.78-.34 3.69 3.61.82 1.89 3.18L12 21l3.4 1.46 1.89-3.18 3.61-.82-.34-3.68L23 12zm-10 5h-2v-2h2v2zm0-4h-2V7h2v6z"
                                 ></path>
                             </svg>
                             تاریخ برگزاری دوره : {{$singleworkshops->date}}
@@ -532,7 +532,7 @@
                             <div class="card-body">
                                 <div class="preview-course-video">
                                     <a href="javascript:void(0)" data-toggle="modal" data-target="#previewModal">
-                                        <img src="{{asset($singleworkshops->image)}}" data-src="images/preview-img.jpg"
+                                        <img src="{{asset('storage/'.$singleworkshops->image)}}" data-src="images/preview-img.jpg"
                                              alt="course-img" class="w-100 rounded lazy"/>
                                         <div class="preview-course-video-content">
                                             <div class="overlay"></div>
@@ -600,7 +600,7 @@
                                 <ul class="generic-list-item generic-list-item-flash">
                                     <li class="d-flex align-items-center justify-content-between">
                                         <span><i
-                                                class="mr-2 text-color"></i>مدت زمان</span> {{$singleworkshops->duration}}
+                                                    class="mr-2 text-color"></i>مدت زمان</span> {{$singleworkshops->duration}}
                                         ساعت
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between">
@@ -682,7 +682,7 @@
                 <div class="modal-body">
                     <div class="video-container">
                         <iframe
-                            src="https://www.aparat.com/video/video/embed/videohash/{{$singleworkshops->video}}/vt/frame/showvideo/true"
+                                src="https://www.aparat.com/video/video/embed/videohash/{{$singleworkshops->video}}/vt/frame/showvideo/true"
                             allow="autoplay; fullscreen" allowfullscreen></iframe>
                     </div>
                 </div>
