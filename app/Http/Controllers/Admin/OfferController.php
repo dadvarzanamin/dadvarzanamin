@@ -34,7 +34,7 @@ class OfferController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('offers')->leftJoin('workshops' ,'offers.id' ,'=' , 'offers.workshop_id')
-                ->select('workshops.title' , 'offers.discount' , 'offers.percentage' , 'offers.status')->get();
+                ->select('workshops.title' , 'offers.id' , 'offers.discount' , 'offers.percentage' , 'offers.status')->get();
 
             return Datatables::of($data)
 
@@ -75,7 +75,7 @@ class OfferController extends Controller
 //                                </form>';
 //                    return $actionBtn;
 //                })
-                ->rawColumns(['action' , 'file_link'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -110,6 +110,16 @@ class OfferController extends Controller
             $offers->discount       = $request->input('discount');
             $offers->percentage     = $request->input('percentage');
             $offers->status         = $request->input('status');
+
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randomCode = '';
+            $length = 6;
+            for ($i = 0; $i < $length; $i++) {
+                $randomIndex = rand(0, strlen($characters) - 1);
+                $randomCode .= $characters[$randomIndex];
+            }
+
+            $offers->offercode         = $randomCode;
 
             $result = $offers->save();
 
