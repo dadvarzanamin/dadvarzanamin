@@ -33,8 +33,8 @@ class OfferController extends Controller
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         if ($request->ajax()) {
-            $data = DB::table('offers')->leftJoin('workshops' ,'offers.id' ,'=' , 'offers.workshop_id')
-                ->select('workshops.title' , 'offers.id' , 'offers.discount' , 'offers.percentage' , 'offers.status')->get();
+            $data = DB::table('offers')->leftJoin('workshops' ,'offers.workshop_id' ,'=' , 'workshops.id')
+                ->select('workshops.title' , 'offers.id' , 'offers.discount' , 'offers.percentage' , 'offers.status' , 'offers.offercode')->get();
 
             return Datatables::of($data)
 
@@ -50,6 +50,9 @@ class OfferController extends Controller
                 ->addColumn('percentage', function ($data) {
                     return ($data->percentage);
                 })
+                ->addColumn('offercode', function ($data) {
+                    return ($data->offercode);
+                })
                 ->addColumn('status', function ($data) {
                     if ($data->status == "0") {
                         return "عدم نمایش";
@@ -59,7 +62,7 @@ class OfferController extends Controller
                     }
                 })
                 ->addColumn('action', function ($data) {
-                    $actionBtn = '<a href="' . route('offers-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
+                    $actionBtn = '<a href="' . route('offer-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
                     <button type="button" id="submit" data-toggle="modal" data-target="#myModal'.$data->id.'" class="btn ripple btn-outline-danger btn-icon " style="float: right;"><i class="fe fe-trash-2 "></i></button>';
 
                     return $actionBtn;
@@ -110,10 +113,11 @@ class OfferController extends Controller
             $offers->discount       = $request->input('discount');
             $offers->percentage     = $request->input('percentage');
             $offers->status         = $request->input('status');
+            $offers->user_id        = Auth::user()->id;
 
-            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%';
             $randomCode = '';
-            $length = 6;
+            $length = 8;
             for ($i = 0; $i < $length; $i++) {
                 $randomIndex = rand(0, strlen($characters) - 1);
                 $randomCode .= $characters[$randomIndex];
@@ -195,8 +199,9 @@ class OfferController extends Controller
         return Redirect::back();
     }
 
-    public function deleteoffers(Request $request)
+    public function deleteoffer(Request $request)
     {
+
         try {
 
             $offer = Offer::findOrfail($request->input('id'));

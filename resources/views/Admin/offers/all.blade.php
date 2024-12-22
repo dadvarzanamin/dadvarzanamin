@@ -30,6 +30,7 @@
                                             <th class="wd-10p"> نام دوره </th>
                                             <th class="wd-10p"> مبلغ تخفیف </th>
                                             <th class="wd-10p"> درصد تخفیف </th>
+                                            <th class="wd-10p"> کد تخفیف </th>
                                             <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
@@ -80,12 +81,13 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'discount'   , name: 'discount'},
-                    {data: 'percentage' , name: 'percentage'},
-                    {data: 'status'     , name: 'status'},
-                    {data: 'action'     , name: 'action', orderable: true, searchable: true},
+                    {data: 'id'             , name: 'id'},
+                    {data: 'title'          , name: 'title'},
+                    {data: 'discount'       , name: 'discount'},
+                    {data: 'percentage'     , name: 'percentage'},
+                    {data: 'offercode'      , name: 'offercode'},
+                    {data: 'status'         , name: 'status'},
+                    {data: 'action'         , name: 'action', orderable: true, searchable: true},
                 ]
             });
 
