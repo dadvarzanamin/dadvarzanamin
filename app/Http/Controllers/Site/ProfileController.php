@@ -514,6 +514,7 @@ class ProfileController extends Controller
         return view('Site.Dashboard.learnbook')->with(compact('companies', 'learnfiles', 'dashboardmenus', 'notifs'));
 
     }
+
     public function setting()
     {
 
@@ -643,7 +644,6 @@ class ProfileController extends Controller
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
     }
 
-
     public function pay(Request $request)
     {
         // ابتدا چک کنید که ایمیل و شماره تلفن وارد شده است
@@ -696,7 +696,6 @@ class ProfileController extends Controller
             }
         }
     }
-
 
     public function callbackpay(CallbackRequest $request)
     {

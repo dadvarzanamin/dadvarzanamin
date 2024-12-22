@@ -166,8 +166,9 @@ Route::group(['prefix' => 'admin' , 'middleware' => ['auth:web' , 'checkAdmin'] 
     Route::delete('deletesubestelam'        , 'SubestelamController@deletesubestelam')              ->name('deletesubestelam');
     Route::delete('deletepost'              , 'PostController@deletepost')                          ->name('deletepost');
     Route::delete('deletelearnfile'         , 'LearnfileController@deletelearnfile')                ->name('deletelearnfile');
-    Route::delete('deleteworkshop'         , 'WorkshopController@deleteworkshop')                 ->name('deleteworkshop');
-    Route::delete('deletemedia'             , 'MediaController@deletemedia')                     ->name('deletemedia');
+    Route::delete('deleteworkshop'          , 'WorkshopController@deleteworkshop')                  ->name('deleteworkshop');
+    Route::delete('deletemedia'             , 'MediaController@deletemedia')                        ->name('deletemedia');
+    Route::delete('deleteworkshop'          , 'MediaController@deleteworkshop')                     ->name('deleteworkshop');
     Route::get('learn-file-download/{id}'   , 'LearnfileController@download')                       ->name('learn-file-download');
 
     Route::post('readnotif'                 , 'NotifController@readnotif')      ->name('readnotif');

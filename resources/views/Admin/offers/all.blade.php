@@ -27,9 +27,8 @@
                                         <thead>
                                         <tr>
                                             <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> تیتر </th>
-                                            <th class="wd-10p"> نام استاد </th>
-                                            <th class="wd-10p"> تاریخ دوره </th>
+                                            <th class="wd-10p"> مبلغ تخفیف </th>
+                                            <th class="wd-10p"> درصد تخفیف </th>
                                             <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
@@ -45,8 +44,8 @@
             </div>
         </div>
     </div>
-@foreach($workshops as $workshop)
-    <div id="myModal{{$workshop->id}}" class="modal fade" role="dialog">
+@foreach($offers as $offer)
+    <div id="myModal{{$offer->id}}" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -59,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">خیر</button>
-                    <button type="button" id="deleteworksshop{{$workshop->id}}" class="btn btn-danger" data-id="{{$workshop->id}} " data-dismiss="modal">بله</button>
+                    <button type="button" id="deleteoffer{{$offer->id}}" class="btn btn-danger" data-id="{{$offer->id}} " data-dismiss="modal">بله</button>
                 </div>
             </div>
 
@@ -82,8 +81,8 @@
                 columns: [
                     {data: 'id'        , name: 'id'},
                     {data: 'title'     , name: 'title'},
-                    {data: 'teacher'   , name: 'teacher'},
-                    {data: 'date'      , name: 'date'},
+                    {data: 'discount'   , name: 'discount'},
+                    {data: 'percentage'      , name: 'percentage'},
                     {data: 'status'    , name: 'status'},
                     {data: 'action'    , name: 'action', orderable: true, searchable: true},
                 ]
@@ -91,10 +90,10 @@
 
         });
     </script>
-    @foreach($workshops as $workshop)
+    @foreach($offers as $offer)
         <script>
             jQuery(document).ready(function(){
-                jQuery('#deleteworksshop{{$workshop->id}}').click(function(e){
+                jQuery('#deleteoffer{{$offer->id}}').click(function(e){
                     e.preventDefault();
                     $.ajaxSetup({
                         headers: {
@@ -102,7 +101,7 @@
                         }
                     });
                     jQuery.ajax({
-                        url: "{{ route('deleteworkshop') }}",
+                        url: "{{ route('deleteoffer') }}",
                         method: 'delete',
                         data: {
                             "_token": "{{ csrf_token() }}",
