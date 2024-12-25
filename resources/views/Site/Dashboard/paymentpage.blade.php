@@ -20,7 +20,7 @@
             <div class="card card-custom p-4 br-16">
                 <form method="get" action="{{ route('pay') }}">
                     @csrf
-                    <input type="hidden" name="workshopid" value="{{ $workshopsigns->workshop_id }}">
+                    <input type="hidden" name="workshopid" value="{{ $workshops->id }}">
 
                     <div class="row">
                         <!-- نام دوره -->
@@ -29,7 +29,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">نام دوره</p>
                                     <hr class="solid flex-grow-1 mx-3">
-                                    <p class="mb-0 mobile-font">{{ $workshopsigns->title }}</p>
+                                    <p class="mb-0 mobile-font">{{ $workshops->title }}</p>
                                 </div>
                             </div>
                         </div>
@@ -41,10 +41,10 @@
                                     <p class="mobile-font">مبلغ هزینه دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font" id="final-price">
-                                        @if($workshopsigns->offer)
-                                            {{ number_format($workshopsigns->offer) }} تومان
+                                        @if($workshops->offer)
+                                            {{ number_format($workshops->offer) }} تومان
                                         @else
-                                            {{ number_format($workshopsigns->price) }} تومان
+                                            {{ number_format($workshops->price) }} تومان
                                         @endif
                                     </p>
                                 </div>
@@ -60,7 +60,7 @@
                                     <p class="mobile-font">نوع استفاده</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font">
-                                        {{ $workshopsigns->typeuse == 1 ? 'حضوری' : 'آنلاین' }}
+                                        {{ $typeuse == 1 ? 'حضوری' : 'آنلاین' }}
                                     </p>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">تاریخ دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ $workshopsigns->date }}</p>
+                                    <p class="mb-0 mobile-font">{{ $workshops->date }}</p>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
     <script>
         document.getElementById('apply-discount').addEventListener('click', function () {
             const discountCode = document.getElementById('discount-code').value;
-            const originalPrice = {{ $workshopsigns->offer ?? $workshopsigns->price }};
+            const originalPrice = {{ $workshops->offer ?? $workshops->price }};
 
             let discountedPrice = originalPrice;
             if (discountCode === 'DISCOUNT50') {

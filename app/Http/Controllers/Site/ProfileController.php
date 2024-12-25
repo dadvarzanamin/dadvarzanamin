@@ -590,34 +590,53 @@ class ProfileController extends Controller
 
     public function workshopsign(Request $request)
     {
+
+        $companies = Company::first();
+        $user = Auth::user();
+        $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
+        $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')
+            ->MenuDashboard()
+            ->orderBy('priority')
+            ->get();
+
+
         $request->validate([
             'workshopid' => ['numeric'],
             'typeuse' => ['numeric'],
         ]);
 
+        $workshopid  = $request->input('workshopid');
+        $typeuse     = $request->input('typeuse');
+        $certificate = $request->input('certificate');
+
         // چک کردن آیا کاربر در کارگاه خاص ثبت‌نام کرده است
-        $workshopsigns = DB::table('workshops')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
-            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->where('workshops.id', '=', $request->input('workshopid')) // فقط برای کارگاه خاص
-            ->where('workshopsigns.pricestatus', '=', 4)
-            ->first();
+//        $workshopsigns = DB::table('workshops')
+//            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+//            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+//            ->where('workshopsigns.user_id', '=', Auth::user()->id)
+//            ->where('workshops.id', '=', $request->input('workshopid')) // فقط برای کارگاه خاص
+//            ->where('workshopsigns.pricestatus', '=', 4)
+//            ->first();
 
-        if ($workshopsigns != null) {
-            alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
-            return Redirect::back();
-        } else {
-            $Workshopsign = new Workshopsign();
-            $Workshopsign->workshop_id = $request->input('workshopid');
-            $Workshopsign->typeuse = $request->input('typeuse');
-            $Workshopsign->price = $request->input('price');
-            $Workshopsign->pricestatus = $request->input('pricestatus');
-            $Workshopsign->user_id = Auth::user()->id;
+        $workshops = Workshop::whereId($workshopid)->first();
 
-            $Workshopsign->save();
-            return Redirect::route('paymentpage', ['workshopid' => $Workshopsign->workshop_id]);
-        }
+//        if ($workshopsigns != null) {
+//            alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
+//            return Redirect::back();
+//        } else {
+//            $Workshopsign = new Workshopsign();
+//            $Workshopsign->workshop_id = $request->input('workshopid');
+//            $Workshopsign->typeuse = $request->input('typeuse');
+//            $Workshopsign->price = $request->input('price');
+//            $Workshopsign->pricestatus = $request->input('pricestatus');
+//            $Workshopsign->user_id = Auth::user()->id;
+//
+//            $Workshopsign->save();
+//            //return Redirect::route('paymentpage');
+//
+//        }
+        return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops' , 'workshopid' , 'typeuse' , 'certificate'));
+
     }
 
     public function paymentpage(Request $request)

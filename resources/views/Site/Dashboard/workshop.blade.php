@@ -20,8 +20,7 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">
             <div class="setting-body">
-                <form method="post" action="{{route('workshop-sign')}}" class="row pt-40px"
-                      enctype="multipart/form-data">
+                <form method="post" action="{{route('workshop-sign')}}" class="row pt-40px">
                     @csrf
                     <div class="input-box col-lg-3">
                         <label class="label-text">نام دوره</label>
