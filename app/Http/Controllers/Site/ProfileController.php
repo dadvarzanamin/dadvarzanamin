@@ -654,11 +654,11 @@ class ProfileController extends Controller
             $percentage = 0;
         }else{
             $discount   = $workshopsigns->percentage ;
-            $percentage = $workshopsigns->discount   ;
+            $percentage = (int)$workshopsigns->discount   ;
         }
         $response = [
-            'percentage'  => $workshopsigns->percentage ,
-            'discount'    => $workshopsigns->discount   ,
+            'percentage'  => $discount   ,
+            'discount'    => $percentage ,
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
