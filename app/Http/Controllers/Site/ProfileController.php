@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -638,7 +639,30 @@ class ProfileController extends Controller
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops' , 'workshopid' , 'typeuse' , 'certificate'));
 
     }
+    public function discountcheck(Request $request){
 
+
+        $workshopsigns = DB::table('workshops')
+            ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
+            ->select(  'offers.discount' , 'offers.percentage')
+            ->where('offers.status', '=', 4)
+            ->where('offers.offercode', '=', $request->input('discountcode'))
+            ->first();
+
+        if ($workshopsigns->discount) {
+            $discount = $workshopsigns->discount;
+        }elseif($workshopsigns->percentage){
+            $discount = $workshopsigns->discount;
+        }
+
+        $response = [
+            'discount'          => $discount ,
+        ];
+        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+
+
+
+    }
     public function paymentpage(Request $request)
     {
         $companies = Company::first();

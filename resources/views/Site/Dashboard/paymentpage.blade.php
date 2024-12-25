@@ -143,8 +143,7 @@
                         <div class="col-lg-12">
                             <p class="text-center">کد تخفیف</p>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="discount_code" id="discount-code"
-                                       placeholder="کد تخفیف خود را وارد کنید">
+                                <input type="text" class="form-control" name="discount_code" id="discount-code" placeholder="کد تخفیف خود را وارد کنید">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-success" id="apply-discount">اعمال
                                     </button>
@@ -173,37 +172,75 @@
         </script>
     @endif
     <script>
-        document.getElementById('apply-discount').addEventListener('click', function () {
-            const discountCode = document.getElementById('discount-code').value;
-            const originalPrice = {{ $workshops->offer ?? $workshops->price }};
-
-            let discountedPrice = originalPrice;
-            if (discountCode === 'DISCOUNT50') {
-                discountedPrice = originalPrice * 0.5;
-            } else if (discountCode === 'DISCOUNT20') {
-                discountedPrice = originalPrice * 0.8;
-            } else if ((discountCode === 'blackfriday')) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'ظرفیت استفاده از این کد تخفیف تمام شده است!',
-                    // text: 'لطفاً یک کد معتبر وارد کنید.',
+        jQuery(document).ready(function () {
+            jQuery('#apply-discount').click(function (e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    contentType: false,
+                    processData: false,
                 });
-                return;
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'کد تخفیف نامعتبر است',
-                    text: 'لطفاً یک کد معتبر وارد کنید.',
-                });
-                return;
-            }
 
-            document.getElementById('final-price').innerText = discountedPrice.toLocaleString('fa-IR') + ' تومان';
-            Swal.fire({
-                icon: 'success',
-                title: 'کد تخفیف اعمال شد',
-                text: 'مبلغ نهایی به‌روزرسانی شد.',
+                let _token        = jQuery('input[name="_token"]').val();
+                let discountcode  = jQuery('#discount-code').val();
+                let workshopid    = {{ $workshops->id }};
+
+                let formData = new FormData();
+                formData.append('discountcode', discountcode);
+                formData.append('workshopid', workshopid);
+                formData.append('_token'    , _token);
+
+                    jQuery.ajax({
+                        url: "{{route('discountcheck')}}",
+                        method: 'Post',
+                        data: formData,
+
+                        success: function (data) {
+                            if (data.success == true) {
+                                swal(data.subject, data.message, data.flag);
+                                $('#form')[0].reset();
+                            } else {
+                                swal(data.subject, data.message, data.flag);
+                            }
+                        },
+                    });
             });
         });
     </script>
+{{--    <script>--}}
+{{--        document.getElementById('apply-discount').addEventListener('click', function () {--}}
+{{--            const discountCode = document.getElementById('discount-code').value;--}}
+{{--            const originalPrice = {{ $workshops->offer ?? $workshops->price }};--}}
+
+{{--            let discountedPrice = originalPrice;--}}
+{{--            if (discountCode === 'DISCOUNT50') {--}}
+{{--                discountedPrice = originalPrice * 0.5;--}}
+{{--            } else if (discountCode === 'DISCOUNT20') {--}}
+{{--                discountedPrice = originalPrice * 0.8;--}}
+{{--            } else if ((discountCode === 'blackfriday')) {--}}
+{{--                Swal.fire({--}}
+{{--                    icon: 'error',--}}
+{{--                    title: 'ظرفیت استفاده از این کد تخفیف تمام شده است!',--}}
+{{--                    // text: 'لطفاً یک کد معتبر وارد کنید.',--}}
+{{--                });--}}
+{{--                return;--}}
+{{--            } else {--}}
+{{--                Swal.fire({--}}
+{{--                    icon: 'error',--}}
+{{--                    title: 'کد تخفیف نامعتبر است',--}}
+{{--                    text: 'لطفاً یک کد معتبر وارد کنید.',--}}
+{{--                });--}}
+{{--                return;--}}
+{{--            }--}}
+
+{{--            document.getElementById('final-price').innerText = discountedPrice.toLocaleString('fa-IR') + ' تومان';--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'success',--}}
+{{--                title: 'کد تخفیف اعمال شد',--}}
+{{--                text: 'مبلغ نهایی به‌روزرسانی شد.',--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection
