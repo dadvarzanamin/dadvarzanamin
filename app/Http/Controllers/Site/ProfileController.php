@@ -650,14 +650,15 @@ class ProfileController extends Controller
             ->first();
 
         if($workshopsigns == null){
-            $discount = 0;
-        }elseif ($workshopsigns->discount) {
-            $discount = $workshopsigns->discount;
-        }elseif($workshopsigns->percentage){
-            $discount = $workshopsigns->discount;
+            $discount   = 0;
+            $percentage = 0;
+        }else{
+            $discount   = $workshopsigns->percentage ;
+            $percentage = $workshopsigns->discount   ;
         }
         $response = [
-            'discount'          => $discount ,
+            'percentage'  => $workshopsigns->percentage ,
+            'discount'    => $workshopsigns->discount   ,
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
