@@ -75,6 +75,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">گواهی دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">{{ $certificate == 1 ? 'به همراه گواهی' : 'بدون گواهی' }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row my-4">
