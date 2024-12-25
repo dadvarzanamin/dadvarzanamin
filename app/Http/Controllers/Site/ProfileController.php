@@ -658,6 +658,10 @@ class ProfileController extends Controller
         $response = [
             'discount'          => $discount ,
         ];
+
+        if($discount == null){
+            $discount = 0;
+        }
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
 
