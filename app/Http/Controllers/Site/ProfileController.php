@@ -653,12 +653,12 @@ class ProfileController extends Controller
             $discount   = 0;
             $percentage = 0;
         }else{
-            $discount   = $workshopsigns->percentage ;
-            $percentage = (int)$workshopsigns->discount   ;
+            $percentage = $workshopsigns->percentage ;
+            $discount   = (int)$workshopsigns->discount   ;
         }
         $response = [
-            'percentage'  => $discount   ,
-            'discount'    => $percentage ,
+            'percentage'  => $percentage,
+            'discount'    => $discount  ,
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
