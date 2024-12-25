@@ -226,7 +226,17 @@
                                 </a>
                                 <div class="course-badge-labels">
 {{--                                    <div class="course-badge">کتاب پرفروش</div>--}}
-                                    <div class="course-badge blue">فعال</div>
+                                    <div class="course-badge blue">
+                                        @if($workshop->status==4)
+                                            فعال
+                                        @elseif($workshop->status==3)
+                                            پایان دوره
+                                        @elseif($workshop->status==2)
+                                            تکمیل ظرفیت
+                                        @elseif($workshop->status==1)
+                                            اتمام مهلت ثبت نام
+                                        @endif
+                                    </div>
                                 </div>
                             </div><!-- end card-image -->
                             <div class="card-body">
