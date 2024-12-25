@@ -78,8 +78,11 @@
                                                 <div class="form-group">
                                                     <p class="mg-b-10">انتخاب وضعیت نمایش</p>
                                                     <select name="status" id="status" class="form-control select-lg select2">
-                                                        <option value="0" {{$workshops->status == 0 ? 'selected' : '' }}>عدم نمایش</option>
-                                                        <option value="4" {{$workshops->status == 4 ? 'selected' : '' }}>در حال نمایش</option>
+                                                        <option value="0" {{$workshops->status == 0 ? 'selected' : '' }}>غیر فعال</option>
+                                                        <option value="4" {{$workshops->status == 4 ? 'selected' : '' }}>درحال ثبت نام</option>
+                                                        <option value="0" {{$workshops->status == 1 ? 'selected' : '' }}>اتمام ظرفیت</option>
+                                                        <option value="0" {{$workshops->status == 2 ? 'selected' : '' }}>پایان زمان ثبت نام</option>
+                                                        <option value="0" {{$workshops->status == 3 ? 'selected' : '' }}>پایان دوره</option>
                                                     </select>
                                                 </div>
                                             </div>
