@@ -206,7 +206,7 @@
             </div>
         </div>
     </section>
-@if($workshops)
+@if($workshops->count() > 0)
     <section class="course-area pb-90px">
         <div class="course-wrapper">
             <div class="container">
