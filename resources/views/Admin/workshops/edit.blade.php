@@ -80,9 +80,9 @@
                                                     <select name="status" id="status" class="form-control select-lg select2">
                                                         <option value="0" {{$workshops->status == 0 ? 'selected' : '' }}>غیر فعال</option>
                                                         <option value="4" {{$workshops->status == 4 ? 'selected' : '' }}>درحال ثبت نام</option>
-                                                        <option value="0" {{$workshops->status == 1 ? 'selected' : '' }}>اتمام ظرفیت</option>
-                                                        <option value="0" {{$workshops->status == 2 ? 'selected' : '' }}>پایان زمان ثبت نام</option>
-                                                        <option value="0" {{$workshops->status == 3 ? 'selected' : '' }}>پایان دوره</option>
+                                                        <option value="1" {{$workshops->status == 1 ? 'selected' : '' }}>اتمام ظرفیت</option>
+                                                        <option value="2" {{$workshops->status == 2 ? 'selected' : '' }}>پایان زمان ثبت نام</option>
+                                                        <option value="3" {{$workshops->status == 3 ? 'selected' : '' }}>پایان دوره</option>
                                                     </select>
                                                 </div>
                                             </div>
