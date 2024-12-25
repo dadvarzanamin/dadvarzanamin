@@ -649,19 +649,17 @@ class ProfileController extends Controller
             ->where('offers.offercode', '=', $request->input('discountcode'))
             ->first();
 
-        if ($workshopsigns->discount) {
+        if($workshopsigns == null){
+            $discount = 0;
+        }elseif ($workshopsigns->discount) {
             $discount = $workshopsigns->discount;
         }elseif($workshopsigns->percentage){
             $discount = $workshopsigns->discount;
         }
-
         $response = [
             'discount'          => $discount ,
         ];
 
-        if($discount == null){
-            $discount = 0;
-        }
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
 
