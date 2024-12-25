@@ -41,10 +41,18 @@
                                     <p class="mobile-font">مبلغ هزینه دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font" id="final-price">
-                                        @if($workshops->offer)
-                                            {{ number_format($workshops->offer) }} تومان
+                                        @if($certificate == 1)
+                                            @if($workshops->offer)
+                                                {{ number_format((int)$workshops->offer + (int)$workshops->certificate_price) }} تومان
+                                            @else
+                                                {{ number_format((int)$workshops->price + (int)$workshops->certificate_price) }} تومان
+                                            @endif
                                         @else
-                                            {{ number_format($workshops->price) }} تومان
+                                            @if($workshops->offer)
+                                                {{ number_format((int)$workshops->offer) }} تومان
+                                            @else
+                                                {{ number_format((int)$workshops->price) }} تومان
+                                            @endif
                                         @endif
                                     </p>
                                 </div>
@@ -84,6 +92,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if($certificate == 1)
+                            <div class="col-lg-12">
+                                <div class="card py-3 my-2 border-1 br-8">
+                                    <div class="container d-flex flex-row justify-content-center">
+                                        <p class="mobile-font">مبلغ گواهی دوره</p>
+                                        <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                        <p class="mb-0 mobile-font">{{ $workshops->certificate_price }} تومان </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="row my-4">
@@ -129,15 +148,14 @@
                 discountedPrice = originalPrice * 0.5;
             } else if (discountCode === 'DISCOUNT20') {
                 discountedPrice = originalPrice * 0.8;
-            }else if((discountCode === 'blackfriday')){
+            } else if ((discountCode === 'blackfriday')) {
                 Swal.fire({
                     icon: 'error',
                     title: 'ظرفیت استفاده از این کد تخفیف تمام شده است!',
                     // text: 'لطفاً یک کد معتبر وارد کنید.',
                 });
                 return;
-            }
-            else {
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'کد تخفیف نامعتبر است',
