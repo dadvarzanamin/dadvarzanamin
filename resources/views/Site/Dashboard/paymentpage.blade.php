@@ -89,7 +89,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ تخفیف دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font" id="div1">{{ number_format($workshops->certificate_price) }}
+                                    <p class="mb-0 mobile-font" id="input2">{{ number_format($workshops->certificate_price) }}
                                         تومان
                                     </p>
                                 </div>
@@ -176,6 +176,7 @@
             jQuery('#apply-discount').click(function (e) {
                 e.preventDefault();
 
+                // تنظیم CSRF Token
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -185,12 +186,14 @@
                 let _token = jQuery('input[name="_token"]').val();
                 let discountcode = jQuery('#discount-code').val();
                 let workshopid = {{ $workshops->id }};
+                let totalAmount = {{$workshops->price + $workshops->certificate_price}}; // مبلغ کلی
 
                 let formData = new FormData();
                 formData.append('discountcode', discountcode);
                 formData.append('workshopid', workshopid);
                 formData.append('_token', _token);
 
+                // ارسال درخواست AJAX
                 jQuery.ajax({
                     url: "{{route('discountcheck')}}",
                     method: 'POST',
@@ -198,21 +201,30 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if (response.success == true) {
+                        if (response.success === true) {
+                            let finalAmount = totalAmount;
 
-                            jQuery('#input1').val(response.percentage);
-                            jQuery('#input2').val(response.discount);
+                            if (response.percentage !== null) {
+                                finalAmount -= (totalAmount * response.percentage / 100);
+                                jQuery('#input1').val(response.percentage + '%');
+                            } else if (response.discount !== null) {
+                                finalAmount -= response.discount;
+                                jQuery('#input2').val(response.discount + ' تومان');
+                            }
+
+                            jQuery('#final-amount').val(finalAmount.toFixed(2) + ' تومان');
                         } else {
-                            console.log('Discount validation failed.');
+                            console.log('تخفیف اعمال نشد.');
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error("Error occurred: ", error);
+                        console.error("خطا رخ داده است:", error);
                     }
                 });
             });
         });
     </script>
+
 {{--    <script>--}}
 {{--        document.getElementById('apply-discount').addEventListener('click', function () {--}}
 {{--            const discountCode = document.getElementById('discount-code').value;--}}
