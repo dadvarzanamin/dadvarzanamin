@@ -206,12 +206,12 @@
             </div>
         </div>
     </section>
-
+@if($workshops)
     <section class="course-area pb-90px">
         <div class="course-wrapper">
             <div class="container">
                 <div class="section-heading text-center">
-                    <h2 class="section__title">کارگاه های فعال ما</h2>
+                    <h2 class="section__title">کارگاه های ما</h2>
                     <span class="section-divider"></span>
                 </div><!-- end section-heading -->
                 <div class="course-carousel owl-carousel mt-30px">
@@ -256,7 +256,7 @@
             </div><!-- end container -->
         </div><!-- end course-wrapper -->
     </section>
-
+@endif
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
             <div class="section-heading">
