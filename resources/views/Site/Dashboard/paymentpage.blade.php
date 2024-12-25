@@ -33,19 +33,90 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- مبلغ دوره -->
                         <div class="col-lg-6">
                             <div class="card py-3 my-2 border-1 br-8">
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ هزینه دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font" id="final-price">
+                                        @if($workshops->offer)
+                                            {{ number_format((int)$workshops->offer) }} تومان
+                                        @else
+                                            {{ number_format((int)$workshops->price) }} تومان
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">نوع استفاده</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">
+                                        {{ $typeuse == 1 ? 'حضوری' : 'آنلاین' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">مبلغ گواهی دوره</p>
+                                    <hr class="solid flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font" id="final-price">
+                                        @if($certificate == 1)
+                                            {{(int)$workshops->certificate_price }}
+                                            تومان
+                                        @else
+                                            رایگان
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">تاریخ دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">{{ $workshops->date }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">مبلغ تخفیف دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">{{ number_format($workshops->certificate_price) }}
+                                        تومان
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">گواهی دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font">{{ $certificate == 1 ? 'به همراه گواهی' : 'بدون گواهی' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-3 my-2 border-1 br-8">
+                                <div class="container d-flex flex-row justify-content-center">
+                                    <p class="mobile-font">مبلغ نهایی دوره</p>
+                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
+                                    <p class="mb-0 mobile-font" id="final-price">
                                         @if($certificate == 1)
                                             @if($workshops->offer)
-                                                {{ number_format((int)$workshops->offer + (int)$workshops->certificate_price) }} تومان
+                                                {{ number_format((int)$workshops->offer + (int)$workshops->certificate_price) }}
+                                                تومان
                                             @else
-                                                {{ number_format((int)$workshops->price + (int)$workshops->certificate_price) }} تومان
+                                                {{ number_format((int)$workshops->price + (int)$workshops->certificate_price) }}
+                                                تومان
                                             @endif
                                         @else
                                             @if($workshops->offer)
@@ -62,47 +133,10 @@
 
                     <div class="row">
                         <!-- نوع استفاده -->
-                        <div class="col-lg-6">
-                            <div class="card py-3 my-2 border-1 br-8">
-                                <div class="container d-flex flex-row justify-content-center">
-                                    <p class="mobile-font">نوع استفاده</p>
-                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">
-                                        {{ $typeuse == 1 ? 'حضوری' : 'آنلاین' }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+
                         <!-- تاریخ دوره -->
-                        <div class="col-lg-6">
-                            <div class="card py-3 my-2 border-1 br-8">
-                                <div class="container d-flex flex-row justify-content-center">
-                                    <p class="mobile-font">تاریخ دوره</p>
-                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ $workshops->date }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="card py-3 my-2 border-1 br-8">
-                                <div class="container d-flex flex-row justify-content-center">
-                                    <p class="mobile-font">گواهی دوره</p>
-                                    <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ $certificate == 1 ? 'به همراه گواهی' : 'بدون گواهی' }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        @if($certificate == 1)
-                            <div class="col-lg-12">
-                                <div class="card py-3 my-2 border-1 br-8">
-                                    <div class="container d-flex flex-row justify-content-center">
-                                        <p class="mobile-font">مبلغ گواهی دوره</p>
-                                        <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                        <p class="mb-0 mobile-font">{{ number_format($workshops->certificate_price) }} تومان </p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
+
+
                     </div>
 
                     <div class="row my-4">
