@@ -19,6 +19,91 @@ class WorkshopController extends Controller
 {
     public function index(Request $request)
     {
+
+//        try {
+//
+//            $curl = curl_init();
+//            curl_setopt_array($curl, array(
+//                CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+//                CURLOPT_RETURNTRANSFER => true,
+//                CURLOPT_ENCODING => "",
+//                CURLOPT_MAXREDIRS => 10,
+//                CURLOPT_TIMEOUT => 30,
+//                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//                CURLOPT_CUSTOMREQUEST => "POST",
+//                CURLOPT_POSTFIELDS => http_build_query([
+//                    'type' => '1',
+//                    'param1' => 'اميرحسين رزميار' ,
+//                    'receptor' => '09332072828',
+//                    'template' => 'setworkshop',
+//                ]),
+//                CURLOPT_HTTPHEADER => array(
+//                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+//                    "cache-control: no-cache",
+//                    "content-type: application/x-www-form-urlencoded",
+//                ),
+//            ));
+//            $response = curl_exec($curl);
+//            $err = curl_error($curl);
+//            curl_close($curl);
+//
+//            }catch (Exception $exception){
+//
+//            }
+//
+//dd($response);
+
+//
+//        $workshopId = 7;
+//        $priceStatus = 4;
+//        $typeUse = 1;
+//
+//        $results = DB::table('workshopsigns as ws')
+//            ->join('users as u', 'ws.user_id', '=', 'u.id')
+//            ->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
+//            ->select('u.name', 'u.phone')
+//            ->where('ws.workshop_id', $workshopId)
+//            ->where('ws.pricestatus', $priceStatus)
+//            ->where('ws.typeuse', $typeUse)
+//            ->get();
+//
+//        foreach ($results as $result) {
+//
+//        try {
+//
+//            $curl = curl_init();
+//            curl_setopt_array($curl, array(
+//                CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+//                CURLOPT_RETURNTRANSFER => true,
+//                CURLOPT_ENCODING => "",
+//                CURLOPT_MAXREDIRS => 10,
+//                CURLOPT_TIMEOUT => 30,
+//                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//                CURLOPT_CUSTOMREQUEST => "POST",
+//                CURLOPT_POSTFIELDS => http_build_query([
+//                    'type' => '1',
+//                    'param1' => $result->name ,
+//                    'receptor' => $result->phone,
+//                    'template' => 'setworkshop',
+//                ]),
+//                CURLOPT_HTTPHEADER => array(
+//                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+//                    "cache-control: no-cache",
+//                    "content-type: application/x-www-form-urlencoded",
+//                ),
+//            ));
+//            $response = curl_exec($curl);
+//            $err = curl_error($curl);
+//            curl_close($curl);
+//
+//            }catch (Exception $exception){
+//
+//            }
+//
+//        }
+
+
+
         $thispage       = [
             'title'         => 'مدیریت دوره های آموزشی',
             'list_title'    => 'لیست دوره های آموزشی',
@@ -49,10 +134,19 @@ class WorkshopController extends Controller
                 })
                 ->addColumn('status', function ($data) {
                     if ($data->status == "0") {
-                        return "عدم نمایش";
+                        return "غیر فعال";
+                    }
+                    if ($data->status == "1") {
+                        return "اتمام ظرفیت";
+                    }
+                    if ($data->status == "2") {
+                        return "پایان زمان ثبت نام";
+                    }
+                    if ($data->status == "3") {
+                        return "پایان دوره";
                     }
                     elseif ($data->status == "4") {
-                        return "در حال نمایش";
+                        return "درحال ثبت نام";
                     }
                 })
                 ->addColumn('teacher_image', function ($data) {
