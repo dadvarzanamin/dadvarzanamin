@@ -105,6 +105,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div></div>
                         <div class="col-lg-6">
                             <div class="card py-3 my-2 border-1 br-8">
                                 <div class="container d-flex flex-row justify-content-center">
