@@ -9,16 +9,19 @@
     </div>
     <ul class="nav nav-tabs generic-tab pb-30px" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="edit-profile-tab" data-toggle="tab" href="#store-workshop" role="tab" aria-controls="store-workshop" aria-selected="false">ثبت نام کارگاه و دوره آموزشی فعال</a>
+            <a class="nav-link active" id="edit-profile-tab" data-toggle="tab" href="#store-workshop" role="tab"
+               aria-controls="store-workshop" aria-selected="false">ثبت نام کارگاه و دوره آموزشی فعال</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="payment-tab" data-toggle="tab" href="#payment" role="tab" aria-controls="payment" aria-selected="false"> لیست پرداخت های موفق و نا موفق </a>
+            <a class="nav-link" id="payment-tab" data-toggle="tab" href="#payment" role="tab" aria-controls="payment"
+               aria-selected="false"> لیست پرداخت های موفق و نا موفق </a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="store-workshop" role="tabpanel" aria-labelledby="store-workshop-tab">
             <div class="setting-body">
-                <form method="post" action="{{route('workshop-sign')}}" class="row pt-40px" enctype="multipart/form-data">
+                <form method="post" action="{{route('workshop-sign')}}" class="row pt-40px"
+                      enctype="multipart/form-data">
                     @csrf
                     <div class="input-box col-lg-3">
                         <label class="label-text">نام دوره</label>
@@ -48,7 +51,7 @@
                             <select name="certificate" class="form-control" id="certificate">
                                 <option value="">انتخاب کنید</option>
                                 <option value="1">تمایل به دریافت گواهی شرکت در دوره دارم</option>
-                                <option value="2"> مایل به دریافت گواهی شرکت در دوره نیستم</option>
+                                <option value="0"> مایل به دریافت گواهی شرکت در دوره نیستم</option>
                             </select>
                         </div>
                     </div>
@@ -97,7 +100,7 @@
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{number_format($workshopsign->price)}} تومان </li>
+                                        <li>{{number_format($workshopsign->price)}} تومان</li>
                                     </ul>
                                 </td>
                                 <td>
@@ -127,25 +130,28 @@
                     <div class="input-box col-lg-3">
                         <label class="label-text">شماره کارت واریزی</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="bank_card" style="text-align: left"/>
+                            <input class="form-control form--control" type="text" name="bank_card"
+                                   style="text-align: left"/>
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">تاریخ پرداخت</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="date" style="text-align: left" />
+                            <input class="form-control form--control" type="text" name="date" style="text-align: left"/>
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">مبلغ پرداخت</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="amount" style="text-align: left"/>
+                            <input class="form-control form--control" type="text" name="amount"
+                                   style="text-align: left"/>
                         </div>
                     </div>
                     <div class="input-box col-lg-3">
                         <label class="label-text">علت پرداخت</label>
                         <div class="form-group">
-                            <input class="form-control form--control" type="text" name="description" style="text-align: left" />
+                            <input class="form-control form--control" type="text" name="description"
+                                   style="text-align: left"/>
                         </div>
                     </div>
                     <div class="input-box col-lg-12 py-2">
@@ -182,7 +188,7 @@
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{number_format($workshoppay->price)}} تومان </li>
+                                        <li>{{number_format($workshoppay->price)}} تومان</li>
                                     </ul>
                                 </td>
                                 <td>

@@ -584,9 +584,15 @@
                                                    class="btn theme-btn w-100 theme-btn-white mb-2">جهت ثبت نام کلیک
                                                     کنید</a>
                                             @endif
-                                        @else
+                                        @elseif($singleworkshops->status==3)
                                             <a href="#"
                                                class="btn w-100 btn-danger mb-2">دوره پایان یافته</a>
+                                        @elseif($singleworkshops->status==2)
+                                            <a href="#"
+                                               class="btn w-100 btn-danger mb-2">اتمام مهلت ثبت نام</a>
+                                        @elseif($singleworkshops->status==1)
+                                            <a href="#"
+                                               class="btn w-100 btn-danger mb-2">تکمیل ظرفیت</a>
                                         @endif
                                     </div>
                                 </div>
