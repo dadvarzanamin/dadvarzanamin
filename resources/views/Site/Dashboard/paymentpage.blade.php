@@ -87,11 +87,11 @@
                         <div class="col-lg-6">
                             <div class="card py-3 my-2 border-1 br-8">
                                 <div class="container d-flex flex-row justify-content-center">
-                                    <p class="mobile-font">مبلغ تخفیف دوره</p>
+                                    <p class="mobile-font">تخفیف دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font"
-                                       id="div1">{{ number_format($workshops->certificate_price) }}
-                                        تومان
+                                       id="discount-result">
+                                        صفر
                                     </p>
                                 </div>
                             </div>
@@ -196,10 +196,16 @@
                     success: function (response) {
                         if (response.ok) {
                             // نمایش نتیجه در المان <p>
-                            jQuery('#discount-result').text(
-                                `درصد تخفیف: ${response.response.percentage}% - مبلغ تخفیف: ${response.response.discount} تومان`
-                            );
+                            let discountText = '';
+                            if (response.response.percentage !== null) {
+                                discountText += `${response.response.percentage}% `;
+                            }
+                            if (response.response.discount !== null) {
+                                discountText += `${new Intl.NumberFormat('fa-IR').format(response.response.discount)} تومان`;
+                            }
 
+                            // نمایش تخفیف در #discount-result
+                            jQuery('#discount-result').text(discountText.trim());
                             // همچنین آپدیت مبلغ نهایی
                             let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));
                             let discount = parseInt(response.response.discount || 0);
