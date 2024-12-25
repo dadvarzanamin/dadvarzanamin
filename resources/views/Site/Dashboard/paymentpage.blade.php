@@ -89,7 +89,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ تخفیف دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ number_format($workshops->certificate_price) }}
+                                    <p class="mb-0 mobile-font" id="div1">{{ number_format($workshops->certificate_price) }}
                                         تومان
                                     </p>
                                 </div>
@@ -175,36 +175,41 @@
         jQuery(document).ready(function () {
             jQuery('#apply-discount').click(function (e) {
                 e.preventDefault();
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    contentType: false,
-                    processData: false,
+                    }
                 });
 
-                let _token        = jQuery('input[name="_token"]').val();
-                let discountcode  = jQuery('#discount-code').val();
-                let workshopid    = {{ $workshops->id }};
+                let _token = jQuery('input[name="_token"]').val();
+                let discountcode = jQuery('#discount-code').val();
+                let workshopid = {{ $workshops->id }};
 
                 let formData = new FormData();
                 formData.append('discountcode', discountcode);
                 formData.append('workshopid', workshopid);
-                formData.append('_token'    , _token);
+                formData.append('_token', _token);
 
-                    jQuery.ajax({
-                        url: "{{route('discountcheck')}}",
-                        method: 'Post',
-                        data: formData,
+                jQuery.ajax({
+                    url: "{{route('discountcheck')}}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success == true) {
 
-                        success: function (data) {
-                            if (data.success == true) {
-                                $('#div1').text(response.percentage);
-                                $('#div2').text(response.discount);
-                            } else {
-                            }
-                        },
-                    });
+                            jQuery('#input1').val(response.percentage);
+                            jQuery('#input2').val(response.discount);
+                        } else {
+                            console.log('Discount validation failed.');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error occurred: ", error);
+                    }
+                });
             });
         });
     </script>
