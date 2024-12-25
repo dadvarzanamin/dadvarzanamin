@@ -50,8 +50,8 @@
                         <div class="form-group">
                             <select name="certificate" class="form-control" id="certificate">
                                 <option value="">انتخاب کنید</option>
-                                <option value="1">تمایل به دریافت گواهی شرکت در دوره دارم</option>
-                                <option value="0"> مایل به دریافت گواهی شرکت در دوره نیستم</option>
+                                <option value="1">نیاز به گواهی دوره</option>
+                                <option value="0">عدم نیاز به گواهی دوره</option>
                             </select>
                         </div>
                     </div>
