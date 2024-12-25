@@ -98,7 +98,7 @@
                                     <div class="container d-flex flex-row justify-content-center">
                                         <p class="mobile-font">مبلغ گواهی دوره</p>
                                         <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                        <p class="mb-0 mobile-font">{{ $workshops->certificate_price }} تومان </p>
+                                        <p class="mb-0 mobile-font">{{ number_format($workshops->certificate_price) }} تومان </p>
                                     </div>
                                 </div>
                             </div>
