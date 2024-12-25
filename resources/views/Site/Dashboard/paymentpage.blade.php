@@ -38,7 +38,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ هزینه دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font" id="final-price">
+                                    <p class="mb-0 mobile-font" id="">
                                         @if($workshops->offer)
                                             {{ number_format((int)$workshops->offer) }} تومان
                                         @else
@@ -64,7 +64,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ گواهی دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font" id="final-price">
+                                    <p class="mb-0 mobile-font" id="">
                                         @if($certificate == 1)
                                             {{(int)$workshops->certificate_price }}
                                             تومان
@@ -90,7 +90,7 @@
                                     <p class="mobile-font">تخفیف دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font"
-                                       id="discount-result">
+                                       id="discount-amount">
                                         صفر
                                     </p>
                                 </div>
@@ -140,7 +140,8 @@
                                 <input type="text" class="form-control" name="discount_code" id="discount-code"
                                        placeholder="کد تخفیف خود را وارد کنید">
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-outline-success" id="apply-discount">اعمال</button>
+                                    <button type="button" class="btn btn-outline-success" id="apply-discount">اعمال
+                                    </button>
                                 </div>
                             </div>
                             <p id="discount-loader" style="display: none;" class="text-center my-3">در حال بررسی...</p>
@@ -195,30 +196,36 @@
                     processData: false,
                     success: function (response) {
                         if (response.ok) {
-                            // نمایش نتیجه در المان <p>
-                            let discountText = '';
-                            if (response.response.percentage !== null) {
-                                discountText += `${response.response.percentage}% `;
-                            }
-                            if (response.response.discount !== null) {
-                                discountText += `${new Intl.NumberFormat('fa-IR').format(response.response.discount)} تومان`;
-                            }
-
-                            // نمایش تخفیف در #discount-result
-                            jQuery('#discount-result').text(discountText.trim());
-                            // همچنین آپدیت مبلغ نهایی
-                            let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));
+                            // مقادیر برگشتی از سرور
                             let discount = parseInt(response.response.discount || 0);
-                            let newPrice = currentPrice - discount;
+                            let percentage = parseInt(response.response.percentage || 0);
 
-                            $('#final-price').text(new Intl.NumberFormat('fa-IR').format(newPrice) + ' تومان');
+                            // قیمت فعلی
+                            let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));
+
+                            // محاسبه مبلغ نهایی بر اساس نوع تخفیف
+                            let finalPrice;
+                            if (percentage > 0) {
+                                // تخفیف درصدی
+                                finalPrice = Math.round(currentPrice * (1 - (percentage / 100)));
+                                $('#discount-amount').text(`${percentage}%`);
+                            } else {
+                                // تخفیف مبلغی
+                                finalPrice = currentPrice - discount;
+                                $('#discount-amount').text(new Intl.NumberFormat('fa-IR').format(discount) + ' تومان');
+                            }
+
+                            // آپدیت قیمت نهایی
+                            $('#final-price').text(new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان');
                         } else {
-                            jQuery('#discount-result').text("کد تخفیف معتبر نیست.");
+                            // در صورتی که کد تخفیف معتبر نباشد
+                            $('#discount-amount').text("۰ تومان");
+                            alert("کد تخفیف معتبر نیست!");
                         }
                     },
                     error: function (xhr, status, error) {
                         console.error("Error occurred: ", error);
-                        jQuery('#discount-result').text("خطایی در ارسال درخواست به وجود آمد.");
+                        alert("خطایی در ارسال درخواست به وجود آمد.");
                     }
                 });
             });
