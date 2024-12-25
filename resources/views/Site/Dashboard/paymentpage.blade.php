@@ -199,10 +199,9 @@
 
                         success: function (data) {
                             if (data.success == true) {
-                                swal(data.subject, data.message, data.flag);
-                                $('#form')[0].reset();
+                                $('#div1').text(response.percentage);
+                                $('#div2').text(response.discount);
                             } else {
-                                swal(data.subject, data.message, data.flag);
                             }
                         },
                     });
