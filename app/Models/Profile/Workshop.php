@@ -20,4 +20,8 @@ class Workshop extends Model
             ]
         ];
     }
+    protected function shouldSlug()
+    {
+        return $this->id != 1;
+    }
 }
