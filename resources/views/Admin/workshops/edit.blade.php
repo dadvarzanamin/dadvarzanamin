@@ -106,9 +106,9 @@
                                                     <p class="mg-b-10">سطح دوره</p>
                                                     <select name="level" id="level"
                                                             class="form-control select-lg select2">
-                                                        <option value={{$workshops->level == 'مقدماتی' ? 'selected' : '' }}>مقدماتی</option>
-                                                        <option value={{$workshops->level == 'متوسط' ? 'selected' : '' }}>متوسط</option>
-                                                        <option value={{$workshops->level == 'پیشرفته' ? 'selected' : '' }}>پیشرفته</option>
+                                                        <option value={{$workshops->level == 'مقدماتی'   ? 'selected' : '' }}>مقدماتی</option>
+                                                        <option value={{$workshops->level == 'متوسط'     ? 'selected' : '' }}>متوسط</option>
+                                                        <option value={{$workshops->level == 'پیشرفته'   ? 'selected' : '' }}>پیشرفته</option>
                                                         <option value={{$workshops->level == 'همه موارد' ? 'selected' : '' }}>همه موارد</option>
                                                     </select>
                                                 </div>
