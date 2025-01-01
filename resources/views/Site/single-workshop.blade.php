@@ -614,7 +614,7 @@
                                     {{--                                        <span><i class="mr-2 text-color"></i> آزمون پایانی : </span> دارد--}}
                                     {{--                                    </li>--}}
                                     <li class="d-flex align-items-center justify-content-between">
-                                        <span><i class="mr-2 text-color"></i>سطح مهارت</span> همه سطوح
+                                        <span><i class="mr-2 text-color"></i>سطح مهارت</span>{{$singleworkshops->level}}
                                     </li>
                                     {{--                                    <li class="d-flex align-items-center justify-content-between">--}}
                                     {{--                                        <span><i class="mr-2 text-color"></i>گواهی پایان دوره</span> بله--}}
