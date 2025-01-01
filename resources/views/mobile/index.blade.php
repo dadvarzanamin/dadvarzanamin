@@ -82,6 +82,7 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         .post-modal {
             display: none;
             position: fixed;
@@ -322,20 +323,20 @@
                         <h6>
                             {{$currentws->teacher}}
                         </h6>
-{{--                        <h6 class="" style="margin: 4px 0;">--}}
-{{--                                @php--}}
-{{--                                    $targets = explode("\n", $currentws->target);--}}
-{{--                                @endphp--}}
-{{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
-{{--                                <ul>--}}
-{{--                                    @foreach ($targets as $target)--}}
-{{--                                        <p class="generic-list-item overview-list-item">{{ $target }}</p>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
+                        {{--                        <h6 class="" style="margin: 4px 0;">--}}
+                        {{--                                @php--}}
+                        {{--                                    $targets = explode("\n", $currentws->target);--}}
+                        {{--                                @endphp--}}
+                        {{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
+                        {{--                                <ul>--}}
+                        {{--                                    @foreach ($targets as $target)--}}
+                        {{--                                        <p class="generic-list-item overview-list-item">{{ $target }}</p>--}}
+                        {{--                                    @endforeach--}}
+                        {{--                                </ul>--}}
 
-{{--                        </h6>--}}
-{{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-{{--                        <h6>{{ $currentws->target}}</h6>--}}
+                        {{--                        </h6>--}}
+                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+                        {{--                        <h6>{{ $currentws->target}}</h6>--}}
 
                     </div>
                 </div>
@@ -386,7 +387,8 @@
                         <span class="dore-close">&times;</span>
                         <div id="doreModalContent">
                             <div class="course-image-container" style="margin-top: 32px">
-                                <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره" class="course-image">
+                                <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره"
+                                     class="course-image">
                             </div>
                             <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>
 
@@ -429,14 +431,7 @@
                             @endif
                             <div class="course-description">
                                 <h3 style="margin-bottom: 20px">اهداف دوره</h3>
-                                @php
-                                    $lines = explode("\n", $currentws->target);
-                                @endphp
-                                <ul>
-                                    @foreach ($lines as $line)
-                                        <p>{{ $line }}</p>
-                                    @endforeach
-                                </ul>
+                                <p>{!! $currentws->target !!}</p>
                             </div>
 
                             <div class="course-description">
@@ -448,15 +443,8 @@
                                 <img src="{{asset($currentws->teacher_image)}}" alt="تصویر استاد"
                                      class="instructor-img">
                                 <div>
-                                    @php
-                                        $resumes = explode("\n", $currentws->teacher_resume);
-                                    @endphp
                                     <h3 style="margin-bottom: 20px">درباره استاد</h3>
-                                    <ul>
-                                        @foreach ($resumes as $resume)
-                                            <p class="generic-list-item overview-list-item">{{ $resume }}</p>
-                                        @endforeach
-                                    </ul>
+                                    <p>{!! $currentws->teacher_resume !!}</p>
                                 </div>
                             </div>
 

@@ -216,9 +216,6 @@
                 </div><!-- end section-heading -->
                 <div class="course-carousel owl-carousel mt-30px">
                     @foreach($workshops as $workshop)
-                        @php
-                            $lines = explode("\n", $workshop->target);
-                        @endphp
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_{{ $loop->index }}">
                             <div class="card-image">
                                 <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}" class="d-block">
@@ -245,11 +242,7 @@
 {{--                                <p class="card-text"><a href="{{ url('دپارمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->teacher }}</a></p>--}}
                                 <span class="section-divider"></span>
                                 <h6>اهداف دوره</h6>
-                                <ul>
-                                    @foreach ($lines as $line)
-                                        <li class="generic-list-item overview-list-item">{{ $line }}</li>
-                                    @endforeach
-                                </ul>
+                                <p>{!! $workshop->target !!}</p>
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="card-price text-black font-weight-bold">
