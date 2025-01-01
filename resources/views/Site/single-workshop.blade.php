@@ -281,7 +281,7 @@
                                         <p class="text-black lh-18 pb-3">سوابق و مدارک </p>
                                         <ul>
                                             @foreach ($resumes as $resume)
-                                                <li class="generic-list-item overview-list-item">{{ $resume }}</li>
+                                                <li class="generic-list-item overview-list-item">{!! $resume !!}</li>
                                             @endforeach
                                         </ul>
                                         <div class="collapse" id="collapseMoreTwo">
