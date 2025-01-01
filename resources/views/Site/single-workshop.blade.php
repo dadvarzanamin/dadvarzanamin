@@ -71,7 +71,7 @@
                             {{--                            </ul>--}}
                             <ul>
                                 @foreach ($lines as $line)
-                                    <li class="generic-list-item overview-list-item">{{ $line }}</li>
+                                    <li class="generic-list-item overview-list-item">{!! $line !!}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -87,7 +87,7 @@
 
                         <div class="course-overview-card">
                             <h3 class="fs-24 font-weight-semi-bold pb-3">شرح</h3>
-                            <p class="section__desc pt-2 lh-30">{{ strip_tags($singleworkshops->description) }}</p>
+                            <p class="section__desc pt-2 lh-30">{!! $singleworkshops->description !!}</p>
 
                             <p class="fs-15 pb-2">
 
