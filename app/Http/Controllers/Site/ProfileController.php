@@ -343,7 +343,7 @@ class ProfileController extends Controller
                 if ($status == 'ACTIVE') {
                     $status = 'فعال';
                 } else {
-                $status = 'غیر فعال';
+                    $status = 'غیر فعال';
                 }
 
                 $result = [
@@ -639,6 +639,7 @@ class ProfileController extends Controller
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops' , 'workshopid' , 'typeuse' , 'certificate'));
 
     }
+
     public function discountcheck(Request $request){
 
 
@@ -666,6 +667,7 @@ class ProfileController extends Controller
 
 
     }
+
     public function paymentpage(Request $request)
     {
         $companies = Company::first();
@@ -692,7 +694,6 @@ class ProfileController extends Controller
 
     public function pay(Request $request)
     {
-        // ابتدا چک کنید که ایمیل و شماره تلفن وارد شده است
         if (Auth::user()->email == null) {
             alert()->error('', 'اطلاعات آدرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
@@ -701,9 +702,9 @@ class ProfileController extends Controller
             return Redirect::back();
         } else {
             // دریافت workshopid از درخواست یا از session
-            $workshopid = $request->query('workshopid');
-
-            $workshopsigns = DB::table('workshops')
+            //$workshopid = $request->query('workshopid');
+            $workshopid     = $request->input('workshopid');
+            $workshopsigns  = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
                 ->select('workshops.title', 'workshops.price', 'workshops.offer', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)

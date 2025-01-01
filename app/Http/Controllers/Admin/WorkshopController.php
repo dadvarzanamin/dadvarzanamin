@@ -277,6 +277,7 @@ class WorkshopController extends Controller
             $workshops->teacher         = $request->input('teacher');
             $workshops->price           = $request->input('price');
             $workshops->offer           = $request->input('offer');
+            $workshops->target          = $request->input('target');
             $workshops->date            = $request->input('date');
             $workshops->description     = $request->input('description');
             $workshops->teacher_resume  = $request->input('teacher_resume');

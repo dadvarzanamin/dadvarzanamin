@@ -106,9 +106,9 @@
                                                     <p class="mg-b-10">سطح دوره</p>
                                                     <select name="level" id="level"
                                                             class="form-control select-lg select2">
-                                                        <option value={{$workshops->level == 'مقدماتی' ? 'selected' : '' }}>مقدماتی</option>
-                                                        <option value={{$workshops->level == 'متوسط' ? 'selected' : '' }}>متوسط</option>
-                                                        <option value={{$workshops->level == 'پیشرفته' ? 'selected' : '' }}>پیشرفته</option>
+                                                        <option value={{$workshops->level == 'مقدماتی'   ? 'selected' : '' }}>مقدماتی</option>
+                                                        <option value={{$workshops->level == 'متوسط'     ? 'selected' : '' }}>متوسط</option>
+                                                        <option value={{$workshops->level == 'پیشرفته'   ? 'selected' : '' }}>پیشرفته</option>
                                                         <option value={{$workshops->level == 'همه موارد' ? 'selected' : '' }}>همه موارد</option>
                                                     </select>
                                                 </div>
@@ -127,15 +127,13 @@
                                             <div class="col-md-12">
                                                 <div class="form-group" style="margin-top: 65px;">
                                                     <p class="mg-b-10"> اهداف دوره</p>
-                                                    <textarea name="text" id="editor2" cols="30" rows="5"
-                                                              class="form-control">{{$workshops->target}}</textarea>
+                                                    <textarea name="target" id="editor2" cols="30" rows="5" class="form-control">{{$workshops->target}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group" style="margin-top: 65px;">
                                                     <p class="mg-b-10">رزومه مدرس دوره</p>
-                                                    <textarea name="text" id="editor3" cols="30" rows="5"
-                                                              class="form-control">{{$workshops->teacher_resume}}</textarea>
+                                                    <textarea name="teacher_resume" id="editor3" cols="30" rows="5" class="form-control">{{$workshops->teacher_resume}}</textarea>
                                                 </div>
                                             </div>
 
