@@ -127,15 +127,13 @@
                                             <div class="col-md-12">
                                                 <div class="form-group" style="margin-top: 65px;">
                                                     <p class="mg-b-10"> اهداف دوره</p>
-                                                    <textarea name="text" id="editor2" cols="30" rows="5"
-                                                              class="form-control">{{$workshops->target}}</textarea>
+                                                    <textarea name="target" id="editor2" cols="30" rows="5" class="form-control">{{$workshops->target}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group" style="margin-top: 65px;">
                                                     <p class="mg-b-10">رزومه مدرس دوره</p>
-                                                    <textarea name="text" id="editor3" cols="30" rows="5"
-                                                              class="form-control">{{$workshops->teacher_resume}}</textarea>
+                                                    <textarea name="teacher_resume" id="editor3" cols="30" rows="5" class="form-control">{{$workshops->teacher_resume}}</textarea>
                                                 </div>
                                             </div>
 
