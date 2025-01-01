@@ -456,7 +456,7 @@
                                 </div>
                                 <div class="feature-item">
                                     <span>سطح مهارت :</span>
-                                    <span>همه سطوح</span>
+                                    <span>{{$currentws->level}}</span>
                                 </div>
                                 <div class="feature-item">
                                     <span>آزمون ورودی:</span>
