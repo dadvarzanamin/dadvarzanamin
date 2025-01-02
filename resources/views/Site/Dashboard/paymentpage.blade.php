@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card card-custom p-4 br-16">
-                <form method="post" action="{{ route('pay') }}">
+                <form method="get" action="{{ route('pay') }}">
                     @csrf
                     <input type="hidden" name="workshopid" value="{{ $workshops->id }}">
 
