@@ -745,7 +745,7 @@ class ProfileController extends Controller
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
 
-        $payment = $request->amount($workshopsign->price)->verify();
+        $payment = $request->amount(5000)->verify();
         if ($payment->successful()) {
             $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
             Workshopsign::where('id', $workshoppay->id)->update([
