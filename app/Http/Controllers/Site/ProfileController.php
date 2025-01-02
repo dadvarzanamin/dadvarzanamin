@@ -705,7 +705,6 @@ class ProfileController extends Controller
             ];
         $jsonData = json_encode($cookie);
 
-
         if (Auth::user()->email == null)
         {
             alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
@@ -721,16 +720,20 @@ class ProfileController extends Controller
                 ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
                 ->where('workshops.id', '=', $workshopid)
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->where('workshopsigns.pricestatus', '=', null)
+                ->where('workshopsigns.pricestatus', '<>', null)
                 ->first();
-
-            $request = Toman::amount($finalprice)
-                ->description($workshopsigns->title)
-                ->callback(route('payment.callback'))
-                ->mobile(Auth::user()->phone)
-                ->email(Auth::user()->email)
-                ->request();
-
+            if($workshopsigns){
+                alert()->error('', 'َشما قبلا در این دوره ثبت نام کرده اید');
+                return Redirect::back();
+            }else{
+                $workshops =  Workshop::whereId($workshopid)->select('title')->first();
+                    $request = Toman::amount($finalprice)
+                        ->description($workshops->title)
+                        ->callback(route('payment.callback'))
+                        ->mobile(Auth::user()->phone)
+                        ->email(Auth::user()->email)
+                        ->request();
+            }
             if ($request->successful()) {
                 // Store created transaction details for verification
                 $transactionId = $request->transactionId();
