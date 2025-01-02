@@ -605,7 +605,7 @@
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between">
                                         <span><i
-                                                class="mr-2 text-color"></i>نوع برگزاری : </span>{{implode("," , json_decode($currentws->type))}}
+                                                class="mr-2 text-color"></i>نوع برگزاری : </span>{{implode("," , json_decode($singleworkshops->type))}}
                                     </li>
 
                                     <li class="d-flex align-items-center justify-content-between">
