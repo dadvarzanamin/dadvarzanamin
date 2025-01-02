@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -699,6 +700,9 @@ class ProfileController extends Controller
             $workshopid     = $request->input('workshopid');
             $finalprice     = $request->input('finalprice');
 
+        Session::put('workshopid'.Auth::user()->id, $workshopid);
+        Session::put('finalprice'.Auth::user()->id, $finalprice);
+
             $cookie = [
               'workshopid' =>   $workshopid,
               'finalprice' =>   $finalprice,
@@ -739,7 +743,7 @@ class ProfileController extends Controller
                 $transactionId = $request->transactionId();
 
                 // Redirect to payment URL
-                return $request->pay()->withCookie(cookie('workshop', $jsonData, 60));
+                return $request->pay();
             }
 
             if ($request->failed()) {
@@ -751,19 +755,15 @@ class ProfileController extends Controller
     public function callbackpay(CallbackRequest $request)
     {
 
-        $jsonData = Cookie::get('cookie');
-        $data = $jsonData ? json_decode($jsonData, true) : null;
-
-
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
-            ->where('workshops.id', '=', $data['workshopid'])
+            ->where('workshops.id', '=', Session::get('workshopid'.Auth::user()->id))
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
 
-        $payment = $request->amount($data['finalprice'])->verify();
+        $payment = $request->amount(Session::get('finalprice'.Auth::user()->id))->verify();
         if ($payment->successful()) {
             $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
             Workshopsign::where('id', $workshoppay->id)->update([
