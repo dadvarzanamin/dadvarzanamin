@@ -31,6 +31,28 @@
 @endsection
 @section('main')
     <style>
+        .modal-body {
+            padding: 0;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         .modal, .service-modal, .dep-modal, .akhbar-modal, .post-modal, .employee-modal, .dore-modal {
             display: none;
             position: fixed;
@@ -397,29 +419,7 @@
                                 <p>نوع برگزاری: {{implode("," , json_decode($currentws->type))}}</p>
                                 <p>تاریخ برگزاری: {{$currentws->date}}</p>
                             </div>
-                            <style>
-                                .modal-body {
-                                    padding: 0;
-                                }
 
-                                .video-container {
-                                    position: relative;
-                                    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-                                    height: 0;
-                                    overflow: hidden;
-                                    max-width: 100%;
-                                    background-color: #000;
-                                }
-
-                                .video-container iframe {
-                                    position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                    border: 0;
-                                }
-                            </style>
                             @if($currentws->video)
                                 <!-- ویدئو آپارات -->
                                 <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
@@ -2027,6 +2027,18 @@
                                                             <option value="">انتخاب کنید</option>
                                                             <option value="1">حضوری</option>
                                                             <option value="2">مجازی</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="item-content item-input">
+                                                <div class="item-inner">
+                                                    <div class="item-input-wrap">
+                                                        <label>نوع استفاده</label>
+                                                        <select name="certificate" class="form-control" id="certificate">
+                                                            <option value="">انتخاب کنید</option>
+                                                            <option value="1">نیاز به گواهی دوره</option>
+                                                            <option value="0">عدم نیاز به گواهی دوره</option>
                                                         </select>
                                                     </div>
                                                 </div>
