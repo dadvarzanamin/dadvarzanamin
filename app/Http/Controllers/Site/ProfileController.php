@@ -704,6 +704,8 @@ class ProfileController extends Controller
             // دریافت workshopid از درخواست یا از session
             //$workshopid = $request->query('workshopid');
             $workshopid     = $request->input('workshopid');
+            $finalprice     = $request->input('finalprice');
+
             $workshopsigns  = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
                 ->select('workshops.title', 'workshops.price', 'workshops.offer', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
@@ -715,11 +717,11 @@ class ProfileController extends Controller
 
             if ($workshopsigns) {
                 // ارسال قیمت نهایی به درگاه پرداخت: اگر offer موجود بود، آن را ارسال می‌کنیم، در غیر این صورت price را ارسال می‌کنیم
-                $finalAmount = $workshopsigns->offer ? $workshopsigns->offer : $workshopsigns->price;
+                //$finalAmount = $workshopsigns->offer ? $workshopsigns->offer : $workshopsigns->price;
 //                dd($finalAmount);
 
                 // تنظیم پرداخت
-                $request = Toman::amount($finalAmount)
+                $request = Toman::amount($finalprice)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
                     ->mobile(Auth::user()->phone)

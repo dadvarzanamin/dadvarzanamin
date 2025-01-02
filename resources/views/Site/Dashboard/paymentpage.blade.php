@@ -114,17 +114,15 @@
                                     <p class="mb-0 mobile-font" id="final-price">
                                         @if($certificate == 1)
                                             @if($workshops->offer)
-                                                {{ number_format((int)$workshops->offer + (int)$workshops->certificate_price) }}
-                                                تومان
+                                                {{$finalprice = number_format((int)$workshops->offer + (int)$workshops->certificate_price) }}تومان
                                             @else
-                                                {{ number_format((int)$workshops->price + (int)$workshops->certificate_price) }}
-                                                تومان
+                                                {{$finalprice = number_format((int)$workshops->price + (int)$workshops->certificate_price) }}تومان
                                             @endif
                                         @else
                                             @if($workshops->offer)
-                                                {{ number_format((int)$workshops->offer) }} تومان
+                                                {{$finalprice = number_format((int)$workshops->offer) }} تومان
                                             @else
-                                                {{ number_format((int)$workshops->price) }} تومان
+                                                {{$finalprice = number_format((int)$workshops->price) }} تومان
                                             @endif
                                         @endif
                                     </p>
@@ -132,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <input type="hidden" name="finalprice" value="{{str_replace(',', '',$finalprice)}}" id="final-price-input">
                     <div class="row my-4">
                         <div class="col-lg-12">
                             <p class="text-center">کد تخفیف</p>
@@ -217,6 +215,7 @@
 
                             // آپدیت قیمت نهایی
                             $('#final-price').text(new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان');
+                            $('#final-price-input').val(finalPrice);
                         } else {
                             // در صورتی که کد تخفیف معتبر نباشد
                             $('#discount-amount').text("۰ تومان");
