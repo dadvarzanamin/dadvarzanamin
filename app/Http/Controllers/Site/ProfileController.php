@@ -715,7 +715,7 @@ class ProfileController extends Controller
                 ->where('workshopsigns.pricestatus', '=', null)
                 ->first();
 
-            $request = Toman::amount($workshopsigns->price)
+            $request = Toman::amount(5000)
                 ->description($workshopsigns->title)
                 ->callback(route('payment.callback'))
                 ->mobile(Auth::user()->phone)
@@ -738,63 +738,60 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
-        try {
-            // دریافت اطلاعات کارگاه و ثبت نام مرتبط با کاربر
-            $workshopsign = DB::table('workshops')
-                ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.offer', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
-                ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->whereNull('workshopsigns.pricestatus')
-                ->orderBy('workshopsigns.id', 'DESC')
-                ->first();
+        $workshopsign = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->where('workshopsigns.user_id', '=', Auth::user()->id)
+            ->where('workshopsigns.pricestatus', '=', null)
+            ->first();
 
-            if (!$workshopsign) {
-                throw new \Exception('No unpaid workshop found for the user.');
+        $payment = $request->amount($workshopsign->price)->verify();
+        if ($payment->successful()) {
+            $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+            Workshopsign::where('id', $workshoppay->id)->update([
+                'referenceId' => $payment->referenceId(),
+                'pricestatus' => 4,
+                'price' => $workshopsign->price
+            ]);
+
+            if ($workshopsign->typeuse == 1) {
+                $workshoptype = 'حضوری';
+
+            } elseif ($workshopsign->typeuse == 2) {
+                $workshoptype = 'آنلاین';
+            }
+            try {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => http_build_query([
+                        'type' => '1',
+                        'param1' => Auth::user()->name,
+                        'param2' => $workshopsign->title,
+                        'param3' => $workshoptype,
+                        'receptor' => Auth::user()->phone, // شماره گیرنده را جایگزین کنید
+                        'template' => 'workshop',
+                    ]),
+                    CURLOPT_HTTPHEADER => array(
+                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                        "cache-control: no-cache",
+                        "content-type: application/x-www-form-urlencoded",
+                    ),
+                ));
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                curl_close($curl);
+            } catch (Exception $exception) {
             }
 
-            // چک کردن مقدار offer (اگر وجود داشت) یا استفاده از price
-            $finalAmount = $workshopsign->offer ? $workshopsign->offer : $workshopsign->price;
+            return view('Site.Dashboard.payment-success');
 
-            // تایید پرداخت با استفاده از مقدار نهایی
-            $payment = $request->amount($finalAmount)->verify();
-
-            if ($payment->successful() || $payment->alreadyVerified()) {
-                DB::beginTransaction();
-
-                // بروزرسانی اطلاعات پرداخت در دیتابیس
-                $updatedRows = DB::table('workshopsigns')
-                    ->where('id', $workshopsign->workshopsign_id)
-                    ->update([
-                        'referenceId' => $payment->referenceId(),
-                        'pricestatus' => 4, // پرداخت موفق
-                        'price' => $finalAmount // ثبت قیمت نهایی (با تخفیف یا بدون تخفیف)
-                    ]);
-
-                if ($updatedRows === 0) {
-                    throw new \Exception('Failed to update the database.');
-                }
-
-                DB::commit();
-
-                // در صورت موفقیت پرداخت
-                return view('Site.Dashboard.payment-success');
-            }
-
-            // اگر پرداخت موفق نبود
-            DB::table('workshopsigns')
-                ->where('id', $workshopsign->workshopsign_id)
-                ->update([
-                    'referenceId' => $request->transactionId(),
-                    'pricestatus' => null,
-                    'price' => null
-                ]);
-
-            return view('Site.Dashboard.payment-failed');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('Error in callbackpay', ['error' => $e->getMessage()]);
-            return view('Site.Dashboard.payment-failed')->with('error', $e->getMessage());
         }
     }
 
