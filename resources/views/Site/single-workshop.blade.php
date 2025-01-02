@@ -604,7 +604,8 @@
                                         ساعت
                                     </li>
                                     <li class="d-flex align-items-center justify-content-between">
-                                        <span><i class="mr-2 text-color"></i>نوع برگزاری : </span> حضوری و آنلاین
+                                        <span><i
+                                                class="mr-2 text-color"></i>نوع برگزاری : </span>{{implode("," , json_decode($currentws->type))}}
                                     </li>
 
                                     <li class="d-flex align-items-center justify-content-between">

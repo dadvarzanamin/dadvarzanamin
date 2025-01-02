@@ -394,7 +394,7 @@
 
                             <div class="course-info">
                                 <p>ارائه توسط: {{$currentws->teacher}}</p>
-                                <p>نوع برگزاری: {{implode("،" , json_decode($currentws->type))}}</p>
+                                <p>نوع برگزاری: {{implode("," , json_decode($currentws->type))}}</p>
                                 <p>تاریخ برگزاری: {{$currentws->date}}</p>
                             </div>
                             <style>
