@@ -694,54 +694,44 @@ class ProfileController extends Controller
 
     public function pay(Request $request)
     {
-        if (Auth::user()->email == null) {
-            alert()->error('', 'اطلاعات آدرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
-            return Redirect::back();
-        } elseif (Auth::user()->phone == null) {
-            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
-            return Redirect::back();
-        } else {
-            // دریافت workshopid از درخواست یا از session
-            //$workshopid = $request->query('workshopid');
+
             $workshopid     = $request->input('workshopid');
             $finalprice     = $request->input('finalprice');
 
-            $workshopsigns  = DB::table('workshops')
+        if (Auth::user()->email == null)
+        {
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
+
+        }elseif (Auth::user()->phone == null){
+            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
+
+        }else {
+            $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.offer', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
+                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->where('workshopsigns.workshop_id', '=', $workshopid)
-                ->where('workshops.id', '=', $workshopid)
-                ->whereNull('workshopsigns.pricestatus')
+                ->where('workshopsigns.pricestatus', '=', null)
                 ->first();
 
-            if ($workshopsigns) {
-                // ارسال قیمت نهایی به درگاه پرداخت: اگر offer موجود بود، آن را ارسال می‌کنیم، در غیر این صورت price را ارسال می‌کنیم
-                //$finalAmount = $workshopsigns->offer ? $workshopsigns->offer : $workshopsigns->price;
-//                dd($finalAmount);
+            $request = Toman::amount($workshopsigns->price)
+                ->description($workshopsigns->title)
+                ->callback(route('payment.callback'))
+                ->mobile(Auth::user()->phone)
+                ->email(Auth::user()->email)
+                ->request();
 
-                // تنظیم پرداخت
-                $request = Toman::amount($finalprice)
-                    ->description($workshopsigns->title)
-                    ->callback(route('payment.callback'))
-                    ->mobile(Auth::user()->phone)
-                    ->email(Auth::user()->email)
-                    ->request();
+            if ($request->successful()) {
+                // Store created transaction details for verification
+                $transactionId = $request->transactionId();
 
-                if ($request->successful()) {
-                    // ذخیره اطلاعات تراکنش برای تایید بعدی
-                    $transactionId = $request->transactionId();
+                // Redirect to payment URL
+                return $request->pay();
+            }
 
-                    // ریدایرکت به URL پرداخت
-                    return $request->pay();
-                } elseif ($request->failed()) {
-                    // هندل کردن خطای درخواست پرداخت
-                    alert()->error('', 'خطایی در ارسال درخواست پرداخت به وجود آمد.');
-                    return Redirect::back();
-                }
-            } else {
-                alert()->error('', 'دوره‌ای برای پرداخت یافت نشد.');
-                return Redirect::back();
+            if ($request->failed()) {
+                // Handle transaction request failure.
             }
         }
     }
