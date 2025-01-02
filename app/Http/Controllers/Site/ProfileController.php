@@ -24,6 +24,7 @@ use Evryn\LaravelToman\CallbackRequest;
 use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -698,6 +699,13 @@ class ProfileController extends Controller
             $workshopid     = $request->input('workshopid');
             $finalprice     = $request->input('finalprice');
 
+            $cookie = [
+              'workshopid' =>   $workshopid,
+              'finalprice' =>   $finalprice,
+            ];
+        $jsonData = json_encode($cookie);
+
+
         if (Auth::user()->email == null)
         {
             alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
@@ -711,11 +719,12 @@ class ProfileController extends Controller
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
                 ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+                ->where('workshops.id', '=', $workshopid)
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->where('workshopsigns.pricestatus', '=', null)
                 ->first();
 
-            $request = Toman::amount(5000)
+            $request = Toman::amount($finalprice)
                 ->description($workshopsigns->title)
                 ->callback(route('payment.callback'))
                 ->mobile(Auth::user()->phone)
@@ -727,7 +736,7 @@ class ProfileController extends Controller
                 $transactionId = $request->transactionId();
 
                 // Redirect to payment URL
-                return $request->pay();
+                return $request->pay()->withCookie(cookie('workshop', $jsonData, 60));
             }
 
             if ($request->failed()) {
@@ -738,14 +747,20 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
+
+        $jsonData = Cookie::get('cookie');
+        $data = $jsonData ? json_decode($jsonData, true) : null;
+
+
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->where('workshops.id', '=', $data['workshopid'])
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
 
-        $payment = $request->amount(5000)->verify();
+        $payment = $request->amount($data['finalprice'])->verify();
         if ($payment->successful()) {
             $workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
             Workshopsign::where('id', $workshoppay->id)->update([
