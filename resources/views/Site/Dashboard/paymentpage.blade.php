@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card card-custom p-4 br-16">
-                <form method="get" action="{{ route('pay') }}">
+                <form method="post" action="{{ route('pay') }}">
                     @csrf
                     <input type="hidden" name="workshopid" value="{{ $workshops->id }}">
 
@@ -64,7 +64,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ گواهی دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font" id="">
+                                    <p class="mb-0 mobile-font">
                                         @if($certificate == 1)
                                             {{(int)$workshops->certificate_price }}
                                             تومان
