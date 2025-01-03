@@ -633,10 +633,10 @@ class ProfileController extends Controller
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
 
-            $workshops = Workshopsign::whereWorkshop_id($workshopid)->first();
-            $workshops->certificate     = $request->input('certificate');
-            $workshops->typeuse         = $request->input('typeuse');
-            $workshops->save();
+            $Workshopsign = Workshopsign::whereWorkshop_id($workshopid)->first();
+            $Workshopsign->certificate     = $request->input('certificate');
+            $Workshopsign->typeuse         = $request->input('typeuse');
+            $Workshopsign->save();
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
