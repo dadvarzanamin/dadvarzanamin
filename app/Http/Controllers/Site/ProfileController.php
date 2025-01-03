@@ -593,7 +593,6 @@ class ProfileController extends Controller
 
     public function workshopsign(Request $request)
     {
-
         $companies = Company::first();
         $user = Auth::user();
         $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
@@ -619,11 +618,24 @@ class ProfileController extends Controller
             ->first();
 
         $workshops = Workshop::whereId($workshopid)->first();
+        if ($workshopsigns == null){
 
-        if ($workshopsigns->pricestatus == 4) {
+            $Workshopsign = new Workshopsign();
+            $Workshopsign->workshop_id  = $request->input('workshopid');
+            $Workshopsign->typeuse      = $request->input('typeuse');
+            $Workshopsign->certificate  = $request->input('certificate');
+            $Workshopsign->user_id      = Auth::user()->id;
+            $Workshopsign->save();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+        }elseif ($workshopsigns->pricestatus == 4) {
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
+            $workshopsigns->update([
+                'certificate'   => $request->input('certificate'),
+                'typeuse'       => $request->input('typeuse'),
+            ]);
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
 
@@ -710,9 +722,9 @@ class ProfileController extends Controller
                 ->first();
 
             if($workshopsigns->pricestatus == null){
-                $workshops =  Workshop::whereId($workshopid)->select('title')->first();
+
                 $request = Toman::amount($finalprice)
-                    ->description($workshops->title)
+                    ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
@@ -753,7 +765,7 @@ class ProfileController extends Controller
             $workshopsign->update([
                 'referenceId' => $payment->referenceId(),
                 'pricestatus' => 4,
-                'price'       => $workshopsign->price,
+                'price'       => Session::get('finalprice'.Auth::user()->id),
             ]);
 
             if ($workshopsign->typeuse == 1) {
