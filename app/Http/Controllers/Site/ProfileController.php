@@ -632,10 +632,12 @@ class ProfileController extends Controller
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
-            $workshopsigns->update([
-                'certificate'   => $request->input('certificate'),
-                'typeuse'       => $request->input('typeuse'),
-            ]);
+
+            $workshops = Workshopsign::whereWorkshop_id($workshopid)->first();
+            $workshops->certificate     = $request->input('certificate');
+            $workshops->typeuse         = $request->input('typeuse');
+            $workshops->save();
+
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
 
@@ -762,11 +764,11 @@ class ProfileController extends Controller
         if ($payment->successful()) {
             //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
 
-            $workshopsign->update([
-                'referenceId' => $payment->referenceId(),
-                'pricestatus' => 4,
-                'price'       => Session::get('finalprice'.Auth::user()->id),
-            ]);
+            $workshops = Workshopsign::whereWorkshop_id(Session::get('workshopid'.Auth::user()->id))->first();
+            $workshops->referenceId   = $payment->referenceId();
+            $workshops->pricestatus   = 4;
+            $workshops->price         = Session::get('finalprice'.Auth::user()->id);
+            $workshops->save();
 
             if ($workshopsign->typeuse == 1) {
                 $workshoptype = 'حضوری';
