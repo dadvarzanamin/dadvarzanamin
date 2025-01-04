@@ -593,6 +593,7 @@ class ProfileController extends Controller
 
     public function workshopsign(Request $request)
     {
+
         $companies = Company::first();
         $user = Auth::user();
         $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
@@ -600,11 +601,26 @@ class ProfileController extends Controller
             ->MenuDashboard()
             ->orderBy('priority')
             ->get();
-
-        $request->validate([
-            'workshopid' => ['numeric'],
-            'typeuse' => ['numeric'],
-        ]);
+        if ($request->input('certificate') == 1) {
+            $request->validate([
+                'workshopid'  => 'required|numeric',
+                'typeuse'     => 'required|numeric',
+                'certificate' => 'required|numeric',
+                'national_id' => 'required|string',
+                'father_name' => 'required|string',
+                'birthday'    => 'required|string',
+            ]);
+        }else{
+            $request->validate([
+                'workshopid'    => 'required|numeric',
+                'typeuse'       => 'required|numeric',
+                'certificate'   => 'required|numeric',
+            ]);
+        }
+        $user->birthday     = $request->input('birthday');
+        $user->national_id  = $request->input('national_id');
+        $user->father_name  = $request->input('father_name');
+        $user->save();
 
         $workshopid     = $request->input('workshopid');
         $typeuse        = $request->input('typeuse');

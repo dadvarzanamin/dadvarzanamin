@@ -158,5 +158,11 @@ return array(
         'code'      => 'کد پیامک',
         'captcha'   => 'سوال امنیتی',
         'type_user' => 'نوع کاربری',
+        'workshopid'  => 'کارگاه',
+        'typeuse'     => 'نوع استفاده',
+        'certificate' => 'گواهینامه',
+        'national_id' => 'کد ملی',
+        'father_name' => 'نام پدر',
+        'birthday'    => 'تاریخ تولد',
     ),
 );
