@@ -1,5 +1,6 @@
 @extends('admin')
 @section('style')
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/font-face.css" rel="stylesheet" type="text/css">
     <title>کارگاه و دوره های آموزشی</title>
 @endsection
 @section('main')
@@ -70,9 +71,9 @@
                         </div>
                     </div>
                     <div class="input-box col-lg-4 hidden" id="inputFields3">
-                        <label class="label-text">تاریخ تولد</label>
+                        <label for="birthday" class="label-text">تاریخ تولد</label>
                         <div class="form-group">
-                            <input type="text" name="birthday" id="birthday" class="form-control" style="direction: ltr" placeholder="1300/12/29">
+                            <input name="birthday" id="birthday" class="form-control" style="direction: ltr" placeholder="1370/01/01">
                         </div>
                     </div>
                     <div class="input-box col-lg-12 py-2">
@@ -237,15 +238,36 @@
     </div>
 @endsection
 @section('script')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/css/persian-datepicker.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
     <script>
         $(document).ready(function () {
-            // گرفتن المان‌ها
+            // فعال‌سازی تاریخ‌شمار فارسی
+            $('#birthday').persianDatepicker({
+                format: 'YYYY/MM/DD', // فرمت تاریخ
+                initialValue: true,   // مقدار اولیه
+                autoClose: true,      // بستن خودکار پس از انتخاب تاریخ
+                calendarType: 'persian', // تقویم شمسی
+                navigator: {
+                    enabled: true, // فعال‌سازی ناوبری ماه و سال
+                },
+                toolbox: {
+                    calendarSwitch: {
+                        enabled: false // غیرفعال کردن تغییر تقویم
+                    }
+                },
+                theme: {
+                    selected: "font-family: 'Pinar-FD', sans-serif;"
+                }
+            });
+
+            // منطق نمایش/پنهان کردن فیلدها
             const selectOption = $('#certificate');
             const inputFields1 = $('#inputFields1');
             const inputFields2 = $('#inputFields2');
             const inputFields3 = $('#inputFields3');
 
-            // افزودن listener برای تغییر مقدار
             selectOption.on('change', function () {
                 if ($(this).val() === '1') {
                     inputFields1.removeClass('hidden');
@@ -256,6 +278,17 @@
                     inputFields2.addClass('hidden');
                     inputFields3.addClass('hidden');
                 }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#date-input').persianDatepicker({
+                format: 'YYYY/MM/DD', // فرمت مورد نیاز شما
+                initialValue: false,
+                // سایر تنظیمات مورد نیاز
             });
         });
     </script>

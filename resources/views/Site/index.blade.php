@@ -572,7 +572,8 @@
 {{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
 {{--                }--}}
 {{--            }, 1000);--}}
-{{--        </script>--}}
+{{--        </
+>--}}
     @endif
     <script>
         jQuery(document).ready(function () {
