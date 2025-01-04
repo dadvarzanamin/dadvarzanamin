@@ -69,7 +69,7 @@
 {{--                                    <a href="#tab-profile" class="tab-link">--}}
 {{--                                        <i class="fas fa-user" style="color: #1E2E45"></i>--}}
 {{--                                    </a>--}}
-                                    <a href="{{'/پروفایل-من'}}" class="link external link-all" style="">
+                                    <a href="{{'/پروفایل-من'}}" class="link external link-all">
                                         <i class="fas fa-user" style="color: #1E2E45"></i>
                                     </a>
 

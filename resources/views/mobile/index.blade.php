@@ -483,10 +483,11 @@
                             <div class="content" style="padding-bottom: 60px;">
                                 @if(Auth::check())
                                     <div class="content-button">
-                                        <a href="#tab-workshop" class="mobile-button tab-link"
+                                        <a href="{{'/کارگاه-آموزشی'}}" class="mobile-button external"
                                            style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">
                                             ثبت نام جهت حضور در کارگاه آموزشی
                                         </a>
+
                                     </div>
                                 @else
                                     <div class="content-button">
@@ -1991,7 +1992,7 @@
             <div class="navbar navbar-page">
                 <div class="navbar-inner">
                     <div class="title">ثبت نام کارگاه ها و دوره های آموزشی</div>
-                    <div class="right"><a href="#tab-profile" class="tab-link"><i class="fas fa-arrow-left"></i></a>
+                    <div class="right"><a href="#tab-profile" class="tab-link external-link"><i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
