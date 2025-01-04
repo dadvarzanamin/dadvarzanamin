@@ -22,7 +22,7 @@
             <div class="setting-body">
                 <form method="post" action="{{route('workshop-sign')}}" class="row pt-40px">
                     @csrf
-                    <div class="input-box col-lg-3">
+                    <div class="input-box col-lg-4">
                         <label class="label-text">نام دوره</label>
                         <div class="form-group">
                             <select name="workshopid" class="form-control" id="workshopid">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <div class="input-box col-lg-3">
+                    <div class="input-box col-lg-4">
                         <label class="label-text">نوع استفاده</label>
                         <div class="form-group">
                             <select name="typeuse" class="form-control" id="typeuse">
@@ -44,7 +44,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="input-box col-lg-3">
+                    <div class="input-box col-lg-4">
                         <label class="label-text">دریافت گواهی شرکت در دوره</label>
                         <div class="form-group">
                             <select name="certificate" class="form-control" id="certificate">
@@ -52,6 +52,27 @@
                                 <option value="1">نیاز به گواهی دوره</option>
                                 <option value="0">عدم نیاز به گواهی دوره</option>
                             </select>
+                        </div>
+                    </div>
+                    <style>
+                        .hidden {display: none;}
+                    </style>
+                    <div class="input-box col-lg-4 hidden" id="inputFields1">
+                        <label class="label-text">کد ملی</label>
+                        <div class="form-group">
+                            <input type="text" name="national_id" id="national_id" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-box col-lg-4 hidden" id="inputFields2">
+                        <label class="label-text">نام پدر</label>
+                        <div class="form-group">
+                            <input type="text" name="father_name" id="father_name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-box col-lg-4 hidden" id="inputFields3">
+                        <label class="label-text">تاریخ تولد</label>
+                        <div class="form-group">
+                            <input type="text" name="birthday" id="birthday" class="form-control" style="direction: ltr" placeholder="1300/12/29">
                         </div>
                     </div>
                     <div class="input-box col-lg-12 py-2">
@@ -216,6 +237,28 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        $(document).ready(function () {
+            // گرفتن المان‌ها
+            const selectOption = $('#certificate');
+            const inputFields1 = $('#inputFields1');
+            const inputFields2 = $('#inputFields2');
+            const inputFields3 = $('#inputFields3');
+
+            // افزودن listener برای تغییر مقدار
+            selectOption.on('change', function () {
+                if ($(this).val() === '1') {
+                    inputFields1.removeClass('hidden');
+                    inputFields2.removeClass('hidden');
+                    inputFields3.removeClass('hidden');
+                } else {
+                    inputFields1.addClass('hidden');
+                    inputFields2.addClass('hidden');
+                    inputFields3.addClass('hidden');
+                }
+            });
+        });
+    </script>
     @if ($errors->any())
         <script>
             Swal.fire({

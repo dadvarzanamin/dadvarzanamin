@@ -24,10 +24,12 @@ use Evryn\LaravelToman\CallbackRequest;
 use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -599,44 +601,61 @@ class ProfileController extends Controller
             ->MenuDashboard()
             ->orderBy('priority')
             ->get();
+        if ($request->input('certificate') == 1) {
+            $request->validate([
+                'workshopid'  => 'required|numeric',
+                'typeuse'     => 'required|numeric',
+                'certificate' => 'required|numeric',
+                'national_id' => 'required|string',
+                'father_name' => 'required|string',
+                'birthday'    => 'required|string',
+            ]);
+        }else{
+            $request->validate([
+                'workshopid'    => 'required|numeric',
+                'typeuse'       => 'required|numeric',
+                'certificate'   => 'required|numeric',
+            ]);
+        }
+        $user->birthday     = $request->input('birthday');
+        $user->national_id  = $request->input('national_id');
+        $user->father_name  = $request->input('father_name');
+        $user->save();
 
+        $workshopid     = $request->input('workshopid');
+        $typeuse        = $request->input('typeuse');
+        $certificate    = $request->input('certificate');
 
-        $request->validate([
-            'workshopid' => ['numeric'],
-            'typeuse' => ['numeric'],
-        ]);
-
-        $workshopid  = $request->input('workshopid');
-        $typeuse     = $request->input('typeuse');
-        $certificate = $request->input('certificate');
-
-        // چک کردن آیا کاربر در کارگاه خاص ثبت‌نام کرده است
-//        $workshopsigns = DB::table('workshops')
-//            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-//            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
-//            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-//            ->where('workshops.id', '=', $request->input('workshopid')) // فقط برای کارگاه خاص
-//            ->where('workshopsigns.pricestatus', '=', 4)
-//            ->first();
+        $workshopsigns = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->where('workshopsigns.user_id', '=', Auth::user()->id)
+            ->where('workshops.id', '=', $request->input('workshopid'))
+            ->first();
 
         $workshops = Workshop::whereId($workshopid)->first();
+        if ($workshopsigns == null){
 
-//        if ($workshopsigns != null) {
-//            alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
-//            return Redirect::back();
-//        } else {
-//            $Workshopsign = new Workshopsign();
-//            $Workshopsign->workshop_id = $request->input('workshopid');
-//            $Workshopsign->typeuse = $request->input('typeuse');
-//            $Workshopsign->price = $request->input('price');
-//            $Workshopsign->pricestatus = $request->input('pricestatus');
-//            $Workshopsign->user_id = Auth::user()->id;
-//
-//            $Workshopsign->save();
-//            //return Redirect::route('paymentpage');
-//
-//        }
-        return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops' , 'workshopid' , 'typeuse' , 'certificate'));
+            $Workshopsign = new Workshopsign();
+            $Workshopsign->workshop_id  = $request->input('workshopid');
+            $Workshopsign->typeuse      = $request->input('typeuse');
+            $Workshopsign->certificate  = $request->input('certificate');
+            $Workshopsign->user_id      = Auth::user()->id;
+            $Workshopsign->save();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+        }elseif ($workshopsigns->pricestatus == 4) {
+            alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
+            return Redirect::back();
+        } elseif ($workshopsigns->pricestatus == null) {
+
+            $Workshopsign = Workshopsign::whereWorkshop_id($workshopid)->first();
+            $Workshopsign->certificate     = $request->input('certificate');
+            $Workshopsign->typeuse         = $request->input('typeuse');
+            $Workshopsign->save();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+        }
 
     }
 
@@ -685,124 +704,128 @@ class ProfileController extends Controller
             ->select('workshops.title', 'workshops.price','workshops.offer','workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
             ->where('workshopsigns.user_id', '=', $user->id)
             ->where('workshopsigns.workshop_id', '=', $workshopid)
-            ->whereNull('workshopsigns.pricestatus')
+            ->where('workshopsigns.pricestatus', '<>', null)
             ->first();
-//        dd($workshopsigns);
+
+        //dd($workshopsigns);
 
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
     }
 
     public function pay(Request $request)
     {
-        if (Auth::user()->email == null) {
-            alert()->error('', 'اطلاعات آدرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+
+        $workshopid     = $request->input('workshopid');
+        $finalprice     = $request->input('finalprice');
+
+        Session::put('workshopid'.Auth::user()->id, $workshopid);
+        Session::put('finalprice'.Auth::user()->id, $finalprice);
+
+
+        if (Auth::user()->email == null)
+        {
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
-        } elseif (Auth::user()->phone == null) {
+
+        }elseif (Auth::user()->phone == null){
             alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
             return Redirect::back();
-        } else {
-            // دریافت workshopid از درخواست یا از session
-            //$workshopid = $request->query('workshopid');
-            $workshopid     = $request->input('workshopid');
-            $workshopsigns  = DB::table('workshops')
+
+        }else {
+            $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.offer', 'workshops.id', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.workshop_id')
-                ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->where('workshopsigns.workshop_id', '=', $workshopid)
+                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
                 ->where('workshops.id', '=', $workshopid)
-                ->whereNull('workshopsigns.pricestatus')
+                ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->first();
 
-            if ($workshopsigns) {
-                // ارسال قیمت نهایی به درگاه پرداخت: اگر offer موجود بود، آن را ارسال می‌کنیم، در غیر این صورت price را ارسال می‌کنیم
-                $finalAmount = $workshopsigns->offer ? $workshopsigns->offer : $workshopsigns->price;
-//                dd($finalAmount);
+            if($workshopsigns->pricestatus == null){
 
-                // تنظیم پرداخت
-                $request = Toman::amount($finalAmount)
+                $request = Toman::amount($finalprice)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
-
-                if ($request->successful()) {
-                    // ذخیره اطلاعات تراکنش برای تایید بعدی
-                    $transactionId = $request->transactionId();
-
-                    // ریدایرکت به URL پرداخت
-                    return $request->pay();
-                } elseif ($request->failed()) {
-                    // هندل کردن خطای درخواست پرداخت
-                    alert()->error('', 'خطایی در ارسال درخواست پرداخت به وجود آمد.');
-                    return Redirect::back();
-                }
-            } else {
-                alert()->error('', 'دوره‌ای برای پرداخت یافت نشد.');
+            }else{
+                alert()->error('', 'َشما قبلا در این دوره ثبت نام کرده اید');
                 return Redirect::back();
+            }
+            if ($request->successful()) {
+                // Store created transaction details for verification
+                $transactionId = $request->transactionId();
+
+                // Redirect to payment URL
+                return $request->pay();
+            }
+
+            if ($request->failed()) {
+                // Handle transaction request failure.
             }
         }
     }
 
     public function callbackpay(CallbackRequest $request)
     {
-        try {
-            // دریافت اطلاعات کارگاه و ثبت نام مرتبط با کاربر
-            $workshopsign = DB::table('workshops')
-                ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.id', 'workshops.title', 'workshops.price', 'workshops.offer', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.id as workshopsign_id')
-                ->where('workshopsigns.user_id', '=', Auth::user()->id)
-                ->whereNull('workshopsigns.pricestatus')
-                ->orderBy('workshopsigns.id', 'DESC')
-                ->first();
 
-            if (!$workshopsign) {
-                throw new \Exception('No unpaid workshop found for the user.');
+        $workshopsign = DB::table('workshops')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->where('workshops.id', '=', Session::get('workshopid'.Auth::user()->id))
+            ->where('workshopsigns.user_id', '=', Auth::user()->id)
+            ->where('workshopsigns.pricestatus', '=', null)
+            ->first();
+
+        $payment = $request->amount(Session::get('finalprice'.Auth::user()->id))->verify();
+        if ($payment->successful()) {
+            //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+
+            $workshops = Workshopsign::whereWorkshop_id(Session::get('workshopid'.Auth::user()->id))->first();
+            $workshops->referenceId   = $payment->referenceId();
+            $workshops->pricestatus   = 4;
+            $workshops->price         = Session::get('finalprice'.Auth::user()->id);
+            $workshops->save();
+
+            if ($workshopsign->typeuse == 1) {
+                $workshoptype = 'حضوری';
+
+            } elseif ($workshopsign->typeuse == 2) {
+                $workshoptype = 'آنلاین';
+            }
+            try {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => http_build_query([
+                        'type' => '1',
+                        'param1' => Auth::user()->name,
+                        'param2' => $workshopsign->title,
+                        'param3' => $workshoptype,
+                        'receptor' => Auth::user()->phone,
+                        'template' => 'workshop',
+                    ]),
+                    CURLOPT_HTTPHEADER => array(
+                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                        "cache-control: no-cache",
+                        "content-type: application/x-www-form-urlencoded",
+                    ),
+                ));
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                curl_close($curl);
+            } catch (Exception $exception) {
             }
 
-            // چک کردن مقدار offer (اگر وجود داشت) یا استفاده از price
-            $finalAmount = $workshopsign->offer ? $workshopsign->offer : $workshopsign->price;
+            return view('Site.Dashboard.payment-success');
 
-            // تایید پرداخت با استفاده از مقدار نهایی
-            $payment = $request->amount($finalAmount)->verify();
-
-            if ($payment->successful() || $payment->alreadyVerified()) {
-                DB::beginTransaction();
-
-                // بروزرسانی اطلاعات پرداخت در دیتابیس
-                $updatedRows = DB::table('workshopsigns')
-                    ->where('id', $workshopsign->workshopsign_id)
-                    ->update([
-                        'referenceId' => $payment->referenceId(),
-                        'pricestatus' => 4, // پرداخت موفق
-                        'price' => $finalAmount // ثبت قیمت نهایی (با تخفیف یا بدون تخفیف)
-                    ]);
-
-                if ($updatedRows === 0) {
-                    throw new \Exception('Failed to update the database.');
-                }
-
-                DB::commit();
-
-                // در صورت موفقیت پرداخت
-                return view('Site.Dashboard.payment-success');
-            }
-
-            // اگر پرداخت موفق نبود
-            DB::table('workshopsigns')
-                ->where('id', $workshopsign->workshopsign_id)
-                ->update([
-                    'referenceId' => $request->transactionId(),
-                    'pricestatus' => null,
-                    'price' => null
-                ]);
-
+        }else{
             return view('Site.Dashboard.payment-failed');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('Error in callbackpay', ['error' => $e->getMessage()]);
-            return view('Site.Dashboard.payment-failed')->with('error', $e->getMessage());
         }
     }
 
