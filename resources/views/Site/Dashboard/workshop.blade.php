@@ -28,7 +28,7 @@
                             <select name="workshopid" class="form-control" id="workshopid">
                                 <option value="">انتخاب کنید</option>
                                 @foreach($workshops as $workshop)
-                                    <option value="{{$workshop->id}}">{{$workshop->title}}</option>
+                                    <option value="{{$workshop->id}}" selected>{{$workshop->title}}</option>
                                 @endforeach
                             </select>
                         </div>
