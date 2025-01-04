@@ -299,7 +299,7 @@
 <section class="dashboard-area">
     <div class="dashboard-heading"
          style="padding: 20px;box-shadow: 1px 1px 1pc rgba(0,0,0,.075);bottom: 0;text-align: center;width: 100%">
-        <h6 class="fs-16 text-center">کلیه حقوق این سامانه به موسسه حقوقی دادورزان امین تعلق دارد</h6>
+        <h6 class="fs-12 text-center">کلیه حقوق این سامانه به موسسه حقوقی دادورزان امین تعلق دارد</h6>
     </div>
 </section>
 <div id="scroll-top">
