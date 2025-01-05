@@ -329,7 +329,7 @@ header.header-main {
 }
 @media only screen and (max-width: 600px) {
     .login-bg {
-        height: fit-content;
+        /*height: fit-content;*/
     }
 }
 .account-box {

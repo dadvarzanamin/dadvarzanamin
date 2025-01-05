@@ -74,7 +74,7 @@
                                     </a>
 
                                 @else
-                                    <a href="#tab-login" class="tab-link">
+                                    <a href="{{'/login'}}" class="link external link-all">
                                         <i class="fas fa-lock" style="color: #1E2E45"></i>
                                     </a>
 {{--                                    <a href="{{'/پروفایل-من'}}" class="link external link-all" style="">--}}

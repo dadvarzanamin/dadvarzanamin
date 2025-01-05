@@ -214,7 +214,7 @@
                     <h2 class="section__title">کارگاه های ما</h2>
                     <span class="section-divider"></span>
                 </div><!-- end section-heading -->
-                <div class="course-carousel owl-carousel mt-30px">
+                <div class="course-carousel owl-carousel owl-action-styled mt-30px">
                     @foreach($workshops as $workshop)
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_{{ $loop->index }}">
                             <div class="card-image">
@@ -307,23 +307,23 @@
             </div>
         </div>
     </section>
-    <script>
-        $(document).ready(function(){
-            $('.course-carousel').owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: true,
-                responsive: {
-                    0: {
-                        items: 1 // نمایش یک آیتم در موبایل
-                    },
-                    768: {
-                        items: 2 // نمایش دو آیتم در دسکتاپ
-                    }
-                }
-            });
-        });
-    </script>
+{{--    <script>--}}
+{{--        $(document).ready(function(){--}}
+{{--            $('.course-carousel').owlCarousel({--}}
+{{--                loop: true,--}}
+{{--                margin: 10,--}}
+{{--                nav: true,--}}
+{{--                responsive: {--}}
+{{--                    0: {--}}
+{{--                        items: 1 // نمایش یک آیتم در موبایل--}}
+{{--                    },--}}
+{{--                    768: {--}}
+{{--                        items: 2 // نمایش دو آیتم در دسکتاپ--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
     {{--  End Peoples Services Area  --}}
 
     {{--  Start Peoples Services Area  --}}
@@ -572,7 +572,8 @@
 {{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
 {{--                }--}}
 {{--            }, 1000);--}}
-{{--        </script>--}}
+{{--        </
+>--}}
     @endif
     <script>
         jQuery(document).ready(function () {
