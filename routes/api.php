@@ -27,7 +27,7 @@ use App\Http\Controllers\Api\v1\IndexController;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class    , 'profile']);
-    Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class    , 'profile']);
+    Route::post('v1/estelam'        ,   [App\Http\Controllers\Api\V1\EstelamController::class    , 'estelam']);
 });
 
 
