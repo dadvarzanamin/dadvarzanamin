@@ -10,8 +10,8 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
     Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
     Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
-    Route::post('v1/token'          ,[App\Http\Controllers\Api\V1\UserController::class    , 'token']);
-    Route::post('v1/remember'       ,[App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
+    Route::post('v1/token'          ,[App\Http\Controllers\Api\V1\UserController::class     , 'token']);
+    Route::post('v1/remember'       ,[App\Http\Controllers\Api\V1\UserController::class     , 'remember']);
 
 
 //Route::middleware('auth:api')->group(function (){
@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\v1\IndexController;
 //});
 
 Route::middleware('auth:api')->group(function () {
+    Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class    , 'profile']);
     Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class    , 'profile']);
 });
 
