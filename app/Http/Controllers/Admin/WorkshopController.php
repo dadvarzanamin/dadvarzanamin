@@ -54,17 +54,19 @@ class WorkshopController extends Controller
 //dd($response);
 
 //
-//        $workshopId = 7;
-//        $priceStatus = 4;
-//        $typeUse = 1;
+//        $workshopId = 9;
+//        //$priceStatus = 4;
+//        //$typeUse = 1;
+//        $user_offer = 30;
 //
-//        $results = DB::table('workshopsigns as ws')
-//            ->join('users as u', 'ws.user_id', '=', 'u.id')
+//        $results = DB::table('offers as ws')
+//            ->join('users as u', 'ws.user_offer', '=', 'u.id')
 //            ->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
-//            ->select('u.name', 'u.phone')
+//            ->select('u.name', 'u.phone' , 'ws.offercode')
 //            ->where('ws.workshop_id', $workshopId)
-//            ->where('ws.pricestatus', $priceStatus)
-//            ->where('ws.typeuse', $typeUse)
+//            //->where('ws.pricestatus', $priceStatus)
+//            //->where('ws.typeuse', $typeUse)
+//            ->where('ws.user_offer', $user_offer)
 //            ->get();
 //
 //        foreach ($results as $result) {
@@ -82,9 +84,10 @@ class WorkshopController extends Controller
 //                CURLOPT_CUSTOMREQUEST => "POST",
 //                CURLOPT_POSTFIELDS => http_build_query([
 //                    'type' => '1',
-//                    'param1' => $result->name ,
-//                    'receptor' => $result->phone,
-//                    'template' => 'setworkshop',
+//                    'param1'    => $result->name ,
+//                    'param2'    => $result->offercode ,
+//                    'receptor'  => $result->phone,
+//                    'template'  => 'proworkshop',
 //                ]),
 //                CURLOPT_HTTPHEADER => array(
 //                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
@@ -102,7 +105,7 @@ class WorkshopController extends Controller
 //
 //        }
 
-
+//dd($response);
 
         $thispage       = [
             'title'         => 'مدیریت دوره های آموزشی',
