@@ -81,14 +81,14 @@ class EstelamController extends Controller
                 curl_close($ch);
                 $responseData = json_decode($response, true);
 
-                $logs = new Log_estelam();
-                $logs->title        = $estelam->title_fa;
-                $logs->request      = json_encode($national);
-                $logs->response     = json_encode($responseData);
-                $logs->action_route = $estelam->action_route;
-                $logs->date         = jdate()->format('Y/m/d');
-                $logs->user_id      = Auth::user()->id;
-                $logs->save();
+//                $logs = new Log_estelam();
+//                $logs->title        = $estelam->title_fa;
+//                $logs->request      = json_encode($national);
+//                $logs->response     = json_encode($responseData);
+//                $logs->action_route = $estelam->action_route;
+//                $logs->date         = jdate()->format('Y/m/d');
+//                $logs->user_id      = Auth::user()->id;
+//                $logs->save();
 
                 $firstName  = $responseData['data']['result']['firstName'];
                 $lastName   = $responseData['data']['result']['lastName'];
@@ -187,14 +187,14 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
 
-            $logs = new Log_estelam();
-            $logs->title = $estelam->title_fa;
-            $logs->request = json_encode($data);
-            $logs->response = json_encode($responseData);
-            $logs->action_route = $estelam->action_route;
-            $logs->date = jdate()->format('Y/m/d');
-            $logs->user_id = Auth::user()->id;
-            $logs->save();
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
 
             $address = $responseData['data']['result']['city']
                 .'-'.$responseData['data']['result']['province']
@@ -235,14 +235,14 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
 
-            $logs = new Log_estelam();
-            $logs->title = $estelam->title_fa;
-            $logs->request = json_encode($data);
-            $logs->response = json_encode($responseData);
-            $logs->action_route = $estelam->action_route;
-            $logs->date = jdate()->format('Y/m/d');
-            $logs->user_id = Auth::user()->id;
-            $logs->save();
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
 
 
             $firstName  = $responseData['data']['result']['firstName'];
@@ -294,14 +294,14 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
 
-            $logs = new Log_estelam();
-            $logs->title = $estelam->title_fa;
-            $logs->request = json_encode($data);
-            $logs->response = json_encode($responseData);
-            $logs->action_route = $estelam->action_route;
-            $logs->date = jdate()->format('Y/m/d');
-            $logs->user_id = Auth::user()->id;
-            $logs->save();
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
 
             $ownerName     = $responseData['data']['result']['firstName'].' '.$responseData['data']['result']['lastName'];
             $depositNumber = $responseData['data']['result']['depositNumber'];
@@ -387,14 +387,14 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
 
-            $logs = new Log_estelam();
-            $logs->title = $estelam->title_fa;
-            $logs->request = json_encode($data);
-            $logs->response = json_encode($responseData);
-            $logs->action_route = $estelam->action_route;
-            $logs->date = jdate()->format('Y/m/d');
-            $logs->user_id = Auth::user()->id;
-            $logs->save();
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
 
             $image = $responseData['data']['result']['image'];
 
