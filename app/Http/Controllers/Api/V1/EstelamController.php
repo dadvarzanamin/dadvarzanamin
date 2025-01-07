@@ -183,7 +183,6 @@ class EstelamController extends Controller
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             $response = curl_exec($ch);
-            dd($response);
 
             curl_close($ch);
             $responseData = json_decode($response, true);
@@ -212,6 +211,9 @@ class EstelamController extends Controller
             $result = [
                 'آدرس' => $address
             ];
+
+            return response()->json(['response' => $result]);
+
 
         } elseif ($request->input('formId') == 2) {
 
@@ -269,6 +271,9 @@ class EstelamController extends Controller
                 'جنسیت'         => $gender,
                 'وضعیت حیات'    => $alive,
             ];
+
+            return response()->json(['response' => $result]);
+
             //dd($nationalCode , $firstName , $lastName , $fatherName , $birthDate , $alive , $gender);
         } elseif ($request->input('formId') == 3) {
 
@@ -317,6 +322,9 @@ class EstelamController extends Controller
                 'نام بانک'      => $bank,
                 'وضعیت کارت'    => $status,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 4) {
 
             $ownerName = $responseData['description']['inquiryCard']['cardInfo']['ownerName'];
@@ -330,6 +338,9 @@ class EstelamController extends Controller
                 'نام بانک' => $bank,
                 'نوع حساب' => $type,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 5) {
 
             $ownerName = $responseData['description']['inquiryCard']['cardInfo']['ownerName'];
@@ -343,6 +354,9 @@ class EstelamController extends Controller
                 'نام بانک' => $bank,
                 'نوع حساب' => $type,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 6) {
 
             $ibanCheckResult = $responseData['description']['ibanIdentityInquiry']['respObject']['ibanCheckResult'];
@@ -350,6 +364,9 @@ class EstelamController extends Controller
             $result = [
                 ' وضعیت حساب ' => $ibanCheckResult,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 7) {
 
             $data = [
@@ -385,18 +402,27 @@ class EstelamController extends Controller
             $result = [
                 '  تصویر ' => $image,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 8) {
 
             $message = $responseData['description']['details']['message'];
             $result = [
                 '  مانده حساب ' => $message,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 9) {
 
             $message = $responseData['description']['details']['message'];
             $result = [
                 '  مانده حساب ' => $message,
             ];
+
+            return response()->json(['response' => $result]);
+
         } elseif ($request->input('formId') == 12) {
 
 
@@ -413,8 +439,8 @@ class EstelamController extends Controller
                 ' سرمایه اولیه ' => $capitalTo,
             ];
 
+            return response()->json(['response' => $result]);
         }
-        return response()->json(['response' => $result]);
 
         } catch (Exception $e) {
             $message = 'اطلاعات پاک نشد،لطفا بعدا مجدد تلاش نمایید ';
