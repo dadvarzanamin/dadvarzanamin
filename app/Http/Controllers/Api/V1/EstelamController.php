@@ -170,6 +170,7 @@ class EstelamController extends Controller
                 $url = $estelam->action_route;
             }
         if ($request->input('formId') == 1) {
+            dd($request->input('postalCode'));
 
             $data = [
                 "postalCode" => $request->input('postalCode')
@@ -183,6 +184,7 @@ class EstelamController extends Controller
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             $response = curl_exec($ch);
+            dd($response);
 
             curl_close($ch);
             $responseData = json_decode($response, true);
