@@ -765,7 +765,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function callbackpay(Request $request)
+    public function callbackpay(CallbackRequest $request)
     {
 
         $workshopsign = DB::table('workshops')
