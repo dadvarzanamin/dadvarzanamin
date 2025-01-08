@@ -620,7 +620,7 @@ class ProfileController extends Controller
         $user->birthday     = $request->input('birthday');
         $user->national_id  = $request->input('national_id');
         $user->father_name  = $request->input('father_name');
-        $user->save();
+        $user->update();
 
         $workshopid     = $request->input('workshopid');
         $typeuse        = $request->input('typeuse');
