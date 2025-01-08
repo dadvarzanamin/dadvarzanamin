@@ -626,6 +626,7 @@ class ProfileController extends Controller
         $typeuse        = $request->input('typeuse');
         $certificate    = $request->input('certificate');
 
+
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus', 'workshopsigns.id')
@@ -633,7 +634,10 @@ class ProfileController extends Controller
             ->where('workshops.id', '=', $request->input('workshopid'))
             ->first();
 
+        //dd($workshopsigns);
+
         $workshops = Workshop::whereId($workshopid)->first();
+
         if ($workshopsigns == null){
 
             $Workshopsign = new Workshopsign();
@@ -651,13 +655,13 @@ class ProfileController extends Controller
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
 
-            $Workshopsign = Workshopsign::whereWorkshop_id($workshopid)->first();
-            $Workshopsign->certificate      = $request->input('certificate');
-            $Workshopsign->typeuse          = $request->input('typeuse');
-            $Workshopsign->certif_price     = $workshops->certificate_price;
-            $Workshopsign->workshop_price   = $workshops->price;
-            $Workshopsign->user_id          = Auth::user()->id;
-            $Workshopsign->update();
+            Workshopsign::whereWorkshop_id($workshopid)->update([
+                'certificate'       => $request->input('certificate'),
+                'typeuse'           => $request->input('typeuse'),
+                'certif_price'      => $workshops->certificate_price,
+                'workshop_price'    => $workshops->price,
+                'user_id'           => Auth::user()->id,
+            ]);
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
