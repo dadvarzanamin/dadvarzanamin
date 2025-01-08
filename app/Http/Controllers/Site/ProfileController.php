@@ -655,7 +655,7 @@ class ProfileController extends Controller
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
 
-            Workshopsign::whereWorkshop_id($workshopid)->update([
+            Workshopsign::whereWorkshop_id($workshopid)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
                 'certificate'       => $request->input('certificate'),
                 'typeuse'           => $request->input('typeuse'),
                 'certif_price'      => $workshops->certificate_price,
