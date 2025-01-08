@@ -628,7 +628,7 @@ class ProfileController extends Controller
 
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus', 'workshopsigns.id')
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshops.id', '=', $request->input('workshopid'))
             ->first();
@@ -651,7 +651,7 @@ class ProfileController extends Controller
             return Redirect::back();
         } elseif ($workshopsigns->pricestatus == null) {
 
-            $Workshopsign = Workshopsign::whereWorkshop_id($workshopid)->first();
+            $Workshopsign = Workshopsign::whereWorkshop_id($workshopsigns->id)->first();
             $Workshopsign->certificate      = $request->input('certificate');
             $Workshopsign->typeuse          = $request->input('typeuse');
             $Workshopsign->certif_price     = $workshops->certificate_price;
