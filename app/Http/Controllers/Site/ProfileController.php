@@ -765,25 +765,25 @@ class ProfileController extends Controller
         }
     }
 
-    public function callbackpay(CallbackRequest $request)
+    public function callbackpay(Request $request)
     {
 
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
-            ->where('workshops.id', '=', Session::get('workshopid'.Auth::user()->id))
+            ->where('workshops.id', '=', 9)
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
 
-        $payment = $request->amount(Session::get('finalprice'.Auth::user()->id))->verify();
+        $payment = $request->amount(288000)->verify();
         if ($payment->successful()) {
             //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
 
-            $workshops = Workshopsign::whereWorkshop_id(Session::get('workshopid'.Auth::user()->id))->first();
+            $workshops = Workshopsign::whereWorkshop_id(9)->where('user_id' , '=' , Auth::user()->id)->first();
             $workshops->referenceId   = $payment->referenceId();
             $workshops->pricestatus   = 4;
-            $workshops->price         = Session::get('finalprice'.Auth::user()->id);
+            $workshops->price         = 288000;
             $workshops->save();
 
             if ($workshopsign->typeuse == 1) {
