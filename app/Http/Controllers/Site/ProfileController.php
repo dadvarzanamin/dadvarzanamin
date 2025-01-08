@@ -673,19 +673,20 @@ class ProfileController extends Controller
         $workshopsigns = DB::table('workshops')
             ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('offers.discount', 'offers.percentage' , 'workshopsigns.id' , 'workshopsigns.workshop_price')
+            ->select('offers.discount', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
             ->where('offers.status', '=', 4)
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('offers.offercode', '=', $request->input('discountcode'))
-            ->when(function () use ($request) {
-                return DB::table('offers')
+            ->when(
+                DB::table('offers')
                     ->where('status', '=', 4)
                     ->where('offercode', '=', $request->input('discountcode'))
                     ->whereNotNull('user_offer')
-                    ->exists();
-            }, function ($query) {
-                $query->where('offers.user_offer', '=', Auth::user()->id);
-            })
+                    ->exists(),
+                function ($query) {
+                    $query->where('offers.user_offer', '=', Auth::user()->id);
+                }
+            )
             ->first();
 
         $Workshopsign = Workshopsign::whereId($workshopsigns->id)->first();
