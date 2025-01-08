@@ -170,7 +170,7 @@
         jQuery(document).ready(function () {
             jQuery('#apply-discount').click(function (e) {
                 e.preventDefault();
-
+                jQuery(this).prop('disabled', true);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -194,30 +194,27 @@
                     processData: false,
                     success: function (response) {
                         if (response.ok) {
-                            // مقادیر برگشتی از سرور
+
                             let discount = parseInt(response.response.discount || 0);
                             let percentage = parseInt(response.response.percentage || 0);
 
-                            // قیمت فعلی
                             let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));
 
-                            // محاسبه مبلغ نهایی بر اساس نوع تخفیف
                             let finalPrice;
                             if (percentage > 0) {
-                                // تخفیف درصدی
+
                                 finalPrice = Math.round(currentPrice * (1 - (percentage / 100)));
                                 $('#discount-amount').text(`${percentage}%`);
                             } else {
-                                // تخفیف مبلغی
+
                                 finalPrice = currentPrice - discount;
                                 $('#discount-amount').text(new Intl.NumberFormat('fa-IR').format(discount) + ' تومان');
                             }
 
-                            // آپدیت قیمت نهایی
                             $('#final-price').text(new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان');
                             $('#final-price-input').val(finalPrice);
                         } else {
-                            // در صورتی که کد تخفیف معتبر نباشد
+
                             $('#discount-amount').text("۰ تومان");
                             alert("کد تخفیف معتبر نیست!");
                         }

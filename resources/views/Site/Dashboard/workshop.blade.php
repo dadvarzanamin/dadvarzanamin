@@ -61,13 +61,13 @@
                     <div class="input-box col-lg-4 hidden" id="inputFields1">
                         <label class="label-text">کد ملی</label>
                         <div class="form-group">
-                            <input type="text" name="national_id" id="national_id" class="form-control">
+                            <input type="text" name="national_id" id="national_id" value="{{\Illuminate\Support\Facades\Auth::user()->national_id}}" class="form-control">
                         </div>
                     </div>
                     <div class="input-box col-lg-4 hidden" id="inputFields2">
                         <label class="label-text">نام پدر</label>
                         <div class="form-group">
-                            <input type="text" name="father_name" id="father_name" class="form-control">
+                            <input type="text" name="father_name" id="father_name" value="{{\Illuminate\Support\Facades\Auth::user()->father_name}}" class="form-control">
                         </div>
                     </div>
                     <div class="input-box col-lg-4 hidden" id="inputFields3">

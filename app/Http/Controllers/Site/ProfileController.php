@@ -628,7 +628,7 @@ class ProfileController extends Controller
 
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+            ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshops.id', '=', $request->input('workshopid'))
             ->first();
@@ -637,9 +637,11 @@ class ProfileController extends Controller
         if ($workshopsigns == null){
 
             $Workshopsign = new Workshopsign();
-            $Workshopsign->workshop_id  = $request->input('workshopid');
-            $Workshopsign->typeuse      = $request->input('typeuse');
-            $Workshopsign->certificate  = $request->input('certificate');
+            $Workshopsign->workshop_id      = $request->input('workshopid');
+            $Workshopsign->typeuse          = $request->input('typeuse');
+            $Workshopsign->certificate      = $request->input('certificate');
+            $Workshopsign->certif_price     = $workshops->certificate_price;
+            $Workshopsign->workshop_price   = $workshops->price;
             $Workshopsign->user_id      = Auth::user()->id;
             $Workshopsign->save();
 
@@ -650,9 +652,12 @@ class ProfileController extends Controller
         } elseif ($workshopsigns->pricestatus == null) {
 
             $Workshopsign = Workshopsign::whereWorkshop_id($workshopid)->first();
-            $Workshopsign->certificate     = $request->input('certificate');
-            $Workshopsign->typeuse         = $request->input('typeuse');
-            $Workshopsign->save();
+            $Workshopsign->certificate      = $request->input('certificate');
+            $Workshopsign->typeuse          = $request->input('typeuse');
+            $Workshopsign->certif_price     = $workshops->certificate_price;
+            $Workshopsign->workshop_price   = $workshops->price;
+            $Workshopsign->user_id          = Auth::user()->id;
+            $Workshopsign->update();
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
@@ -661,13 +666,33 @@ class ProfileController extends Controller
 
     public function discountcheck(Request $request){
 
-
         $workshopsigns = DB::table('workshops')
             ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
-            ->select(  'offers.discount' , 'offers.percentage')
+            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+            ->select('offers.discount', 'offers.percentage' , 'workshopsigns.id' , 'workshopsigns.workshop_price')
             ->where('offers.status', '=', 4)
+            ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('offers.offercode', '=', $request->input('discountcode'))
+            ->when(function () use ($request) {
+                return DB::table('offers')
+                    ->where('status', '=', 4)
+                    ->where('offercode', '=', $request->input('discountcode'))
+                    ->whereNotNull('user_offer')
+                    ->exists();
+            }, function ($query) {
+                $query->where('offers.user_offer', '=', Auth::user()->id);
+            })
             ->first();
+
+        $Workshopsign = Workshopsign::whereId($workshopsigns->id)->first();
+        if ($workshopsigns->percentage <> null){
+            $Workshopsign->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
+            $Workshopsign->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
+        }elseif ($workshopsigns->discount <> null) {
+            $Workshopsign->offer_discount = (int)$workshopsigns->discount;
+            $Workshopsign->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
+        }
+        $Workshopsign->update();
 
         if($workshopsigns == null){
             $discount   = 0;
@@ -682,8 +707,6 @@ class ProfileController extends Controller
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
-
-
 
     }
 
@@ -734,14 +757,14 @@ class ProfileController extends Controller
         }else {
             $workshopsigns = DB::table('workshops')
                 ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
+                ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus', 'workshopsigns.price')
                 ->where('workshops.id', '=', $workshopid)
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->first();
 
             if($workshopsigns->pricestatus == null){
 
-                $request = Toman::amount($finalprice)
+                $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
                     ->mobile(Auth::user()->phone)
@@ -784,7 +807,7 @@ class ProfileController extends Controller
             $workshops->referenceId   = $payment->referenceId();
             $workshops->pricestatus   = 4;
             $workshops->price         = 288000;
-            $workshops->save();
+            $workshops->update();
 
             if ($workshopsign->typeuse == 1) {
                 $workshoptype = 'حضوری';

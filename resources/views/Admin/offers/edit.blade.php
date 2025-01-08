@@ -36,10 +36,10 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">انتخاب دوره</p>
-                                                    <select name="workshop_id" id="workshop_id" class="form-control select-lg select2">
+                                                    <select name="workshop_id" id="workshop_id" class="form-control">
                                                         <option value="">انتخاب دوره</option>
                                                         @foreach($workshops as $workshop)
-                                                            <option value="{{$workshop->id}}" {{$offers->workshop_id == $workshop->id ? 'selected' : '' }}>{{$workshop->title}}</option>
+                                                            <option value="{{$workshop->id}}" {{$workshop->id == $offers->workshop_id  ? 'selected' : '' }}>{{$workshop->title}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -62,6 +62,17 @@
                                                     <select name="status" id="status" class="form-control select-lg select2">
                                                         <option value="0" {{$offers->status == 0 ? 'selected' : '' }}>عدم نمایش</option>
                                                         <option value="4" {{$offers->status == 4 ? 'selected' : '' }}>در حال نمایش</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <p class="mg-b-10">انتخاب کاربر خاص</p>
+                                                    <select name="workshop_id" id="workshop_id" class="form-control select-lg select2">
+                                                        <option value="">انتخاب کاربر خاص</option>
+                                                        @foreach($users as $user)
+                                                            <option value="{{$user->id}}" {{$offers->user_offer == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

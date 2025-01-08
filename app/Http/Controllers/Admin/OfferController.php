@@ -8,6 +8,7 @@ use App\Models\Dashboard\Submenu_panel;
 use App\Models\Menu;
 use App\Models\Offer;
 use App\Models\Profile\Workshop;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -163,13 +164,14 @@ class OfferController extends Controller
             'enter_title'   => 'ورود اطلاعات تخفیفات',
         ];
         $menus          =   Menu::whereStatus(4)->get();
-        $workshops      =   Workshop::whereStatus(4)->get();
+        $workshops      =   Workshop::all();
         $offers         =   Offer::whereId($id)->first();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
+        $users          =   User::select('id' , 'name')->get();
 
-        return view('Admin.workshops.edit')
-            ->with(compact(['menupanels' , 'submenupanels'  , 'offers' , 'menus' , 'thispage' , 'workshops']));
+        return view('Admin.offers.edit')
+            ->with(compact(['menupanels' , 'submenupanels'  , 'offers' , 'menus' , 'thispage' , 'workshops', 'users']));
 
     }
 
