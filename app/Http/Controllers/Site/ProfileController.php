@@ -688,7 +688,7 @@ class ProfileController extends Controller
             })
             ->first();
 
-        $Workshopsign = Workshopsign::whereId($workshopsigns->id)->find();
+        $Workshopsign = Workshopsign::whereId($workshopsigns->id)->first();
 
         if ($workshopsigns->percentage <> null){
             $Workshopsign->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
