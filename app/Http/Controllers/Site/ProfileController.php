@@ -799,21 +799,20 @@ class ProfileController extends Controller
 
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse')
+            ->select('workshops.id','workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.price as totalprice')
             ->where('workshops.id', '=', 9)
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
 
-        $payment = $request->amount(288000)->verify();
+        $payment = $request->amount($workshopsign->totalprice)->verify();
         if ($payment->successful()) {
             //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
 
-            $workshops = Workshopsign::whereWorkshop_id(9)->where('user_id' , '=' , Auth::user()->id)->first();
-            $workshops->referenceId   = $payment->referenceId();
-            $workshops->pricestatus   = 4;
-            $workshops->price         = 288000;
-            $workshops->update();
+            Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                'referenceId'       => $payment->referenceId(),
+                'pricestatus'           => 4,
+            ]);
 
             if ($workshopsign->typeuse == 1) {
                 $workshoptype = 'حضوری';
