@@ -646,6 +646,7 @@ class ProfileController extends Controller
             $Workshopsign->certificate      = $request->input('certificate');
             $Workshopsign->certif_price     = $workshops->certificate_price;
             $Workshopsign->workshop_price   = $workshops->price;
+            $Workshopsign->price   = $workshops->price;
             $Workshopsign->user_id      = Auth::user()->id;
             $Workshopsign->save();
 
@@ -660,6 +661,7 @@ class ProfileController extends Controller
                 'typeuse'           => $request->input('typeuse'),
                 'certif_price'      => $workshops->certificate_price,
                 'workshop_price'    => $workshops->price,
+                'price'    => $workshops->price,
                 'user_id'           => Auth::user()->id,
             ]);
 
@@ -673,7 +675,7 @@ class ProfileController extends Controller
         $workshopsigns = DB::table('workshops')
             ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('offers.discount', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
+            ->select('offers.discount','workshops.price as wprice', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
             ->where('offers.status', '=', 4)
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('offers.offercode', '=', $request->input('discountcode'))
@@ -688,17 +690,18 @@ class ProfileController extends Controller
                 }
             )
             ->first();
-
-        $Workshopsign = Workshopsign::whereId($workshopsigns->id)->first();
+        $Workshopsignee = Workshopsign::whereId($workshopsigns->id)->first();
 
         if ($workshopsigns->percentage <> null){
-            $Workshopsign->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
-            $Workshopsign->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
+            $Workshopsignee->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
+            $Workshopsignee->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
         }elseif ($workshopsigns->discount <> null) {
-            $Workshopsign->offer_discount = (int)$workshopsigns->discount;
-            $Workshopsign->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
+            $Workshopsignee->offer_discount = (int)$workshopsigns->discount;
+            $Workshopsignee->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
+        }else {
+            $Workshopsignee->price = $workshopsigns->wprice;
         }
-        $Workshopsign->update();
+        $Workshopsignee->update();
 
         if($workshopsigns == null){
             $discount   = 0;
@@ -767,7 +770,6 @@ class ProfileController extends Controller
                 ->where('workshops.id', '=', $workshopid)
                 ->where('workshopsigns.user_id', '=', Auth::user()->id)
                 ->first();
-
             if($workshopsigns->pricestatus == null){
 
                 $request = Toman::amount($workshopsigns->price)
