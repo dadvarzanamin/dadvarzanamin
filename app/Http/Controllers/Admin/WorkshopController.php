@@ -33,9 +33,10 @@ class WorkshopController extends Controller
 //                CURLOPT_CUSTOMREQUEST => "POST",
 //                CURLOPT_POSTFIELDS => http_build_query([
 //                    'type' => '1',
-//                    'param1' => 'اميرحسين رزميار' ,
-//                    'receptor' => '09332072828',
-//                    'template' => 'setworkshop',
+//                    'param1' => 'حسین دیوان بیگی' ,
+//                    'param1' => 'حسین دیوان بیگی' ,
+//                    'receptor' => '09128119938',
+//                    'template' => 'workshoppro',
 //                ]),
 //                CURLOPT_HTTPHEADER => array(
 //                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
@@ -55,20 +56,21 @@ class WorkshopController extends Controller
 
 //
 //        $workshopId = 9;
-//        //$priceStatus = 4;
-//        //$typeUse = 1;
-//        $user_offer = 30;
+//        $priceStatus = 4;
+//        $typeUse = 1;
+//        $user_offer = 1;
 //
 //        $results = DB::table('offers as ws')
 //            ->join('users as u', 'ws.user_offer', '=', 'u.id')
-//            ->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
+//            //->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
 //            ->select('u.name', 'u.phone' , 'ws.offercode')
 //            ->where('ws.workshop_id', $workshopId)
+//            ->where('ws.status', '=' , 6 )
 //            //->where('ws.pricestatus', $priceStatus)
 //            //->where('ws.typeuse', $typeUse)
-//            ->where('ws.user_offer', $user_offer)
+//            //->where('ws.user_offer', $user_offer)
 //            ->get();
-//
+////dd($results);
 //        foreach ($results as $result) {
 //
 //        try {
@@ -85,9 +87,9 @@ class WorkshopController extends Controller
 //                CURLOPT_POSTFIELDS => http_build_query([
 //                    'type' => '1',
 //                    'param1'    => $result->name ,
-//                    'param2'    => $result->offercode ,
+//                    'param2'    => ' با 89000 تومان تخفیف'.' '.$result->offercode ,
 //                    'receptor'  => $result->phone,
-//                    'template'  => 'proworkshop',
+//                    'template'  => 'workshopnew',
 //                ]),
 //                CURLOPT_HTTPHEADER => array(
 //                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
@@ -104,7 +106,7 @@ class WorkshopController extends Controller
 //            }
 //
 //        }
-
+//
 //dd($response);
 
         $thispage       = [
