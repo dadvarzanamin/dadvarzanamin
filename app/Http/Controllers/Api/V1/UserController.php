@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
@@ -193,7 +194,16 @@ class UserController extends Controller
     public function profile(){
 
         if (Auth::check()) {
-            $users = User::findOrfail(auth::user()->id);
+
+            $users = DB::table('users')
+                ->leftjoin('states', 'users.state_id', '=', 'states.id')
+                ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
+                ->select('users.email' , 'users.name',  'users.phone', 'users.national_id', 'users.father_name', 'users.birthday', 'users.gender', 'users.age'
+                    , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode'
+                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token')
+                ->where('users.id', '=', Auth::user()->id)
+                ->first();
+
             $states = State::all();
             $citis = City::all();
 
