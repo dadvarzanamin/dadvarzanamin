@@ -212,16 +212,26 @@ class UserController extends Controller
 
     }
 
-    public function update(Request $request){
+    public function editprofile(Request $request){
 
         $user = auth::user();
 
+        $user->type_id          = $request->input('type_id');
+        $user->phone            = $request->input('phone');
+        $user->national_id      = $request->input('national_id');
         $user->name             = $request->input('name');
+        $user->nationality      = $request->input('nationality');
+        $user->gender           = $request->input('gender');
+        $user->birthday         = $request->input('birthday');
+        $user->marital_status   = $request->input('marital_status');
+        $user->father_name      = $request->input('father_name');
+        $user->postalcode       = $request->input('postalcode');
+        $user->telphone         = $request->input('telphone');
         $user->state_id         = $request->input('state_id');
         $user->city_id          = $request->input('city_id');
-        $user->lat              = $request->input('lat');
-        $user->lng              = $request->input('lng');
         $user->address          = $request->input('address');
+        $user->place_id         = $request->input('place_id');
+
         if ($request->file('image') != null) {
             $file = $request->file('image');
             $img = Image::make($file);
