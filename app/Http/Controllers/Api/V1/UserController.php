@@ -232,15 +232,6 @@ class UserController extends Controller
         $user->address          = $request->input('address');
         $user->place_id         = $request->input('place_id');
 
-        if ($request->file('image') != null) {
-            $file = $request->file('image');
-            $img = Image::make($file);
-            $imagePath ="images/user/";
-            $imageName = md5(uniqid(rand(), true)) . md5(uniqid(rand(), true)) . '.jpg';
-            $user->image = $file->move($imagePath, $imageName);
-            $img->save($imagePath.$imageName);
-            $img->encode('jpg');
-        }
         $user->update();
         $response = 'تغییرات با موفقیت انجام شد' ;
 
