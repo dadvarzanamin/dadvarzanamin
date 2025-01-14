@@ -216,21 +216,37 @@ class UserController extends Controller
 
         $user = auth::user();
 
-        $user->type_id          = $request->input('type_id');
-        $user->phone            = $request->input('phone');
-        $user->national_id      = $request->input('national_id');
-        $user->name             = $request->input('name');
-        $user->nationality      = $request->input('nationality');
-        $user->gender           = $request->input('gender');
-        $user->birthday         = $request->input('birthday');
-        $user->marital_status   = $request->input('marital_status');
-        $user->father_name      = $request->input('father_name');
-        $user->postalcode       = $request->input('postalcode');
-        $user->telphone         = $request->input('telphone');
-        $user->state_id         = $request->input('state_id');
-        $user->city_id          = $request->input('city_id');
-        $user->address          = $request->input('address');
-        $user->place_id         = $request->input('place_id');
+        if ($request->input('type_id')) {
+            $user->type_id = $request->input('type_id');
+        }elseif ($request->input('phone')) {
+            $user->phone            = $request->input('phone');
+        }elseif ($request->input('national_id')) {
+            $user->national_id      = $request->input('national_id');
+        }elseif ($request->input('name')) {
+            $user->name             = $request->input('name');
+        }elseif ($request->input('nationality')) {
+            $user->nationality      = $request->input('nationality');
+        }elseif ($request->input('gender')) {
+            $user->gender           = $request->input('gender');
+        }elseif ($request->input('birthday')) {
+            $user->birthday         = $request->input('birthday');
+        }elseif ($request->input('marital_status')) {
+            $user->marital_status   = $request->input('marital_status');
+        }elseif ($request->input('father_name')) {
+            $user->father_name      = $request->input('father_name');
+        }elseif ($request->input('postalcode')) {
+            $user->postalcode       = $request->input('postalcode');
+        }elseif ($request->input('telphone')) {
+            $user->telphone         = $request->input('telphone');
+        }elseif ($request->input('state_id')) {
+            $user->state_id         = $request->input('state_id');
+        }elseif ($request->input('city_id')) {
+            $user->city_id          = $request->input('city_id');
+        }elseif ($request->input('address')) {
+            $user->address          = $request->input('address');
+        }elseif ($request->input('place_id')) {
+            $user->place_id = $request->input('place_id');
+        }
 
         $user->update();
         $response = 'تغییرات با موفقیت انجام شد' ;
