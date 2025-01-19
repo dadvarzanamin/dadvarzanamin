@@ -440,7 +440,7 @@ class EstelamController extends Controller
             ];
 
             return response()->json(['response' => $result]);
-        }elseif ($request->input('formId') == 16) {
+        }elseif ($request->input('formId') == 10) {
 
             $data = [
                 "nationalCode"  => $request->input('nationalCode'),
