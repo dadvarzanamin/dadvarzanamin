@@ -458,12 +458,11 @@ class EstelamController extends Controller
 
             curl_close($ch);
             $responseData = json_decode($response, true);
-dd($responseData);
-            $image = $responseData['data']['result']['image'];
 
-            $image = '<img src="data:image/jpeg;base64,' . $image . '">';
+            $count = $responseData['data']['result']['count'];
+
             $result = [
-                '  تصویر ' => $image,
+                'count' => $count,
             ];
 
             return response()->json(['response' => $result]);
