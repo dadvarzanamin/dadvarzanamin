@@ -440,6 +440,35 @@ class EstelamController extends Controller
             ];
 
             return response()->json(['response' => $result]);
+        }elseif ($request->input('formId') == 16) {
+
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+                "customerType"  => $request->input('customerType'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+dd($responseData);
+            $image = $responseData['data']['result']['image'];
+
+            $image = '<img src="data:image/jpeg;base64,' . $image . '">';
+            $result = [
+                '  تصویر ' => $image,
+            ];
+
+            return response()->json(['response' => $result]);
+
         }
 
         } catch (Exception $e) {
