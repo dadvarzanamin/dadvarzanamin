@@ -462,7 +462,7 @@ class EstelamController extends Controller
             $count = $responseData['data']['result']['count'];
 
             $result = [
-                ' تعداد برگشتی ' => $count,
+                ' تعداد برگشتی ' => $count
             ];
 
             return response()->json(['response' => $result]);
