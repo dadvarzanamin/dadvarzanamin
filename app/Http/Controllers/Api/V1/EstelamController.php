@@ -441,12 +441,11 @@ class EstelamController extends Controller
 
             return response()->json(['response' => $result]);
         }elseif ($request->input('formId') == 10) {
-
             $data = [
                 "nationalCode"  => $request->input('nationalCode'),
                 "customerType"  => $request->input('customerType'),
             ];
-
+            dd($url , $data);
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
