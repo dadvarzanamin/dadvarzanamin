@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
@@ -193,7 +194,16 @@ class UserController extends Controller
     public function profile(){
 
         if (Auth::check()) {
-            $users = User::findOrfail(auth::user()->id);
+
+            $users = DB::table('users')
+                ->leftjoin('states', 'users.state_id', '=', 'states.id')
+                ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
+                ->select('users.email' , 'users.name',  'users.phone', 'users.national_id', 'users.father_name', 'users.birthday', 'users.gender', 'users.age'
+                    , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode'
+                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token')
+                ->where('users.id', '=', Auth::user()->id)
+                ->first();
+
             $states = State::all();
             $citis = City::all();
 
@@ -212,25 +222,42 @@ class UserController extends Controller
 
     }
 
-    public function update(Request $request){
+    public function editprofile(Request $request){
 
         $user = auth::user();
 
-        $user->name             = $request->input('name');
-        $user->state_id         = $request->input('state_id');
-        $user->city_id          = $request->input('city_id');
-        $user->lat              = $request->input('lat');
-        $user->lng              = $request->input('lng');
-        $user->address          = $request->input('address');
-        if ($request->file('image') != null) {
-            $file = $request->file('image');
-            $img = Image::make($file);
-            $imagePath ="images/user/";
-            $imageName = md5(uniqid(rand(), true)) . md5(uniqid(rand(), true)) . '.jpg';
-            $user->image = $file->move($imagePath, $imageName);
-            $img->save($imagePath.$imageName);
-            $img->encode('jpg');
+        if ($request->input('type_id')) {
+            $user->type_id = $request->input('type_id');
+        }elseif ($request->input('phone')) {
+            $user->phone            = $request->input('phone');
+        }elseif ($request->input('national_id')) {
+            $user->national_id      = $request->input('national_id');
+        }elseif ($request->input('name')) {
+            $user->name             = $request->input('name');
+        }elseif ($request->input('nationality')) {
+            $user->nationality      = $request->input('nationality');
+        }elseif ($request->input('gender')) {
+            $user->gender           = $request->input('gender');
+        }elseif ($request->input('birthday')) {
+            $user->birthday         = $request->input('birthday');
+        }elseif ($request->input('marital_status')) {
+            $user->marital_status   = $request->input('marital_status');
+        }elseif ($request->input('father_name')) {
+            $user->father_name      = $request->input('father_name');
+        }elseif ($request->input('postalcode')) {
+            $user->postalcode       = $request->input('postalcode');
+        }elseif ($request->input('telphone')) {
+            $user->telphone         = $request->input('telphone');
+        }elseif ($request->input('state_id')) {
+            $user->state_id         = $request->input('state_id');
+        }elseif ($request->input('city_id')) {
+            $user->city_id          = $request->input('city_id');
+        }elseif ($request->input('address')) {
+            $user->address          = $request->input('address');
+        }elseif ($request->input('place_id')) {
+            $user->place_id = $request->input('place_id');
         }
+
         $user->update();
         $response = 'تغییرات با موفقیت انجام شد' ;
 
