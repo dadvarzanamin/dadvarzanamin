@@ -450,7 +450,7 @@ class EstelamController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
             if ($estelam->method == 'POST') {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($imagedata));
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
             }
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
