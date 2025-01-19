@@ -458,9 +458,9 @@ class EstelamController extends Controller
 
             curl_close($ch);
             $responseData = json_decode($response, true);
-dd($responseData);
-            $count = $responseData['data']['result']['count'];
 
+            $count = $responseData['data']['result']['count'];
+            dd($count);
             $result = [
                 'count' => $count,
             ];
