@@ -459,17 +459,19 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
            if ($responseData['isSuccess'] == true) {
-               $status = 'true';
+
                $count = $responseData['data']['result']['count'];
+               $result = [
+                   ' status '          => $responseData['isSuccess'],
+                   ' تعداد برگشتی '    => $count
+               ];
            }elseif($responseData['isSuccess'] == false){
                $count   = null;
-               $status  = 'false';
+               $result = [
+                   ' status '          => $responseData['isSuccess'],
+                   ' تعداد برگشتی '    => $count
+               ];
            }
-
-            $result = [
-                ' status '          => $status,
-                ' تعداد برگشتی '    => $count
-            ];
 
             return response()->json(['response' => $result]);
 
