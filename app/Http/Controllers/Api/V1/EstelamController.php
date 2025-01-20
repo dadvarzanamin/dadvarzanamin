@@ -462,14 +462,13 @@ class EstelamController extends Controller
 
                 $count = $responseData['data']['result']['count'];
                 $result = [
-                    ' status '   => $responseData['isSuccess'],
+                    ' isSuccess '   => $responseData['isSuccess'],
                     ' count '    => $count
                 ];
             }elseif($responseData['isSuccess'] == false){
-                $count   = null;
+
                 $result = [
-                    ' status '   => $responseData['isSuccess'],
-                    ' count '    => $count
+                    ' isSuccess '   => $responseData['isSuccess'],
                 ];
             }
 
@@ -500,14 +499,14 @@ class EstelamController extends Controller
                 $bankName       = $responseData['data']['result']['bankName'];
 
                 $result = [
-                    'status'          => $responseData['isSuccess'],
+                    'isSuccess'          => $responseData['isSuccess'],
                     'name'            => $name,
                     'accountNumber'   => $accountNumber,
                     'bankName'        => $bankName
                 ];
             }elseif($responseData['isSuccess'] == false){
                 $result = [
-                    ' status '   => $responseData['isSuccess'],
+                    ' isSuccess '   => $responseData['isSuccess'],
                 ];
             }
             return response()->json(['response' => $result]);
