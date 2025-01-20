@@ -462,14 +462,14 @@ class EstelamController extends Controller
 
                $count = $responseData['data']['result']['count'];
                $result = [
-                   ' status '          => $responseData['isSuccess'],
-                   ' تعداد برگشتی '    => $count
+                   ' status '   => $responseData['isSuccess'],
+                   ' count '    => $count
                ];
            }elseif($responseData['isSuccess'] == false){
                $count   = null;
                $result = [
-                   ' status '          => $responseData['isSuccess'],
-                   ' تعداد برگشتی '    => $count
+                   ' status '   => $responseData['isSuccess'],
+                   ' count '    => $count
                ];
            }
 
