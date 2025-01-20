@@ -460,7 +460,8 @@ class EstelamController extends Controller
         }elseif ($request->input('formId') == 12) {
 
             $data = [
-                "Data.id" = $request->input('companyId'),
+                "Data.id" => $request->input('companyId'),
+
             ];
             dd($data);
 
