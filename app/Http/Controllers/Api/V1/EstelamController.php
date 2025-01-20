@@ -492,24 +492,25 @@ class EstelamController extends Controller
 
             curl_close($ch);
             $responseData = json_decode($response, true);
-            dd($responseData);
+
             if ($responseData['isSuccess'] == true) {
 
-                $count = $responseData['data']['result']['count'];
+                $name           = $responseData['data']['result']['firstName'] + $responseData['data']['result']['lastName'];
+                $accountNumber  = $responseData['data']['result']['accountNumber'];
+                $bankName       = $responseData['data']['result']['bankName'];
+
                 $result = [
-                    ' status '   => $responseData['isSuccess'],
-                    ' count '    => $count
+                    'status'          => $responseData['isSuccess'],
+                    'name'            => $name,
+                    'accountNumber'   => $accountNumber,
+                    'bankName'        => $bankName
                 ];
             }elseif($responseData['isSuccess'] == false){
-                $count   = null;
                 $result = [
                     ' status '   => $responseData['isSuccess'],
-                    ' count '    => $count
                 ];
             }
-
             return response()->json(['response' => $result]);
-
         }
 
         } catch (Exception $e) {
