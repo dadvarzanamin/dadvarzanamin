@@ -423,23 +423,6 @@ class EstelamController extends Controller
 
             return response()->json(['response' => $result]);
 
-        } elseif ($request->input('formId') == 12) {
-
-
-            $title = $responseData['description']['companyInfo']['news'][0]['title'];
-            $description = $responseData['description']['companyInfo']['news'][0]['description'];
-            $companyId = $responseData['description']['companyInfo']['news'][0]['companyId'];
-            $capitalTo = $responseData['description']['companyInfo']['news'][0]['capitalTo'];
-
-
-            $result = [
-                ' عنوان ' => $title,
-                ' توضیحات ' => $description,
-                ' شماره ثبت ' => $companyId,
-                ' سرمایه اولیه ' => $capitalTo,
-            ];
-
-            return response()->json(['response' => $result]);
         }elseif ($request->input('formId') == 10) {
             $data = [
                 "nationalCode"  => $request->input('nationalCode'),
@@ -460,6 +443,42 @@ class EstelamController extends Controller
             $responseData = json_decode($response, true);
             if ($responseData['isSuccess'] == true) {
 
+                $count = $responseData['data']['result']['count'];
+                $result = [
+                    ' isSuccess '   => $responseData['isSuccess'],
+                    ' count '    => $count
+                ];
+            }elseif($responseData['isSuccess'] == false){
+
+                $result = [
+                    ' isSuccess '   => $responseData['isSuccess'],
+                ];
+            }
+
+            return response()->json(['response' => $result]);
+
+        }elseif ($request->input('formId') == 12) {
+
+            $data = [
+                "Data" => [
+                    "id" => $request->input('companyId'),
+                ],
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+            dd($responseData);
+            if ($responseData['isSuccess'] == true) {
                 $count = $responseData['data']['result']['count'];
                 $result = [
                     ' isSuccess '   => $responseData['isSuccess'],
