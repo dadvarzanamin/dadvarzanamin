@@ -495,7 +495,7 @@ class EstelamController extends Controller
 
             if ($responseData['isSuccess'] == true) {
 
-                $name           = $responseData['data']['result']['firstName'] + $responseData['data']['result']['lastName'];
+                $name           = $responseData['data']['result']['firstName'] . ' '. $responseData['data']['result']['lastName'];
                 $accountNumber  = $responseData['data']['result']['accountNumber'];
                 $bankName       = $responseData['data']['result']['bankName'];
 
