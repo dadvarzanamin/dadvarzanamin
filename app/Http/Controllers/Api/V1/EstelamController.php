@@ -459,11 +459,13 @@ class EstelamController extends Controller
 
         }elseif ($request->input('formId') == 12) {
 
-            $data = [
-                "Data" => [
-                    "id" => $request->input('companyId'),
-                ],
-            ];
+            $data = '{
+    "Data": {
+        "id": '.$request->input('companyId').'
+        }
+}';
+
+
             dd($data);
 
             $ch = curl_init($url);
@@ -480,7 +482,18 @@ class EstelamController extends Controller
             $responseData = json_decode($response, true);
             dd($responseData);
             if ($responseData['isSuccess'] == true) {
-                $count = $responseData['data']['result']['count'];
+                $count = $responseData['data']['result']['activityEndDate'];
+                $count = $responseData['data']['result']['addressDesc'];
+                $count = $responseData['data']['result']['createDateTime'];
+                $count = $responseData['data']['result']['emaiLAddress'];
+                $count = $responseData['data']['result']['faxNumber'];
+                $count = $responseData['data']['result']['issuanceDate'];
+                $count = $responseData['data']['result']['name'];
+                $count = $responseData['data']['result']['nationalId'];
+                $count = $responseData['data']['result']['postCode'];
+                $count = $responseData['data']['result']['registerDate'];
+                $count = $responseData['data']['result']['registerNumber'];
+                $count = $responseData['data']['result']['companyType'];
                 $result = [
                     ' isSuccess '   => $responseData['isSuccess'],
                     ' count '    => $count
