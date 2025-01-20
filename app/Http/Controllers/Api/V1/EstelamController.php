@@ -445,7 +445,7 @@ class EstelamController extends Controller
                 "nationalCode"  => $request->input('nationalCode'),
                 "customerType"  => $request->input('customerType'),
             ];
-dd($data , $url);
+
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
@@ -458,7 +458,7 @@ dd($data , $url);
 
             curl_close($ch);
             $responseData = json_decode($response, true);
-
+dd($responseData);
             $count = $responseData['data']['result']['count'];
 
             $result = [
