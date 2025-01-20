@@ -464,6 +464,7 @@ class EstelamController extends Controller
                     "id" => $request->input('companyId'),
                 ],
             ];
+            dd($data);
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
