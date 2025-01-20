@@ -510,6 +510,42 @@ class EstelamController extends Controller
                 ];
             }
             return response()->json(['response' => $result]);
+        }elseif ($request->input('formId') == 14) {
+    $data = [
+        "cardNumber"  => $request->input('cardNumber'),
+    ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+dd($responseData);
+            if ($responseData['isSuccess'] == true) {
+
+                $name           = $responseData['data']['result']['firstName'] . ' '. $responseData['data']['result']['lastName'];
+                $accountNumber  = $responseData['data']['result']['accountNumber'];
+                $bankName       = $responseData['data']['result']['bankName'];
+
+                $result = [
+                    'isSuccess'          => $responseData['isSuccess'],
+                    'name'            => $name,
+                    'accountNumber'   => $accountNumber,
+                    'bankName'        => $bankName
+                ];
+            }elseif($responseData['isSuccess'] == false){
+                $result = [
+                    ' isSuccess '   => $responseData['isSuccess'],
+                ];
+            }
+            return response()->json(['response' => $result]);
         }
 
         } catch (Exception $e) {
