@@ -458,20 +458,55 @@ class EstelamController extends Controller
 
             curl_close($ch);
             $responseData = json_decode($response, true);
-           if ($responseData['isSuccess'] == true) {
+            if ($responseData['isSuccess'] == true) {
 
-               $count = $responseData['data']['result']['count'];
-               $result = [
-                   ' status '   => $responseData['isSuccess'],
-                   ' count '    => $count
-               ];
-           }elseif($responseData['isSuccess'] == false){
-               $count   = null;
-               $result = [
-                   ' status '   => $responseData['isSuccess'],
-                   ' count '    => $count
-               ];
-           }
+                $count = $responseData['data']['result']['count'];
+                $result = [
+                    ' status '   => $responseData['isSuccess'],
+                    ' count '    => $count
+                ];
+            }elseif($responseData['isSuccess'] == false){
+                $count   = null;
+                $result = [
+                    ' status '   => $responseData['isSuccess'],
+                    ' count '    => $count
+                ];
+            }
+
+            return response()->json(['response' => $result]);
+
+        }elseif ($request->input('formId') == 13) {
+            $data = [
+                "iban"  => $request->input('iban'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+            dd($responseData);
+            if ($responseData['isSuccess'] == true) {
+
+                $count = $responseData['data']['result']['count'];
+                $result = [
+                    ' status '   => $responseData['isSuccess'],
+                    ' count '    => $count
+                ];
+            }elseif($responseData['isSuccess'] == false){
+                $count   = null;
+                $result = [
+                    ' status '   => $responseData['isSuccess'],
+                    ' count '    => $count
+                ];
+            }
 
             return response()->json(['response' => $result]);
 
