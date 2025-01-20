@@ -459,12 +459,10 @@ class EstelamController extends Controller
 
         }elseif ($request->input('formId') == 12) {
 
-            $data = '{
-    "Data": {
-        "id": '.$request->input('companyId').'
-        }
-}';
-
+            $data = [
+                "Data.id" = $request->input('companyId'),
+            ];
+            dd($data);
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
