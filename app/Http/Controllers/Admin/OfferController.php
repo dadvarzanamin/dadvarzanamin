@@ -100,9 +100,10 @@ class OfferController extends Controller
         $menus          =   Menu::whereStatus(4)->get();
         $menupanels     =   Menu_panel::whereStatus(4)->get();
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
+        $users          =   User::select('id' , 'name')->get();
 
         return view('Admin.offers.create')
-            ->with(compact(['menupanels' , 'submenupanels' , 'menus' , 'thispage' , 'workshops']));
+            ->with(compact(['menupanels' , 'submenupanels' , 'menus' , 'thispage','users' , 'workshops']));
     }
 
     public function store(Request $request)
