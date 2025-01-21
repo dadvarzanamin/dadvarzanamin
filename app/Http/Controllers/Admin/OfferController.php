@@ -34,8 +34,10 @@ class OfferController extends Controller
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         if ($request->ajax()) {
-            $data = DB::table('offers')->leftJoin('workshops' ,'offers.workshop_id' ,'=' , 'workshops.id')
-                ->select('workshops.title' , 'offers.id' , 'offers.discount' , 'offers.percentage' , 'offers.status' , 'offers.offercode')->get();
+            $data = DB::table('offers')
+                ->leftJoin('workshops' ,'offers.workshop_id' ,'=' , 'workshops.id')
+                ->leftJoin('users' ,'offers.user_offer' ,'=' , 'users.id')
+                ->select('workshops.title' , 'offers.id' , 'offers.discount' , 'offers.percentage' , 'offers.status' , 'offers.offercode' , 'users.name')->get();
 
             return Datatables::of($data)
 
@@ -53,6 +55,9 @@ class OfferController extends Controller
                 })
                 ->addColumn('offercode', function ($data) {
                     return ($data->offercode);
+                })
+                ->addColumn('name', function ($data) {
+                    return ($data->name);
                 })
                 ->addColumn('status', function ($data) {
                     if ($data->status == "0") {

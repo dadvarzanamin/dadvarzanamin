@@ -31,6 +31,7 @@
                                             <th class="wd-10p"> مبلغ تخفیف </th>
                                             <th class="wd-10p"> درصد تخفیف </th>
                                             <th class="wd-10p"> کد تخفیف </th>
+                                            <th class="wd-10p"> کاربر خاص </th>
                                             <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
@@ -86,6 +87,7 @@
                     {data: 'discount'       , name: 'discount'},
                     {data: 'percentage'     , name: 'percentage'},
                     {data: 'offercode'      , name: 'offercode'},
+                    {data: 'name'           , name: 'name'},
                     {data: 'status'         , name: 'status'},
                     {data: 'action'         , name: 'action', orderable: true, searchable: true},
                 ]
