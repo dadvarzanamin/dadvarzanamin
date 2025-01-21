@@ -47,6 +47,17 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
+                                                <p class="mg-b-10">انتخاب کاربر خاص</p>
+                                                <select name="user_offer" id="user_offer" class="form-control select-lg select2">
+                                                    <option value="">انتخاب کاربر خاص</option>
+                                                    @foreach($users as $user)
+                                                        <option value="{{$user->id}}" {{$offers->user_offer == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
                                                 <p class="mg-b-10">درصد تخفیف</p>
                                                 <input type="text" name="percentage" id="percentage" placeholder="درصد تخفیف را وارد کنید" class="form-control"/>
                                             </div>
@@ -114,15 +125,17 @@
                 let _token       = jQuery('input[name="_token"]').val();
                 let workshop_id  = jQuery('#workshop_id').val();
                 let discount     = jQuery('#discount').val();
+                let user_offer   = jQuery('#user_offer').val();
                 let percentage   = jQuery('#percentage').val();
                 let status       = jQuery('#status').val();
 
                 let formData = new FormData();
                 formData.append('workshop_id', workshop_id);
-                formData.append('discount'  , discount);
-                formData.append('percentage', percentage);
-                formData.append('status'    , status);
-                formData.append('_token'    , _token);
+                formData.append('user_offer' , user_offer);
+                formData.append('discount'   , discount);
+                formData.append('percentage' , percentage);
+                formData.append('status'     , status);
+                formData.append('_token'     , _token);
 
                 swal({
                         title: "Are you sure to delete this  of ?",

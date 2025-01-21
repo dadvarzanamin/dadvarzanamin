@@ -109,12 +109,12 @@ class OfferController extends Controller
     {
         try{
             $offers = new Offer();
-            $offers->user_id        = $request->input('user_id');
-            $offers->workshop_id    = $request->input('workshop_id');
-            $offers->discount       = $request->input('discount');
-            $offers->percentage     = $request->input('percentage');
-            $offers->status         = $request->input('status');
-            $offers->user_id        = Auth::user()->id;
+            $offers->user_offer   = $request->input('user_offer');
+            $offers->workshop_id  = $request->input('workshop_id');
+            $offers->discount     = $request->input('discount');
+            $offers->percentage   = $request->input('percentage');
+            $offers->status       = $request->input('status');
+            $offers->user_id      = Auth::user()->id;
 
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%';
             $randomCode = '';
