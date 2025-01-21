@@ -51,7 +51,7 @@
                                                 <select name="user_offer" id="user_offer" class="form-control select-lg select2">
                                                     <option value="">انتخاب کاربر خاص</option>
                                                     @foreach($users as $user)
-                                                        <option value="{{$user->id}}" {{$offers->user_offer == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                                        <option value="{{$user->id}}">{{$user->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
