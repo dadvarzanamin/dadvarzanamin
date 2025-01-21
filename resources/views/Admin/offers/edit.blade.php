@@ -68,7 +68,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">انتخاب کاربر خاص</p>
-                                                    <select name="workshop_id" id="workshop_id" class="form-control select-lg select2">
+                                                    <select name="user_offer" id="user_offer" class="form-control select-lg select2">
                                                         <option value="">انتخاب کاربر خاص</option>
                                                         @foreach($users as $user)
                                                             <option value="{{$user->id}}" {{$offers->user_offer == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
@@ -99,18 +99,9 @@
     <script src="{{asset('admin/assets/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/bootstrap-daterangepicker/moment.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/advanced-form-elements.js')}}"></script>
-    <script src="{{asset('admin/assets/plugins/fileuploads/js/fileupload.js')}}"></script>
-    <script src="{{asset('admin/assets/plugins/fileuploads/js/file-upload.js')}}"></script>
-    <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.ui.widget.js')}}"></script>
-    <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.fileupload.js')}}"></script>
 {{--    <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.iframe-transport.js')}}"></script>--}}
 {{--    <script src="{{asset('admin/assets/plugins/fancyuploder/jquery.fancy-fileupload.js')}}"></script>--}}
 {{--    <script src="{{asset('admin/assets/plugins/fancyuploder/fancy-uploader.js')}}"></script>--}}
-    <script src="{{asset('admin/assets/plugins/ckeditor/ckeditor.js')}}"></script>
-    <script>
-        CKEDITOR.replace( 'editor' );
-        CKEDITOR.replace( 'editor2' );
-        CKEDITOR.replace( 'editor3' );
-    </script>
+
 @endsection
 

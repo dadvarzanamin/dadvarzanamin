@@ -179,7 +179,8 @@ class OfferController extends Controller
     {
         try{
             $offers = Offer::whereId($request->input('id'))->first();
-            $offers->user_id        = $request->input('user_id');
+            $offers->user_id        = Auth::user()->id;
+            $offers->user_offer     = $request->input('user_offer');
             $offers->workshop_id    = $request->input('workshop_id');
             $offers->discount       = $request->input('discount');
             $offers->percentage     = $request->input('percentage');
