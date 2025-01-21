@@ -35,7 +35,9 @@ class PayuserController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('workshopsigns')
-                   ->select( 'workshopsigns.id', 'users.name as name' ,'users.phone as phone' , 'workshops.title as title', 'workshopsigns.typeuse', 'workshopsigns.created_at as date', 'workshopsigns.price', 'workshopsigns.pricestatus', 'workshopsigns.referenceId')
+                   ->select( 'workshopsigns.id', 'users.name as name' ,'users.phone as phone', 'users.father_name', 'users.national_id', 'users.birthday' , 'workshops.title as title'
+                                    ,'workshopsigns.typeuse', 'workshopsigns.created_at as date', 'workshopsigns.price', 'workshopsigns.pricestatus'
+                                    ,'workshopsigns.referenceId','workshopsigns.certificate')
                    ->join('users', 'workshopsigns.user_id', '=', 'users.id')
                    ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
                    ->get();
@@ -68,6 +70,23 @@ class PayuserController extends Controller
                 })
                 ->addColumn('price', function ($data) {
                     return ($data->price);
+                })
+                ->addColumn('certificate', function ($data) {
+                    if ($data->certificate == null) {
+                        return "بدون گواهی";
+                    }
+                    elseif ($data->certificate == "1") {
+                        return "نیاز به گواهی";
+                    }
+                })
+                ->addColumn('father_name', function ($data) {
+                    return ($data->father_name);
+                })
+                ->addColumn('national_id', function ($data) {
+                    return ($data->national_id);
+                })
+                ->addColumn('birthday', function ($data) {
+                    return ($data->birthday);
                 })
                 ->addColumn('pricestatus', function ($data) {
                     if ($data->pricestatus == null) {

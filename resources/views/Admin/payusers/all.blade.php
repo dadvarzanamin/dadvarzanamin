@@ -41,7 +41,11 @@
                                             <th class="wd-10p"> شماره موبایل </th>
                                             <th class="wd-10p"> عنوان دوره </th>
                                             <th class="wd-10p"> نوع شرکت در دوره </th>
-                                            <th class="wd-10p"> مبلغ پرداخت شده </th>
+                                            <th class="wd-10p"> گواهی دوره </th>
+                                            <th class="wd-10p"> نام پدر </th>
+                                            <th class="wd-10p"> کد ملی </th>
+                                            <th class="wd-10p"> تاریخ تولد </th>
+                                            <th class="wd-10p"> مبلغ پرداخت </th>
                                             <th class="wd-10p"> وضعیت پرداخت </th>
                                             <th class="wd-10p"> تاریخ پرداخت </th>
                                             <th class="wd-10p"> کد پیگیری پرداخت </th>
@@ -73,15 +77,19 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'name'       , name: 'name'},
-                    {data: 'phone'      , name: 'phone'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'typeuse'    , name: 'typeuse'},
-                    {data: 'price'      , name: 'price'},
-                    {data: 'pricestatus', name: 'pricestatus'},
-                    {data: 'date'       , name: 'date'},
-                    {data: 'referenceId', name: 'referenceId'},
+                    {data: 'id'          , name: 'id'},
+                    {data: 'name'        , name: 'name'},
+                    {data: 'phone'       , name: 'phone'},
+                    {data: 'title'       , name: 'title'},
+                    {data: 'typeuse'     , name: 'typeuse'},
+                    {data: 'certificate' , name: 'certificate'},
+                    {data: 'father_name' , name: 'father_name'},
+                    {data: 'national_id' , name: 'national_id'},
+                    {data: 'birthday'    , name: 'birthday'},
+                    {data: 'price'       , name: 'price'},
+                    {data: 'pricestatus' , name: 'pricestatus'},
+                    {data: 'date'        , name: 'date'},
+                    {data: 'referenceId' , name: 'referenceId'},
                 ]
             });
 
