@@ -246,7 +246,7 @@
             // فعال‌سازی تاریخ‌شمار فارسی
             $('#birthday').persianDatepicker({
                 format: 'YYYY/MM/DD', // فرمت تاریخ
-                initialValue: true,   // مقدار اولیه
+                initialValue: false,   // مقدار اولیه
                 autoClose: true,      // بستن خودکار پس از انتخاب تاریخ
                 calendarType: 'persian', // تقویم شمسی
                 navigator: {

@@ -622,9 +622,12 @@ class ProfileController extends Controller
         $user->father_name  = $request->input('father_name');
         $user->update();
 
-        if (Auth::user()->email==null || Auth::user()->phone){
-            alert()->error('', ' شماره تلفن یا آدرس ایمیل وارد نشده است! لطفا از طریق حساب کاربری اطلاعات مربوطه را ثبت کنید.');
+        if (Auth::user()->email==null || Auth::user()->phone==null){
+            alert()->error('', ' شماره تلفن یا آدرس ایمیل وارد نشده است! لطفا از طریق تنظیمات حساب کاربری اطلاعات مربوطه را ثبت کنید.');
             return Redirect::back();
+        }
+        else {
+
         }
 
         $workshopid     = $request->input('workshopid');
