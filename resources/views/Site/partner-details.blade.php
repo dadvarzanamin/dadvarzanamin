@@ -30,6 +30,9 @@
     <link rel="stylesheet" href="{{asset('site/css/animated-headline.css')}}"/>
     <title>{{$thispage->tab_title .' '. $emploees->fullname}}</title>
     <style>
+        h4{
+            font-size: 16px;
+        }
         .team-title {
             display: flex;
             flex-direction: column;
@@ -54,6 +57,10 @@
             text-align: center;
         }
 
+        .media.media-card h4{
+            text-align: right;
+        }
+
         .media-img {
             max-width: 100%;
             height: auto;
@@ -62,7 +69,7 @@
         @media (min-width: 768px) {
             .media.media-card {
                 flex-direction: row;
-                text-align: left;
+                text-align: center;
             }
         }
     </style>
@@ -71,7 +78,7 @@
     <section class="single-blog-area d-flex justify-content-center py-5">
         <div class="d-flex flex-column g-container col-11 col-lg-8 m-2">
             <section>
-                <div class="container team-title">
+                <div class="container team-title text-justify">
                     <div class="breadcrumb-content">
                         <div class="media media-card mt-3">
                             <div class="media-body">
