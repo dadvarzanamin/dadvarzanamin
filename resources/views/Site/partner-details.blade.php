@@ -30,9 +30,10 @@
     <link rel="stylesheet" href="{{asset('site/css/animated-headline.css')}}"/>
     <title>{{$thispage->tab_title .' '. $emploees->fullname}}</title>
     <style>
-        h4{
+        h4 {
             font-size: 16px;
         }
+
         .team-title {
             display: flex;
             flex-direction: column;
@@ -50,28 +51,7 @@
             max-width: 900px;
         }
 
-        .media.media-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
 
-        .media.media-card h4{
-            text-align: right;
-        }
-
-        .media-img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        @media (min-width: 768px) {
-            .media.media-card {
-                flex-direction: row;
-                text-align: center;
-            }
-        }
     </style>
 @endsection
 @section('main')
@@ -79,33 +59,25 @@
         <div class="d-flex flex-column g-container col-11 col-lg-8 m-2">
             <section>
                 <div class="container team-title text-justify">
-                    <div class="breadcrumb-content">
-                        <div class="media media-card mt-3">
-                            <div class="media-body">
-                                <h2 class="section__title pb-2">{{$emploees->fullname}}</h2>
-                                @if($emploees['positions'])
-                                    @foreach (json_decode($emploees['positions']) as $item)
-                                        <h4 class="">{{$item}}</h4>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <div class="media-img media-img-lg py-4">
-                                <img class="img-fluid" src="{{asset($emploees->image)}}" alt="{{$emploees->fullname}}"/>
-                            </div>
-                        </div>
+                    <h2 class="text-center pb-2">{{$emploees->fullname}}</h2>
+                    @if($emploees['positions'])
+                        @foreach (json_decode($emploees['positions']) as $item)
+                            <h4 class="">{{$item}}</h4>
+                        @endforeach
+                    @endif
+                    <div class="media-img media-img-lg py-4">
+                        <img class="br-16" src="{{asset($emploees->image)}}" alt="{{$emploees->fullname}}"/>
                     </div>
-                    <div class="container">
-                        <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
-                            <li class="nav-item">
-                            </li>
-                        </ul>
-                        <div class="tab-pane fade show active" id="about-me" role="tabpanel"
-                             aria-labelledby="about-me-tab">
-                            <h6>{{$emploees->position}}</h6>
-                            <p class="pb-1">
-                                {!! $emploees->description !!}
-                            </p>
-                        </div>
+                    <ul class="nav nav-tabs generic-tab" id="myTab" role="tablist">
+                        <li class="nav-item">
+                        </li>
+                    </ul>
+                    <div class="tab-pane fade show active" id="about-me" role="tabpanel"
+                         aria-labelledby="about-me-tab">
+                        <h6>{{$emploees->position}}</h6>
+                        <p class="pb-1">
+                            {!! $emploees->description !!}
+                        </p>
                     </div>
                 </div>
             </section>

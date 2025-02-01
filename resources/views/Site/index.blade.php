@@ -275,11 +275,13 @@
             <div class="section-heading">
                 <h2 class="section__title mb-4">برخی از موکلین</h2>
             </div>
-            <div class="client-logo-carousel my-4 br-16">
+            <div class="client-logo-carousel owl-carousel owl-theme my-4 br-16">
                 @foreach($customers as $customer)
-                    <a href="#" class="client-logo-item" style="width:100px">
-                        <img src="{{asset($customer->image)}}" alt="{{$customer->name}}"/>
-                    </a>
+                    <div class="item">
+                        <a href="#" class="client-logo-item" style="width:100px">
+                            <img src="{{ asset($customer->image) }}" alt="{{ $customer->name }}"/>
+                        </a>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -299,17 +301,18 @@
                 <h2 class="section__title">خدمات برای موکلین</h2>
                 <span class="section-divider"></span>
             </div>
-            <div class="blog-post-carousel owl-action-styled half-shape">
+            <div class="blog-post-carousel owl-carousel owl-theme owl-action-styled half-shape">
                 @foreach($servicelawyers as $servicelawyer)
-                    <div class="col-lg-12 responsive-column-half text-center">
+                    <div class="item text-center">
                         <div class="icon-element icon-element-lg shadow-sm"
-                             style="margin-bottom: -70px;position: relative;">
-                            <img src="{{asset($servicelawyer->image)}}" style="width: 100px;margin: 25px auto;"
-                                 alt="{{$servicelawyer->title}}">
+                             style="margin-bottom: -70px; position: relative;">
+                            <img src="{{ asset($servicelawyer->image) }}"
+                                 style="width: 100px; margin: 25px auto;"
+                                 alt="{{ $servicelawyer->title }}">
                         </div>
                         <div class="category-item category-item-layout-2 br-16" style="position: initial;">
-                            <a href="{{url('خدمات/'.$servicelawyer->slug)}}" class="category-content">
-                                <h3 class="cat__title">{{$servicelawyer->title}}</h3>
+                            <a href="{{ url('خدمات/'.$servicelawyer->slug) }}" class="category-content">
+                                <h3 class="cat__title">{{ $servicelawyer->title }}</h3>
                             </a>
                         </div>
                     </div>
@@ -317,24 +320,7 @@
             </div>
         </div>
     </section>
-    {{--    <script>--}}
-    {{--        $(document).ready(function(){--}}
-    {{--            $('.course-carousel').owlCarousel({--}}
-    {{--                loop: true,--}}
-    {{--                margin: 10,--}}
-    {{--                nav: true,--}}
-    {{--                responsive: {--}}
-    {{--                    0: {--}}
-    {{--                        items: 1 // نمایش یک آیتم در موبایل--}}
-    {{--                    },--}}
-    {{--                    768: {--}}
-    {{--                        items: 2 // نمایش دو آیتم در دسکتاپ--}}
-    {{--                    }--}}
-    {{--                }--}}
-    {{--            });--}}
-    {{--        });--}}
-    {{--    </script>--}}
-    {{--  End Peoples Services Area  --}}
+
 
     {{--  Start Peoples Services Area  --}}
     <section class="get-started-area section--padding position-relative overflow-hidden">
@@ -349,7 +335,7 @@
                 <h2 class="section__title">خدمات برای وکلا</h2>
                 <span class="section-divider"></span>
             </div>
-            <div class="blog-post-carousel owl-action-styled half-shape">
+            <div class="blog-post-carousel owl-carousel owl-theme owl-action-styled half-shape">
                 @foreach($serviceclients as $serviceclient)
                     <div class="col-lg-12 responsive-column-half text-center bg-black">
                         <div class="icon-element icon-element-lg shadow-sm"
@@ -376,30 +362,34 @@
                 <h2 class="section__title">اخبار و رویداد های حقوقی</h2>
                 <span class="section-divider"></span>
             </div>
-            <div class="blog-post-carousel owl-action-styled half-shape br-16">
+            <div class="blog-post-carousel owl-carousel owl-theme owl-action-styled half-shape br-16">
                 @foreach($akhbars as $akhbar)
-
-                    <div class="card card-item card-preview br-16 my-5" data-tooltip-content="#tooltip_content_1">
-                        <div class="card-image br-16">
-                            <a href="{{url('اخبار/'.$akhbar->slug)}}" class="d-block">
-                                <img class="card-img-top img-index" src="{{asset($akhbar->image)}}"
-                                     alt="{{$akhbar->title}}">
-                            </a>
-                            <div class="course-badge-labels">
-                                <div class="course-badge">{{jdate($akhbar->updated_at)->ago()}}</div>
+                    <div class="item">
+                        <div class="card card-item card-preview br-16 my-5" data-tooltip-content="#tooltip_content_1">
+                            <div class="card-image br-16">
+                                <a href="{{ url('اخبار/'.$akhbar->slug) }}" class="d-block">
+                                    <img class="card-img-top img-index" src="{{ asset($akhbar->image) }}" alt="{{ $akhbar->title }}">
+                                </a>
+                                <div class="course-badge-labels">
+                                    <div class="course-badge">{{ jdate($akhbar->updated_at)->ago() }}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pb-1">
-                            <h3 class="card-title" style="font-size: 16px"><a href="#">{{$akhbar->title}}</a></h3>
-                            <div class="line"></div>
-                            <div class="rating-wrap d-flex align-items-center justify-content-center py-2">
-                                <a href="{{url('اخبار/'.$akhbar->slug)}}"
-                                   class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
+                            <div class="card-body pb-1">
+                                <h3 class="card-title" style="font-size: 16px">
+                                    <a href="{{ url('اخبار/'.$akhbar->slug) }}">{{ $akhbar->title }}</a>
+                                </h3>
+                                <div class="line"></div>
+                                <div class="rating-wrap d-flex align-items-center justify-content-center py-2">
+                                    <a href="{{ url('اخبار/'.$akhbar->slug) }}" class="btn theme-btn theme-btn-sm theme-btn-transparent">
+                                        مشاهده
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
+
         </div>
     </section>
     {{--  End events cards  --}}
@@ -463,10 +453,10 @@
                 <h2 class="section__title">محتوای آموزشی حقوقی</h2>
                 <span class="section-divider"></span>
             </div>
-            <div class="blog-post-carousel owl-action-styled half-shape">
+            <div class="blog-post-carousel owl-carousel owl-action-styled half-shape">
                 @foreach($posts as $post)
 
-                    <div class="card card-item card-preview br-16" data-tooltip-content="#tooltip_content_1">
+                    <div class="card item card-item card-preview br-16" data-tooltip-content="#tooltip_content_1">
                         <div class="card-image">
                             <a href="{{url('محتوای-آموزشی/'.$post->slug)}}" class="d-block">
                                 <img class="card-img-top img-index" src="{{asset($post->image)}}"
@@ -501,25 +491,24 @@
                 <h2 class="section__title">تیم ما</h2>
                 <span class="section-divider"></span>
             </div>
-            <div class="blog-post-carousel owl-action-styled half-shape">
+            <div class="blog-post-carousel owl-carousel owl-theme owl-action-styled half-shape">
                 @foreach($emploees as $emploee)
-                    <div class="responsive-column-half ">
-                        <a href="{{url('تیم-ما/رزومه/'.$emploee->slug)}}">
+                    <div class="item">
+                        <a href="{{ url('تیم-ما/رزومه/'.$emploee->slug) }}">
                             <div class="card card-item member-card text-center br-16">
                                 <div class="card-image">
-                                    <img class="card-img-top" src="{{asset($emploee->image)}}"
-                                         alt="{{$emploee->fullname}}"/>
+                                    <img class="card-img-top" src="{{ asset($emploee->image) }}" alt="{{ $emploee->fullname }}"/>
                                 </div>
                                 <div class="card-body">
-                                    <h2 class="card-title">{{$emploee->fullname}}</h2>
-                                    <p class="card-text">{{$emploee->side}}</p>
-
+                                    <h2 class="card-title">{{ $emploee->fullname }}</h2>
+                                    <p class="card-text">{{ $emploee->side }}</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                 @endforeach
             </div>
+
         </div>
     </section>
     {{--  End Team Area  --}}
