@@ -206,60 +206,70 @@
             </div>
         </div>
     </section>
-@if($workshops->count() > 0)
-    <section class="course-area pb-90px">
-        <div class="course-wrapper">
-            <div class="container">
-                <div class="section-heading text-center">
-                    <h2 class="section__title">کارگاه های ما</h2>
-                    <span class="section-divider"></span>
-                </div><!-- end section-heading -->
-                <div class="course-carousel owl-carousel owl-action-styled mt-30px">
-                    @foreach($workshops as $workshop)
-                        <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_{{ $loop->index }}">
-                            <div class="card-image">
-                                <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}" class="d-block">
-                                    <img class="card-img-top" src="{{ asset('storage/'.$workshop->image) }}" alt="{{ $workshop->title }}">
-                                </a>
-                                <div class="course-badge-labels">
-{{--                                    <div class="course-badge">کتاب پرفروش</div>--}}
-                                    <div class="course-badge blue">
-                                        @if($workshop->status==4)
-                                            فعال
-                                        @elseif($workshop->status==3)
-                                            پایان دوره
-                                        @elseif($workshop->status==2)
-                                            تکمیل ظرفیت
-                                        @elseif($workshop->status==1)
-                                            اتمام مهلت ثبت نام
-                                        @endif
+    @if($workshops->count() > 0)
+        <section class="course-area pb-90px">
+            <div class="course-wrapper">
+                <div class="container">
+                    <div class="section-heading text-center">
+                        <h2 class="section__title">کارگاه های ما</h2>
+                        <span class="section-divider"></span>
+                    </div>
+                    <!-- end section-heading -->
+                    <div class="course-carousel owl-carousel owl-action-styled mt-30px">
+                        @foreach($workshops as $workshop)
+                            <div class="card card-item card-preview"
+                                 data-tooltip-content="#tooltip_content_{{ $loop->index }}">
+                                <div class="card-image">
+                                    <a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}"
+                                       class="d-block">
+                                        <img class="card-img-top" src="{{ asset('storage/'.$workshop->image) }}"
+                                             alt="{{ $workshop->title }}">
+                                    </a>
+                                    <div class="course-badge-labels">
+                                        {{--                                    <div class="course-badge">کتاب پرفروش</div>--}}
+                                        <div class="course-badge blue">
+                                            @if($workshop->status==4)
+                                                فعال
+                                            @elseif($workshop->status==3)
+                                                پایان دوره
+                                            @elseif($workshop->status==2)
+                                                تکمیل ظرفیت
+                                            @elseif($workshop->status==1)
+                                                اتمام مهلت ثبت نام
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            </div><!-- end card-image -->
-                            <div class="card-body">
-                                <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $workshop->teacher }}</h6>
-                                <h5 class="card-title"><a href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->title }}</a></h5>
-{{--                                <p class="card-text"><a href="{{ url('دپارمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->teacher }}</a></p>--}}
-                                <span class="section-divider"></span>
-                                <h6>اهداف دوره</h6>
-                                <p>{!! $workshop->target !!}</p>
+                                </div><!-- end card-image -->
+                                <div class="card-body">
+                                    <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">{{ $workshop->teacher }}</h6>
+                                    <h5 class="card-title"><a
+                                            href="{{ url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->title }}</a>
+                                    </h5>
+                                    {{--                                <p class="card-text"><a href="{{ url('دپارمان-اموزش-و-پژوهش/دوره-های-آموزشی/' . $workshop->slug) }}">{{ $workshop->teacher }}</a></p>--}}
+                                    <span class="section-divider"></span>
+                                    <h6>اهداف دوره</h6>
+                                    <p>{!! $workshop->target !!}</p>
 
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p class="card-price text-black font-weight-bold">
-                                        {{ $workshop->price }} تومان
-                                        @if($workshop->offer)
-                                            <span class="before-price font-weight-medium">{{ $workshop->offer }}</span>
-                                        @endif
-                                    </p>
-                                </div>
-                            </div><!-- end card-body -->
-                        </div><!-- end card -->
-                    @endforeach
-                </div><!-- end course-carousel -->
-            </div><!-- end container -->
-        </div><!-- end course-wrapper -->
-    </section>
-@endif
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="card-price text-black font-weight-bold">
+                                            {{ $workshop->price }} تومان
+                                            @if($workshop->offer)
+                                                <span
+                                                    class="before-price font-weight-medium">{{ $workshop->offer }}</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div><!-- end card-body -->
+                            </div><!-- end card -->
+                        @endforeach
+                    </div>
+                    <!-- end course-carousel -->
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end course-wrapper -->
+        </section>
+    @endif
     <section class="client-logo-area section-padding position-relative overflow-hidden text-center my-4">
         <div class="container">
             <div class="section-heading">
@@ -307,23 +317,23 @@
             </div>
         </div>
     </section>
-{{--    <script>--}}
-{{--        $(document).ready(function(){--}}
-{{--            $('.course-carousel').owlCarousel({--}}
-{{--                loop: true,--}}
-{{--                margin: 10,--}}
-{{--                nav: true,--}}
-{{--                responsive: {--}}
-{{--                    0: {--}}
-{{--                        items: 1 // نمایش یک آیتم در موبایل--}}
-{{--                    },--}}
-{{--                    768: {--}}
-{{--                        items: 2 // نمایش دو آیتم در دسکتاپ--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function(){--}}
+    {{--            $('.course-carousel').owlCarousel({--}}
+    {{--                loop: true,--}}
+    {{--                margin: 10,--}}
+    {{--                nav: true,--}}
+    {{--                responsive: {--}}
+    {{--                    0: {--}}
+    {{--                        items: 1 // نمایش یک آیتم در موبایل--}}
+    {{--                    },--}}
+    {{--                    768: {--}}
+    {{--                        items: 2 // نمایش دو آیتم در دسکتاپ--}}
+    {{--                    }--}}
+    {{--                }--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
     {{--  End Peoples Services Area  --}}
 
     {{--  Start Peoples Services Area  --}}
@@ -539,41 +549,41 @@
 @endsection
 @section('script')
     @if($currentws)
-{{--        <script>--}}
-{{--            // Set the date we're counting down to--}}
-{{--            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();--}}
+        {{--        <script>--}}
+        {{--            // Set the date we're counting down to--}}
+        {{--            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();--}}
 
-{{--            // Update the count down every 1 second--}}
-{{--            var x = setInterval(function () {--}}
-{{--                // Get today's date and time--}}
-{{--                var now = new Date().getTime();--}}
+        {{--            // Update the count down every 1 second--}}
+        {{--            var x = setInterval(function () {--}}
+        {{--                // Get today's date and time--}}
+        {{--                var now = new Date().getTime();--}}
 
-{{--                // Find the distance between now and the count down date--}}
-{{--                var distance = countDownDate - now;--}}
+        {{--                // Find the distance between now and the count down date--}}
+        {{--                var distance = countDownDate - now;--}}
 
-{{--                // Time calculations for days, hours, minutes and seconds--}}
-{{--                var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
-{{--                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
-{{--                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
-{{--                var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
+        {{--                // Time calculations for days, hours, minutes and seconds--}}
+        {{--                var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
+        {{--                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
+        {{--                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
+        {{--                var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
 
-{{--                // Display the result in the elements with IDs--}}
-{{--                document.getElementById("days").innerHTML = days;--}}
-{{--                document.getElementById("hours").innerHTML = hours;--}}
-{{--                document.getElementById("minutes").innerHTML = minutes;--}}
-{{--                document.getElementById("seconds").innerHTML = seconds;--}}
+        {{--                // Display the result in the elements with IDs--}}
+        {{--                document.getElementById("days").innerHTML = days;--}}
+        {{--                document.getElementById("hours").innerHTML = hours;--}}
+        {{--                document.getElementById("minutes").innerHTML = minutes;--}}
+        {{--                document.getElementById("seconds").innerHTML = seconds;--}}
 
-{{--                // If the count down is finished, write some text--}}
-{{--                if (distance < 0) {--}}
-{{--                    clearInterval(x);--}}
-{{--                    document.getElementById("days").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("hours").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("minutes").innerHTML = "EXPIRED";--}}
-{{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
-{{--                }--}}
-{{--            }, 1000);--}}
-{{--        </
->--}}
+        {{--                // If the count down is finished, write some text--}}
+        {{--                if (distance < 0) {--}}
+        {{--                    clearInterval(x);--}}
+        {{--                    document.getElementById("days").innerHTML = "EXPIRED";--}}
+        {{--                    document.getElementById("hours").innerHTML = "EXPIRED";--}}
+        {{--                    document.getElementById("minutes").innerHTML = "EXPIRED";--}}
+        {{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
+        {{--                }--}}
+        {{--            }, 1000);--}}
+        {{--        </
+        >--}}
     @endif
     <script>
         jQuery(document).ready(function () {

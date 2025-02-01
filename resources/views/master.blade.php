@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{asset('site/css/tooltipster.bundle.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title></title>
     @yield('style')
 </head>
 <style>
@@ -536,21 +537,29 @@
     <i class="la la-arrow-up" title="برو بالا"></i>
 </div>
 
-<script src="{{asset('site/js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('site/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('site/js/bootstrap-select.min.js')}}"></script>
-<script src="{{asset('site/js/owl.carousel.min.js')}}"></script>
-{{--<script src="{{asset('site/js/isotope.js')}}"></script>--}}
-{{--<script src="{{asset('site/js/waypoint.min.js')}}"></script>--}}
-{{--<script src="{{asset('site/js/jquery.counterup.min.js')}}"></script>--}}
-<script src="{{asset('site/js/fancybox.js')}}"></script>
-<script src="{{asset('site/js/datedropper.min.js')}}"></script>
-{{--<script src="{{asset('site/js/emojionearea.min.js')}}"></script>--}}
-<script src="{{asset('site/js/tooltipster.bundle.min.js')}}"></script>
-<script src="{{asset('site/js/jquery.lazy.min.js')}}"></script>
-<script src="{{asset('site/js/main.js')}}"></script>
-<script src="{{asset('admin/assets/js/sweetalert.min.js')}}"></script>
+<script src="{{ asset('site/js/jquery-3.4.1.min.js') }}"></script> <!-- jQuery باید قبل از همه باشد -->
+<script src="{{ asset('site/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('site/js/bootstrap-select.min.js') }}"></script>
+
+<!-- سایر پلاگین‌ها -->
+<script src="{{ asset('site/js/fancybox.js') }}"></script>
+<script src="{{ asset('site/js/datedropper.min.js') }}"></script>
+<script src="{{ asset('site/js/tooltipster.bundle.min.js') }}"></script>
+<script src="{{ asset('site/js/jquery.lazy.min.js') }}"></script>
+
+<!-- Owl Carousel -->
+<script src="{{ asset('site/js/owl.carousel.min.js') }}"></script>
+
+<!-- فایل‌های اصلی پروژه -->
+<script src="{{ asset('site/js/main.js') }}"></script>
+<script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
+
+<!-- Custom JS -->
+<script src="{{ asset('site/js/custom.js') }}"></script>
+
+<!-- سایر اسکریپت‌های صفحه -->
 @yield('script')
+
 <script type="text/javascript">
     $('#reload').click(function () {
         $.ajax({
