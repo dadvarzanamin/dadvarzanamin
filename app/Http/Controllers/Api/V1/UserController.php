@@ -266,6 +266,7 @@ class UserController extends Controller
     }
 
     public function form(Request $request){
+        dd($request->input()->all);
         if($request->input('type')== 'judgement'){
 
             // ذخیره داده‌ها در پایگاه داده
