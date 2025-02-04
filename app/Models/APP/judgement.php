@@ -10,7 +10,7 @@ class judgement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judgement_type',
+        'judgementType',
         'contractType',
         'partyOneName',
         'partyTwoName',
