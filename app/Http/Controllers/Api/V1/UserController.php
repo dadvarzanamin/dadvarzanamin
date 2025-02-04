@@ -268,18 +268,15 @@ class UserController extends Controller
     public function form(Request $request){
         if($request->input(['type']) == 'judgement'){
             $arrayData = $request->input(['fields']);
-
-            dd($arrayData , $arrayData['judgementType']);
-
             // ذخیره داده‌ها در پایگاه داده
             $form = judgement::create([
-                'judgement_type'        => $request->input(['fields']['judgementType']),
-                'contract_type'         => $request->input(['fields']['contractType']),
-                'party_one_name'        => $request->input(['fields']['partyOneName']),
-                'party_two_name'        => $request->input(['fields']['partyTwoName']),
-                'party_one_national_id' => $request->input(['fields']['partyOneNationalId']),
-                'party_two_national_id' => $request->input(['fields']['partyTwoNationalId']),
-                'uploaded_file'         => $request->input(['fields']['uploaded_file'] ?? null),
+                'judgement_type'        => $arrayData['judgementType'],
+                'contract_type'         => $arrayData['contractType'],
+                'party_one_name'        => $arrayData['partyOneName'],
+                'party_two_name'        => $arrayData['partyTwoName'],
+                'party_one_national_id' => $arrayData['partyOneNationalId'],
+                'party_two_national_id' => $arrayData['partyTwoNationalId'],
+                'uploaded_file'         => $arrayData['uploaded_file'] ?? null,
             ]);
         }
 
