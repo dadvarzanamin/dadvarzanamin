@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\v1\IndexController;
 Route::middleware('auth:api')->group(function () {
     Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class       , 'profile']);
     Route::post('v1/editprofile'   ,   [App\Http\Controllers\Api\V1\UserController::class       , 'editprofile']);
+    Route::post('v1/form'          ,   [App\Http\Controllers\Api\V1\UserController::class       , 'form']);
 });
 
 
