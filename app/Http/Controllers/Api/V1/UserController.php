@@ -267,7 +267,7 @@ class UserController extends Controller
 
     public function form(Request $request){
         if($request->input(['type']) == 'judgement'){
-            dd($request->input(['fields']));
+            dd($request->input(['fields'.'judgementType']));
 
             // ذخیره داده‌ها در پایگاه داده
             $form = judgement::create([
