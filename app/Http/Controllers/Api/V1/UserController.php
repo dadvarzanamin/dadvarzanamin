@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
+use App\Models\APP\judgement;
 use App\Models\Profile\City;
 use App\Models\Profile\State;
 use App\Models\TypeUser;
@@ -265,45 +266,26 @@ class UserController extends Controller
     }
 
     public function form(Request $request){
+        if($request->input('type')== 'judgement'){
 
-        dd($request->all());
-        $user = auth::user();
-
-        if ($request->input('type_id')) {
-            $user->type_id = $request->input('type_id');
-        }elseif ($request->input('phone')) {
-            $user->phone            = $request->input('phone');
-        }elseif ($request->input('national_id')) {
-            $user->national_id      = $request->input('national_id');
-        }elseif ($request->input('name')) {
-            $user->name             = $request->input('name');
-        }elseif ($request->input('nationality')) {
-            $user->nationality      = $request->input('nationality');
-        }elseif ($request->input('gender')) {
-            $user->gender           = $request->input('gender');
-        }elseif ($request->input('birthday')) {
-            $user->birthday         = $request->input('birthday');
-        }elseif ($request->input('marital_status')) {
-            $user->marital_status   = $request->input('marital_status');
-        }elseif ($request->input('father_name')) {
-            $user->father_name      = $request->input('father_name');
-        }elseif ($request->input('postalcode')) {
-            $user->postalcode       = $request->input('postalcode');
-        }elseif ($request->input('telphone')) {
-            $user->telphone         = $request->input('telphone');
-        }elseif ($request->input('state_id')) {
-            $user->state_id         = $request->input('state_id');
-        }elseif ($request->input('city_id')) {
-            $user->city_id          = $request->input('city_id');
-        }elseif ($request->input('address')) {
-            $user->address          = $request->input('address');
-        }elseif ($request->input('place_id')) {
-            $user->place_id = $request->input('place_id');
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'judgement_type'        => $request->input(['fields']['judgementType']),
+                'contract_type'         => $request->input(['fields']['contractType']),
+                'party_one_name'        => $request->input(['fields']['partyOneName']),
+                'party_two_name'        => $request->input(['fields']['partyTwoName']),
+                'party_one_national_id' => $request->input(['fields']['partyOneNationalId']),
+                'party_two_national_id' => $request->input(['fields']['partyTwoNationalId']),
+                'uploaded_file'         => $request->input(['fields']['uploaded_file'] ?? null),
+            ]);
         }
 
-        $user->update();
-        $response = 'تغییرات با موفقیت انجام شد' ;
 
-        return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'فرم با موفقیت ثبت شد',
+        ], 201);
+
+       // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
     }
 }
