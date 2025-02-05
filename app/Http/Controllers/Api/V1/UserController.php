@@ -7,6 +7,7 @@ use App\Models\ActiveCode;
 use App\Models\APP\contractDrafting;
 use App\Models\APP\documentDrafting;
 use App\Models\APP\judgement;
+use App\Models\APP\Law;
 use App\Models\APP\lawsuit;
 use App\Models\APP\legalAdvice;
 use App\Models\APP\tokil;
@@ -373,6 +374,27 @@ class UserController extends Controller
                 'legalAdvice'       => $legalAdvice,
                 'lawsuit'           => $lawsuit,
                 'tokil'             => $tokil,
+            ];
+            return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+        }else{
+            $response = [
+                'user' => 'شما هنوز به حساب خود وارد نشده اید'
+            ];
+            return Response::json(['ok' => false , 'message' => 'faild' , 'response' => $response]);
+        }
+
+    }
+
+    public function laws(){
+
+        if (Auth::check()) {
+
+            $laws          = Law::all();
+
+
+            $response = [
+                'laws'         => $laws,
+
             ];
             return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
         }else{
