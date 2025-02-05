@@ -266,20 +266,78 @@ class UserController extends Controller
     }
 
     public function form(Request $request){
-        if($request->input(['type']) == 'judgement'){
+        if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input(['fields']);
             // ذخیره داده‌ها در پایگاه داده
             $form = judgement::create([
-                'judgementType'         => $arrayData['judgementType'],
-                'contractType'          => $arrayData['contractType'],
-                'partyOneName'          => $arrayData['partyOneName'],
-                'partyTwoName'          => $arrayData['partyTwoName'],
-                'partyOneNationalId'    => $arrayData['partyOneNationalId'],
-                'partyTwoNationalId'    => $arrayData['partyTwoNationalId'],
-                'uploaded_file'         => $arrayData['uploaded_file'] ?? null,
+                'case_type'         => $arrayData['case_type'],
+                'hearing_date'      => $arrayData['hearing_date'],
+                'hearing_time'      => $arrayData['hearing_time'],
+                'province'          => $arrayData['province'],
+                'city'              => $arrayData['city'],
+                'court_complex'     => $arrayData['court_complex'],
+                'court_branch'      => $arrayData['court_branch'],
+                'additional_info'   => $arrayData['additional_info'],
+                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+            ]);
+        }elseif($request->input(['type']) == 'lawsuit'){
+            $arrayData = $request->input(['fields']);
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'case_type'         => $arrayData['case_type'],
+                'case_subject'      => $arrayData['hearing_date'],
+                'hearing_time'      => $arrayData['hearing_time'],
+                'province'          => $arrayData['province'],
+                'city'              => $arrayData['city'],
+                'court_complex'     => $arrayData['court_complex'],
+                'court_branch'      => $arrayData['court_branch'],
+                'additional_info'   => $arrayData['additional_info'],
+                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+            ]);
+        }elseif($request->input(['type']) == 'legalAdvice'){
+            $arrayData = $request->input(['fields']);
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'topic'             => $arrayData['topic'],
+                'sub_topic'         => $arrayData['sub_topic'],
+                'type'              => $arrayData['type'],
+                'additional_info'   => $arrayData['additional_info'],
+                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+            ]);
+        }elseif($request->input(['type']) == 'contractDrafting'){
+            $arrayData = $request->input(['fields']);
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'contract_type'             => $arrayData['contract_type'],
+                'party_one_name'            => $arrayData['party_one_name'],
+                'party_two_name'            => $arrayData['party_two_name'],
+                'party_one_national_id'     => $arrayData['party_one_national_id'],
+                'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
+            ]);
+        }elseif($request->input(['type']) == 'documentDrafting'){
+            $arrayData = $request->input(['fields']);
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'topic'             => $arrayData['topic'],
+                'sub_topic'         => $arrayData['sub_topic'],
+                'type'              => $arrayData['type'],
+                'additional_info'   => $arrayData['additional_info'],
+                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+            ]);
+        }elseif($request->input(['type']) == 'judgement'){
+            $arrayData = $request->input(['fields']);
+            // ذخیره داده‌ها در پایگاه داده
+            $form = judgement::create([
+                'judgement_type'            => $arrayData['judgement_type'],
+                'contract_type'             => $arrayData['contract_type'],
+                'party_one_name'            => $arrayData['party_one_name'],
+                'party_two_name'            => $arrayData['party_two_name'],
+                'party_one_national_id'     => $arrayData['party_one_national_id'],
+                'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
             ]);
         }
-
 
         return response()->json([
             'status' => 'success',

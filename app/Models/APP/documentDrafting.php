@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class documentDrafting extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'topic'           ,
+        'sub_topic'       ,
+        'type'            ,
+        'additional_info' ,
+        'uploaded_file'   ,
+
+    ];
 }
