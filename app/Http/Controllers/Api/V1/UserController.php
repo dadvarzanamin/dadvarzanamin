@@ -305,6 +305,7 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'type'              => $arrayData['type'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
