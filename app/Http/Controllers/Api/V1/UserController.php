@@ -282,6 +282,7 @@ class UserController extends Controller
                 'court_complex'     => $arrayData['court_complex'],
                 'court_branch'      => $arrayData['court_branch'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'lawsuit'){
@@ -294,6 +295,7 @@ class UserController extends Controller
                 'opponent_name'         => $arrayData['opponent_name'],
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
                 'additional_info'       => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'         => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
@@ -304,6 +306,7 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'type'              => $arrayData['type'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
@@ -314,6 +317,7 @@ class UserController extends Controller
                 'party_two_name'            => $arrayData['party_two_name'],
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'documentDrafting'){
@@ -324,6 +328,7 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'type'              => $arrayData['type'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'judgement'){
@@ -336,6 +341,7 @@ class UserController extends Controller
                 'party_two_name'            => $arrayData['party_two_name'],
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
             ]);
         }
