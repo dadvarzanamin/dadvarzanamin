@@ -304,6 +304,7 @@ class UserController extends Controller
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
+            dd($arrayData);
             // ذخیره داده‌ها در پایگاه داده
             $form = judgement::create([
                 'contract_type'             => $arrayData['contract_type'],
