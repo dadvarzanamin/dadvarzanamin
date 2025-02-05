@@ -359,12 +359,12 @@ class UserController extends Controller
 
         if (Auth::check()) {
 
-            $judgement          = judgement::all();
-            $documentDrafting   = documentDrafting::all();
-            $contractDrafting   = contractDrafting::all();
-            $legalAdvice        = legalAdvice::all();
-            $lawsuit            = lawsuit::all();
-            $tokil              = tokil::all();
+            $judgement          = judgement::whereUser_id(Auth::user()->id)->get();
+            $documentDrafting   = documentDrafting::whereUser_id(Auth::user()->id)->get();
+            $contractDrafting   = contractDrafting::whereUser_id(Auth::user()->id)->get();
+            $legalAdvice        = legalAdvice::whereUser_id(Auth::user()->id)->get();
+            $lawsuit            = lawsuit::whereUser_id(Auth::user()->id)->get();
+            $tokil              = tokil::whereUser_id(Auth::user()->id)->get();
 
             $response = [
                 'judgement'         => $judgement,
