@@ -15,6 +15,7 @@ class legalAdvice extends Model
         'type'            ,
         'additional_info' ,
         'uploaded_file'   ,
+        'user_id'   ,
 
     ];
 }
