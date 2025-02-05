@@ -10,13 +10,12 @@ class judgement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'judgementType',
-        'contractType',
-        'partyOneName',
-        'partyTwoName',
-        'partyOneNationalId',
-        'partyTwoNationalId',
-        'uploaded_file',
-
+        'judgement_type'        ,
+        'contract_type'         ,
+        'party_one_name'        ,
+        'party_two_name'        ,
+        'party_one_national_id' ,
+        'party_two_national_id' ,
+        'uploaded_file'         ,
     ];
 }
