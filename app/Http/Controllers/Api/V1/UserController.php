@@ -327,7 +327,7 @@ class UserController extends Controller
             $form = documentDrafting::create([
                 'topic'             => $arrayData['topic'],
                 'sub_topic'         => $arrayData['sub_topic'],
-                'type'              => $arrayData['type'],
+                'document_type'     => $arrayData['document_type'],
                 'additional_info'   => $arrayData['additional_info'],
                 'user_id'           => Auth::user()->id,
                 'uploaded_file'     => $arrayData['uploaded_file'] ?? null,

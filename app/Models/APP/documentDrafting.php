@@ -12,7 +12,7 @@ class documentDrafting extends Model
     protected $fillable = [
         'topic'           ,
         'sub_topic'       ,
-        'type'            ,
+        'document_type'   ,
         'additional_info' ,
         'uploaded_file'   ,
 
