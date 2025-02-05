@@ -284,15 +284,13 @@ class UserController extends Controller
             $arrayData = $request->input(['fields']);
             // ذخیره داده‌ها در پایگاه داده
             $form = judgement::create([
-                'case_type'         => $arrayData['case_type'],
-                'case_subject'      => $arrayData['hearing_date'],
-                'hearing_time'      => $arrayData['hearing_time'],
-                'province'          => $arrayData['province'],
-                'city'              => $arrayData['city'],
-                'court_complex'     => $arrayData['court_complex'],
-                'court_branch'      => $arrayData['court_branch'],
-                'additional_info'   => $arrayData['additional_info'],
-                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+                'case_type'             => $arrayData['case_type'],
+                'case_subject'          => $arrayData['hearing_date'],
+                'stage'                 => $arrayData['stage'],
+                'opponent_name'         => $arrayData['opponent_name'],
+                'opponent_national_id'  => $arrayData['opponent_national_id'],
+                'additional_info'       => $arrayData['additional_info'],
+                'uploaded_file'         => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);

@@ -10,14 +10,12 @@ class lawsuit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'case_type',
-        'case_subject',
-        'hearing_time',
-        'province',
-        'city',
-        'court_complex',
-        'court_branch',
-        'additional_info',
-        'uploaded_file'
+        'case_type'           ,
+        'case_subject'        ,
+        'stage'               ,
+        'opponent_name'       ,
+        'opponent_national_id',
+        'additional_info'     ,
+        'uploaded_file'       ,
     ];
 }
