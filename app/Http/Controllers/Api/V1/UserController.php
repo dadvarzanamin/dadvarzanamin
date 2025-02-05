@@ -290,7 +290,7 @@ class UserController extends Controller
             // ذخیره داده‌ها در پایگاه داده
             $form = lawsuit::create([
                 'case_type'             => $arrayData['case_type'],
-                'case_subject'          => $arrayData['hearing_date'],
+                'case_subject'          => $arrayData['case_subject'],
                 'stage'                 => $arrayData['stage'],
                 'opponent_name'         => $arrayData['opponent_name'],
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
