@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
+use App\Models\APP\contractDrafting;
 use App\Models\APP\documentDrafting;
 use App\Models\APP\judgement;
 use App\Models\APP\lawsuit;
