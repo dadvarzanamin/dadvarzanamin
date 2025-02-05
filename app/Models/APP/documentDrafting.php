@@ -15,6 +15,7 @@ class documentDrafting extends Model
         'document_type'   ,
         'additional_info' ,
         'uploaded_file'   ,
+        'user_id'   ,
 
     ];
 }

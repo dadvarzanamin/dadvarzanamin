@@ -17,5 +17,7 @@ class lawsuit extends Model
         'opponent_national_id',
         'additional_info'     ,
         'uploaded_file'       ,
+        'user_id'   ,
+
     ];
 }
