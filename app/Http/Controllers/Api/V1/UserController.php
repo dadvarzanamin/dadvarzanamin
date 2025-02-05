@@ -304,7 +304,6 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'type'              => $arrayData['type'],
                 'additional_info'   => $arrayData['additional_info'],
-                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
