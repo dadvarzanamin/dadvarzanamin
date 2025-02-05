@@ -354,4 +354,33 @@ class UserController extends Controller
 
        // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
     }
+
+    public function demands(){
+
+        if (Auth::check()) {
+
+            $judgement          = judgement::all();
+            $documentDrafting   = documentDrafting::all();
+            $contractDrafting   = contractDrafting::all();
+            $legalAdvice        = legalAdvice::all();
+            $lawsuit            = lawsuit::all();
+            $tokil              = tokil::all();
+
+            $response = [
+                'judgement'         => $judgement,
+                'documentDrafting'  => $documentDrafting,
+                'contractDrafting'  => $contractDrafting,
+                'legalAdvice'       => $legalAdvice,
+                'lawsuit'           => $lawsuit,
+                'tokil'             => $tokil,
+            ];
+            return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+        }else{
+            $response = [
+                'user' => 'شما هنوز به حساب خود وارد نشده اید'
+            ];
+            return Response::json(['ok' => false , 'message' => 'faild' , 'response' => $response]);
+        }
+
+    }
 }
