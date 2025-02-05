@@ -207,7 +207,7 @@ class UserController extends Controller
                 ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
                 ->select('users.email' , 'users.name',  'users.phone', 'users.national_id', 'users.father_name', 'users.birthday', 'users.gender', 'users.age'
                     , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode'
-                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token')
+                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token' , 'users.type_id as type', 'users.created_at as timeset' , 'users.image')
                 ->where('users.id', '=', Auth::user()->id)
                 ->first();
 
