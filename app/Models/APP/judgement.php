@@ -17,5 +17,7 @@ class judgement extends Model
         'party_one_national_id' ,
         'party_two_national_id' ,
         'uploaded_file'         ,
+        'user_id'   ,
+
     ];
 }

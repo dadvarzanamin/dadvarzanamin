@@ -17,6 +17,7 @@ class tokil extends Model
         'city'         ,
         'court_complex',
         'court_branch' ,
+        'user_id'   ,
 
     ];
 }

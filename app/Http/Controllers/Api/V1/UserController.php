@@ -7,6 +7,7 @@ use App\Models\ActiveCode;
 use App\Models\APP\contractDrafting;
 use App\Models\APP\documentDrafting;
 use App\Models\APP\judgement;
+use App\Models\APP\Law;
 use App\Models\APP\lawsuit;
 use App\Models\APP\legalAdvice;
 use App\Models\APP\tokil;
@@ -206,7 +207,7 @@ class UserController extends Controller
                 ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
                 ->select('users.email' , 'users.name',  'users.phone', 'users.national_id', 'users.father_name', 'users.birthday', 'users.gender', 'users.age'
                     , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode'
-                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token')
+                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token' , 'users.type_id as type', 'users.created_at as timeset' , 'users.image')
                 ->where('users.id', '=', Auth::user()->id)
                 ->first();
 
@@ -283,6 +284,7 @@ class UserController extends Controller
                 'court_complex'     => $arrayData['court_complex'],
                 'court_branch'      => $arrayData['court_branch'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'lawsuit'){
@@ -295,6 +297,7 @@ class UserController extends Controller
                 'opponent_name'         => $arrayData['opponent_name'],
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
                 'additional_info'       => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'         => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
@@ -305,6 +308,7 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'type'              => $arrayData['type'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
@@ -315,6 +319,7 @@ class UserController extends Controller
                 'party_two_name'            => $arrayData['party_two_name'],
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'documentDrafting'){
@@ -325,6 +330,7 @@ class UserController extends Controller
                 'sub_topic'         => $arrayData['sub_topic'],
                 'document_type'     => $arrayData['document_type'],
                 'additional_info'   => $arrayData['additional_info'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
             ]);
         }elseif($request->input(['type']) == 'judgement'){
@@ -337,6 +343,7 @@ class UserController extends Controller
                 'party_two_name'            => $arrayData['party_two_name'],
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
+                'user_id'           => Auth::user()->id,
                 'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
             ]);
         }
@@ -347,5 +354,55 @@ class UserController extends Controller
         ], 201);
 
        // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+    }
+
+    public function demands(){
+
+        if (Auth::check()) {
+
+            $judgement          = judgement::whereUser_id(Auth::user()->id)->get();
+            $documentDrafting   = documentDrafting::whereUser_id(Auth::user()->id)->get();
+            $contractDrafting   = contractDrafting::whereUser_id(Auth::user()->id)->get();
+            $legalAdvice        = legalAdvice::whereUser_id(Auth::user()->id)->get();
+            $lawsuit            = lawsuit::whereUser_id(Auth::user()->id)->get();
+            $tokil              = tokil::whereUser_id(Auth::user()->id)->get();
+
+            $response = [
+                'judgement'         => $judgement,
+                'documentDrafting'  => $documentDrafting,
+                'contractDrafting'  => $contractDrafting,
+                'legalAdvice'       => $legalAdvice,
+                'lawsuit'           => $lawsuit,
+                'tokil'             => $tokil,
+            ];
+            return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+        }else{
+            $response = [
+                'user' => 'شما هنوز به حساب خود وارد نشده اید'
+            ];
+            return Response::json(['ok' => false , 'message' => 'faild' , 'response' => $response]);
+        }
+
+    }
+
+    public function laws(){
+
+        if (Auth::check()) {
+
+            $laws          = Law::all();
+
+
+            $response = [
+                'laws'         => $laws,
+
+            ];
+            return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+        }else{
+            $response = [
+                'user' => 'شما هنوز به حساب خود وارد نشده اید'
+            ];
+            return Response::json(['ok' => false , 'message' => 'faild' , 'response' => $response]);
+        }
+
     }
 }
