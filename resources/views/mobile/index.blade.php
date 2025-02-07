@@ -331,7 +331,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="content content-shadow-product" style="margin:20px auto;">
-                        <img src="{{asset('public/mobile/images/advanced-workshop-min.png')}}"
+                        <img src="{{asset('public/mobile/images/workshop-4.png')}}"
                              style="width: 300px;border-radius: 16px"
                              alt="دوره ضربتی قانون اساسی">
                     </div>
