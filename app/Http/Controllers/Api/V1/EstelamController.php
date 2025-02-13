@@ -540,9 +540,9 @@ class EstelamController extends Controller
             }
             return response()->json(['response' => $result]);
         }elseif ($request->input('formId') == 14) {
-    $data = [
-        "cardNumber"  => $request->input('cardNumber'),
-    ];
+            $data = [
+                "cardNumber"  => $request->input('cardNumber'),
+            ];
 
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -575,6 +575,41 @@ class EstelamController extends Controller
                 $result = [
                     ' isSuccess '   => $responseData['isSuccess'],
                 ];
+            }
+            return response()->json(['response' => $result]);
+        }elseif ($request->input('formId') == 15) {
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+                "mobileNumber"  => $request->input('mobileNumber'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+
+            if ($responseData['isSuccess'] == false) {
+                $result = [
+                    ' isSuccess '   => $responseData['isSuccess'],
+                ];
+            }elseif($responseData['isSuccess'] == true){
+
+                $list           = $responseData['data']['result']['plateList'];
+
+                $result = [
+                    'isSuccess'     => $responseData['isSuccess'],
+                    'list'          => $list,
+                ];
+
+
             }
             return response()->json(['response' => $result]);
         }
