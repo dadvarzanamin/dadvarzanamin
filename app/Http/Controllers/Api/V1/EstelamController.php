@@ -624,6 +624,57 @@ class EstelamController extends Controller
 
             }
             return response()->json(['response' => $result]);
+        }elseif ($request->input('formId') == 16) {
+            $data = [
+                "CompanyId"  => $request->input('CompanyId'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+
+            if ($responseData['isSuccess'] == false) {
+                $result = [
+                    ' isSuccess '   => $responseData['isSuccess'],
+                ];
+            }elseif($responseData['isSuccess'] == true){
+
+                $companyTitle   = $responseData['data']['result']['companyTitle'];
+//                $position       = $responseData['data']['result']['boardMembers'][0]['Person']['Tagline'];
+//                $positions = [];
+//                foreach ($responseData['data']['result']['boardMembers'] as $member) {
+//                    $positions[] = $member['Person']['Tagline'];
+//                }
+//                $name = [];
+//                foreach ($responseData['data']['result']['boardMembers'] as $member) {
+//                    $name[] = $member['Person']['Title'];
+//                }
+                //$name           = $responseData['data']['result']['boardMembers'][0]['Person']['Title'];
+                $details = [];
+                foreach ($responseData['data']['result']['boardMembers'] as $member) {
+                    $position = $member['Person']['Tagline'];
+                    $name = $member['Person']['Title'];
+                    $details[] = $name . ' - ' . $position;
+                }
+
+
+                $result = [
+                    'isSuccess'     => $responseData['isSuccess'],
+                    'companyTitle'  => $companyTitle,
+                    'details'      => $details,
+                    //'name'          => $name,
+                ];
+            }
+            return response()->json(['response' => $result]);
         }
 
         } catch (Exception $e) {
