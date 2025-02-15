@@ -60,17 +60,20 @@ class WorkshopController extends Controller
 //        $typeUse = 1;
 //        $user_offer = 1;
 //
-//        $results = DB::table('offers as ws')
-//            ->join('users as u', 'ws.user_offer', '=', 'u.id')
-//            //->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
-//            ->select('u.name', 'u.phone' , 'ws.offercode')
-//            ->where('ws.workshop_id', $workshopId)
-//            ->where('ws.status', '=' , 6 )
+//        $results = DB::table('workshopsigns as ws')
+//            ->join('users as u', 'ws.user_id', '=', 'u.id')
+//            ->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
+//            ->select('u.name', 'u.phone')
+//            //->where('ws.workshop_id', $workshopId)
+//            ->where('ws.pricestatus', '=' , 4 )
+//            ->where('ws.workshop_id', '=' , 9 )
+//            ->where('ws.typeuse', '=' , 2 )
+//            //->where('u.id', '=' , 30 )
 //            //->where('ws.pricestatus', $priceStatus)
 //            //->where('ws.typeuse', $typeUse)
 //            //->where('ws.user_offer', $user_offer)
 //            ->get();
-////dd($results);
+//dd($results);
 //        foreach ($results as $result) {
 //
 //        try {
@@ -87,9 +90,9 @@ class WorkshopController extends Controller
 //                CURLOPT_POSTFIELDS => http_build_query([
 //                    'type' => '1',
 //                    'param1'    => $result->name ,
-//                    'param2'    => ' با 89000 تومان تخفیف'.' '.$result->offercode ,
+//                    'param2'    => ' لینک : '.' '.'https://event.alocom.co/class/dadvarzan/208cbc1f' ,
 //                    'receptor'  => $result->phone,
-//                    'template'  => 'workshopnew',
+//                    'template'  => 'onlineworkshop',
 //                ]),
 //                CURLOPT_HTTPHEADER => array(
 //                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
