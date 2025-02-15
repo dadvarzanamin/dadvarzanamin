@@ -445,13 +445,13 @@ class EstelamController extends Controller
 
                 $count = $responseData['data']['result']['count'];
                 $result = [
-                    ' isSuccess '   => $responseData['isSuccess'],
-                    ' count '    => $count
+                    'isSuccess'   => $responseData['isSuccess'],
+                    'count'    => $count
                 ];
             }elseif($responseData['isSuccess'] == false){
 
                 $result = [
-                    ' isSuccess '   => $responseData['isSuccess'],
+                    'isSuccess'   => $responseData['isSuccess'],
                 ];
             }
 
@@ -492,24 +492,24 @@ class EstelamController extends Controller
                 $registerNumber  = $responseData['data']['result']['registerNumber'];
                 $companyType     = $responseData['data']['result']['companyType'];
                 $result = [
-                    ' isSuccess '   => $responseData['isSuccess'],
-                    ' activityEndDate '    => $activityEndDate,
-                    ' addressDesc     '    => $addressDesc    ,
-                    ' createDateTime  '    => $createDateTime ,
-                    ' emaiLAddress    '    => $emaiLAddress   ,
-                    ' faxNumber       '    => $faxNumber      ,
-                    ' issuanceDate    '    => $issuanceDate   ,
-                    ' name            '    => $name           ,
-                    ' nationalId      '    => $nationalId     ,
-                    ' postCode        '    => $postCode       ,
-                    ' registerDate    '    => $registerDate   ,
-                    ' registerNumber  '    => $registerNumber ,
-                    ' companyType     '    => $companyType    ,
+                    'isSuccess'   => $responseData['isSuccess'],
+                    'activityEndDate'    => $activityEndDate,
+                    'addressDesc'    => $addressDesc    ,
+                    'createDateTime'    => $createDateTime ,
+                    'emaiLAddress'    => $emaiLAddress   ,
+                    'faxNumber'    => $faxNumber      ,
+                    'issuanceDate'    => $issuanceDate   ,
+                    'name'    => $name           ,
+                    'nationalId'    => $nationalId     ,
+                    'postCode'    => $postCode       ,
+                    'registerDate'    => $registerDate   ,
+                    'registerNumber'    => $registerNumber ,
+                    'companyType'    => $companyType    ,
                 ];
             }elseif($responseData['isSuccess'] == false){
 
                 $result = [
-                    ' isSuccess '   => $responseData['isSuccess'],
+                    'isSuccess'   => $responseData['isSuccess'],
                 ];
             }
 
