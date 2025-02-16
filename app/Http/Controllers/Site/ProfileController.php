@@ -810,7 +810,7 @@ class ProfileController extends Controller
         $workshopsign = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.id','workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.price as totalprice')
-            ->where('workshops.id', '=', 9)
+            ->where('workshops.id', '=', 11)
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->where('workshopsigns.pricestatus', '=', null)
             ->first();
