@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\APP\Version;
 use App\Models\Emploee;
 use App\Models\Profile\Workshop;
 use Illuminate\Http\Request;
@@ -10,6 +11,14 @@ use Illuminate\Support\Facades\Response;
 
 class IndexController extends Controller
 {
+
+    public function version(){
+        $version = Version::all();
+        $response = [
+            'version'          => $version ,
+        ];
+        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+    }
     public function index(){
         $emploees       = Emploee::select('id' , 'priority' , 'fullname' , 'image' , 'side' , 'status')->whereStatus(4)->orderBy('priority')->get();
         $response = [

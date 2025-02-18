@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::post('v1/remember' , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
     Route::post('v1/estelam'  , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
     Route::GET('v1/workshops' , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
+    Route::GET('v1/latest_version' , [App\Http\Controllers\Api\V1\IndexController::class , 'version']);
 
 
 
