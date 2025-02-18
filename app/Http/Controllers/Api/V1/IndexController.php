@@ -109,6 +109,7 @@ class IndexController extends Controller
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);
+
             legalAdvice::create([
                 'topic'             => $arrayData['topic'],
                 'sub_topic'         => $arrayData['sub_topic'],
@@ -118,6 +119,13 @@ class IndexController extends Controller
             ]);
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input(['fields']);
+            $filePaths = [];
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('upload/files', 'public');
+                    $filePaths[] = $path;
+                }
+            }
              contractDrafting::create([
                 'contract_type'             => $arrayData['contract_type'],
                 'party_one_name'            => $arrayData['party_one_name'],
@@ -125,20 +133,32 @@ class IndexController extends Controller
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
                 'user_id'           => Auth::user()->id,
-                'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
+                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }elseif($request->input(['type']) == 'documentDrafting'){
             $arrayData = $request->input(['fields']);
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('upload/files', 'public');
+                    $filePaths[] = $path;
+                }
+            }
              documentDrafting::create([
                 'topic'             => $arrayData['topic'],
                 'sub_topic'         => $arrayData['sub_topic'],
                 'document_type'     => $arrayData['document_type'],
                 'additional_info'   => $arrayData['additional_info'],
                 'user_id'           => Auth::user()->id,
-                'uploaded_file'     => $arrayData['uploaded_file'] ?? null,
+                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }elseif($request->input(['type']) == 'judgement'){
             $arrayData = $request->input(['fields']);
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('upload/files', 'public');
+                    $filePaths[] = $path;
+                }
+            }
              judgement::create([
                 'judgement_type'            => $arrayData['judgement_type'],
                 'contract_type'             => $arrayData['contract_type'],
@@ -147,7 +167,7 @@ class IndexController extends Controller
                 'party_one_national_id'     => $arrayData['party_one_national_id'],
                 'party_two_national_id'     => $arrayData['party_two_national_id'],
                 'user_id'           => Auth::user()->id,
-                'uploaded_file'             => $arrayData['uploaded_file'] ?? null,
+                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }
 
