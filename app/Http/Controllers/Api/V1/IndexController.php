@@ -13,7 +13,8 @@ class IndexController extends Controller
 {
 
     public function version(){
-        $version = Version::all();
+        $version = Version::latest('id')->first();
+
         $response = [
             'version'          => $version ,
         ];
