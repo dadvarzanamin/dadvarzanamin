@@ -67,7 +67,6 @@ class IndexController extends Controller
     }
 
     public function form(Request $request){
-        dd($request->input());
         if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input(['fields']);
             $filePaths = [];
@@ -106,7 +105,7 @@ class IndexController extends Controller
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
                 'additional_info'       => $arrayData['additional_info'],
                 'user_id'           => Auth::user()->id,
-                'uploaded_file'     => json_encode($filePaths),
+                'uploaded_file'     =>$request->input(['files']['filename']),
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);
