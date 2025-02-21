@@ -105,7 +105,7 @@ class IndexController extends Controller
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
                 'additional_info'       => $arrayData['additional_info'],
                 'user_id'           => Auth::user()->id,
-                'uploaded_file'     =>$request->input(['files']['filename']),
+                'uploaded_file'     =>$request->input(['files']),
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);
