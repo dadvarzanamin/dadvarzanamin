@@ -67,7 +67,14 @@ class IndexController extends Controller
     }
 
     public function form(Request $request){
-        dd($request->Input::file());
+
+        $allInputs = $request->all();
+
+        // همه‌ی فایل‌هایی که ارسال شده‌اند
+        $allFiles = $request->allFiles();
+
+        dd($allInputs, $allFiles);
+
         if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input(['fields']);
             $filePaths = [];
