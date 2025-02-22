@@ -109,7 +109,7 @@ class IndexController extends Controller
                     $filePaths[] = $path;
                 }
             }
-            $lawsuit->uploaded_file            = $filePaths;
+            $lawsuit->uploaded_file            = json_encode($filePaths);
 
             $result = $lawsuit->save();
 //            lawsuit::create([
