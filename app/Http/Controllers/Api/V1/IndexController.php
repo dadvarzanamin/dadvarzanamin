@@ -91,25 +91,36 @@ class IndexController extends Controller
                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }elseif($request->input(['type']) == 'lawsuit'){
-            $arrayData = $request->input(['fields']);
-            //$filePaths = [];
+            $arrayData = $request->input('fields');
 
-            $lawsuit = new lawsuit();
-            $lawsuit->case_type                = $arrayData['case_type'];
-            $lawsuit->case_subject            = $arrayData['case_subject'];
-            $lawsuit->stage                   = $arrayData['stage'];
-            $lawsuit->opponent_name           = $arrayData['opponent_name'];
-            $lawsuit->opponent_national_id     = $arrayData['opponent_national_id'];
-            $lawsuit->additional_info          = $arrayData['additional_info'];
-            $lawsuit->user_id                  = Auth::user()->id;
+            $lawsuit = new Lawsuit();
+            $lawsuit->case_type          = $arrayData['case_type'];
+            $lawsuit->case_subject       = $arrayData['case_subject'];
+            $lawsuit->stage              = $arrayData['stage'];
+            $lawsuit->opponent_name      = $arrayData['opponent_name'];
+            $lawsuit->opponent_national_id = $arrayData['opponent_national_id'];
+            $lawsuit->additional_info    = $arrayData['additional_info'];
+            $lawsuit->user_id            = Auth::user()->id;
 
-            if ($request->file('files')) {
-                $file       = $request->file('files');
-                $imagePath  ="public/apps";
-                $imageName  = Str::random(30).".".$file->clientExtension();
-                $lawsuit->file_link = 'apps/'.$imageName;
+            if ($request->hasFile('files')) {
+                $file      = $request->file('files');
+                // روش ۱: استفاده از storeAs در مسیر storage/app/public/apps
+                $imagePath = 'public/apps';
+                $imageName = Str::random(30).'.'.$file->getClientOriginalExtension();
+
+                // در دیتابیس تنها مسیر را ذخیره می‌کنیم
+                // (و فرض می‌کنیم symlink از storage/app/public به public/storage زده شده)
+                $lawsuit->file_link = 'storage/apps/'.$imageName;
+
                 $file->storeAs($imagePath, $imageName);
+
+                // روش ۲: اگر بخواهید مستقیماً در پوشه public/apps کپی شود:
+                // $destinationPath = public_path('apps');
+                // $imageName = Str::random(30).'.'.$file->getClientOriginalExtension();
+                // $file->move($destinationPath, $imageName);
+                // $lawsuit->file_link = 'apps/' . $imageName;
             }
+
             $result = $lawsuit->save();
 //            lawsuit::create([
 //                'case_type'             => $arrayData['case_type'],
