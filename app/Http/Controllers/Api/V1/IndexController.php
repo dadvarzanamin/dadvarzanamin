@@ -105,6 +105,7 @@ class IndexController extends Controller
 
             if ($request->hasFile('files')) {
                 $file      = $request->file('files');
+                dd($file);
                 // روش ۱: استفاده از storeAs در مسیر storage/app/public/apps
                 $imagePath = 'public/apps';
                 $imageName = Str::random(30).'.'.'jpg';
