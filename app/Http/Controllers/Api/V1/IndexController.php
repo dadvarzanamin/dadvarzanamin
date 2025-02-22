@@ -68,13 +68,6 @@ class IndexController extends Controller
 
     public function form(Request $request){
 
-        $allInputs = $request->all();
-
-        // همه‌ی فایل‌هایی که ارسال شده‌اند
-        $allFiles = $request->allFiles();
-
-        dd($allInputs, $allFiles);
-
         if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input(['fields']);
             $filePaths = [];
@@ -97,11 +90,12 @@ class IndexController extends Controller
                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }elseif($request->input(['type']) == 'lawsuit'){
+
             $arrayData = $request->input(['fields']);
             $filePaths = [];
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+            if ($request->allFiles() <> null) {
+                foreach ($request->allFiles() as $file) {
+                    $path = $file->move('public/app/upload/files', 'public');
                     $filePaths[] = $path;
                 }
             }
@@ -112,8 +106,8 @@ class IndexController extends Controller
                 'opponent_name'         => $arrayData['opponent_name'],
                 'opponent_national_id'  => $arrayData['opponent_national_id'],
                 'additional_info'       => $arrayData['additional_info'],
-                'user_id'           => Auth::user()->id,
-                'uploaded_file'     =>$request->input(['files']),
+                'user_id'               => Auth::user()->id,
+                'uploaded_file'         => $filePaths,
             ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);
