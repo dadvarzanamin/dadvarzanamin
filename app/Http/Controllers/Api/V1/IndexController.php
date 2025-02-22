@@ -104,24 +104,12 @@ class IndexController extends Controller
             $lawsuit->user_id            = Auth::user()->id;
 
             if ($request->hasFile('files')) {
-                $file      = $request->file('files');
-                dd($file);
-                // روش ۱: استفاده از storeAs در مسیر storage/app/public/apps
-                $imagePath = 'public/apps';
-                $imageName = Str::random(30).'.'.'jpg';
-
-                // در دیتابیس تنها مسیر را ذخیره می‌کنیم
-                // (و فرض می‌کنیم symlink از storage/app/public به public/storage زده شده)
-                $lawsuit->file_link = 'storage/apps/'.$imageName;
-                $file->move($imagePath, $imageName);
-                //$file->storeAs($imagePath, $imageName);
-
-                // روش ۲: اگر بخواهید مستقیماً در پوشه public/apps کپی شود:
-                // $destinationPath = public_path('apps');
-                // $imageName = Str::random(30).'.'.$file->getClientOriginalExtension();
-                // $file->move($destinationPath, $imageName);
-                // $lawsuit->file_link = 'apps/' . $imageName;
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('upload/files', 'public');
+                    $filePaths[] = $path;
+                }
             }
+            $lawsuit->uploaded_file            = $filePaths;
 
             $result = $lawsuit->save();
 //            lawsuit::create([
