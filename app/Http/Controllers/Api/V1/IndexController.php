@@ -67,6 +67,7 @@ class IndexController extends Controller
     }
 
     public function form(Request $request){
+        dd($request->input());
         if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input(['fields']);
             $filePaths = [];
