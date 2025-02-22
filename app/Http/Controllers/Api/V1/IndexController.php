@@ -107,7 +107,7 @@ class IndexController extends Controller
                 $file      = $request->file('files');
                 // روش ۱: استفاده از storeAs در مسیر storage/app/public/apps
                 $imagePath = 'public/apps';
-                $imageName = Str::random(30).'.'.$file->clientExtension();
+                $imageName = Str::random(30).'.'.'jpg';
 
                 // در دیتابیس تنها مسیر را ذخیره می‌کنیم
                 // (و فرض می‌کنیم symlink از storage/app/public به public/storage زده شده)
