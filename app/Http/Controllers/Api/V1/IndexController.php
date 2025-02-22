@@ -90,9 +90,10 @@ class IndexController extends Controller
                 'user_id'           => Auth::user()->id,
                 'uploaded_file'     => json_encode($filePaths),
             ]);
-        }elseif($request->input(['type']) == 'lawsuit'){
+        }
+        elseif($request->input(['type']) == 'lawsuit'){
             $arrayData = $request->input('fields');
-
+            $arrayData = json_decode($arrayData, true) ?? [];
             $lawsuit = new Lawsuit();
             $lawsuit->case_type          = $arrayData['case_type'];
             $lawsuit->case_subject       = $arrayData['case_subject'];
