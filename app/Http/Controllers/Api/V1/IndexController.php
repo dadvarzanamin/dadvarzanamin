@@ -95,7 +95,7 @@ class IndexController extends Controller
             $filePaths = [];
             if ($request->allFiles() <> null) {
                 foreach ($request->allFiles() as $file) {
-                    $path = $file->move('public/app/upload/files', 'public');
+                    $path = $file->store('public/app/upload/files', 'public');
                     $filePaths[] = $path;
                 }
             }
