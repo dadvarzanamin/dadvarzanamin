@@ -125,13 +125,13 @@ class IndexController extends Controller
             $legalAdvice->additional_info         = $arrayData['additional_info'];
             $legalAdvice->user_id            = Auth::user()->id;
 
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/legalAdvice/files', 'public');
-                    $filePaths[] = $path;
-                }
-            }
-            $legalAdvice->uploaded_file            = json_encode($filePaths);
+           // if ($request->hasFile('files')) {
+           //     foreach ($request->file('files') as $file) {
+           //         $path = $file->store('upload/legalAdvice/files', 'public');
+           //         $filePaths[] = $path;
+           //     }
+           // }
+           // $legalAdvice->uploaded_file            = json_encode($filePaths);
             $legalAdvice->save();
 
         }elseif($request->input(['type']) == 'contractDrafting'){
