@@ -70,26 +70,28 @@ class IndexController extends Controller
     public function form(Request $request){
 
         if($request->input(['type']) == 'tokil'){
-            $arrayData = $request->input(['fields']);
-            $filePaths = [];
+            $arrayData = $request->input('fields');
+            $arrayData = json_decode($arrayData, true) ?? [];
+            $tokil = new tokil();
+            $tokil->case_type        = $arrayData['case_type'];
+            $tokil->hearing_date    = $arrayData['hearing_date'];
+            $tokil->hearing_time     = $arrayData['hearing_time'];
+            $tokil->province         = $arrayData['province'];
+            $tokil->city             = $arrayData['city'];
+            $tokil->court_complex    = $arrayData['court_complex'];
+            $tokil->court_branch     = $arrayData['court_branch'];
+            $tokil->additional_info  = $arrayData['additional_info'];
+            $tokil->user_id            = Auth::user()->id;
+
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+                    $path = $file->store('upload/tokil/files', 'public');
                     $filePaths[] = $path;
                 }
             }
-            tokil::create([
-                'case_type'         => $arrayData['case_type'],
-                'hearing_date'      => $arrayData['hearing_date'],
-                'hearing_time'      => $arrayData['hearing_time'],
-                'province'          => $arrayData['province'],
-                'city'              => $arrayData['city'],
-                'court_complex'     => $arrayData['court_complex'],
-                'court_branch'      => $arrayData['court_branch'],
-                'additional_info'   => $arrayData['additional_info'],
-                'user_id'           => Auth::user()->id,
-                'uploaded_file'     => json_encode($filePaths),
-            ]);
+            $tokil->uploaded_file            = json_encode($filePaths);
+
+            $tokil->save();
         }
         elseif($request->input(['type']) == 'lawsuit'){
             $arrayData = $request->input('fields');
@@ -105,85 +107,92 @@ class IndexController extends Controller
 
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+                    $path = $file->store('upload/lawsuit/files', 'public');
                     $filePaths[] = $path;
                 }
             }
             $lawsuit->uploaded_file            = json_encode($filePaths);
 
-            $result = $lawsuit->save();
-//            lawsuit::create([
-//                'case_type'             => $arrayData['case_type'],
-//                'case_subject'          => $arrayData['case_subject'],
-//                'stage'                 => $arrayData['stage'],
-//                'opponent_name'         => $arrayData['opponent_name'],
-//                'opponent_national_id'  => $arrayData['opponent_national_id'],
-//                'additional_info'       => $arrayData['additional_info'],
-//                'user_id'               => Auth::user()->id,
-//                'uploaded_file'         => $filePaths,
-//            ]);
-        }elseif($request->input(['type']) == 'legalAdvice'){
-            $arrayData = $request->input(['fields']);
+            $lawsuit->save();
 
-            legalAdvice::create([
-                'topic'             => $arrayData['topic'],
-                'sub_topic'         => $arrayData['sub_topic'],
-                'type'              => $arrayData['type'],
-                'additional_info'   => $arrayData['additional_info'],
-                'user_id'           => Auth::user()->id,
-            ]);
+        }elseif($request->input(['type']) == 'legalAdvice'){
+            $arrayData = $request->input('fields');
+            $arrayData = json_decode($arrayData, true) ?? [];
+            $legalAdvice = new legalAdvice();
+            $legalAdvice->topic        = $arrayData['topic'];
+            $legalAdvice->sub_topic     = $arrayData['sub_topic'];
+            $legalAdvice->type     = $arrayData['type'];
+            $legalAdvice->additional_info         = $arrayData['additional_info'];
+            $legalAdvice->user_id            = Auth::user()->id;
+
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('upload/legalAdvice/files', 'public');
+                    $filePaths[] = $path;
+                }
+            }
+            $legalAdvice->uploaded_file            = json_encode($filePaths);
+            $legalAdvice->save();
+
         }elseif($request->input(['type']) == 'contractDrafting'){
-            $arrayData = $request->input(['fields']);
-            $filePaths = [];
+            $arrayData = $request->input('fields');
+            $arrayData = json_decode($arrayData, true) ?? [];
+            $contractDrafting = new contractDrafting();
+            $contractDrafting->contract_type             = $arrayData['contract_type'];
+            $contractDrafting->party_one_name            = $arrayData['party_one_name'];
+            $contractDrafting->party_two_name            = $arrayData['party_two_name'];
+            $contractDrafting->party_one_national_id     = $arrayData['party_one_national_id'];
+            $contractDrafting->party_two_national_id     = $arrayData['party_two_national_id'];
+            $contractDrafting->user_id            = Auth::user()->id;
+
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+                    $path = $file->store('upload/contractDrafting/files', 'public');
                     $filePaths[] = $path;
                 }
             }
-             contractDrafting::create([
-                'contract_type'             => $arrayData['contract_type'],
-                'party_one_name'            => $arrayData['party_one_name'],
-                'party_two_name'            => $arrayData['party_two_name'],
-                'party_one_national_id'     => $arrayData['party_one_national_id'],
-                'party_two_national_id'     => $arrayData['party_two_national_id'],
-                'user_id'           => Auth::user()->id,
-                 'uploaded_file'     => json_encode($filePaths),
-            ]);
+            $contractDrafting->uploaded_file            = json_encode($filePaths);
+            $contractDrafting->save();
+
         }elseif($request->input(['type']) == 'documentDrafting'){
-            $arrayData = $request->input(['fields']);
+            $arrayData = $request->input('fields');
+            $arrayData = json_decode($arrayData, true) ?? [];
+            $documentDrafting = new documentDrafting();
+            $documentDrafting->topic               = $arrayData['topic'];
+            $documentDrafting->sub_topic           = $arrayData['sub_topic'];
+            $documentDrafting->document_type       = $arrayData['document_type'];
+            $documentDrafting->additional_info     = $arrayData['additional_info'];
+            $documentDrafting->user_id             = Auth::user()->id;
+
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+                    $path = $file->store('upload/documentDrafting/files', 'public');
                     $filePaths[] = $path;
                 }
             }
-             documentDrafting::create([
-                'topic'             => $arrayData['topic'],
-                'sub_topic'         => $arrayData['sub_topic'],
-                'document_type'     => $arrayData['document_type'],
-                'additional_info'   => $arrayData['additional_info'],
-                'user_id'           => Auth::user()->id,
-                 'uploaded_file'     => json_encode($filePaths),
-            ]);
+            $documentDrafting->uploaded_file            = json_encode($filePaths);
+            $documentDrafting->save();
+
         }elseif($request->input(['type']) == 'judgement'){
-            $arrayData = $request->input(['fields']);
+            $arrayData = $request->input('fields');
+            $arrayData = json_decode($arrayData, true) ?? [];
+            $judgement = new judgement();
+            $judgement->judgement_type            = $arrayData['judgement_type'];
+            $judgement->contract_type             = $arrayData['contract_type'];
+            $judgement->party_one_name            = $arrayData['party_one_name'];
+            $judgement->party_two_name            = $arrayData['party_two_name'];
+            $judgement->party_one_national_id     = $arrayData['party_one_national_id'];
+            $judgement->party_two_national_id     = $arrayData['party_two_national_id'];
+            $judgement->user_id             = Auth::user()->id;
+
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
-                    $path = $file->store('upload/files', 'public');
+                    $path = $file->store('upload/judgement/files', 'public');
                     $filePaths[] = $path;
                 }
             }
-             judgement::create([
-                'judgement_type'            => $arrayData['judgement_type'],
-                'contract_type'             => $arrayData['contract_type'],
-                'party_one_name'            => $arrayData['party_one_name'],
-                'party_two_name'            => $arrayData['party_two_name'],
-                'party_one_national_id'     => $arrayData['party_one_national_id'],
-                'party_two_national_id'     => $arrayData['party_two_national_id'],
-                'user_id'           => Auth::user()->id,
-                 'uploaded_file'     => json_encode($filePaths),
-            ]);
+            $judgement->uploaded_file            = json_encode($filePaths);
+            $judgement->save();
         }
 
         return response()->json([
