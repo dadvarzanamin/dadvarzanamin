@@ -15,6 +15,7 @@ use App\Models\Profile\Workshop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class IndexController extends Controller
 {
@@ -90,25 +91,36 @@ class IndexController extends Controller
                 'uploaded_file'     => json_encode($filePaths),
             ]);
         }elseif($request->input(['type']) == 'lawsuit'){
-
             $arrayData = $request->input(['fields']);
-            $filePaths = [];
-            if ($request->allFiles() <> null) {
-                foreach ($request->allFiles() as $file) {
-                    $path = $file->store('public/app/upload/files', 'public');
-                    $filePaths[] = $path;
-                }
+            //$filePaths = [];
+
+            $lawsuit = new lawsuit();
+            $lawsuit->case_type                = $arrayData['case_type'];
+            $lawsuit->case_subject            = $arrayData['case_subject'];
+            $lawsuit->stage                   = $arrayData['stage'];
+            $lawsuit->opponent_name           = $arrayData['opponent_name'];
+            $lawsuit->opponent_national_id     = $arrayData['opponent_national_id'];
+            $lawsuit->additional_info          = $arrayData['additional_info'];
+            $lawsuit->user_id                  = Auth::user()->id;
+
+            if ($request->file('files')) {
+                $file       = $request->file('files');
+                $imagePath  ="public/apps";
+                $imageName  = Str::random(30).".".$file->clientExtension();
+                $lawsuit->file_link = 'apps/'.$imageName;
+                $file->storeAs($imagePath, $imageName);
             }
-            lawsuit::create([
-                'case_type'             => $arrayData['case_type'],
-                'case_subject'          => $arrayData['case_subject'],
-                'stage'                 => $arrayData['stage'],
-                'opponent_name'         => $arrayData['opponent_name'],
-                'opponent_national_id'  => $arrayData['opponent_national_id'],
-                'additional_info'       => $arrayData['additional_info'],
-                'user_id'               => Auth::user()->id,
-                'uploaded_file'         => $filePaths,
-            ]);
+            $result = $lawsuit->save();
+//            lawsuit::create([
+//                'case_type'             => $arrayData['case_type'],
+//                'case_subject'          => $arrayData['case_subject'],
+//                'stage'                 => $arrayData['stage'],
+//                'opponent_name'         => $arrayData['opponent_name'],
+//                'opponent_national_id'  => $arrayData['opponent_national_id'],
+//                'additional_info'       => $arrayData['additional_info'],
+//                'user_id'               => Auth::user()->id,
+//                'uploaded_file'         => $filePaths,
+//            ]);
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input(['fields']);
 
