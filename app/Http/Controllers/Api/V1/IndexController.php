@@ -112,8 +112,8 @@ class IndexController extends Controller
                 // در دیتابیس تنها مسیر را ذخیره می‌کنیم
                 // (و فرض می‌کنیم symlink از storage/app/public به public/storage زده شده)
                 $lawsuit->file_link = 'storage/apps/'.$imageName;
-
-                $file->storeAs($imagePath, $imageName);
+                $file->move($imagePath, $imageName);
+                //$file->storeAs($imagePath, $imageName);
 
                 // روش ۲: اگر بخواهید مستقیماً در پوشه public/apps کپی شود:
                 // $destinationPath = public_path('apps');
