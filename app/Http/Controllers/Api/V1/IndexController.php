@@ -262,6 +262,7 @@ class IndexController extends Controller
                 }
             )
             ->first();
+        dd($workshopsigns);
         $Workshopsignee = Workshopsign::whereId($workshopsigns->id)->first();
 
         if ($workshopsigns->percentage <> null){
