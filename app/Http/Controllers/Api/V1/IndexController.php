@@ -216,7 +216,7 @@ class IndexController extends Controller
         $workshop = Workshop::whereId($request->input('workshop_id'))->first();
         try {
             $workshopsign = new Workshopsign();
-            $workshopsign->workshop         = $request->input('workshop_id');
+            $workshopsign->workshop_id      = $request->input('workshop_id');
             $workshopsign->certif_price     = $workshop->certificate_price;
             $workshopsign->workshop_price   = $workshop->price;
             $workshopsign->user_id          = Auth::user()->id;
