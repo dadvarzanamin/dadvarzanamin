@@ -32,14 +32,17 @@ use App\Http\Controllers\Api\v1\IndexController;
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('v1/profile'        ,   [App\Http\Controllers\Api\V1\UserController::class       , 'profile']);
-    Route::get('v1/demands'        ,   [App\Http\Controllers\Api\V1\UserController::class       , 'demands']);
-    Route::get('v1/laws'           ,   [App\Http\Controllers\Api\V1\UserController::class       , 'laws']);
-    Route::post('v1/editprofile'   ,   [App\Http\Controllers\Api\V1\UserController::class       , 'editprofile']);
-    Route::post('v1/form'          ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'form']);
-    Route::post('v1/workshopsign'  ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
-    Route::post('v1/discountcheck' ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
-
+    Route::get('v1/profile'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'profile']);
+    Route::get('v1/demands'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'demands']);
+    Route::get('v1/laws'                ,   [App\Http\Controllers\Api\V1\UserController::class       , 'laws']);
+    Route::post('v1/editprofile'        ,   [App\Http\Controllers\Api\V1\UserController::class       , 'editprofile']);
+    Route::post('v1/form'               ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'form']);
+    Route::post('v1/workshopsign'       ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
+    Route::post('v1/discountcheck'      ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
+    Route::post('v1/pay'                ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'pay']);
+    Route::post('v1/payment.callback'   ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'payment.callback']);
+    //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
+    //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
 });
 
 
