@@ -219,6 +219,7 @@ class IndexController extends Controller
             $workshopsign->workshop         = $request->input('workshop_id');
             $workshopsign->certif_price     = $workshop->certificate_price;
             $workshopsign->workshop_price   = $workshop->price;
+            $workshopsign->user_id          = Auth::user()->id;
             $workshopsign->save();
 
             if ($workshopsign){
