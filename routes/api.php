@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\IndexController;
 
 //Route::middleware('api')->group(function () {
-    Route::get('v1/index'     , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
-    Route::post('v1/login'    , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
-    Route::post('v1/register' , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
-    Route::get('v1/register'  , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
-    Route::post('v1/token'    , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
-    Route::post('v1/remember' , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
-    Route::post('v1/estelam'  , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
-    Route::GET('v1/workshops' , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
-    Route::GET('v1/latest_version' , [App\Http\Controllers\Api\V1\IndexController::class , 'version']);
+    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
+    Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
+    Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
+    Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
+    Route::post('v1/token'          , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
+    Route::post('v1/remember'       , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
+    Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
+    Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
+    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
+    Route::GET('v1/courte'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'courte']);
 
 
 
