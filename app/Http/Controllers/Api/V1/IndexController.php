@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\APP\contractDrafting;
+use App\Models\APP\Courts;
 use App\Models\APP\documentDrafting;
 use App\Models\APP\judgement;
 use App\Models\APP\lawsuit;
@@ -66,7 +67,6 @@ class IndexController extends Controller
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
-
     public function form(Request $request){
 
         if($request->input(['type']) == 'tokil'){
@@ -201,5 +201,12 @@ class IndexController extends Controller
         ], 201);
 
         // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+    }
+    public function court(){
+        $courts       = Courts::whereStatus(4)->get();
+        $response = [
+            'courts'          => $courts ,
+        ];
+        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
 }
