@@ -213,7 +213,7 @@ class IndexController extends Controller
     }
     public function workshopsign(Request $request){
 
-        $workshop = Workshop::where($request->input('workshop_id'))->first();
+        $workshop = Workshop::whereId($request->input('workshop_id'))->first();
         try {
             $workshopsign = new Workshopsign();
             $workshopsign->workshop         = $request->input('workshop_id');
