@@ -211,6 +211,36 @@ class IndexController extends Controller
         ];
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
+    public function workshopsign(Request $request){
+
+        $workshop = Workshop::where($request->input('workshop_id'))->first();
+        try {
+            $workshopsign = new Workshopsign();
+            $workshopsign->workshop         = $request->input('workshop_id');
+            $workshopsign->certif_price     = $workshop->certificate_price;
+            $workshopsign->workshop_price   = $workshop->price;
+            $workshopsign->save();
+
+            if ($workshopsign){
+                return Response::json(['ok' =>true ,'message' => 'success']);
+
+            }else{
+                return Response::json(['ok' =>false ,'message' => 'failed']);
+            }
+
+        } catch (Exception $e){
+
+            $response = [
+                    'success' => false,
+                    'flag'    => 'error',
+                    'subject' => 'خطا در ارتباط با سرور',
+                    'message' => 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ',
+            ];
+
+            return Response::json(['ok' =>false ,'message' => 'failed','response'=>$response]);
+        }
+
+    }
     public function discountcheck(Request $request){
 
         $workshopsigns = DB::table('workshops')
@@ -252,8 +282,7 @@ class IndexController extends Controller
             $discount   = (int)$workshopsigns->discount   ;
         }
         $response = [
-            'percentage'  => $percentage,
-            'discount'    => $discount  ,
+            'price'  => $Workshopsignee->price,
         ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);

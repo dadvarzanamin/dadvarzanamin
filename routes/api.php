@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('v1/laws'           ,   [App\Http\Controllers\Api\V1\UserController::class       , 'laws']);
     Route::post('v1/editprofile'   ,   [App\Http\Controllers\Api\V1\UserController::class       , 'editprofile']);
     Route::post('v1/form'          ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'form']);
+    Route::post('v1/workshopsign'  ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
     Route::post('v1/discountcheck' ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
 
 });
