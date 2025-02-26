@@ -339,7 +339,7 @@ class IndexController extends Controller
             $workshopsigns = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->select('w.title' , 'ws.price', 'ws.pricestatus')
-                ->where('ws.id', '=', $request->input('workshopsign_id'))
+                ->where('ws.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
 dd($workshopsigns);
