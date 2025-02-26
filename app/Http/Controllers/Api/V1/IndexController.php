@@ -337,8 +337,8 @@ class IndexController extends Controller
         }else{
             $transactionId = Str::uuid();
             $workshopsigns = DB::table('workshops as w')
-                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id' , 'ws.pricestatus')
-                ->select('w.title' , 'ws.price')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.title' , 'ws.price', 'ws.pricestatus')
                 ->where('ws.id', '=', $request->input('workshopsign_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
