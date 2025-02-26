@@ -342,7 +342,7 @@ class IndexController extends Controller
                 ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
-dd($workshopsigns);
+
             if($workshopsigns->pricestatus == null){
                 $workshopsigns->transactionId = $transactionId;
                 $workshopsigns->update();
