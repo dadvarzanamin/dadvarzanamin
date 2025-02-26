@@ -335,8 +335,12 @@ class IndexController extends Controller
         }elseif(Auth::user()->phone == null){
             return Response::json(['ok' =>false ,'message' => 'failed' , 'response' => 'شماره موبایل خالی می باشد']);
         }else{
-
-
+            $workshopsigns = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.title' , 'ws.price', 'ws.pricestatus')
+                ->where('w.id', '=', $request->input('workshop_id'))
+                ->where('ws.user_id', '=', Auth::user()->id )
+                ->first();
             if($workshopsigns->pricestatus == null){
                 $transactionId = Str::uuid();
                 $workshopsigns = DB::table('workshops as w')
