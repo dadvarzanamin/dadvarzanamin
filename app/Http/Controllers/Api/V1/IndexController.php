@@ -218,6 +218,9 @@ class IndexController extends Controller
     public function workshopsign(Request $request){
 
         $workshop = Workshop::whereId($request->input('workshop_id'))->first();
+        if ($workshop->status <> 4){
+            return Response::json(['ok' =>false ,'message' => 'failed']);
+        }
         try {
             $workshopsign = new Workshopsign();
             $workshopsign->workshop_id      = $request->input('workshop_id');
