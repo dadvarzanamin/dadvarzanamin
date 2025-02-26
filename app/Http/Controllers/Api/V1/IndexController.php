@@ -241,6 +241,11 @@ class IndexController extends Controller
                         'workshop_price'   => $workshop->price,
                         'user_id'          => Auth::user()->id,
                     ]);
+                if ($workshopsign){
+                    return Response::json(['ok' =>true ,'message' => 'success']);
+                }else{
+                    return Response::json(['ok' =>false ,'message' => 'failed']);
+                }
             }else {
                 $workshopsign = new Workshopsign();
                 $workshopsign->workshop_id = $request->input('workshop_id');
@@ -248,13 +253,13 @@ class IndexController extends Controller
                 $workshopsign->workshop_price = $workshop->price;
                 $workshopsign->user_id = Auth::user()->id;
                 $workshopsign->save();
+                if ($workshopsign){
+                    return Response::json(['ok' =>true ,'message' => 'success']);
+                }else{
+                    return Response::json(['ok' =>false ,'message' => 'failed']);
+                }
             }
-            if ($workshopsign){
-                return Response::json(['ok' =>true ,'message' => 'success']);
 
-            }else{
-                return Response::json(['ok' =>false ,'message' => 'failed']);
-            }
 
         } catch (Exception $e){
 
