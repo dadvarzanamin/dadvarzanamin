@@ -355,11 +355,7 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
-                dd($request);
-//                DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
-//                    ->update([
-//                        'transactionId' => $request['transactionId']
-//                    ]);
+
             }else{
                 $response = [
                     'error'  => 'َشما قبلا در این دوره ثبت نام کرده اید',
@@ -367,15 +363,24 @@ class IndexController extends Controller
                 return Response::json(['ok' =>false ,'message' => 'failed','response'=>$response]);
             }
             if ($request->successful()) {
-                // Store created transaction details for verification
-                $transactionId = $request->transactionId();
-
-                // Redirect to payment URL
-                return $request->pay();
-            }
-
-            if ($request->failed()) {
-                // Handle transaction request failure.
+                    DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
+                    ->update([
+                        'transactionId' => $request->transactionId()
+                    ]);
+                return response()->json([
+                    "ok" => true,
+                    "message" => "لینک پرداخت ایجاد شد.",
+                    "response" => [
+                        "url" => "https://www.zarinpal.com/pg/StartPay/" . $request->transactionId(),
+                        "authority" => $request->transactionId(),
+                    ],
+                ]);
+            } else {
+                return response()->json([
+                    "ok" => false,
+                    "message" => "خطا در ایجاد پرداخت.",
+                    "errors" => $request->messages(),
+                ], 500);
             }
         }
     }
