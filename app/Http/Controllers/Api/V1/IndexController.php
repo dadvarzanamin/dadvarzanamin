@@ -363,7 +363,7 @@ class IndexController extends Controller
                 return Response::json(['ok' =>false ,'message' => 'failed','response'=>$response]);
             }
             if ($request->successful()) {
-                    DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
+                    DB::table('workshopsigns as w')->whereId($workshopsigns->id)
                     ->update([
                         'transactionId' => $request->transactionId()
                     ]);
