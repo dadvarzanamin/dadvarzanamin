@@ -343,7 +343,7 @@ class IndexController extends Controller
                 ->first();
             if($workshopsigns->pricestatus == null){
                 $transactionId = Str::uuid();
-                $workshopsigns = DB::table('workshops as w')
+                DB::table('workshops as w')
                     ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                     ->select('w.title' , 'ws.price', 'ws.pricestatus')
                     ->where('w.id', '=', $request->input('workshop_id'))
@@ -351,11 +351,16 @@ class IndexController extends Controller
                     ->update([
                         'transactionId' => $transactionId
                     ]);
-                dd($workshopsigns);
+                $workshopsigns = DB::table('workshops as w')
+                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                    ->select('w.title' , 'ws.price', 'ws.pricestatus' , 'ws.transactionId')
+                    ->where('w.id', '=', $request->input('workshop_id'))
+                    ->where('ws.user_id', '=', Auth::user()->id )
+                    ->first();
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
-                    ->orderId($transactionId)
+                    ->orderId($workshopsigns->transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
