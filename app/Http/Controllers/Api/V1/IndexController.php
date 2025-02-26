@@ -355,10 +355,10 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
-                DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
-                    ->update([
-                        'transactionId' => $request['transactionId']
-                    ]);
+//                DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
+//                    ->update([
+//                        'transactionId' => $request['transactionId']
+//                    ]);
             }else{
                 $response = [
                     'error'  => 'َشما قبلا در این دوره ثبت نام کرده اید',
