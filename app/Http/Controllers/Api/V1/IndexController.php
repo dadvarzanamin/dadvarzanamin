@@ -397,65 +397,67 @@ class IndexController extends Controller
     }
     public function appcallback(Request $request)
     {
-dd('salam');
-        $transactionId = $request->input('transactionId');
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
 
-        $workshopsign = DB::table('workshops as w')
-            ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-            ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
-            ->where('ws.transactionId', '=', $transactionId)
-            ->where('ws.user_id', '=', Auth::user()->id)
-            ->where('ws.pricestatus', '=', null)
-            ->first();
+        if ($status == "OK") {
+            // بررسی و تأیید پرداخت در زرین پال
+            $payment = Toman::amount(100000)->transactionId($authority)->verify();
 
+            $workshopsign = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->where('ws.transactionId', '=', $payment->referenceId())
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.pricestatus', '=', null)
+                ->first();
 
-        $payment = $request->amount($workshopsign->totalprice)->verify();
-        if ($payment->successful()) {
-            //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+            if ($payment->successful()) {
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                    'referenceId'       => $payment->referenceId(),
+                    'pricestatus'       => 4,
+                ]);
+                if ($workshopsign->typeuse == 1) {
+                    $workshoptype = 'حضوری';
 
-            Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
-                'referenceId'       => $payment->referenceId(),
-                'pricestatus'       => 4,
-            ]);
-
-            if ($workshopsign->typeuse == 1) {
-                $workshoptype = 'حضوری';
-
-            } elseif ($workshopsign->typeuse == 2) {
-                $workshoptype = 'آنلاین';
+                } elseif ($workshopsign->typeuse == 2) {
+                    $workshoptype = 'آنلاین';
+                }
+                try {
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => http_build_query([
+                            'type' => '1',
+                            'param1' => Auth::user()->name,
+                            'param2' => $workshopsign->title,
+                            'param3' => $workshoptype,
+                            'receptor' => Auth::user()->phone,
+                            'template' => 'workshop',
+                        ]),
+                        CURLOPT_HTTPHEADER => array(
+                            "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                            "cache-control: no-cache",
+                            "content-type: application/x-www-form-urlencoded",
+                        ),
+                    ));
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+                } catch (Exception $exception) {
+                }
+                return redirect("yourapp://payment-success?transaction_id=" . $payment->referenceId());
+            } else {
+                return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
             }
-            try {
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => http_build_query([
-                        'type' => '1',
-                        'param1' => Auth::user()->name,
-                        'param2' => $workshopsign->title,
-                        'param3' => $workshoptype,
-                        'receptor' => Auth::user()->phone,
-                        'template' => 'workshop',
-                    ]),
-                    CURLOPT_HTTPHEADER => array(
-                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
-                        "cache-control: no-cache",
-                        "content-type: application/x-www-form-urlencoded",
-                    ),
-                ));
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-                curl_close($curl);
-            } catch (Exception $exception) {
-            }
-            return Response::json(['ok' =>true ,'message' => 'success' , 'response' => 'پرداخت موفق']);
-        }else{
-            return Response::json(['ok' =>false ,'message' => 'failed' , 'response' => 'پرداخت ناموفق']);
+        } else {
+            return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
         }
     }
 
