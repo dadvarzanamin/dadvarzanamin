@@ -228,13 +228,19 @@ class IndexController extends Controller
                 ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
-dd($workshopsigns);
+
             if ($workshopsigns){
-                $workshopsigns->workshop_id      = $request->input('workshop_id');
-                $workshopsigns->certif_price     = $workshop->certificate_price;
-                $workshopsigns->workshop_price   = $workshop->price;
-                $workshopsigns->user_id          = Auth::user()->id;
-                $workshopsigns->update();
+                DB::table('workshops as w')
+                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                    ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                    ->where('w.id', '=', $request->input('workshop_id'))
+                    ->where('ws.user_id', '=', Auth::user()->id )
+                    ->update([
+                        'workshop_id'      => $request->input('workshop_id'),
+                        'certif_price'     => $workshop->certificate_price,
+                        'workshop_price'   => $workshop->price,
+                        'user_id'          => Auth::user()->id,
+                    ]);
             }else {
                 $workshopsign = new Workshopsign();
                 $workshopsign->workshop_id = $request->input('workshop_id');
