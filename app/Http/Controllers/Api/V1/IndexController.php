@@ -349,7 +349,7 @@ class IndexController extends Controller
                     ->where('w.id', '=', $request->input('workshop_id'))
                     ->where('ws.user_id', '=', Auth::user()->id )
                     ->update([
-                        $workshopsigns->transactionId = $transactionId
+                        'transactionId' => $transactionId
                     ]);
                 dd($workshopsigns);
                 $request = Toman::amount($workshopsigns->price)
