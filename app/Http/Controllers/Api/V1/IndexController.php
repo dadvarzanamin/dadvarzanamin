@@ -222,13 +222,27 @@ class IndexController extends Controller
             return Response::json(['ok' =>false ,'message' => 'failed']);
         }
         try {
-            $workshopsign = new Workshopsign();
-            $workshopsign->workshop_id      = $request->input('workshop_id');
-            $workshopsign->certif_price     = $workshop->certificate_price;
-            $workshopsign->workshop_price   = $workshop->price;
-            $workshopsign->user_id          = Auth::user()->id;
-            $workshopsign->save();
+            $workshopsigns = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                ->where('w.id', '=', $request->input('workshop_id'))
+                ->where('ws.user_id', '=', Auth::user()->id )
+                ->first();
 
+            if ($workshopsigns){
+                $workshopsigns->workshop_id      = $request->input('workshop_id');
+                $workshopsigns->certif_price     = $workshop->certificate_price;
+                $workshopsigns->workshop_price   = $workshop->price;
+                $workshopsigns->user_id          = Auth::user()->id;
+                $workshopsigns->update();
+            }else {
+                $workshopsign = new Workshopsign();
+                $workshopsign->workshop_id = $request->input('workshop_id');
+                $workshopsign->certif_price = $workshop->certificate_price;
+                $workshopsign->workshop_price = $workshop->price;
+                $workshopsign->user_id = Auth::user()->id;
+                $workshopsign->save();
+            }
             if ($workshopsign){
                 return Response::json(['ok' =>true ,'message' => 'success']);
 
