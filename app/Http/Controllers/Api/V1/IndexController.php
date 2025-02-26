@@ -230,7 +230,7 @@ class IndexController extends Controller
                 ->first();
 
             if ($workshopsigns){
-                DB::table('workshops as w')
+                $workshopsign = DB::table('workshops as w')
                     ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                     ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
                     ->where('w.id', '=', $request->input('workshop_id'))
