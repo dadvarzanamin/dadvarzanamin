@@ -357,7 +357,7 @@ class IndexController extends Controller
                     ->request();
                 DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
                     ->update([
-                        'transactionId' => $request->transactionId
+                        'transactionId' => $request['transactionId']
                     ]);
             }else{
                 $response = [
