@@ -230,7 +230,7 @@ class IndexController extends Controller
                 ->first();
 
             if ($workshopsigns){
-                $workshopsign = DB::table('workshops as w')
+                DB::table('workshops as w')
                     ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                     ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
                     ->where('w.id', '=', $request->input('workshop_id'))
@@ -241,12 +241,7 @@ class IndexController extends Controller
                         'workshop_price'   => $workshop->price,
                         'user_id'          => Auth::user()->id,
                     ]);
-                dd($workshopsign);
-                if ($workshopsign){
-                    return Response::json(['ok' =>true ,'message' => 'success']);
-                }else{
-                    return Response::json(['ok' =>false ,'message' => 'failed']);
-                }
+                return Response::json(['ok' =>true ,'message' => 'success']);
             }else {
                 $workshopsign = new Workshopsign();
                 $workshopsign->workshop_id = $request->input('workshop_id');
@@ -260,7 +255,6 @@ class IndexController extends Controller
                     return Response::json(['ok' =>false ,'message' => 'failed']);
                 }
             }
-
 
         } catch (Exception $e){
 
