@@ -360,7 +360,7 @@ class IndexController extends Controller
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
                     ->callback(route('payment.callback'))
-                    ->orderId($workshopsigns->transactionId)
+//                    ->orderId($workshopsigns->transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
