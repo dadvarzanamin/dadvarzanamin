@@ -299,11 +299,12 @@ class IndexController extends Controller
         {
             $workshopsigns = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                ->select('w.certificate_price as c_price' , 'ws.price')
-                ->where('ws.id', '=', $request->input('workshopsign_id'))
+                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
+                ->where('ws.pricestatus', '=', null )
                 ->first();
-            $Workshopsigne = Workshopsign::whereId($request->input('workshopsign_id'))->first();
+            $Workshopsigne = Workshopsign::whereId($workshopsigns->id)->first();
             $Workshopsigne->certificate  = 1;
             $Workshopsigne->certif_price = $workshopsigns->c_price;
             $Workshopsigne->price        = $workshopsigns->c_price + $workshopsigns->price;
