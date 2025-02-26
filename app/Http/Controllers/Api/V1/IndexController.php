@@ -342,15 +342,6 @@ class IndexController extends Controller
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
             if($workshopsigns->pricestatus == null){
-                $transactionId = Str::uuid();
-                DB::table('workshops as w')
-                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                    ->select('w.title' , 'ws.price', 'ws.pricestatus')
-                    ->where('w.id', '=', $request->input('workshop_id'))
-                    ->where('ws.user_id', '=', Auth::user()->id )
-                    ->update([
-                        'transactionId' => $transactionId
-                    ]);
                 $workshopsigns = DB::table('workshops as w')
                     ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                     ->select('w.title' , 'ws.price', 'ws.pricestatus' , 'ws.transactionId')
@@ -364,7 +355,14 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
-                dd($request);
+                DB::table('workshops as w')
+                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                    ->select('w.title' , 'ws.price', 'ws.pricestatus')
+                    ->where('w.id', '=', $request->input('workshop_id'))
+                    ->where('ws.user_id', '=', Auth::user()->id )
+                    ->update([
+                        'transactionId' => $request->transactionId
+                    ]);
             }else{
                 $response = [
                     'error'  => 'َشما قبلا در این دوره ثبت نام کرده اید',
