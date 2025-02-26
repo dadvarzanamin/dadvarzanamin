@@ -355,6 +355,7 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
+                dd($request);
 //                DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
 //                    ->update([
 //                        'transactionId' => $request['transactionId']
