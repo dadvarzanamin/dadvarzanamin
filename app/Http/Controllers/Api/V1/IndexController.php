@@ -344,7 +344,7 @@ class IndexController extends Controller
             if($workshopsigns->pricestatus == null){
                 $workshopsigns = DB::table('workshops as w')
                     ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                    ->select('w.title' , 'ws.price', 'ws.pricestatus' , 'ws.transactionId')
+                    ->select('ws.id','w.title' , 'ws.price', 'ws.pricestatus' , 'ws.transactionId')
                     ->where('w.id', '=', $request->input('workshop_id'))
                     ->where('ws.user_id', '=', Auth::user()->id )
                     ->first();
@@ -355,11 +355,7 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
-                DB::table('workshops as w')
-                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                    ->select('w.title' , 'ws.price', 'ws.pricestatus')
-                    ->where('w.id', '=', $request->input('workshop_id'))
-                    ->where('ws.user_id', '=', Auth::user()->id )
+                DB::table('workshopsigns as w')->where('ws.id', '=', $workshopsigns->id)
                     ->update([
                         'transactionId' => $request->transactionId
                     ]);
