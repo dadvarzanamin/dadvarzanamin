@@ -350,7 +350,7 @@ class IndexController extends Controller
                     ->first();
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
-                    ->callback(url('https://dadvarzanamin.ir/api/v1/payment.callback'))
+                    ->callback(url('https://dadvarzanamin.ir/api/v1/appcallback'))
 //                    ->orderId($workshopsigns->transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
@@ -384,7 +384,7 @@ class IndexController extends Controller
             }
         }
     }
-    public function callbackpay(CallbackRequest $request)
+    public function appcallback(CallbackRequest $request)
     {
 dd('salam');
         $transactionId = $request->input('transactionId');
