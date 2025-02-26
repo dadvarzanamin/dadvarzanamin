@@ -395,7 +395,7 @@ class IndexController extends Controller
             }
         }
     }
-    public function appcallback(CallbackRequest $request)
+    public function appcallback(Request $request)
     {
 dd('salam');
         $transactionId = $request->input('transactionId');
