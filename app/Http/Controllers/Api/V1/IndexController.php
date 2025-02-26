@@ -364,6 +364,7 @@ class IndexController extends Controller
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
+                dd($request);
             }else{
                 $response = [
                     'error'  => 'َشما قبلا در این دوره ثبت نام کرده اید',
