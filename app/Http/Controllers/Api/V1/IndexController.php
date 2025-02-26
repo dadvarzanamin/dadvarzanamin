@@ -386,7 +386,7 @@ class IndexController extends Controller
     }
     public function callbackpay(CallbackRequest $request)
     {
-
+dd('salam');
         $transactionId = $request->input('transactionId');
 
         $workshopsign = DB::table('workshops as w')
