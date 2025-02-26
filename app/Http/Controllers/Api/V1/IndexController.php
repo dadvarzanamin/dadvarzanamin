@@ -228,7 +228,7 @@ class IndexController extends Controller
                 ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
-
+dd($workshopsigns);
             if ($workshopsigns){
                 $workshopsigns->workshop_id      = $request->input('workshop_id');
                 $workshopsigns->certif_price     = $workshop->certificate_price;
