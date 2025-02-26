@@ -40,7 +40,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/workshopsign'       ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
     Route::post('v1/discountcheck'      ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
     Route::post('v1/pay'                ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'pay']);
-    Route::post('v1/payment.callback'   ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'payment.callback']);
+    Route::GET('v1/payment.callback'    ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'payment.callback']);
     //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
     //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
 });
