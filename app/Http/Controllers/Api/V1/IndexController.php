@@ -241,6 +241,7 @@ class IndexController extends Controller
                         'workshop_price'   => $workshop->price,
                         'user_id'          => Auth::user()->id,
                     ]);
+                dd($workshopsign);
                 if ($workshopsign){
                     return Response::json(['ok' =>true ,'message' => 'success']);
                 }else{
