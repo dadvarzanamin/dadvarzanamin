@@ -396,16 +396,15 @@ class IndexController extends Controller
         $status = $request->query('Status');
 
         if ($status == "OK") {
-            // بررسی و تأیید پرداخت در زرین پال
-            $payment = Toman::amount(100000)->transactionId($authority)->verify();
-
             $workshopsign = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
-                ->where('ws.transactionId', '=', $payment->referenceId())
+                ->where('ws.transactionId', '=', $authority)
                 ->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.pricestatus', '=', null)
                 ->first();
+
+            $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
                 Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
