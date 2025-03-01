@@ -392,7 +392,6 @@ class IndexController extends Controller
     }
     public function callbackpay(Request $request)
     {
-        dd('saalm');
         $authority = $request->query('Authority');
         $status = $request->query('Status');
 
