@@ -356,7 +356,7 @@ class IndexController extends Controller
                     ->first();
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
-                    ->callback(url('https://dadvarzanamin.ir/api/v1/payment.callback'))
+                    ->callback(url('https://dadvarzanamin.ir/api/v1/backtoapp'))
 //                    ->orderId($workshopsigns->transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
