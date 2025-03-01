@@ -447,12 +447,15 @@ class IndexController extends Controller
                     curl_close($curl);
                 } catch (Exception $exception) {
                 }
-                return redirect("yourapp://payment-success?transaction_id=" . $payment->referenceId());
+                return view('Site.Dashboard.payment-success');
+                //return redirect("yourapp://payment-success?transaction_id=" . $payment->referenceId());
             } else {
-                return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
+                return view('Site.Dashboard.payment-failed');
+                //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
             }
         } else {
-            return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
+            return view('Site.Dashboard.payment-failed');
+            //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
         }
     }
 
