@@ -819,7 +819,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function callbackpay(CallbackRequest $request)
+    public function callbackpay(Request $request)
     {
         $authority = $request->query('Authority');
         $status = $request->query('Status');
