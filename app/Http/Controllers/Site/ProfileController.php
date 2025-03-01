@@ -36,6 +36,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
+
+    public static function convertPersianToEnglish($string)
+    {
+        $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        return str_replace($persianNumbers, $englishNumbers, $string);
+    }
+
     public function profile()
     {
         $user = Auth::user();
@@ -61,9 +70,11 @@ class ProfileController extends Controller
 
                 $estelam = Estelam::whereId(1)->first();
                 $url     = $estelam->action_route;
+                $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+                $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
                 $postalCode = [
-                    "postalCode" => $request->input('postCode')
+                    "postalCode" => str_replace($persianNumbers, $englishNumbers, $request->input('postCode'))
                 ];
 
                 $ch = curl_init($url);
@@ -99,10 +110,12 @@ class ProfileController extends Controller
 
                 $estelam = Estelam::whereId(2)->first();
                 $url     = $estelam->action_route;
+                $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+                $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
                 $national = [
-                    "nationalCode"  => $request->input('nationalID'),
-                    "birthDate"     => $request->input('birthDate')
+                    "nationalCode"  => str_replace($persianNumbers, $englishNumbers, $request->input('nationalID')),
+                    "birthDate"     => str_replace($persianNumbers, $englishNumbers, $request->input('birthDate'))
                 ];
 
                 $ch = curl_init($url);
@@ -146,10 +159,12 @@ class ProfileController extends Controller
 
                 $estelam = Estelam::whereId(7)->first();
                 $url = $estelam->action_route;
+                $persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+                $englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
                 $imagedata = [
-                    "nationalCode"  => $request->input('nationalID'),
-                    "birthDate"     => $request->input('birthDate'),
+                    "nationalCode"  => str_replace($persianNumbers, $englishNumbers, $request->input('nationalID')),
+                    "birthDate"     => str_replace($persianNumbers, $englishNumbers, $request->input('birthDate'))
                 ];
 
                 $ch = curl_init($url);
@@ -806,24 +821,25 @@ class ProfileController extends Controller
 
     public function callbackpay(CallbackRequest $request)
     {
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
 
-        $workshopsign = DB::table('workshops')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('workshops.id','workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.price as totalprice')
-            ->where('workshops.id', '=', 11)
-            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->where('workshopsigns.pricestatus', '=', null)
-            ->first();
+        if ($status == "OK") {
+            $workshopsign = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->where('ws.transactionId', '=', $authority)
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.pricestatus', '=', null)
+                ->first();
 
-        $payment = $request->amount($workshopsign->totalprice)->verify();
-        if ($payment->successful()) {
-            //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
+            $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
-            Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
-                'referenceId'       => $payment->referenceId(),
-                'pricestatus'           => 4,
-            ]);
-
+            if ($payment->successful()) {
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                    'referenceId'       => $payment->referenceId(),
+                    'pricestatus'       => 4,
+                ]);
             if ($workshopsign->typeuse == 1) {
                 $workshoptype = 'حضوری';
 
@@ -859,10 +875,11 @@ class ProfileController extends Controller
                 curl_close($curl);
             } catch (Exception $exception) {
             }
-
-            return view('Site.Dashboard.payment-success');
-
-        }else{
+                return view('Site.Dashboard.payment-success');
+            } else {
+                return view('Site.Dashboard.payment-failed');
+            }
+        } else {
             return view('Site.Dashboard.payment-failed');
         }
     }
