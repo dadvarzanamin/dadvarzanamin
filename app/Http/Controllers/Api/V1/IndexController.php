@@ -390,8 +390,9 @@ class IndexController extends Controller
             }
         }
     }
-    public function appcallback(Request $request)
+    public function callbackpay(Request $request)
     {
+        dd('saalm');
         $authority = $request->query('Authority');
         $status = $request->query('Status');
 
