@@ -787,11 +787,11 @@ class ProfileController extends Controller
             return Redirect::back();
 
         }else {
-            $workshopsigns = DB::table('workshops')
-                ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-                ->select('ws.id','workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus', 'workshopsigns.price')
-                ->where('workshops.id', '=', $workshopid)
-                ->where('workshopsigns.user_id', '=', Auth::user()->id)
+            $workshopsigns = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('ws.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.pricestatus', 'ws.price')
+                ->where('w.id', '=', $workshopid)
+                ->where('ws.user_id', '=', Auth::user()->id)
                 ->first();
             if($workshopsigns->pricestatus == null){
 
