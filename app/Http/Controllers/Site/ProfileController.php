@@ -806,10 +806,10 @@ class ProfileController extends Controller
                 return Redirect::back();
             }
             if ($request->successful()) {
-                // Store created transaction details for verification
-                $transactionId = $request->transactionId();
-
-                // Redirect to payment URL
+                DB::table('workshopsigns as w')->whereId($workshopsigns->id)
+                    ->update([
+                        'transactionId' => $request->transactionId()
+                    ]);
                 return $request->pay();
             }
 
