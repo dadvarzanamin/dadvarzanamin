@@ -431,7 +431,7 @@ class IndexController extends Controller
                             'type' => '1',
                             'param1' => 'ممد',
                             'param2' => $workshopsign->title,
-                            'param3' => $workshoptype,
+                            'param3' => 1,
                             'receptor' => '09352201378',
                             'template' => 'workshop',
                         ]),
