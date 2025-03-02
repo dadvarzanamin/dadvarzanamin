@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
     Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
     Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
+    Route::GET('v1/backtoapp'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'callbackpay'])->name('backtoapp');
 
 
 
@@ -40,7 +41,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/workshopsign'       ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
     Route::post('v1/discountcheck'      ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
     Route::post('v1/pay'                ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'pay']);
-    Route::post('v1/payment.callback'   ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'payment.callback']);
+    Route::get('v1/payment.callback'    ,   [App\Http\Controllers\Api\V1\IndexController::class      ,'callbackpay'])->name('payment.callback');
     //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
     //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
 });

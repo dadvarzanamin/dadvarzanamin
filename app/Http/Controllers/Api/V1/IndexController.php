@@ -218,19 +218,42 @@ class IndexController extends Controller
     public function workshopsign(Request $request){
 
         $workshop = Workshop::whereId($request->input('workshop_id'))->first();
+        if ($workshop->status <> 4){
+            return Response::json(['ok' =>false ,'message' => 'failed']);
+        }
         try {
-            $workshopsign = new Workshopsign();
-            $workshopsign->workshop_id      = $request->input('workshop_id');
-            $workshopsign->certif_price     = $workshop->certificate_price;
-            $workshopsign->workshop_price   = $workshop->price;
-            $workshopsign->user_id          = Auth::user()->id;
-            $workshopsign->save();
+            $workshopsigns = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                ->where('w.id', '=', $request->input('workshop_id'))
+                ->where('ws.user_id', '=', Auth::user()->id )
+                ->first();
 
-            if ($workshopsign){
+            if ($workshopsigns){
+                DB::table('workshops as w')
+                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                    ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                    ->where('w.id', '=', $request->input('workshop_id'))
+                    ->where('ws.user_id', '=', Auth::user()->id )
+                    ->update([
+                        'workshop_id'      => $request->input('workshop_id'),
+                        'certif_price'     => $workshop->certificate_price,
+                        'workshop_price'   => $workshop->price,
+                        'user_id'          => Auth::user()->id,
+                    ]);
                 return Response::json(['ok' =>true ,'message' => 'success']);
-
-            }else{
-                return Response::json(['ok' =>false ,'message' => 'failed']);
+            }else {
+                $workshopsign = new Workshopsign();
+                $workshopsign->workshop_id = $request->input('workshop_id');
+                $workshopsign->certif_price = $workshop->certificate_price;
+                $workshopsign->workshop_price = $workshop->price;
+                $workshopsign->user_id = Auth::user()->id;
+                $workshopsign->save();
+                if ($workshopsign){
+                    return Response::json(['ok' =>true ,'message' => 'success']);
+                }else{
+                    return Response::json(['ok' =>false ,'message' => 'failed']);
+                }
             }
 
         } catch (Exception $e){
@@ -318,24 +341,27 @@ class IndexController extends Controller
         }elseif(Auth::user()->phone == null){
             return Response::json(['ok' =>false ,'message' => 'failed' , 'response' => 'شماره موبایل خالی می باشد']);
         }else{
-            $transactionId = Str::uuid();
             $workshopsigns = DB::table('workshops as w')
-                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id' , 'ws.pricestatus')
-                ->select('w.title' , 'ws.price')
-                ->where('ws.id', '=', $request->input('workshopsign_id'))
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.title' , 'ws.price', 'ws.pricestatus')
+                ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
-
             if($workshopsigns->pricestatus == null){
-                $workshopsigns->transactionId = $transactionId;
-                $workshopsigns->update();
+                $workshopsigns = DB::table('workshops as w')
+                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                    ->select('ws.id','w.title' , 'ws.price', 'ws.pricestatus' , 'ws.transactionId')
+                    ->where('w.id', '=', $request->input('workshop_id'))
+                    ->where('ws.user_id', '=', Auth::user()->id )
+                    ->first();
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
-                    ->callback("myapp://payment_result") // تغییر Callback URL برای برگشت به اپ
-                    ->orderId($transactionId)
+                    ->callback(url('https://dadvarzanamin.ir/api/v1/backtoapp'))
+//                    ->orderId($workshopsigns->transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
                     ->request();
+
             }else{
                 $response = [
                     'error'  => 'َشما قبلا در این دوره ثبت نام کرده اید',
@@ -343,79 +369,92 @@ class IndexController extends Controller
                 return Response::json(['ok' =>false ,'message' => 'failed','response'=>$response]);
             }
             if ($request->successful()) {
-                // Store created transaction details for verification
-                $transactionId = $request->transactionId();
-
-                // Redirect to payment URL
-                return $request->pay();
-            }
-
-            if ($request->failed()) {
-                // Handle transaction request failure.
+                    DB::table('workshopsigns as w')->whereId($workshopsigns->id)
+                    ->update([
+                        'transactionId' => $request->transactionId()
+                    ]);
+                return response()->json([
+                    "ok" => true,
+                    "message" => "لینک پرداخت ایجاد شد.",
+                    "response" => [
+                        "url" => "https://www.zarinpal.com/pg/StartPay/" . $request->transactionId(),
+                        "authority" => $request->transactionId(),
+                    ],
+                ]);
+            } else {
+                return response()->json([
+                    "ok" => false,
+                    "message" => "خطا در ایجاد پرداخت.",
+                    "errors" => $request->messages(),
+                ], 500);
             }
         }
     }
-    public function callbackpay(CallbackRequest $request)
+    public function callbackpay(Request $request)
     {
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
 
-        $transactionId = $request->input('transactionId');
+        if ($status == "OK") {
+            $workshopsign = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->where('ws.transactionId', '=', $authority)
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.pricestatus', '=', null)
+                ->first();
 
-        $workshopsign = DB::table('workshops as w')
-            ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-            ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
-            ->where('ws.transactionId', '=', $transactionId)
-            ->where('ws.user_id', '=', Auth::user()->id)
-            ->where('ws.pricestatus', '=', null)
-            ->first();
+            $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
+            if ($payment->successful()) {
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                    'referenceId'       => $payment->referenceId(),
+                    'pricestatus'       => 4,
+                ]);
+                if ($workshopsign->typeuse == 1) {
+                    $workshoptype = 'حضوری';
 
-        $payment = $request->amount($workshopsign->totalprice)->verify();
-        if ($payment->successful()) {
-            //$workshoppay = Workshopsign::whereUser_id(Auth::user()->id)->orderBy('id', 'DESC')->first();
-
-            Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
-                'referenceId'       => $payment->referenceId(),
-                'pricestatus'       => 4,
-            ]);
-
-            if ($workshopsign->typeuse == 1) {
-                $workshoptype = 'حضوری';
-
-            } elseif ($workshopsign->typeuse == 2) {
-                $workshoptype = 'آنلاین';
+                } elseif ($workshopsign->typeuse == 2) {
+                    $workshoptype = 'آنلاین';
+                }
+                try {
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => http_build_query([
+                            'type' => '1',
+                            'param1' => Auth::user()->name,
+                            'param2' => $workshopsign->title,
+                            'param3' => $workshoptype,
+                            'receptor' => Auth::user()->phone,
+                            'template' => 'workshop',
+                        ]),
+                        CURLOPT_HTTPHEADER => array(
+                            "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                            "cache-control: no-cache",
+                            "content-type: application/x-www-form-urlencoded",
+                        ),
+                    ));
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+                } catch (Exception $exception) {
+                }
+                return view('Site.Dashboard.payment-success');
+                //return redirect("yourapp://payment-success?transaction_id=" . $payment->referenceId());
+            } else {
+                return view('Site.Dashboard.payment-failed');
+                //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
             }
-            try {
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => http_build_query([
-                        'type' => '1',
-                        'param1' => Auth::user()->name,
-                        'param2' => $workshopsign->title,
-                        'param3' => $workshoptype,
-                        'receptor' => Auth::user()->phone,
-                        'template' => 'workshop',
-                    ]),
-                    CURLOPT_HTTPHEADER => array(
-                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
-                        "cache-control: no-cache",
-                        "content-type: application/x-www-form-urlencoded",
-                    ),
-                ));
-                $response = curl_exec($curl);
-                $err = curl_error($curl);
-                curl_close($curl);
-            } catch (Exception $exception) {
-            }
-            return Response::json(['ok' =>true ,'message' => 'success' , 'response' => 'پرداخت موفق']);
-        }else{
-            return Response::json(['ok' =>false ,'message' => 'failed' , 'response' => 'پرداخت ناموفق']);
+        } else {
+            return view('Site.Dashboard.payment-failed');
+            //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
         }
     }
 
