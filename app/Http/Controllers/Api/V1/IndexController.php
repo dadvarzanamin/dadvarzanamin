@@ -446,14 +446,14 @@ class IndexController extends Controller
                     curl_close($curl);
                 } catch (Exception $exception) {
                 }
-                return view('Site.Dashboard.payment-success');
+                return view('Api.payment-success');
                 //return redirect("yourapp://payment-success?transaction_id=" . $payment->referenceId());
             } else {
-                return view('Site.Dashboard.payment-failed');
+                return view('Api.payment-failed');
                 //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
             }
         } else {
-            return view('Site.Dashboard.payment-failed');
+            return view('Api.payment-failed');
             //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
         }
     }
