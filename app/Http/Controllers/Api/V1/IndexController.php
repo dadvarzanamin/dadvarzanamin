@@ -407,7 +407,7 @@ class IndexController extends Controller
             $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(2)->wherePricestatus(null)->update([
                     'referenceId'       => $payment->referenceId(),
                     'pricestatus'       => 4,
                 ]);
