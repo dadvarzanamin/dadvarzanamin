@@ -331,7 +331,7 @@ class IndexController extends Controller
                 $workshopsigns->update();
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
-                    ->callback(route('payment.callback'))
+                    ->callback("myapp://payment_result") // تغییر Callback URL برای برگشت به اپ
                     ->orderId($transactionId)
                     ->mobile(Auth::user()->phone)
                     ->email(Auth::user()->email)
