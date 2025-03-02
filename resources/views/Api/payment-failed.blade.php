@@ -63,9 +63,8 @@
     <h1>پرداخت ناموفق</h1>
     <p>متأسفانه پرداخت شما با مشکل مواجه شد.</p>
     <p>لطفاً دوباره تلاش کنید.</p>
-    <a href="myapp://payment-failed?message=پرداخت ناموفق" class="btn">بازگشت به حساب کاربری</a>
+    <a href="myapp://payment-failed" class="btn">بازگشت به اپ </a>
 </div>
-//return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت ناموفق بود"));
 
 </body>
 </html>
