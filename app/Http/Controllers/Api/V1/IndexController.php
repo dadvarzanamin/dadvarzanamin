@@ -400,7 +400,7 @@ class IndexController extends Controller
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
                 ->where('ws.transactionId', '=', $authority)
-                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.user_id', '=', 2)
                 ->where('ws.pricestatus', '=', null)
                 ->first();
 
