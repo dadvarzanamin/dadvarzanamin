@@ -429,10 +429,10 @@ class IndexController extends Controller
                         CURLOPT_CUSTOMREQUEST => "POST",
                         CURLOPT_POSTFIELDS => http_build_query([
                             'type' => '1',
-                            'param1' => Auth::user()->name,
+                            'param1' => 'ممد',
                             'param2' => $workshopsign->title,
                             'param3' => $workshoptype,
-                            'receptor' => Auth::user()->phone,
+                            'receptor' => '09352201378',
                             'template' => 'workshop',
                         ]),
                         CURLOPT_HTTPHEADER => array(
