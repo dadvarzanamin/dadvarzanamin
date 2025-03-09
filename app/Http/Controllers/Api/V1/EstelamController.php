@@ -392,14 +392,14 @@ class EstelamController extends Controller
             curl_close($ch);
             $responseData = json_decode($response, true);
 
-//            $logs = new Log_estelam();
-//            $logs->title = $estelam->title_fa;
-//            $logs->request = json_encode($data);
-//            $logs->response = json_encode($responseData);
-//            $logs->action_route = $estelam->action_route;
-//            $logs->date = jdate()->format('Y/m/d');
-//            $logs->user_id = Auth::user()->id;
-//            $logs->save();
+            $logs = new Log_estelam();
+            $logs->title = $estelam->title_fa;
+            $logs->request = json_encode($data);
+            $logs->response = json_encode($responseData);
+            $logs->action_route = $estelam->action_route;
+            $logs->date = jdate()->format('Y/m/d');
+            $logs->user_id = Auth::user()->id;
+            $logs->save();
 
             $image = $responseData['data']['result']['image'];
 
