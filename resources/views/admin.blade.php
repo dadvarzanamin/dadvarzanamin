@@ -340,6 +340,38 @@
 <script src="{{asset('site/js/main.js')}}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    window.addEventListener("load", function () {
+        const checkInterval = setInterval(function () {
+            const notificationsArea = document.querySelector("#cke_notifications_area_editor");
+
+            if (notificationsArea) {
+                notificationsArea.style.display = "none";
+                clearInterval(checkInterval);
+            }
+        }, 500);
+    });
+    window.addEventListener("load", function () {
+        const checkInterval = setInterval(function () {
+            const notificationsArea = document.querySelector("#cke_notifications_area_editor2");
+
+            if (notificationsArea) {
+                notificationsArea.style.display = "none";
+                clearInterval(checkInterval);
+            }
+        }, 500);
+    });
+    window.addEventListener("load", function () {
+        const checkInterval = setInterval(function () {
+            const notificationsArea = document.querySelector("#cke_notifications_area_editor3");
+
+            if (notificationsArea) {
+                notificationsArea.style.display = "none";
+                clearInterval(checkInterval);
+            }
+        }, 500);
+    });
+</script>
 @yield('script')
 
 
