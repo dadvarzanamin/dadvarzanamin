@@ -399,7 +399,7 @@ class IndexController extends Controller
             $workshopsign = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->join('users as u', 'ws.user_id', '=', 'u.id')
-                ->select( 'u.name as user_name','u.phone', 'w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->select( 'u.name as user_name','u.phone', 'ws.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
                 ->where('ws.transactionId', '=', $authority)
                 //->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.pricestatus', '=', null)
@@ -408,7 +408,7 @@ class IndexController extends Controller
             $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                Workshopsign::whereWorkshop_id($workshopsign->id)->whereId($workshopsign->id)->wherePricestatus(null)->update([
+                Workshopsign::whereId($workshopsign->id)->wherePricestatus(null)->update([
                     'referenceId'       => $payment->referenceId(),
                     'pricestatus'       => 4,
                 ]);
