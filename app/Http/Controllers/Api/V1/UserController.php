@@ -45,10 +45,13 @@ class UserController extends Controller
             if (Hash::check($password, $user->password)) {
                 Auth::loginUsingId($user->id);
                 if(Auth::check()){
+                    auth()->user()->update([
+                        'api_token' => Str::random(100)
+                    ]);
                     $response = [
-                      'user' => $user,
+                        'token'=>auth()->user()->api_token,
                     ];
-                    return Response::json(['ok' => true,'message' => 'success','response' => $response]);
+                    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
                 }
             }
         }elseif (! auth()->attempt($validData)){
