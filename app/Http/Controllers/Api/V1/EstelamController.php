@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 class EstelamController extends Controller
 {
@@ -17,7 +18,7 @@ class EstelamController extends Controller
     {
         $user = User::whereApi_token($request->bearerToken())->first();
         if ($user != null) {
-            Auth::loginUsingId($user->id);
+            dd(JWTAuth::fromUser($user));
         }
         if(!Auth::check()){
             $response = [
