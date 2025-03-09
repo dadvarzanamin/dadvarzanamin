@@ -34,18 +34,27 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-
+        $phone      = $this->convertPersianToEnglishNumbers($request->input('phone'));
+        $password   = $this->convertPersianToEnglishNumbers($request->input('password'));
         $validData = $this->validate($request, [
             'phone' => 'required|exists:users',
             'password' => 'required'
         ]);
-
-
-        if (! auth()->attempt($validData)){
+        $user = User::wherePhone($phone)->first();
+        if ($user != null) {
+            if (Hash::check($password, $user->password)) {
+                Auth::loginUsingId($user->id);
+                if(Auth::check()){
+                    $response = [
+                      'user' => $user,
+                    ];
+                    return Response::json(['ok' => true,'message' => 'success','response' => $response]);
+                }
+            }
+        }elseif (! auth()->attempt($validData)){
             $response = [
                 'error' => 'شماره موبایل و یا رمز عبور نادرست است',
             ];
-
             return Response::json(['ok' => false,'message' => 'failed','response' => $response]);
 
         }
