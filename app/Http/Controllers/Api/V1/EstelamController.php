@@ -6,15 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Estelam;
 use App\Models\Profile\EstelamToken;
 use App\Models\Profile\Log_estelam;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class EstelamController extends Controller
 {
     public function estelam(Request $request)
     {
-        dd($request->bearerToken());
-
+        $user = User::whereApi_token($request->bearerToken())->first();
+        if ($user != null) {
+            Auth::loginUsingId($user->id);
+        }
+        if(!Auth::check()){
+            $response = [
+                'error' => 'کاربر ورود نکرده است',
+            ];
+            return Response::json(['ok' => false,'message' => 'failed','response' => $response]);
+        }
         $token = EstelamToken::select('token', 'appname')->first();
 
         $headers = [
