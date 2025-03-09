@@ -18,7 +18,6 @@ class EstelamController extends Controller
     {
         //dd(auth()->guard('api')->user());
         //$user = User::whereApi_token($request->bearerToken())->first();
-        dd(Auth::user());
         $token = EstelamToken::select('token', 'appname')->first();
 
         $headers = [
