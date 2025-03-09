@@ -400,14 +400,14 @@ class IndexController extends Controller
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
                 ->where('ws.transactionId', '=', $authority)
-                ->where('ws.user_id', '=', 2)
+                ->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.pricestatus', '=', null)
                 ->first();
 
             $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(2)->wherePricestatus(null)->update([
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
                     'referenceId'       => $payment->referenceId(),
                     'pricestatus'       => 4,
                 ]);
@@ -429,7 +429,7 @@ class IndexController extends Controller
                         CURLOPT_CUSTOMREQUEST => "POST",
                         CURLOPT_POSTFIELDS => http_build_query([
                             'type' => '1',
-                            'param1' => 'ممد',
+                            'param1' => Auth::user()->name,
                             'param2' => $workshopsign->title,
                             'param3' => 1,
                             'receptor' => '09352201378',
