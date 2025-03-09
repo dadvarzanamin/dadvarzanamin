@@ -16,17 +16,9 @@ class EstelamController extends Controller
 {
     public function estelam(Request $request)
     {
-        dd(auth()->guard('api')->user());
-        $user = User::whereApi_token($request->bearerToken())->first();
-        if ($user != null) {
-            dd(JWTAuth::fromUser($user));
-        }
-        if(!Auth::check()){
-            $response = [
-                'error' => 'کاربر ورود نکرده است',
-            ];
-            return Response::json(['ok' => false,'message' => 'failed','response' => $response]);
-        }
+        //dd(auth()->guard('api')->user());
+        //$user = User::whereApi_token($request->bearerToken())->first();
+        dd(Auth::user());
         $token = EstelamToken::select('token', 'appname')->first();
 
         $headers = [
