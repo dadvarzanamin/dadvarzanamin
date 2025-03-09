@@ -13,6 +13,8 @@ class EstelamController extends Controller
 {
     public function estelam(Request $request)
     {
+        dd($request->bearerToken());
+
         $token = EstelamToken::select('token', 'appname')->first();
 
         $headers = [
