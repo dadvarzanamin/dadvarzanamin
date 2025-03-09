@@ -6,17 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\IndexController;
 
 //Route::middleware('api')->group(function () {
-    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
     Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
     Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
     Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
     Route::post('v1/token'          , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
     Route::post('v1/remember'       , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
-    Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
-    Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
-    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
-    Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
-    Route::GET('v1/backtoapp'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'callbackpay'])->name('backtoapp');
 
 
 
@@ -33,6 +27,7 @@ use App\Http\Controllers\Api\v1\IndexController;
 
 
 Route::middleware('auth:api')->group(function () {
+    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
     Route::get('v1/profile'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'profile']);
     Route::get('v1/demands'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'demands']);
     Route::get('v1/laws'                ,   [App\Http\Controllers\Api\V1\UserController::class       , 'laws']);
@@ -44,6 +39,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('v1/payment.callback'    ,   [App\Http\Controllers\Api\V1\IndexController::class      ,'callbackpay'])->name('payment.callback');
     //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
     //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
+    Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
+    Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
+    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
+    Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
+    Route::GET('v1/backtoapp'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'callbackpay'])->name('backtoapp');
+
 });
 
 
