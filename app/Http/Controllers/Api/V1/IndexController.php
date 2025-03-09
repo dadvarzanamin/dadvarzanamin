@@ -398,16 +398,17 @@ class IndexController extends Controller
         if ($status == "OK") {
             $workshopsign = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->join('users as u', 'ws.user_id', '=', 'u.id')
+                ->select( 'u.name as user_name','u.phone', 'w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
                 ->where('ws.transactionId', '=', $authority)
-                ->where('ws.user_id', '=', Auth::user()->id)
+                //->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.pricestatus', '=', null)
                 ->first();
 
             $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereId($workshopsign->id)->wherePricestatus(null)->update([
                     'referenceId'       => $payment->referenceId(),
                     'pricestatus'       => 4,
                 ]);
@@ -429,10 +430,10 @@ class IndexController extends Controller
                         CURLOPT_CUSTOMREQUEST => "POST",
                         CURLOPT_POSTFIELDS => http_build_query([
                             'type' => '1',
-                            'param1' => Auth::user()->name,
+                            'param1' => $workshopsign->user_name,
                             'param2' => $workshopsign->title,
                             'param3' => 1,
-                            'receptor' => '09352201378',
+                            'receptor' => $workshopsign->phone,
                             'template' => 'workshop',
                         ]),
                         CURLOPT_HTTPHEADER => array(
