@@ -320,6 +320,12 @@ class IndexController extends Controller
     {
         if ($request->input('certificate') == 1){
             $user = Auth::user();
+            if ($request->input('birthday') == null || $request->input('national_id') == null ||  $request->input('father_name') == null ) {
+                $response = [
+                    'error' => 'نام پدر یا تاریخ تولد یا کد ملی خالی می باشد'
+                ];
+                return Response::json(['ok' =>false ,'message' => 'failed','response'=>$response]);
+            }
             if ($request->input('birthday')) {
                 $user->birthday = $request->input('birthday');
             }
