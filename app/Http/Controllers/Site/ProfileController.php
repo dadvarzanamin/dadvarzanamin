@@ -632,9 +632,15 @@ class ProfileController extends Controller
                 'certificate'   => 'required|numeric',
             ]);
         }
-        $user->birthday     = $request->input('birthday');
-        $user->national_id  = $request->input('national_id');
-        $user->father_name  = $request->input('father_name');
+        if ($request->input('birthday')) {
+            $user->birthday = $request->input('birthday');
+        }
+        if ($request->input('national_id')) {
+            $user->national_id = $request->input('national_id');
+        }
+        if ($request->input('father_name')) {
+            $user->father_name = $request->input('father_name');
+        }
         $user->update();
 
         if (Auth::user()->email==null || Auth::user()->phone==null){
