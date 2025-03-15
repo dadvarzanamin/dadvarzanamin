@@ -318,6 +318,19 @@ class IndexController extends Controller
     }
     public function pay(Request $request)
     {
+        if ($request->input('certificate') == 1){
+            $user = Auth::user();
+            if ($request->input('birthday')) {
+                $user->birthday = $request->input('birthday');
+            }
+            if ($request->input('national_id')) {
+                $user->national_id = $request->input('national_id');
+            }
+            if ($request->input('father_name')) {
+                $user->father_name = $request->input('father_name');
+            }
+            $user->update();
+        }
          $workshopsigns = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
                 ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price' , 'w.price as wprice')
@@ -328,10 +341,15 @@ class IndexController extends Controller
             $Workshopsigne = Workshopsign::whereId($workshopsigns->id)->first();
             $Workshopsigne->certificate  = $request->input('certificate');
             $Workshopsigne->certif_price = $workshopsigns->c_price;
-            if ($workshopsigns->price == 0) {
+            $Workshopsigne->typeuse      = $request->input('typeuse');
+            if ($workshopsigns->price == 0 && $request->input('certificate') == 1) {
                 $Workshopsigne->price = $workshopsigns->c_price + $workshopsigns->wprice;
-            }else{
+            }elseif($workshopsigns->price == 0 && $request->input('certificate') == 0){
+                $Workshopsigne->price = $workshopsigns->wprice;
+            }elseif($workshopsigns->price > 0 && $request->input('certificate') == 1){
                 $Workshopsigne->price = $workshopsigns->c_price + $workshopsigns->price;
+            }elseif($workshopsigns->price > 0 && $request->input('certificate') == 0){
+                $Workshopsigne->price =  $workshopsigns->price;
             }
             $Workshopsigne->update();
 
