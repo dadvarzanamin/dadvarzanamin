@@ -318,21 +318,23 @@ class IndexController extends Controller
     }
     public function pay(Request $request)
     {
-        if ($request->input('certificate'))
-        {
-            $workshopsigns = DB::table('workshops as w')
+         $workshopsigns = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price' , 'w.price as wprice')
                 ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->where('ws.pricestatus', '=', null )
                 ->first();
             $Workshopsigne = Workshopsign::whereId($workshopsigns->id)->first();
-            $Workshopsigne->certificate  = 1;
+            $Workshopsigne->certificate  = $request->input('certificate');
             $Workshopsigne->certif_price = $workshopsigns->c_price;
-            $Workshopsigne->price        = $workshopsigns->c_price + $workshopsigns->price;
+            if ($workshopsigns->price == 0) {
+                $Workshopsigne->price = $workshopsigns->c_price + $workshopsigns->wprice;
+            }else{
+                $Workshopsigne->price = $workshopsigns->c_price + $workshopsigns->price;
+            }
             $Workshopsigne->update();
-        }
+
         //Session::put('workshopid'.Auth::user()->id, $workshopid);
         //Session::put('finalprice'.Auth::user()->id, $finalprice);
 
@@ -354,6 +356,7 @@ class IndexController extends Controller
                     ->where('w.id', '=', $request->input('workshop_id'))
                     ->where('ws.user_id', '=', Auth::user()->id )
                     ->first();
+
                 $request = Toman::amount($workshopsigns->price)
                     ->description($workshopsigns->title)
                     ->callback(url('https://dadvarzanamin.ir/api/v1/backtoapp'))
