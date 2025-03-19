@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::post('v1/remember'       , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
     Route::get('v1/payment.callback'    ,   [App\Http\Controllers\Api\V1\IndexController::class      ,'callbackpay'])->name('payment.callback');
     Route::GET('v1/backtoapp'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'callbackpay'])->name('backtoapp');
+    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
 
 
 
@@ -42,7 +43,6 @@ Route::middleware('auth:api')->group(function () {
     //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
     Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
     Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
-    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
     Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
 
 });
