@@ -99,7 +99,6 @@ class SiteuserController extends Controller
         $user->state_id     = $request->input('state_id');
         $user->city_id      = $request->input('city_id');
         $user->phone_verify = $request->input('phone_verify');
-        $user->phone_number = $request->input('phone_number');
         $user->email        = $request->input('email');
         $user->address        = $request->input('address');
         if ($request->input('password') != null) {
