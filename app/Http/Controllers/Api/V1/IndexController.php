@@ -44,7 +44,7 @@ class IndexController extends Controller
 
     }
     public function workshops(Request $request){
-        $workshops = Workshop::select('id', 'title', 'teacher', 'teacher_image', 'teacher_resume', 'price', 'certificate_price', 'offer', 'duration', 'type', 'image', 'video', 'date', 'description', 'target', 'level' , 'status')->get();
+        $workshops = Workshop::select('id', 'title', 'teacher', 'teacher_image', 'teacher_resume', 'price', 'certificate_price', 'offer', 'duration', 'type', 'image', 'video', 'date', 'description', 'target', 'level' , 'status')->where('id' , '!=' , 2)->get();
 
         $response = [
             'workshops' => $workshops->map(function ($workshop) {
