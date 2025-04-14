@@ -319,7 +319,7 @@ class IndexController extends Controller
         $services           = Submenu::select('id','title' , 'slug' , 'menu_id' , 'image', 'keyword', 'description')->whereSlug($url[1])->first();
         $slides             = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         $customers          = Customer::select('name' , 'image')->whereStatus(4)->whereHome_show(1)->get();
-        $workshops          = Workshop::select()->get();
+        $workshops          = Workshop::where('id' , '!=' , 2)->get();
         $medias             = Media::select('aparat','title' , 'file_link' , 'cover')->whereStatus(4)->whereSubmenu_id($services->id)->get();
 
         return view('Site.workshop')->with(compact('menus','thispage','workshops' ,'medias', 'companies' , 'slides' , 'customers' , 'submenus' , 'services' , 'megacounts' , 'megamenus' , 'servicelawyers'));
