@@ -11,7 +11,9 @@ use App\Models\APP\Law;
 use App\Models\APP\lawsuit;
 use App\Models\APP\legalAdvice;
 use App\Models\APP\tokil;
+use App\Models\Dashboard\Estelam;
 use App\Models\Profile\City;
+use App\Models\Profile\EstelamToken;
 use App\Models\Profile\State;
 use App\Models\TypeUser;
 use App\Models\User;
@@ -98,17 +100,53 @@ class UserController extends Controller
     {
 
         $user = User::wherePhone($request->input('phone'))->first();
+        $user = null;
         if ($user === null) {
 
             $validData = $this->validate($request, [
                 'phone'     => 'required',
-                'name'      => 'required|string',
+                'meli_code' => 'required|string',
+                'birthday'  => 'required|string',
                 'type_id'   => 'required|string',
-                'password'  => 'required|string|min:8|confirmed',
             ]);
 
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
+
+            $token = EstelamToken::select('token', 'appname')->first();
+
+            $headers = [
+                'token:' . $token->token,
+                'appname:' . $token->appname,
+                'Content-Type: application/json',
+            ];
+
+            $estelam = Estelam::whereId(17)->first();
+            $url     = $estelam->action_route;
+
+            if ($request->input('formId') == 17) {
+
+                $data = [
+                    "phone"     => $request->input('phone'),
+                    "meli_code" => $request->input('meli_code')
+                ];
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+                if ($estelam->method == 'POST') {
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                }
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+                $response = curl_exec($ch);
+
+                curl_close($ch);
+                $responseData = json_decode($response, true);
+
+                $isMatched = $responseData['data']['result']['isMatched'];
+
+            }
+dd($isMatched);
 
             $user = User::create([
 
