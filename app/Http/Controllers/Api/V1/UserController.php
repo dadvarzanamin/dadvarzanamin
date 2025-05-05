@@ -113,12 +113,6 @@ class UserController extends Controller
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $meli_code      = $this->convertPersianToEnglishNumbers($request->input('meli_code'));
 
-            $data = [
-                "phone"     => $phone,
-                "meli_code" => $meli_code
-            ];
-            dd($data);
-
             $token = EstelamToken::select('token', 'appname')->first();
 
             $headers = [
@@ -130,7 +124,6 @@ class UserController extends Controller
             $estelam = Estelam::whereId(17)->first();
             $url     = $estelam->action_route;
 
-            if ($request->input('formId') == 17) {
                 $data = [
                     "phone"     => $phone,
                     "meli_code" => $meli_code
@@ -148,11 +141,10 @@ class UserController extends Controller
 
                 curl_close($ch);
                 $responseData = json_decode($response, true);
+            dd($responseData);
 
                 $isMatched = $responseData['data']['result']['isMatched'];
 
-            }
-dd($isMatched);
 
             $user = User::create([
 
