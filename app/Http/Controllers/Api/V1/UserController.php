@@ -125,8 +125,8 @@ class UserController extends Controller
             $url     = $estelam->action_route;
 
                 $data = [
-                    "phone"     => $phone,
-                    "meli_code" => $meli_code
+                    "mobileNumber"  => $phone,
+                    "nationalCode"  => $meli_code
                 ];
 
                 $ch = curl_init($url);
