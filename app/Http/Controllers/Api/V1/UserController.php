@@ -125,7 +125,7 @@ class UserController extends Controller
             $url     = $estelam->action_route;
 
             if ($request->input('formId') == 17) {
-
+                $data[] = [];
                 $data = [
                     "phone"     => $phone,
                     "meli_code" => $meli_code
