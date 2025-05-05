@@ -105,13 +105,13 @@ class UserController extends Controller
 
             $validData = $this->validate($request, [
                 'phone'     => 'required',
-                'meli_code' => 'required|string',
+                'national_id' => 'required|string',
                 'birthday'  => 'required|string',
                 'type_id'   => 'required|string',
             ]);
 
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
-            $meli_code      = $this->convertPersianToEnglishNumbers($request->input('meli_code'));
+            $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
 
             $token = EstelamToken::select('token', 'appname')->first();
 
@@ -144,29 +144,32 @@ class UserController extends Controller
 
                 $isMatched = $responseData['data']['result']['isMatched'];
 
-dd($isMatched);
-            $user = User::create([
+if ($isMatched == false){
 
-                'phone'     => $phone,
-                'name'      => $validData['name'],
-                'password'  => bcrypt($password),
-                'type_id'   => $validData['type_id'],
+    $response = 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
 
-            ]);
+    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+}else {
+    $user = User::create([
+        'phone' => $phone,
+        'national_id' => $validData['national_id'],
+        'birthday' => $validData['birthday'],
+        'type_id' => $validData['type_id'],
+    ]);
 
-            $user->update([
-                'api_token' => Str::random(100)
-            ]);
+    $user->update([
+        'api_token' => Str::random(100)
+    ]);
 
-            $code = ActiveCode::generateCode($user);
+    $code = ActiveCode::generateCode($user);
 
-            $user->notify(new ActiveCodeNotification($code , $phone));
-            $response = [
-                'token' => $user->api_token,
-            ];
+    $user->notify(new ActiveCodeNotification($code, $phone));
+    $response = [
+        'token' => $user->api_token,
+    ];
 
-            return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
-
+    return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
+}
         }else{
             $errorResponse = [
                 'error' => 'شماره موبایل قبلا ثبت شده',
