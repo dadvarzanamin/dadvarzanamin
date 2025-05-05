@@ -113,6 +113,12 @@ class UserController extends Controller
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $meli_code      = $this->convertPersianToEnglishNumbers($request->input('meli_code'));
 
+            $data = [
+                "phone"     => $phone,
+                "meli_code" => $meli_code
+            ];
+            dd($data);
+
             $token = EstelamToken::select('token', 'appname')->first();
 
             $headers = [
@@ -125,7 +131,6 @@ class UserController extends Controller
             $url     = $estelam->action_route;
 
             if ($request->input('formId') == 17) {
-                $data[] = [];
                 $data = [
                     "phone"     => $phone,
                     "meli_code" => $meli_code
