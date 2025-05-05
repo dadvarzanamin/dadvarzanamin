@@ -141,10 +141,12 @@ class UserController extends Controller
 
                 curl_close($ch);
                 $responseData = json_decode($response, true);
-dd($responseData);
-                $isMatched = $responseData['data']['result']['isMatched'];
+                if ($responseData['isSuccess'] == true) {
+                    $isMatched = $responseData['data']['result']['isMatched'];
+                }
+            dd($isMatched);
 
-if ($isMatched == false){
+            if ($isMatched == false){
 
     $response = 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
 
