@@ -141,11 +141,10 @@ class UserController extends Controller
 
                 curl_close($ch);
                 $responseData = json_decode($response, true);
-            dd($responseData);
 
                 $isMatched = $responseData['data']['result']['isMatched'];
 
-
+dd($isMatched);
             $user = User::create([
 
                 'phone'     => $phone,
