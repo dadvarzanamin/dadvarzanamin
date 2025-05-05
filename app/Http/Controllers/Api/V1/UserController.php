@@ -111,7 +111,7 @@ class UserController extends Controller
             ]);
 
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
-            $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
+            $meli_code      = $this->convertPersianToEnglishNumbers($request->input('meli_code'));
 
             $token = EstelamToken::select('token', 'appname')->first();
 
@@ -127,9 +127,10 @@ class UserController extends Controller
             if ($request->input('formId') == 17) {
 
                 $data = [
-                    "phone"     => $request->input('phone'),
-                    "meli_code" => $request->input('meli_code')
+                    "phone"     => $phone,
+                    "meli_code" => $meli_code
                 ];
+
                 $ch = curl_init($url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
