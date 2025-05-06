@@ -17,7 +17,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'name','username' ,'phone' , 'phone_number','api_token' , 'address' , 'state_id' , 'type_id' , 'city_id' , 'image' ,'whatsapp' ,'instagram', 'telegram' , 'email', 'password',
+        'name','username','api_token','level','email','password', 'image', 'imagedata' , 'phone' , 'national_id' , 'gender' , 'birthday' , 'age' , 'father_name', 'phone_number'
+        , 'address' , 'state_id', 'type_id' , 'city_id' ,'whatsapp' ,'instagram', 'telegram' ,
     ];
     public function activeCode()
     {

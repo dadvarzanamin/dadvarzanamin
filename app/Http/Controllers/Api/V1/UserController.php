@@ -18,6 +18,7 @@ use App\Models\Profile\State;
 use App\Models\TypeUser;
 use App\Models\User;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -100,18 +101,19 @@ class UserController extends Controller
     {
 
         $user = User::wherePhone($request->input('phone'))->first();
-        $user = null;
+
         if ($user === null) {
 
             $validData = $this->validate($request, [
-                'phone'     => 'required',
-                'national_id' => 'required|string',
-                'birthday'  => 'required|string',
-                'type_id'   => 'required|string',
+                'phone'         => 'required',
+                'national_id'   => 'required|string',
+                'birthday'      => 'required|string',
+                'type_id'       => 'required|string',
             ]);
 
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
+            $birthday       = $this->convertPersianToEnglishNumbers($request->input('birthday'));
 
             $token = EstelamToken::select('token', 'appname')->first();
 
@@ -121,58 +123,114 @@ class UserController extends Controller
                 'Content-Type: application/json',
             ];
 
-            $estelam = Estelam::whereId(17)->first();
-            $url     = $estelam->action_route;
-
+            $estelamshahkar = Estelam::whereId(17)->first();
+            $url     = $estelamshahkar->action_route;
                 $data = [
                     "mobileNumber"  => $phone,
                     "nationalCode"  => $meli_code
                 ];
-
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
-                if ($estelam->method == 'POST') {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            try {
+                    $ch = curl_init($url);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamshahkar->method);
+                    if ($estelamshahkar->method == 'POST') {
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+                    }
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                    $responseshahkar = curl_exec($ch);
+                    curl_close($ch);
+                    $responseDatashahkar = json_decode($responseshahkar, true);
+                    if ($responseDatashahkar['isSuccess'] == true) {
+                        $isMatched = $responseDatashahkar['data']['result']['isMatched'];
+                    }else{
+                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                    }
+                }catch (Exception $e) {
+                    $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
                 }
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                if ($isMatched == false){
+                    $response = 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
+                    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                }else{
+                        $estelamname = Estelam::whereId(2)->first();
+                        $url     = $estelamname->action_route;
+                        $fullname = [
+                            "nationalCode"  => $meli_code,
+                            "birthDate"     => $birthday
+                        ];
+                    try {
+                            $ch = curl_init($url);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamname->method);
+                            if ($estelamname->method == 'POST') {
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fullname));
+                            }
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                            $responsename = curl_exec($ch);
+                            curl_close($ch);
+                            $responseDataname = json_decode($responsename, true);
+                            if ($responseDataname['isSuccess'] == true) {
+                                $name           = $responseDataname['data']['result']['firstName'] . ' ' . $responseDataname['data']['result']['lastName'];
+                                $gender         = $responseDataname['data']['result']['gender'];
+                                $father_name    = $responseDataname['data']['result']['fatherName'];
+                            }else{
+                                $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                                return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                            }
+                        }catch (Exception $e) {
+                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                        }
+                        $estelamimage = Estelam::whereId(7)->first();
+                        $url     = $estelamimage->action_route;
+                        $image = [
+                            "nationalCode"  => $meli_code,
+                            "birthDate"     => $birthday
+                        ];
+                    try {
+                        $ch = curl_init($url);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamimage->method);
+                        if ($estelamimage->method == 'POST') {
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($image));
+                        }
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                        $responseimage = curl_exec($ch);
+                        curl_close($ch);
+                        $responseDataimage = json_decode($responseimage, true);
+                        if ($responseDatashahkar['isSuccess'] == true) {
+                            $image        = $responseDataimage['data']['result']['image'];
+                    }else{
+                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                        }
+                    }catch (Exception $e) {
+                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                    }
 
-                $response = curl_exec($ch);
-
-                curl_close($ch);
-                $responseData = json_decode($response, true);
-                dd($responseData);
-                if ($responseData['isSuccess'] == true) {
-                    $isMatched = $responseData['data']['result']['isMatched'];
-                }
-            dd($isMatched);
-
-            if ($isMatched == false){
-
-    $response = 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
-
-    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
-}else {
-    $user = User::create([
-        'phone' => $phone,
-        'national_id' => $validData['national_id'],
-        'birthday' => $validData['birthday'],
-        'type_id' => $validData['type_id'],
-    ]);
-
-    $user->update([
-        'api_token' => Str::random(100)
-    ]);
-
-    $code = ActiveCode::generateCode($user);
-
-    $user->notify(new ActiveCodeNotification($code, $phone));
-    $response = [
-        'token' => $user->api_token,
-    ];
-
-    return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
-}
+                    $user = User::create([
+                        'phone'         => $phone,
+                        'national_id'   => $meli_code,
+                        'birthday'      => $birthday,
+                        'name'          => $name,
+                        'gender'        => $gender,
+                        'father_name'   => $father_name,
+                        'imagedata'     => $image,
+                        'type_id'       => $validData['type_id'],
+                    ]);
+                    $user->update([
+                        'api_token' => Str::random(100)
+                    ]);
+                    $code = ActiveCode::generateCode($user);
+                    $user->notify(new ActiveCodeNotification($code, $phone));
+                    $response = [
+                        'token' => $user->api_token,
+                    ];
+            return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
+        }
         }else{
             $errorResponse = [
                 'error' => 'شماره موبایل قبلا ثبت شده',
