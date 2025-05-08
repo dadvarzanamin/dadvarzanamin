@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendImageInquiryJob;
+use App\Jobs\SendNameInquiryJob;
 use App\Models\ActiveCode;
 use App\Models\APP\contractDrafting;
 use App\Models\APP\documentDrafting;
@@ -25,7 +27,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
 
@@ -101,7 +104,7 @@ class UserController extends Controller
     {
 
         $user = User::wherePhone($request->input('phone'))->first();
-
+        $user = null;
         if ($user === null) {
 
             $validData = $this->validate($request, [
@@ -114,7 +117,7 @@ class UserController extends Controller
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
             $birthday       = $this->convertPersianToEnglishNumbers($request->input('birthday'));
-            $birthday       = substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0);
+            //$birthday       = substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0);
 
             $token = EstelamToken::select('token', 'appname')->first();
 
@@ -131,25 +134,26 @@ class UserController extends Controller
                     "nationalCode"  => $meli_code
                 ];
             try {
-                    $ch = curl_init($url);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamshahkar->method);
-                    if ($estelamshahkar->method == 'POST') {
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                    }
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                    $responseshahkar = curl_exec($ch);
-                    curl_close($ch);
-                    $responseDatashahkar = json_decode($responseshahkar, true);
-                    if ($responseDatashahkar['isSuccess'] == true) {
-                        $isMatched = $responseDatashahkar['data']['result']['isMatched'];
+                $http = Http::withHeaders($headers)->timeout(10);
+                $response = $estelamshahkar->method === 'POST' ? $http->post($url, $data) : $http->send($estelamshahkar->method, $url);
+                dd($response);
+                if ($response->successful()) {
+                    $responseData = $response->json();
+                    dd($responseData);
+                    if (!empty($responseData['isSuccess']) && $responseData['isSuccess'] === true) {
+                        $isMatched = $responseData['data']['result']['isMatched'] ?? null;
                     }else{
-                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
-                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                        $response = 'در حال حاضر ارتباط با سرور برقرار نشد، لطفا بعدا تلاش کنید';
+                        return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
                     }
-                }catch (Exception $e) {
-                    $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
-                    return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                    } else {
+                    $response = 'خطا در ارتباط با سرور. کد: ' . $response->status();
+                    return Response::json(['ok' => false, 'message' => 'error', 'response' => $response]);
+                    }
+                }catch (\Exception $e) {
+                    Log::error('CURL Error: ' . $e->getMessage());
+                    $response = 'در حال حاضر ارتباط با سرور قطع می‌باشد، لطفا مجددا تلاش نمایید';
+                    return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
                 }
                 if ($isMatched == false){
                     $response = 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
@@ -162,28 +166,37 @@ class UserController extends Controller
                             "birthDate"     => $birthday
                         ];
                     try {
-                            $ch = curl_init($url);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamname->method);
-                            if ($estelamname->method == 'POST') {
-                                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fullname));
-                            }
-                            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                            $responsename = curl_exec($ch);
-                            curl_close($ch);
-                            $responseDataname = json_decode($responsename, true);
-                            if ($responseDataname['isSuccess'] == true) {
-                                $name           = $responseDataname['data']['result']['firstName'] . ' ' . $responseDataname['data']['result']['lastName'];
-                                $gender         = $responseDataname['data']['result']['gender'];
-                                $father_name    = $responseDataname['data']['result']['fatherName'];
-                            }else{
+                        $http = Http::withHeaders($headers)->timeout(10);
+
+                        $response = $estelamname->method === 'POST' ? $http->post($url, $data) : $http->send($estelamname->method, $url);
+
+                        if ($response->successful()) {
+                            $data = $response->json();
+                            if (!empty($data['isSuccess']) && $data['isSuccess'] === true) {
+                                $result = $data['data']['result'] ?? [];
+
+                                $name = ($result['firstName'] ?? '') . ' ' . ($result['lastName'] ?? '');
+                                $gender = $result['gender'] ?? null;
+                                $father_name = $result['fatherName'] ?? null;
+
+                                Log::info('Name inquiry successful', compact('name', 'gender', 'father_name'));
+
+                            } else {
                                 $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
-                                return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                                SendNameInquiryJob::dispatch($url, $estelamname->method, $headers, $fullname);
+                                return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
+                            }
+                        }else {
+                                Log::warning('API HTTP error: ' . $response->status());
+                                SendNameInquiryJob::dispatch($url, $estelamname->method, $headers, $fullname);
+                                throw new \Exception('API returned HTTP error: ' . $response->status());
                             }
                         }catch (Exception $e) {
                         $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        SendNameInquiryJob::dispatch($url, $estelamname->method, $headers, $fullname);
                         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
                         }
+
                         $estelamimage = Estelam::whereId(7)->first();
                         $url     = $estelamimage->action_route;
                         $image = [
@@ -191,27 +204,34 @@ class UserController extends Controller
                             "birthDate"     => $birthday
                         ];
                     try {
-                        $ch = curl_init($url);
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelamimage->method);
-                        if ($estelamimage->method == 'POST') {
-                            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($image));
-                        }
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                        $responseimage = curl_exec($ch);
-                        curl_close($ch);
-                        $responseDataimage = json_decode($responseimage, true);
-                        if ($responseDatashahkar['isSuccess'] == true) {
-                            $image        = $responseDataimage['data']['result']['image'];
-                    }else{
-                        $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
-                        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+                        $http = Http::withHeaders($headers)->timeout(10);
+                        $response = $estelamimage->method === 'POST' ? $http->post($url, $image) : $http->send($estelamimage->method, $url);
+
+                        if ($response->successful()) {
+                            $data = $response->json();
+                            if (!empty($data['isSuccess']) && $data['isSuccess'] === true) {
+                                $result = $data['data']['result'] ?? [];
+
+                                $imagedata = $result['image'] ?? null;
+
+                                Log::info('Name inquiry successful', compact('name', 'gender', 'father_name'));
+
+                            } else {
+                                $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                                SendImageInquiryJob::dispatch($url, $estelamimage->method, $headers, $image);
+                                return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
+                            }
+                        }else {
+                            Log::warning('API HTTP error: ' . $response->status());
+                            SendImageInquiryJob::dispatch($url, $estelamimage->method, $headers, $image);
+                            throw new \Exception('API returned HTTP error: ' . $response->status());
                         }
                     }catch (Exception $e) {
                         $response = 'در حال حاضر ارتباط با سرور قطع می باشد، لطفا مجددا تلاش نمایید';
+                        SendImageInquiryJob::dispatch($url, $estelamimage->method, $headers, $image);
                         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
                     }
-
+dd($phone, $meli_code, $birthday, $name, $gender, $father_name, $imagedata);
                     $user = User::create([
                         'phone'         => $phone,
                         'national_id'   => $meli_code,
@@ -219,7 +239,7 @@ class UserController extends Controller
                         'name'          => $name,
                         'gender'        => $gender,
                         'father_name'   => $father_name,
-                        'imagedata'     => $image,
+                        'imagedata'     => $imagedata,
                         'type_id'       => $validData['type_id'],
                     ]);
                     $user->update([
