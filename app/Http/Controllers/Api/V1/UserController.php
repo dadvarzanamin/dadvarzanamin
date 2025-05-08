@@ -105,7 +105,7 @@ class UserController extends Controller
     {
 
         $user = User::wherePhone($request->input('phone'))->first();
-        $user = null;
+
         if ($user === null) {
 
             $validData = $this->validate($request, [
