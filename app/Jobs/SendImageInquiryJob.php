@@ -2,8 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Dashboard\Estelam;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,69 +15,61 @@ class SendImageInquiryJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    protected $userId, $nationalCode, $birthDate, $headers;
 
-    protected $url;
-    protected $method;
-    protected $headers;
-    protected $image;
-
-    public $tries = 3;        // تا ۵ بار retry شود
-    public $backoff = 60;     // فاصله بین retry ها ۶۰ ثانیه
-
-    /**
-     * Create a new job instance.
-     */
-    public function __construct($url, $method, $headers, $image)
+    public function __construct($userId, $nationalCode, $birthDate, $headers)
     {
-        $this->url     = $url;
-        $this->method  = $method;
+        $this->userId = $userId;
+        $this->nationalCode = $nationalCode;
+        $this->birthDate = $birthDate;
         $this->headers = $headers;
-        $this->image   = $image;
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle()
     {
+        $estelam = Estelam::whereId(7)->first(); // Image Inquiry
+        $response = $this->sendCurlRequest($estelam->action_route, $estelam->method, $this->headers, [
+            'nationalCode'  => $this->nationalCode,
+            'birthDate'     => $this->birthDate,
+        ]);
+
+        if ($response['isSuccess'] === true) {
+            $image = $response['data']['result']['image'] ?? null;
+
+            User::where('id', $this->userId)->update([
+                'imagedata' => $image,
+            ]);
+
+            Log::info("Image inquiry success", ['user_id' => $this->userId]);
+        } else {
+            Log::warning("Image inquiry failed", ['user_id' => $this->userId]);
+        }
+    }
+    function sendCurlRequest($url, $method, $headers, $data = [])
+    {
         try {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+            if (strtoupper($method) === 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
 
-            $user = User::where('national_code', $this->image['nationalCode'])->first();
-
-            if (!$user) {
-                Log::warning("User with ID $this->image['nationalCode'] not found.");
-                return;
+            if (curl_errno($ch)) {
+                throw new \Exception(curl_error($ch));
             }
 
-            $http = Http::withHeaders($this->headers)->timeout(10);
-
-            $response = $this->method === 'POST' ? $http->post($this->url, $this->image) : $http->send($this->method, $this->url);
-
-            if ($response->successful()) {
-                $data = $response->json();
-                if (!empty($data['isSuccess']) && $data['isSuccess'] === true) {
-                    $result = $data['data']['result'] ?? [];
-
-                    $imagedata  = $data['data']['result']['image'];
-
-                    // اینجا می‌توانید داده‌ها را در دیتابیس ذخیره کنید یا لاگ بگیرید:
-                    Log::info('Name inquiry successful', compact('imagedata'));
-
-                    $user->update([
-                        'imageData'        => $imagedata,
-                    ]);
-                } else {
-                    Log::warning('API response received but isSuccess is false.');
-                    throw new \Exception('API returned failure status.');
-                }
-            } else {
-                Log::warning('API HTTP error: ' . $response->status());
-                throw new \Exception('API returned HTTP error: ' . $response->status());
-            }
+            curl_close($ch);
+            return json_decode($response, true);
         } catch (\Exception $e) {
-            Log::error('SendImageInquiryJob failed: ' . $e->getMessage());
-            throw $e; // اجازه می‌دهد لاراول job را مجدد اجرا کند
+            \Log::error("CURL Request Failed: " . $e->getMessage(), [
+                'url' => $url,
+                'method' => $method,
+                'data' => $data
+            ]);
+            return null;
         }
     }
 }
