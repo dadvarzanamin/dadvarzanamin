@@ -114,6 +114,7 @@ class UserController extends Controller
             $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
             $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
             $birthday       = $this->convertPersianToEnglishNumbers($request->input('birthday'));
+            $birthday       = substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0);
 
             $token = EstelamToken::select('token', 'appname')->first();
 
@@ -317,8 +318,8 @@ class UserController extends Controller
                 ->leftjoin('states', 'users.state_id', '=', 'states.id')
                 ->leftjoin('cities', 'users.city_id', '=', 'cities.id')
                 ->select('users.email' , 'users.name',  'users.phone', 'users.national_id', 'users.father_name', 'users.birthday', 'users.gender', 'users.age'
-                    , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode'
-                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token' , 'users.type_id as type', 'users.created_at as timeset' , 'users.image')
+                    , 'users.originality', 'users.marital_status', 'users.telphone', 'users.address', 'users.postalcode', 'users.image', 'users.imagedata'
+                    , 'users.birth_certificate', 'states.title as state', 'cities.title as city', 'users.api_token' , 'users.type_id as type', 'users.created_at as timeset' )
                 ->where('users.id', '=', Auth::user()->id)
                 ->first();
 
