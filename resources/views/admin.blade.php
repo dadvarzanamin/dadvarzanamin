@@ -52,8 +52,7 @@
                     </div>
                     <div class="col-3">
                         <div class="logo-box logo--box">
-                            <a href="{{url('پروفایل-من')}}" class="logo"><img src="{{asset($companies['image'])}}"
-                                                                              alt="لوگو"/></a>
+                            <a href="{{url('پروفایل-من')}}" class="logo"><img src="{{asset($companies['image'])}}" alt="لوگو"/></a>
                         </div>
                         <div class="menu-wrapper float-left">
                             <div class="nav-left-button d-flex align-items-center">
@@ -158,24 +157,23 @@
                                                     <li>
                                                         <ul class="generic-list-item">
                                                             <li>
-                                                                <a href="{{route('setting')}}"> <i
-                                                                        class="la la-gear mr-1"></i> تنظیمات </a>
+                                                                <a href="{{route('setting')}}"> <i class="la la-wallet mr-1"></i> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}} ریال </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('setting')}}"> <i class="la la-gear mr-1"></i> تنظیمات </a>
                                                             </li>
                                                             <li>
                                                                 <a href="{{route('message')}}">
                                                                     <i class="la la-envelope mr-1"></i>پیام های
-                                                                    <span
-                                                                        class="badge bg-info text-white ml-2 p-1">12+</span>
+                                                                    <span class="badge bg-info text-white ml-2 p-1">12+</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{route('user-request')}}"> <i
-                                                                        class="la la-question mr-1"></i> درخواست مشاوره
+                                                                <a href="{{route('user-request')}}"> <i class="la la-question mr-1"></i> درخواست مشاوره
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{route('logout')}}"> <i
-                                                                        class="la la-power-off mr-1"></i> خروج </a>
+                                                                <a href="{{route('logout')}}"> <i class="la la-power-off mr-1"></i> خروج </a>
                                                             </li>
                                                         </ul>
                                                     </li>

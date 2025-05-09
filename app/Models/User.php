@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Profile\Notif;
+use App\Models\Profile\Wallet;
+use App\Models\Profile\WalletTransaction;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\comment;
 use App\Models\Role;
@@ -70,5 +72,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function commentrate(){
         return $this->hasMany(comment::class);
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(WalletTransaction::class);
     }
 }

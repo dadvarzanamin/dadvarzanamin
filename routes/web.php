@@ -64,6 +64,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
 
         // Authentication Routes...
         Route::get('profile'            , 'ProfileController@profile')              ->name('profile');
+        Route::get('withdraw'           , 'ProfileController@withdraw')             ->name('withdraw');
         Route::get('usernotif'          , 'ProfileController@usernotif')            ->name('usernotif');
         Route::get('setting'            , 'ProfileController@setting')              ->name('setting');
         Route::get('message'            , 'ProfileController@message')              ->name('message');
@@ -76,12 +77,13 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::post('queries'           , 'ProfileController@queries')              ->name('queries');
         Route::post('workshop-sign'     , 'ProfileController@workshopsign')         ->name('workshop-sign');
         Route::get('paymentpage'        , 'ProfileController@paymentpage')          ->name('paymentpage');
-        Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
+        //Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
         Route::get('payment.callback'   , 'ProfileController@callbackpay')          ->name('payment.callback');
         Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
         Route::post('discountcheck'      , 'ProfileController@discountcheck')        ->name('discountcheck');
         Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
+        Route::get('pay'                , 'WalletController@pay')                  ->name('pay');
 
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
@@ -207,10 +209,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
 
 });
 
-Route::group(['namespace' => 'App\Http\Controllers\Auth' , 'prefix' => 'admin'] , function (){
-    // Authentication Routes...
-    Route::get('login'      , 'LoginController@showLoginForm')->name('panellogin');
-    Route::post('login'     , 'LoginController@login');
-    Route::get('logout'     , 'LoginController@logout')->name('panellogout');
-});
+    Route::group(['namespace' => 'App\Http\Controllers\Auth' , 'prefix' => 'admin'] , function (){
+        // Authentication Routes...
+        Route::get('login'      , 'LoginController@showLoginForm')->name('panellogin');
+        Route::post('login'     , 'LoginController@login');
+        Route::get('logout'     , 'LoginController@logout')->name('panellogout');
+    });
 
+    Route::post('wallet/deposit'        , 'WalletController@deposit')->name('deposit');
+    Route::post('wallet/withdraw'       , 'WalletController@withdraw')->name('withdraw');
+    Route::get('wallet'                 , 'WalletController@show');
+    Route::get('wallet/transactions'    , 'WalletController@transactions');

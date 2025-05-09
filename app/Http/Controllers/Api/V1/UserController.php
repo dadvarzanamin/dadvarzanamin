@@ -157,6 +157,7 @@ class UserController extends Controller
             $user->update([
                 'api_token' => Str::random(100)
             ]);
+            $user->wallet()->create(['balance' => 0]);
             $code = ActiveCode::generateCode($user);
             $user->notify(new ActiveCodeNotification($code, $phone));
             SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);

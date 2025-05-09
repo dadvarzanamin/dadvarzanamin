@@ -17,6 +17,7 @@ use App\Models\Menu;
 use App\Models\Dashboard\Post;
 use App\Models\Profile\Workshop;
 use App\Models\Submenu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Artisan;
@@ -37,7 +38,13 @@ class IndexController extends Controller
     public function index(Request $request)
     {
          //Artisan::call('sitemap:generate');
-
+//        $users = User::doesntHave('wallet')->get();
+//        foreach ($users as $user) {
+//            $user->wallet()->create([
+//                'balance' => 0,
+//            ]);
+//        }
+//        dd(User::doesntHave('wallet')->get());
         $url = $request->segments();
         $menus = Menu::select('id', 'title', 'slug', 'submenu', 'priority', 'mega_menu')->MenuSite()->orderBy('priority')->get();
         if (count($url) == 1) {
