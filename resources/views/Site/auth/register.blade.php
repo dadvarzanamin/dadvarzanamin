@@ -26,16 +26,16 @@
                                         <form method="POST" action="{{ route('register') }}" class="form-account text-right">
                                             @csrf
                                             <div class="form-account-title">
-                                                <label>نام و نام خانوادگی</label>
-                                                <input type="text" name="name" autocomplete="off" required  class="form-control @error('name') is-invalid @enderror">
-                                            </div>
-                                            <div class="form-account-title">
                                                 <label> شماره موبایل</label>
                                                 <input type="number" name="phone" autocomplete="off" required  class="form-control @error('phone') is-invalid @enderror">
                                             </div>
                                             <div class="form-account-title">
-                                                <label> نام کاربری</label>
-                                                <input type="text" name="username" autocomplete="off" required  class="form-control @error('username') is-invalid @enderror" >
+                                                <label>کد ملی</label>
+                                                <input type="text" name="national_id" autocomplete="off" required  class="form-control @error('national_id') is-invalid @enderror" >
+                                            </div>
+                                            <div class="form-account-title">
+                                                <label>تاریخ تولد</label>
+                                                <input type="text" name="birthday" autocomplete="off" required  class="form-control @error('birthday') is-invalid @enderror" >
                                             </div>
                                             <div class="form-account-title">
                                                 <label for="id_label_single"> نوع کاربری</label>
@@ -45,16 +45,6 @@
                                                         <option value="{{$type->id}}">{{$type->title_fa}}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                            <div class="form-account-title">
-                                                <label>رمز عبور</label>
-                                                <input type="password" id="pass" autocomplete="off" required  name="password" class="form-control" />
-                                                <i class="fa fa-eye-slash" style="float: left;margin-top: -25px;margin-left: 15px;" onclick="togglePassword()"></i>
-
-                                            </div>
-                                            <div class="form-account-title">
-                                                <label>تکرار رمز عبور</label>
-                                                <input type="password" required name="password_confirmation" class="form-control" />
                                             </div>
                                             <div class="form-auth-row">
                                                 <label class="ui-checkbox mt-1">
@@ -119,7 +109,7 @@
                                                                     <p>ما میتوانیم به دلایل قانونی یا کاری و اداری محتوای ارائه شده و هرگونه خدمات ارائه شده را حذف کنیم. چنانچه قصد داشتیم محتوای ارائه شده و یا خدمات ارائه شده را حذف کنیم، تلاش معقولی خواهیم کرد تا به شما از طریق ایمیل و یا پیامک اطلاع بدهیم، اما این کار بسته به دلیل یا ضرورتِ حذف، همیشه ممکن نخواهد بود.</p>
                                                                     <p>اگر در دسترسی به حساب یا هر بخشی از محتوای دریافت شده و در دریافت ارائه خدمات به مشکلی برخوردید، لطفاً با ما تماس بگیرید.</p>
                                                                     <p>کاربر اشتراکی ملزم به رعایت کلیه مفاد این سند خواهد بود مگر اینکه خلاف آن صریحا در قرارداد اختصاصی او با ما پیشبینی شده باشد.</p>
-                                                                    <p>فعالسازی خدمات مورد تقاضای کاربر منوط به پرداخت هزینههای اعلام شده در قالب صورتحساب است و ما بدون پرداخت این هزینهها هیچ گونه تعهدی در خصوص ارائه خدمات به مشتری نداریم. مدت زمان لازم برای صدور صورتحساب پس از دریافت درخواست مکتوب مشتری (فرم سفارش، ایمیل، پیام الکترونیکی، خرید آنلاین و&helpp;) حداکثر ۲۴ ساعت بوده و مهلت پرداخت صورتحساب ۱۰ روزکاری است. در صورت عدم پرداخت صورتحساب در مهلت مقرر ما میتوانیم نسبت به تمدید صورتحساب صادر شده و یا صدور صورتحساب جدید اقدام نموده و در صورت نیاز بنا بر صلاحدید خود از ارائه خدمات به مشتری صرف نظر نماییم.</p>
+                                                                    <p>فعالسازی خدمات مورد تقاضای کاربر منوط به پرداخت هزینههای اعلام شده در قالب صورتحساب است و ما بدون پرداخت این هزینهها هیچ گونه تعهدی در خصوص ارائه خدمات به مشتری نداریم. مدت زمان لازم برای صدور صورتحساب پس از دریافت درخواست مکتوب مشتری (فرم سفارش، ایمیل، پیام الکترونیکی، خرید آنلاین و حداکثر ۲۴ ساعت بوده و مهلت پرداخت صورتحساب ۱۰ روزکاری است. در صورت عدم پرداخت صورتحساب در مهلت مقرر ما میتوانیم نسبت به تمدید صورتحساب صادر شده و یا صدور صورتحساب جدید اقدام نموده و در صورت نیاز بنا بر صلاحدید خود از ارائه خدمات به مشتری صرف نظر نماییم.</p>
                                                                     <p>شما با افتتاح حساب در دادورزان امین می پذیرید که دادورزان امین برای اطلاع رسانی های خود از ایمیل، پیامک و یا اعلان در حساب کاربری شما به عنوان راه ارتباطی استفاده کند. شما می توانید درخواست کنید که ارسال پیامک و یا ایمیل به شما قطع شود مشروط بر آنکه بپذیرید با انصراف از دریافت این پیام ها ممکن است در استفاده از خدمات با مشکل مواجه شوید و یا اطلاعات مورد نیاز به موقع به شما نرسد.</p>
                                                                     <p>با ایجاد حساب کاربری شما قادر خواهید بود تا در سایت دادورزان امین در قسمت درج نظرات و در قسمت پرسش و پاسخ، داده هایی را در قالب کلمات وارد نمایید.</p>
                                                                     <p>در ارتباط با دارایی های اشخاص ثالث شما اقرار و تایید می کنید که تمامی مراحل اجازه ی استفاده از اموال فکری و مطالب سایر اشخاص را طی کرده اید وبنابراین مجوز استفاده از آن ها را دارا هستید.</p>

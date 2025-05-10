@@ -2,8 +2,12 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Jobs\SendImageInquiryJob;
+use App\Jobs\SendNameInquiryJob;
 use App\Models\ActiveCode;
 use App\Http\Requests\UserRequest;
+use App\Models\Dashboard\Estelam;
+use App\Models\Profile\EstelamToken;
 use App\Notifications\ActiveCode as ActiveCodeNotification;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -12,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 trait RegistersUsers
 {
@@ -62,32 +67,62 @@ trait RegistersUsers
 
     public function registeruser(UserRequest $request)
     {
+
         $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
-        $password       = $this->convertPersianToEnglishNumbers($request->input('password'));
 
         $user = User::wherePhone($phone)->first();
         if ($user === null) {
 
-            $users = new User();
+            $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
+            $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
+            $birthday       = $this->convertPersianToEnglishNumbers($request->input('birthday'));
+            $birthday       = str_replace('/', '', $birthday);
 
-            $users->name        = $request->input('name');
-            $users->phone       = $phone;
-            $users->username    = $request->input('username');
-            $users->type_id     = $request->input('type_user');
-            $users->password    = Hash::make($password);
+            $token = EstelamToken::select('token', 'appname')->first();
+            $headers = [
+                'token:' . $token->token,
+                'appname:' . $token->appname,
+                'Content-Type: application/json',
+            ];
 
-            $users->save();
+            $shahkar = Estelam::whereId(17)->first();
+            $responseShahkar = $this->sendCurlRequest($shahkar->action_route, $shahkar->method, $headers, [
+                "mobileNumber" => $phone,
+                "nationalCode" => $meli_code
+            ]);
+            if ($responseShahkar['isSuccess'] === false) {
+                $errorPath = $responseShahkar['details'][0]['path'][0] ?? '';
+                $message = ($errorPath === 'nationalCode')
+                    ? 'کد ملی وارد شده صحیح نمی باشد'
+                    : 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
+                return redirect()->back()->with('error', $message);
+            }
+            $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
 
-            $user = User::wherePhone($phone)->first();
+            if ($isMatched === false) {
+                $message =  'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
+                return redirect()->back()->with('error', $message);
+            }
+            $user = User::create([
+                'phone'         => $phone,
+                'national_id'   => $meli_code,
+                'birthday'      => substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0),
+                'type_id'       => $validData['type_id'],
+            ]);
+            $user->update([
+                'api_token' => Str::random(100)
+            ]);
+            $user->wallet()->create(['balance' => 0]);
+            $code = ActiveCode::generateCode($user);
+            $user->notify(new ActiveCodeNotification($code, $phone));
+            SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
+            SendImageInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
 
             $request->session()->flash('auth', [
                 'user_id' => $user->id,
                 'reg' => 1
             ]);
 
-            $code = ActiveCode::generateCode($user);
-
-            $user->notify(new ActiveCodeNotification($code , $phone));
             return redirect(route('phone.token'))->with(['phone' => $phone]);
         }
 
