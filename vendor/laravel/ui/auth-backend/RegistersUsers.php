@@ -95,19 +95,22 @@ trait RegistersUsers
                 $message = ($errorPath === 'nationalCode')
                     ? 'کد ملی وارد شده صحیح نمی باشد'
                     : 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
-                return redirect()->back()->with('error', $message);
+
+                alert()->error('عملیات ناموفق', $message);
+                return Redirect::back()->withInput();
             }
             $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
 
             if ($isMatched === false) {
                 $message =  'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید';
-                return redirect()->back()->with('error', $message);
+                alert()->error('عملیات ناموفق', $message);
+                return Redirect::back()->withInput();
             }
             $user = User::create([
                 'phone'         => $phone,
                 'national_id'   => $meli_code,
                 'birthday'      => substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0),
-                'type_id'       => $validData['type_id'],
+                'type_id'       => $request->input('type_id'),
             ]);
             $user->update([
                 'api_token' => Str::random(100)
@@ -127,7 +130,7 @@ trait RegistersUsers
         }
 
         alert()->error('عملیات ناموفق', 'شماره موبایل قبلا ثبت شده است');
-        return Redirect::back();
+        return Redirect::back()->withInput();
     }
     public function mobileregister(UserRequest $request)
     {
@@ -185,5 +188,32 @@ trait RegistersUsers
     protected function registered(Request $request, $user)
     {
         //
+    }
+    function sendCurlRequest($url, $method, $headers, $data = [])
+    {
+        try {
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+            if (strtoupper($method) === 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                throw new \Exception(curl_error($ch));
+            }
+
+            curl_close($ch);
+            return json_decode($response, true);
+        } catch (\Exception $e) {
+            \Log::error("CURL Request Failed: " . $e->getMessage(), [
+                'url' => $url,
+                'method' => $method,
+                'data' => $data
+            ]);
+            return null;
+        }
     }
 }

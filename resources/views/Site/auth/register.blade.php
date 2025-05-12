@@ -27,22 +27,22 @@
                                             @csrf
                                             <div class="form-account-title">
                                                 <label> شماره موبایل</label>
-                                                <input type="number" name="phone" autocomplete="off" required  class="form-control @error('phone') is-invalid @enderror">
+                                                <input type="number" name="phone" required value="{{ old('phone') }}"  class="form-control @error('phone') is-invalid @enderror">
                                             </div>
                                             <div class="form-account-title">
                                                 <label>کد ملی</label>
-                                                <input type="text" name="national_id" autocomplete="off" required  class="form-control @error('national_id') is-invalid @enderror" >
+                                                <input type="text" name="national_id" required value="{{ old('national_id') }}"  class="form-control @error('national_id') is-invalid @enderror" >
                                             </div>
                                             <div class="form-account-title">
                                                 <label>تاریخ تولد</label>
-                                                <input type="text" name="birthday" autocomplete="off" required  class="form-control @error('birthday') is-invalid @enderror" >
+                                                <input type="text" name="birthday" required value="{{ old('birthday') }}"  class="form-control @error('birthday') is-invalid @enderror" >
                                             </div>
                                             <div class="form-account-title">
                                                 <label for="id_label_single"> نوع کاربری</label>
                                                 <select name="type_user" class="form-control" required>
                                                     <option value="">انتخاب کنید</option>
                                                     @foreach(\App\Models\TypeUser::select('id' , 'title_fa')->whereIn('id' , [4,5,6,7])->get() as $type)
-                                                        <option value="{{$type->id}}">{{$type->title_fa}}</option>
+                                                        <option value="{{$type->id}}" {{ old('type_user') == $type->id ? 'selected' : '' }}>{{$type->title_fa}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -210,27 +210,6 @@
     </body>
 @endsection
 @section('script')
-    <script type="text/javascript">
-        function togglePassword(){
-            x = document.getElementById("togglePassword")
-            y = document.getElementById("pass")
-
-            if (y.type ==="password") {
-                y.type = 'text';
-            } else{
-                y.type="password";
-                y.innerHTML = "Show"
-            }
-        }
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // پاک کردن مقادیر احتمالی از فیلدها
-            document.querySelectorAll('input[type="text"], input[type="password"]').forEach(function (input) {
-                input.value = " ";
-            });
-        });
-    </script>
     @if ($errors->any())
         <script>
             Swal.fire({
