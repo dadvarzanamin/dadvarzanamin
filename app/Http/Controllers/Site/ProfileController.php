@@ -783,122 +783,122 @@ class ProfileController extends Controller
         return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
     }
 
-//    public function pay(Request $request)
-//    {
-//
-//        $workshopid     = $request->input('workshopid');
-//        $finalprice     = $request->input('finalprice');
-//
-//        Session::put('workshopid'.Auth::user()->id, $workshopid);
-//        Session::put('finalprice'.Auth::user()->id, $finalprice);
-//
-//
-//        if (Auth::user()->email == null)
-//        {
-//            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
-//            return Redirect::back();
-//
-//        }elseif (Auth::user()->phone == null){
-//            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
-//            return Redirect::back();
-//
-//        }else {
-//            $workshopsigns = DB::table('workshops as w')
-//                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-//                ->select('ws.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.pricestatus', 'ws.price')
-//                ->where('w.id', '=', $workshopid)
-//                ->where('ws.user_id', '=', Auth::user()->id)
-//                ->first();
-//            if($workshopsigns->pricestatus == null){
-//
-//                $request = Toman::amount($workshopsigns->price)
-//                    ->description($workshopsigns->title)
-//                    ->callback(route('payment.callback'))
-//                    ->mobile(Auth::user()->phone)
-//                    ->email(Auth::user()->email)
-//                    ->request();
-//            }else{
-//                alert()->error('', 'َشما قبلا در این دوره ثبت نام کرده اید');
-//                return Redirect::back();
-//            }
-//            if ($request->successful()) {
-//                DB::table('workshopsigns as w')->whereId($workshopsigns->id)
-//                    ->update([
-//                        'transactionId' => $request->transactionId()
-//                    ]);
-//                return $request->pay();
-//            }
-//
-//            if ($request->failed()) {
-//                // Handle transaction request failure.
-//            }
-//        }
-//    }
+    public function pay(Request $request)
+    {
 
-//    public function callbackpay(Request $request)
-//    {
-//        $authority = $request->query('Authority');
-//        $status = $request->query('Status');
-//
-//        if ($status == "OK") {
-//            $workshopsign = DB::table('workshops as w')
-//                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-//                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
-//                ->where('ws.transactionId', '=', $authority)
-//                ->where('ws.user_id', '=', Auth::user()->id)
-//                ->where('ws.pricestatus', '=', null)
-//                ->first();
-//
-//            $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
-//
-//            if ($payment->successful()) {
-//                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
-//                    'referenceId'       => $payment->referenceId(),
-//                    'pricestatus'       => 4,
-//                ]);
-//            if ($workshopsign->typeuse == 1) {
-//                $workshoptype = 'حضوری';
-//
-//            } elseif ($workshopsign->typeuse == 2) {
-//                $workshoptype = 'آنلاین';
-//            }
-//            try {
-//                $curl = curl_init();
-//                curl_setopt_array($curl, array(
-//                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-//                    CURLOPT_RETURNTRANSFER => true,
-//                    CURLOPT_ENCODING => "",
-//                    CURLOPT_MAXREDIRS => 10,
-//                    CURLOPT_TIMEOUT => 30,
-//                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//                    CURLOPT_CUSTOMREQUEST => "POST",
-//                    CURLOPT_POSTFIELDS => http_build_query([
-//                        'type' => '1',
-//                        'param1' => Auth::user()->name,
-//                        'param2' => $workshopsign->title,
-//                        'param3' => $workshoptype,
-//                        'receptor' => Auth::user()->phone,
-//                        'template' => 'workshop',
-//                    ]),
-//                    CURLOPT_HTTPHEADER => array(
-//                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
-//                        "cache-control: no-cache",
-//                        "content-type: application/x-www-form-urlencoded",
-//                    ),
-//                ));
-//                $response = curl_exec($curl);
-//                $err = curl_error($curl);
-//                curl_close($curl);
-//            } catch (Exception $exception) {
-//            }
-//                return view('Site.Dashboard.payment-success');
-//            } else {
-//                return view('Site.Dashboard.payment-failed');
-//            }
-//        } else {
-//            return view('Site.Dashboard.payment-failed');
-//        }
-//    }
+        $workshopid     = $request->input('workshopid');
+        $finalprice     = $request->input('finalprice');
+
+        Session::put('workshopid'.Auth::user()->id, $workshopid);
+        Session::put('finalprice'.Auth::user()->id, $finalprice);
+
+
+        if (Auth::user()->email == null)
+        {
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
+
+        }elseif (Auth::user()->phone == null){
+            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
+
+        }else {
+            $workshopsigns = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('ws.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.pricestatus', 'ws.price')
+                ->where('w.id', '=', $workshopid)
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->first();
+            if($workshopsigns->pricestatus == null){
+
+                $request = Toman::amount($workshopsigns->price)
+                    ->description($workshopsigns->title)
+                    ->callback(route('payment.callback'))
+                    ->mobile(Auth::user()->phone)
+                    ->email(Auth::user()->email)
+                    ->request();
+            }else{
+                alert()->error('', 'َشما قبلا در این دوره ثبت نام کرده اید');
+                return Redirect::back();
+            }
+            if ($request->successful()) {
+                DB::table('workshopsigns as w')->whereId($workshopsigns->id)
+                    ->update([
+                        'transactionId' => $request->transactionId()
+                    ]);
+                return $request->pay();
+            }
+
+            if ($request->failed()) {
+                // Handle transaction request failure.
+            }
+        }
+    }
+
+    public function callbackpay(Request $request)
+    {
+        $authority = $request->query('Authority');
+        $status = $request->query('Status');
+
+        if ($status == "OK") {
+            $workshopsign = DB::table('workshops as w')
+                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
+                ->select('w.id','w.title', 'w.price', 'w.date', 'ws.typeuse', 'ws.price as totalprice')
+                ->where('ws.transactionId', '=', $authority)
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.pricestatus', '=', null)
+                ->first();
+
+            $payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
+
+            if ($payment->successful()) {
+                Workshopsign::whereWorkshop_id($workshopsign->id)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
+                    'referenceId'       => $payment->referenceId(),
+                    'pricestatus'       => 4,
+                ]);
+            if ($workshopsign->typeuse == 1) {
+                $workshoptype = 'حضوری';
+
+            } elseif ($workshopsign->typeuse == 2) {
+                $workshoptype = 'آنلاین';
+            }
+            try {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => http_build_query([
+                        'type' => '1',
+                        'param1' => Auth::user()->name,
+                        'param2' => $workshopsign->title,
+                        'param3' => $workshoptype,
+                        'receptor' => Auth::user()->phone,
+                        'template' => 'workshop',
+                    ]),
+                    CURLOPT_HTTPHEADER => array(
+                        "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
+                        "cache-control: no-cache",
+                        "content-type: application/x-www-form-urlencoded",
+                    ),
+                ));
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                curl_close($curl);
+            } catch (Exception $exception) {
+            }
+                return view('Site.Dashboard.payment-success');
+            } else {
+                return view('Site.Dashboard.payment-failed');
+            }
+        } else {
+            return view('Site.Dashboard.payment-failed');
+        }
+    }
 
     public function edituserprofile(Request $request)
     {
