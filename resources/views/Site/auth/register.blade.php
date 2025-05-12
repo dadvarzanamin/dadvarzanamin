@@ -23,7 +23,7 @@
                                 <div class="Login-to-account">
                                     <div class="account-box-content">
                                         <h4>ثبت نام در سایت</h4>
-                                        <form method="POST" action="{{ route('register') }}" class="form-account text-right">
+                                        <form method="POST" action="{{ route('register') }}" class="form-account">
                                             @csrf
 
                                             <div class="form-account-title">
