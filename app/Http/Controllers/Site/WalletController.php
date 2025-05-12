@@ -9,28 +9,38 @@ use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class WalletController extends Controller
 {
     public function pay(Request $request)
     {
-
         $request->validate([
-            'amount' => 'required|numeric|min:1000',
-            'description' => 'nullable|string|max:255',
+            'amount'        => 'required|numeric|min:1000',
+            'description'   => 'nullable|string|max:255',
         ]);
 
-        $user = auth()->user();
-        $amount = $request->amount;
+        $user           = auth()->user();
+        $amount         = $request->amount;
+        $description    = $request->description;
 
         $transaction = $user->transactions()->create([
             'wallet_id'     => $user->wallet->id,
             'type'          => 'deposit',
             'amount'        => $amount,
-            'description'   => $request->description,
+            'description'   => $description,
             'status'        => 'pending',
         ]);
+        if (Auth::user()->email == null)
+        {
+            alert()->error('', 'اطلاعات ادرس ایمیل وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
 
+        }elseif (Auth::user()->phone == null){
+            alert()->error('', 'اطلاعات شماره همراه وارد نشده است، به قسمت تنظیمات حساب مراجعه کنید');
+            return Redirect::back();
+
+        }
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
