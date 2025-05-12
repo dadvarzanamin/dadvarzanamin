@@ -97,9 +97,14 @@
                                                 <div class="shop-cart-btn">
                                                     <div class="avatar-xs">
                                                         <img class="rounded-full img-fluid"
-                                                             @if(Auth::user()->image)  src="{{Auth::user()->image}}"
-                                                             @else src="{{asset('admin/assets/img/users/1.jpg')}}"
-                                                             @endif alt="{{(Auth::user()->name)}}"/>
+                                                             @if(Auth::user()->image)
+                                                                src="{{Auth::user()->image}}"
+                                                             @elseif(Auth::user()->imagedata)
+                                                                src="{{Auth::user()->imagedata}}"
+                                                             @else
+                                                                src="{{asset('admin/assets/img/users/1.jpg')}}"
+                                                             @endif
+                                                                alt="{{(Auth::user()->name)}}"/>
                                                     </div>
                                                     <span class="dot-status bg-1"></span>
                                                 </div>
