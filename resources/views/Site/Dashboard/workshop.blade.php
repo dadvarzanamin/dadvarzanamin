@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <select name="typeuse" class="form-control" id="typeuse">
                                 <option value="">انتخاب کنید</option>
-                                <option value="1">حضوری</option>
+                                <option value="1" selected>حضوری</option>
 {{--                                <option value="2">مجازی</option>--}}
                             </select>
                         </div>
@@ -52,7 +52,7 @@
                                 <option value="">انتخاب کنید</option>
 {{--                                <option value="1">نیاز به گواهی دوره</option>--}}
 {{--                                <option value="0">عدم نیاز به گواهی دوره</option>--}}
-                                <option value="1">دوره فاقد گواهی می باشد</option>
+                                <option value="0" selected>دوره فاقد گواهی می باشد</option>
                             </select>
                         </div>
                     </div>
