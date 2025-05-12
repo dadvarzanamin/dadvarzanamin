@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="form-account-title">
                                                 <label>تاریخ تولد</label>
-                                                <input type="text" name="birthday" required value="{{ old('birthday') }}"  class="form-control @error('birthday') is-invalid @enderror" >
+                                                <input type="text" name="birthday" required value="{{ old('birthday') }}" placeholder="1380/01/01"  class="form-control @error('birthday') is-invalid @enderror" >
                                             </div>
                                             <div class="form-account-title">
                                                 <label for="id_label_single"> نوع کاربری</label>
