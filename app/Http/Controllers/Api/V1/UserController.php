@@ -402,5 +402,9 @@ class UserController extends Controller
         $request->validate(['password' => 'required|min:6']);
         $user->password = Hash::make($request->input('password'));
         $user->update();
+
+        $response = 'رمز جدید با موفقیت ثبت شد' ;
+        return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+
     }
 }
