@@ -112,9 +112,14 @@
                                                     <li class="menu-heading-block d-flex align-items-center">
                                                         <a href="" class="avatar-sm flex-shrink-0 d-block">
                                                             <img class="rounded-full img-fluid"
-                                                                 @if(Auth::user()->image)  src="{{Auth::user()->image}}"
-                                                                 @else src="{{asset('admin/assets/img/users/1.jpg')}}"
-                                                                 @endif alt="{{Auth::user()->name}}"/>
+                                                                 @if(Auth::user()->image)
+                                                                 src="{{Auth::user()->image}}"
+                                                                 @elseif(Auth::user()->imagedata)
+                                                                 src="data:image/gif;base64,{{Auth::user()->imagedata}}"
+                                                                 @else
+                                                                 src="{{asset('admin/assets/img/users/1.jpg')}}"
+                                                                 @endif
+                                                                 alt="{{(Auth::user()->name)}}"/>
                                                         </a>
                                                         <div class="ml-2">
                                                             <h4><a href="" class="text-black">{{Auth::user()->name}}</a>
