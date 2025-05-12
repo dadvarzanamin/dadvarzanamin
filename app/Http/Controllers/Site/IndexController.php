@@ -152,13 +152,6 @@ class IndexController extends Controller
     }
 
     public function questionlist(Request $request){
-               $users = User::doesntHave('wallet')->get();
-       foreach ($users as $user) {
-           $user->wallet()->create([
-               'balance' => 0,
-           ]);
-       }
-       dd(User::doesntHave('wallet')->get());
         $url = $request->segments();
         $menus        = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_menu')->MenuSite()->orderBy('priority')->get();
         if (count($url) == 1) {
