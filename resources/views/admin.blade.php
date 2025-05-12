@@ -100,7 +100,7 @@
                                                              @if(Auth::user()->image)
                                                                 src="{{Auth::user()->image}}"
                                                              @elseif(Auth::user()->imagedata)
-                                                                src="{{Auth::user()->imagedata}}"
+                                                                src="data:image/gif;base64,{{Auth::user()->imagedata}}"
                                                              @else
                                                                 src="{{asset('admin/assets/img/users/1.jpg')}}"
                                                              @endif
