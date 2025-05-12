@@ -22,8 +22,13 @@
     <link rel="stylesheet" href="{{asset('site/css/bootstrap-select.min.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/fancybox.css')}}">
     <link rel="stylesheet" href="{{asset('site/css/tooltipster.bundle.css')}}">
+    <link rel="stylesheet" href="{{asset('site/css/intlTelInput.min.css')}}" />
     <link rel="stylesheet" href="{{asset('site/css/style.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Persian Datepicker CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css"/>
+
     <title></title>
     @yield('style')
 </head>
@@ -546,6 +551,7 @@
 <script src="{{ asset('site/js/datedropper.min.js') }}"></script>
 <script src="{{ asset('site/js/tooltipster.bundle.min.js') }}"></script>
 <script src="{{ asset('site/js/jquery.lazy.min.js') }}"></script>
+<script src="{{asset('site/js/intlTelInput-jquery.min.js')}}"></script>
 
 <!-- Owl Carousel -->
 <script src="{{ asset('site/js/owl.carousel.min.js') }}"></script>
@@ -554,8 +560,9 @@
 <script src="{{ asset('site/js/main.js') }}"></script>
 <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}"></script>
 
-<!-- Custom JS -->
-<script src="{{ asset('site/js/custom.js') }}"></script>
+<!-- Persian Date & Datepicker JS -->
+<script src="https://cdn.jsdelivr.net/npm/persian-date@1.0.6/dist/persian-date.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 
 <!-- سایر اسکریپت‌های صفحه -->
 @yield('script')
