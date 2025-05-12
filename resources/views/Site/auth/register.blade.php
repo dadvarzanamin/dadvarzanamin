@@ -25,6 +25,12 @@
                                         <h4>ثبت نام در سایت</h4>
                                         <form method="POST" action="{{ route('register') }}" class="form-account text-right">
                                             @csrf
+
+                                            <div class="form-account-title">
+                                                <a href="{{url('login/google')}}" class="btn btn-danger btn-login br-16"><i class="fa fa-google mr-2"></i> ورود با حساب گوگل </a>
+                                            </div>
+                                            <hr>
+
                                             <div class="form-account-title">
                                                 <label> شماره موبایل</label>
                                                 <input type="number" name="phone" required value="{{ old('phone') }}"  class="form-control @error('phone') is-invalid @enderror">
