@@ -680,6 +680,158 @@ class EstelamController extends Controller
                 ];
             }
             return response()->json(['response' => $result]);
+        }elseif ($request->input('formId') == 18) {
+
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+                "mobileNumber"  => $request->input('mobileNumber'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
+
+            $status        = $responseData['data']['result']['hasPassport'];
+
+            if ($status == true) {
+                $status = 'دارد';
+            } else {
+                $status = 'ندارد';
+            }
+
+            $result = [
+                'وضعیت پاسپورت'    => $status,
+            ];
+
+            return response()->json(['response' => $result]);
+
+        }elseif ($request->input('formId') == 19) {
+
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
+
+            $status        = $responseData['data']['result']['militaryStatus'];
+
+            $result = [
+                'وضعیت نظام وضیفه'    => $status,
+            ];
+
+            return response()->json(['response' => $result]);
+
+        }elseif ($request->input('formId') == 20) {
+
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
+
+            $code        = $responseData['data']['result']['trackId'];
+
+            $result = [
+                'کد استعلام'    => $code,
+            ];
+
+            return response()->json(['response' => $result]);
+
+        }elseif ($request->input('formId') == 21) {
+
+            $data = [
+                "nationalCode"  => $request->input('nationalCode'),
+                "trackId"       => $request->input('trackId'),
+            ];
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $estelam->method);
+            if ($estelam->method == 'POST') {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+            $response = curl_exec($ch);
+
+            curl_close($ch);
+            $responseData = json_decode($response, true);
+            $status        = $responseData['data']['result']['statusMessage'];
+
+//            $logs = new Log_estelam();
+//            $logs->title = $estelam->title_fa;
+//            $logs->request = json_encode($data);
+//            $logs->response = json_encode($responseData);
+//            $logs->action_route = $estelam->action_route;
+//            $logs->date = jdate()->format('Y/m/d');
+//            $logs->user_id = Auth::user()->id;
+//            $logs->save();
+
+            $result = [
+                'لیست مدارک فرد'    => $responseData,
+                'وضعیت تحصیل'    => $status,
+            ];
+
+            return response()->json(['response' => $result]);
+
         }
 
         } catch (Exception $e) {
