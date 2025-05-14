@@ -399,7 +399,7 @@ class UserController extends Controller
     public function addpass(Request $request){
 
         $user = User::findOrfail(auth::user()->id);
-        $request->validate(['password' => 'required|min:6']);
+        $request->validate(['password' => 'required|min:6|confirmed']);
         $user->password = Hash::make($request->input('password'));
         $user->update();
 
