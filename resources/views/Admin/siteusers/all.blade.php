@@ -87,7 +87,7 @@
                     {data: 'name'        , name: 'name'},
                     {data: 'username'    , name: 'username'},
                     {data: 'email'       , name: 'email'},
-                    {data: 'email'       , name: 'email'},
+                    {data: 'phone'       , name: 'phone'},
                     {data: 'status'      , name: 'status'},
                     {data: 'date'        , name: 'date'},
                     {data: 'action'      , name: 'action', orderable: true, searchable: true},
