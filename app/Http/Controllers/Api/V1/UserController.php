@@ -138,15 +138,21 @@ class UserController extends Controller
                 $message = ($errorPath === 'nationalCode')
                     ? 'کد ملی وارد شده صحیح نمی باشد'
                     : 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
-                return response()->json(['ok' => true, 'message' => 'success', 'response' => $message]);
+                return response()->json(
+                    ['isSuccess'       => true,
+                        'message'      => $message,
+                        'errors'       => null,
+                        'status_code'  => 200,
+                    ], 200);
             }
             $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
             if ($isMatched === false) {
-                return response()->json([
-                    'ok' => true,
-                    'message' => 'success',
-                    'response' => 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید'
-                ]);
+                return response()->json(
+                    ['isSuccess'       => false,
+                        'message'      => 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید',
+                        'errors'       => true,
+                        'status_code'  => 500,
+                    ], 500);
             }
             $user = User::create([
                 'phone'         => $phone,
@@ -162,18 +168,20 @@ class UserController extends Controller
             $user->notify(new ActiveCodeNotification($code, $phone));
             SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
             SendImageInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
-            $response = [
-                'token' => $user->api_token,
-                'ok' => true,
-                'message' => 'success',
-                'response' => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.'
-            ];
-            return Response::json(['ok' => true, 'message' => 'success', 'response' => $response]);
+            return response()->json(
+                ['isSuccess'       => true,
+                    'token'        => $user->api_token,
+                    'message'      => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
+                    'errors'       => null,
+                    'status_code'  => 200,
+                ], 200);
         }else{
-            $errorResponse = [
-                'error' => 'شماره موبایل قبلا ثبت شده',
-            ];
-            return Response::json(['ok' =>false ,'message' => 'failed','response'=>$errorResponse]);
+            return response()->json(
+                ['isSuccess'       => false,
+                    'message'      => 'شماره موبایل قبلا ثبت شده',
+                    'errors'       => true,
+                    'status_code'  => 500,
+                ], 500);
         }
     }
 
@@ -211,10 +219,12 @@ class UserController extends Controller
         $status = activeCode::whereCode($token)->where('expired_at' , '>' , now())->first();
 
         if(! $status) {
-            $errorResponse = [
-                'error' => 'کد فعال سازی نادرست',
-            ];
-            return Response::json(['ok' =>false ,'message' => 'failed','response'=>$errorResponse]);
+            return response()->json(
+                ['isSuccess'       => false,
+                    'message'      => 'کد فعال سازی نادرست',
+                    'errors'       => true,
+                    'status_code'  => 500,
+                ], 500);
 
         }else{
             $user = User::whereId($status->user_id)->first();
@@ -223,11 +233,13 @@ class UserController extends Controller
             $user->api_token = Str::random(100);
             $user->update();
 
-            $response = [
-                'token'=>$user->api_token,
-            ];
-
-            return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
+            return response()->json(
+                ['isSuccess'       => true,
+                    'token'        => $user->api_token,
+                    'message'      => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
+                    'errors'       => null,
+                    'status_code'  => 200,
+                ], 200);
 
         }
     }
