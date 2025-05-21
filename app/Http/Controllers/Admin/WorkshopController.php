@@ -55,25 +55,32 @@ class WorkshopController extends Controller
 //dd($response);
 
 //
-//        $workshopId = 9;
-//        $priceStatus = 4;
-//        $typeUse = 1;
-//        $user_offer = 1;
+        //$workshopId = 16;
+        //$priceStatus = 4;
+        //$typeUse = 1;
+        //$user_offer = 1;
+
+//        $page = 1; // شماره صفحه فعلی
+//        $perPage = 22; // تعداد رکورد در هر صفحه
+//        $offset = ($page - 1) * $perPage;
 //
 //        $results = DB::table('workshopsigns as ws')
 //            ->join('users as u', 'ws.user_id', '=', 'u.id')
 //            ->join('workshops as w', 'ws.workshop_id', '=', 'w.id')
 //            ->select('u.name', 'u.phone')
-//            //->where('ws.workshop_id', $workshopId)
-//            ->where('ws.pricestatus', '=' , 4 )
-//            ->where('ws.workshop_id', '=' , 9 )
-//            ->where('ws.typeuse', '=' , 2 )
-//            //->where('u.id', '=' , 30 )
-//            //->where('ws.pricestatus', $priceStatus)
-//            //->where('ws.typeuse', $typeUse)
-//            //->where('ws.user_offer', $user_offer)
+//            //->where('ws.pricestatus', 4)
+//            //->where('ws.workshop_id', 16)
+//            //->where('ws.typeuse', 2)
+//            ->where('u.id', '=' , 1 )
+//           ->groupBy('u.name', 'u.phone')
+//            ->offset($offset)
+//            ->limit($perPage)
 //            ->get();
 //dd($results);
+            //->where('ws.pricestatus', $priceStatus)
+            //->where('ws.typeuse', $typeUse)
+            //->where('ws.user_offer', $user_offer)
+
 //        foreach ($results as $result) {
 //
 //        try {
@@ -90,9 +97,11 @@ class WorkshopController extends Controller
 //                CURLOPT_POSTFIELDS => http_build_query([
 //                    'type' => '1',
 //                    'param1'    => $result->name ,
-//                    'param2'    => ' لینک : '.' '.'https://event.alocom.co/class/dadvarzan/208cbc1f' ,
+//                    'param2'    => 'امروز آخرین فرصت ثبت نام شرکت ' ,
+//                    'param3'    => 'بررسی قرارداد های بیع و دعاوی مرتبط' ,
+//                    'param4'    => 'تمایل پیش از تکمیل ظرفیت و یا پایان زمان ثبت نام' ,
 //                    'receptor'  => $result->phone,
-//                    'template'  => 'onlineworkshop',
+//                    'template'  => 'tourokey',
 //                ]),
 //                CURLOPT_HTTPHEADER => array(
 //                    "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
