@@ -306,6 +306,44 @@
             }
         }
     </style>
+
+    <!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
+    <div id="app-banner"
+         style="background-color: #233d63; color: white; padding: 14px 24px;
+            font-family: 'Vazir', sans-serif; position: fixed; top: 0; left: 0; right: 0;
+            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">
+
+        <!-- 🔸 دکمه‌ها در یک ردیف -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- دکمه دانلود (راست) -->
+            <a href="{{url('/app/app-release-v1.2.0.apk')}}"
+               style="background-color: #cea54a; color: #233d63; padding: 10px 24px;
+              border-radius: 8px; text-decoration: none; font-weight: bold;"
+            class="external"
+            >
+                دانلود نسخه جدید اپلیکیشن امین
+            </a>
+
+            <!-- دکمه بستن (چپ) -->
+            <button onclick="document.getElementById('app-banner').style.display='none';
+                     document.body.style.paddingTop='0';"
+                    style="background: none; border: none; color: white; font-size: 28px;
+                   cursor: pointer; line-height: 1; max-width: 40px">
+                &times;
+            </button>
+        </div>
+    </div>
+
+    <!-- 🔸 فاصله زیر بنر -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.style.paddingTop = "70px";
+        });
+    </script>
+
+
+    <!-- 🔸 برای اینکه نوبار شما زیر بنر قرار بگیره -->
+    <div style="height: 80px;"></div>
     <div class="slider">
         <div class="container">
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
@@ -333,7 +371,7 @@
                     <div class="content content-shadow-product" style="margin:20px auto;">
                         <img src="{{asset('storage/'.$currentws->image)}}"
                              style="width: 300px;border-radius: 16px"
-                             alt="دوره ضربتی قانون اساسی">
+                             alt="{{$currentws->title}}">
                     </div>
                     <div class="content" style="margin: 20px auto;">
 

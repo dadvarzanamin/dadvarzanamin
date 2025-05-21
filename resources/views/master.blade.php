@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="author" content="مهندس محمد حسین دیوان بیگی">
@@ -114,7 +114,34 @@
     }
 
 </style>
+<!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
 <body>
+<div id="app-banner"
+     style="background-color: #233d63; color: white; padding: 14px 24px;
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">
+
+    <!-- 🔸 دکمه‌ها در یک ردیف -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- دکمه دانلود (راست) -->
+        <a href="{{url('/app/app-release-v1.2.0.apk')}}"
+           style="background-color: #cea54a; color: #233d63; padding: 10px 24px;
+              border-radius: 8px; text-decoration: none; font-weight: bold;"
+           class="external"
+        >
+            دانلود نسخه جدید اپلیکیشن امین
+        </a>
+
+        <!-- دکمه بستن (چپ) -->
+        <button onclick="document.getElementById('app-banner').style.display='none';
+                     document.body.style.paddingTop='0';"
+                style="background: none; border: none; color: white; font-size: 28px;
+                   cursor: pointer; line-height: 1; max-width: 40px">
+            &times;
+        </button>
+    </div>
+</div>
+
 <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-24"
      style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
     <div class="container-fluid px-4 py-3 br-24 header-bg justify-content-between">
@@ -694,20 +721,47 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        const banner = document.getElementById('app-banner');
+        const navbar = document.getElementById('navbar_top');
+
+        let bannerHeight = banner?.offsetHeight || 0;
+        let bannerVisible = true;
+
+        // تنظیم اولیه فاصله بدنه
+        if (banner && navbar) {
+            document.body.style.paddingTop = bannerHeight + 'px';
+        }
+
+        // کنترل اسکرول و موقعیت navbar
         window.addEventListener('scroll', function () {
-            if (window.scrollY > 50) {
-                document.getElementById('navbar_top').classList.add('fixed-top');
-                // add padding top to show content behind navbar
-                navbar_height = document.querySelector('.navbar').offsetHeight;
-                document.body.style.paddingTop = navbar_height + 'px';
-            } else {
-                document.getElementById('navbar_top').classList.remove('fixed-top');
-                // remove padding top from body
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('fixed-top');
+                    navbar.style.top = bannerVisible ? bannerHeight + 'px' : '0';
+                } else {
+                    navbar.classList.remove('fixed-top');
+                    navbar.style.top = '';
+                }
+            }
+        });
+
+        // کنترل بستن بنر
+        const closeBtn = banner?.querySelector('button');
+        closeBtn?.addEventListener('click', function () {
+            if (banner) {
+                banner.style.display = 'none';
+                bannerVisible = false;
                 document.body.style.paddingTop = '0';
+
+                // اگر navbar در حال حاضر fixed هست، باید top رو صفر کنیم
+                if (navbar && navbar.classList.contains('fixed-top')) {
+                    navbar.style.top = '0';
+                }
             }
         });
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var offcanvas = document.getElementById('offcanvasMenu');
@@ -748,5 +802,15 @@
     });
 
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var banner = document.getElementById('app-banner');
+        if (banner) {
+            var bannerHeight = banner.offsetHeight;
+            document.body.style.paddingTop = bannerHeight + 'px';
+        }
+    });
+</script>
+
 </body>
 </html>
