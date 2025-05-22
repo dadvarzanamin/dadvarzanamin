@@ -31,6 +31,72 @@
 @endsection
 @section('main')
     <style>
+        /* پس‌زمینه تیره */
+        .android-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        /* محتوای مودال */
+        .android-modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            font-family: Vazir, sans-serif;
+            position: relative;
+        }
+
+        /* دکمه بستن */
+        .android-modal-close {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 28px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* آیکون اندروید */
+        .android-modal-icon {
+            background-color: #fff;
+            border-radius: 50%;
+            padding: 8px; /* کاهش padding برای جا دادن کامل تصویر */
+            width: 200px;
+            height: 200px;
+            margin-bottom: 15px;
+            object-fit: contain; /* نمایش کامل تصویر بدون برش */
+            display: inline;
+        }
+
+        /* متن */
+        .android-modal-text {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* دکمه دانلود */
+        .android-modal-button {
+            display: inline-block;
+            background-color: #3ddc84;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .modal-body {
             padding: 0;
         }
@@ -307,43 +373,52 @@
         }
     </style>
 
-    <!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
-    <div id="app-banner"
-         style="background-color: #233d63; color: white; padding: 14px 24px;
-            font-family: 'Vazir', sans-serif; position: fixed; top: 0; left: 0; right: 0;
-            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">
-
-        <!-- 🔸 دکمه‌ها در یک ردیف -->
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <!-- دکمه دانلود (راست) -->
-            <a href="{{url('/app/app-release-v1.2.0.apk')}}"
-               style="background-color: #cea54a; color: #233d63; padding: 10px 24px;
-              border-radius: 8px; text-decoration: none; font-weight: bold;"
-            class="external"
-            >
-                دانلود نسخه جدید اپلیکیشن امین
-            </a>
-
-            <!-- دکمه بستن (چپ) -->
-            <button onclick="document.getElementById('app-banner').style.display='none';
-                     document.body.style.paddingTop='0';"
-                    style="background: none; border: none; color: white; font-size: 28px;
-                   cursor: pointer; line-height: 1; max-width: 40px">
-                &times;
-            </button>
+    <div id="androidModal" class="android-modal">
+        <div class="android-modal-content">
+            <span class="android-modal-close" onclick="closeAndroidModal()">&times;</span>
+            <img src="{{asset('mobile/images/android.png')}}" alt="Android" class="android-modal-icon">
+            <p class="android-modal-text">برای تجربه بهتر، اپلیکیشن ما را دانلود کنید</p>
+            <a href="{{url('/app/app-release-v1.2.0.apk')}}" class="android-modal-button external">دانلود اپلیکیشن اندروید</a>
         </div>
     </div>
 
-    <!-- 🔸 فاصله زیر بنر -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.style.paddingTop = "70px";
-        });
-    </script>
+    <!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
+{{--    <div id="app-banner"--}}
+{{--         style="background-color: #233d63; color: white; padding: 14px 24px;--}}
+{{--            font-family: 'Vazir', sans-serif; position: fixed; top: 0; left: 0; right: 0;--}}
+{{--            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">--}}
+
+{{--        <!-- 🔸 دکمه‌ها در یک ردیف -->--}}
+{{--        <div style="display: flex; justify-content: space-between; align-items: center;">--}}
+{{--            <!-- دکمه دانلود (راست) -->--}}
+{{--            <a href="{{url('/app/app-release-v1.2.0.apk')}}"--}}
+{{--               style="background-color: #cea54a; color: #233d63; padding: 10px 24px;--}}
+{{--              border-radius: 8px; text-decoration: none; font-weight: bold;"--}}
+{{--            class="external"--}}
+{{--            >--}}
+{{--                دانلود نسخه جدید اپلیکیشن امین--}}
+{{--            </a>--}}
+
+{{--            <!-- دکمه بستن (چپ) -->--}}
+{{--            <button onclick="document.getElementById('app-banner').style.display='none';--}}
+{{--                     document.body.style.paddingTop='0';"--}}
+{{--                    style="background: none; border: none; color: white; font-size: 28px;--}}
+{{--                   cursor: pointer; line-height: 1; max-width: 40px">--}}
+{{--                &times;--}}
+{{--            </button>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+{{--    <!-- 🔸 فاصله زیر بنر -->--}}
+{{--    <script>--}}
+{{--        document.addEventListener("DOMContentLoaded", function () {--}}
+{{--            document.body.style.paddingTop = "70px";--}}
+{{--        });--}}
+{{--    </script>--}}
 
 
     <!-- 🔸 برای اینکه نوبار شما زیر بنر قرار بگیره -->
-    <div style="height: 80px;"></div>
+{{--    <div style="height: 80px;"></div>--}}
     <div class="slider">
         <div class="container">
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
@@ -2155,3 +2230,14 @@
         </div>
 
         @endsection
+        <script>
+            function closeAndroidModal() {
+                document.getElementById("androidModal").style.display = "none";
+            }
+
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    document.getElementById("androidModal").style.display = "block";
+                }, 1000); // ۱ ثانیه بعد از لود کامل
+            });
+        </script>

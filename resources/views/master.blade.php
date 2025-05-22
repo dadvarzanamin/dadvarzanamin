@@ -116,31 +116,31 @@
 </style>
 <!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
 <body>
-<div id="app-banner"
-     style="background-color: #233d63; color: white; padding: 14px 24px;
-            position: fixed; top: 0; left: 0; right: 0;
-            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">
+{{--<div id="app-banner"--}}
+{{--     style="background-color: #233d63; color: white; padding: 14px 24px;--}}
+{{--            position: fixed; top: 0; left: 0; right: 0;--}}
+{{--            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">--}}
 
-    <!-- 🔸 دکمه‌ها در یک ردیف -->
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <!-- دکمه دانلود (راست) -->
-        <a href="{{url('/app/app-release-v1.2.0.apk')}}"
-           style="background-color: #cea54a; color: #233d63; padding: 10px 24px;
-              border-radius: 8px; text-decoration: none; font-weight: bold;"
-           class="external"
-        >
-            دانلود نسخه جدید اپلیکیشن امین
-        </a>
+{{--    <!-- 🔸 دکمه‌ها در یک ردیف -->--}}
+{{--    <div style="display: flex; justify-content: space-between; align-items: center;">--}}
+{{--        <!-- دکمه دانلود (راست) -->--}}
+{{--        <a href="{{url('/app/app-release-v1.2.0.apk')}}"--}}
+{{--           style="background-color: #cea54a; color: #233d63; padding: 10px 24px;--}}
+{{--              border-radius: 8px; text-decoration: none; font-weight: bold;"--}}
+{{--           class="external"--}}
+{{--        >--}}
+{{--            دانلود نسخه جدید اپلیکیشن امین--}}
+{{--        </a>--}}
 
-        <!-- دکمه بستن (چپ) -->
-        <button onclick="document.getElementById('app-banner').style.display='none';
-                     document.body.style.paddingTop='0';"
-                style="background: none; border: none; color: white; font-size: 28px;
-                   cursor: pointer; line-height: 1; max-width: 40px">
-            &times;
-        </button>
-    </div>
-</div>
+{{--        <!-- دکمه بستن (چپ) -->--}}
+{{--        <button onclick="document.getElementById('app-banner').style.display='none';--}}
+{{--                     document.body.style.paddingTop='0';"--}}
+{{--                style="background: none; border: none; color: white; font-size: 28px;--}}
+{{--                   cursor: pointer; line-height: 1; max-width: 40px">--}}
+{{--            &times;--}}
+{{--        </button>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light my-3 mx-2 mx-xl-5 p-0 br-24"
      style="z-index: 1000; border: 1px solid rgba(51,51,51,0.3)">
