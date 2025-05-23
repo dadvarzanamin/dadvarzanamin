@@ -627,11 +627,33 @@ class IndexController extends Controller
         $megamenus = mega_menu::all();
         $submenus = Submenu::select('id', 'title', 'slug', 'menu_id', 'megamenu_id')->whereStatus(4)->get();
         $companies      = Company::first();
+        $services       = Submenu::select('title', 'slug', 'menu_id', 'image')->whereStatus(4)->whereMenu_id(64)->get();
         $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
         $serviceclients = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(5)->whereMenu_id(64)->get();
         $slides = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->get();
         $contracts = Contract::all();
-        return view('Site.contract')->with(compact('menus' ,'thispage' , 'megacounts' , 'megamenus' , 'submenus' , 'companies' , 'servicelawyers' , 'serviceclients' , 'slides','contracts'));
+        return view('Site.contract')->with(compact('menus' ,'thispage' , 'megacounts' , 'services' ,  'megamenus' , 'submenus' , 'companies' , 'servicelawyers' , 'serviceclients' , 'slides','contracts'));
 
+    }
+
+    public function singlecontract(Request $request , $slug)
+    {
+        $url = $request->segments();
+        $menus = Menu::select('id', 'title', 'slug', 'submenu', 'priority', 'mega_menu')->MenuSite()->orderBy('priority')->get();
+        $thispage = Menu::select('id', 'title', 'slug', 'tab_title', 'page_title', 'keyword', 'page_description')->MenuSite()->whereSlug($url[0])->first();
+        $megacounts = mega_menu::selectRaw('COUNT(*) as count, menu_id')
+            ->groupBy('menu_id')
+            ->get()
+            ->toArray();
+        $servicelawyers = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(4)->whereMenu_id(64)->get();
+        $megamenus      = mega_menu::all();
+        $submenus       = Submenu::select('title', 'slug', 'menu_id', 'megamenu_id')->whereStatus(4)->get();
+        $companies      = Company::first();
+        $services       = Submenu::select('title', 'slug', 'menu_id', 'image')->whereStatus(4)->whereMenu_id(64)->get();
+        $slides         = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
+        $customers      = Customer::select('name', 'image')->whereStatus(4)->whereHome_show(1)->get();
+        $contracts      = Contract::whereSlug($slug)->first();
+
+        return view('Site.singlecontract')->with(compact('menus', 'thispage', 'companies', 'slides', 'customers', 'submenus', 'services', 'megacounts', 'megamenus', 'contracts', 'servicelawyers'));
     }
 }

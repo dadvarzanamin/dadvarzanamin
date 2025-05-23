@@ -1,30 +1,23 @@
 @extends('master')
 
 @section('style')
-    <meta name="description" content="نمونه قرارداد کاری برای استخدام مشاور حقوقی">
-    <title>قرارداد استخدام مشاور حقوقی</title>
+    <meta name="description" content="{{$contracts->title}}">
+    <title>{{$contracts->title}}</title>
 @endsection
 
 @section('main')
     <section class="single-article-area p-1 pb-100px">
         <div class="container">
             <div class="row">
-                <!-- 🔹 محتوای قرارداد -->
                 <div class="col-lg-8 mb-5">
                     <div class="card card-item card-bg50">
-
-                        <!-- پیش‌نمایش فایل قرارداد -->
                         <div class="text-center">
-                            <img src="{{ asset('site/images/contracts/preview-contract-amin.png') }}"
-                                 alt="پیش‌نمایش قرارداد"
-                                 class="img-fluid rounded shadow-sm"
-                                 style="max-height: 500px;">
+                            <img src="{{ asset($contracts->image) }}" alt="پیش‌نمایش قرارداد" class="img-fluid rounded shadow-sm" style="max-height: 500px;">
                         </div>
 
                         <div class="card-body">
-                            <h1 class="article-title">قرارداد استخدام مشاور حقوقی</h1>
+                            <h1 class="article-title">{{$contracts->title}}</h1>
 
-                            <!-- مشخصات -->
                             <div class="article-meta d-flex justify-content-between align-items-center mb-3">
                                 <span><i class="la la-user"></i> تنظیم‌کننده: دپارتمان حقوقی امین</span>
                                 <span><i class="la la-clock"></i> زمان مطالعه: حدود ۷ دقیقه</span>
@@ -42,7 +35,6 @@
                                 <p>استخدام مشاور حقوقی جهت ارائه مشاوره تخصصی در امور حقوقی شرکت.</p>
                             </div>
 
-                            <!-- دکمه خرید -->
                             <div class="mt-4 text-center">
                                 <a href="#" onclick="alert('فعلاً امکان خرید فعال نیست')" class="btn btn-success btn-lg br-8 px-5">
                                     خرید قرارداد
@@ -52,7 +44,6 @@
                     </div>
                 </div>
 
-                <!-- 🔸 سایدبار قراردادهای مشابه -->
                 <div class="col-lg-4">
                     <div class="sidebar">
                         <div class="card card-item card-bg50">

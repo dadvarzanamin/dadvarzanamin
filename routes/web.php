@@ -101,6 +101,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
     Route::post('/Consultationrequest'      , [App\Http\Controllers\Site\IndexController::class, 'Consultationrequest'])->name('Consultationrequest');
     Route::get('شرایط-ضوابط'                , [App\Http\Controllers\Site\IndexController::class, 'terms'])              ->name('شرایط-ضوابط');
     Route::get('اخبار'.'/'.'{slug}'         , [App\Http\Controllers\Site\IndexController::class, 'singleakhbar']);
+    Route::get('نمونه-قراردادها'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'singlecontract']);
     Route::get('تیم-ما'.'/'.'رزومه'.'/'.'{slug}'  , [App\Http\Controllers\Site\IndexController::class, 'emploeeresume']);
     Route::get('محتوای-آموزشی'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'singlepost']);
     //Route::get('دوره-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
