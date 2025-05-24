@@ -41,7 +41,7 @@
                     <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                         <div class="card-image">
                             <a href="{{url('نمونه-قراردادها/'.$contract->slug)}}" class="d-block">
-                                <img class="card-img-top lazy" src="{{asset('storage'.$contract->image)}}" data-src="{{asset('storage/'.$contract->image)}}" alt="{{$contract->title}}" />
+                                <img class="card-img-top lazy" src="{{asset('storage/'.$contract->image)}}" data-src="{{asset('storage/'.$contract->image)}}" alt="{{$contract->title}}" />
                             </a>
                             <div class="course-badge-labels">
                                 <div class="course-badge">{{$contract->paid_type}}</div>
