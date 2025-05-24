@@ -103,7 +103,6 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-
         $user = User::wherePhone($request->input('phone'))->first();
 
         if ($user === null) {
@@ -134,17 +133,14 @@ class UserController extends Controller
                 "nationalCode" => $meli_code
             ]);
             if ($responseShahkar['isSuccess'] === false) {
-                $errorPath = $responseShahkar['details'][0]['path'][0] ?? '';
-                $message = ($errorPath === 'nationalCode')
-                    ? 'کد ملی وارد شده صحیح نمی باشد'
-                    : 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
+                $message = 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
                 return response()->json(
-                    ['isSuccess'       => true,
+                    ['isSuccess'       => false,
                         'message'      => $message,
-                        'errors'       => null,
-                        'status_code'  => 200,
-                    ], 200);
-            }
+                        'errors'       => true,
+                        'status_code'  => 500,
+                    ], 500);
+            }elseif ($responseShahkar['isSuccess'] === true){
             $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
             if ($isMatched === false) {
                 return response()->json(
@@ -153,29 +149,31 @@ class UserController extends Controller
                         'errors'       => true,
                         'status_code'  => 500,
                     ], 500);
+            }elseif ($isMatched === true) {
+                $user = User::create([
+                    'phone' => $phone,
+                    'national_id' => $meli_code,
+                    'birthday' => substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0),
+                    'type_id' => $validData['type_id'],
+                ]);
+                $user->update([
+                    'api_token' => Str::random(100)
+                ]);
+                $user->wallet()->create(['balance' => 0]);
+                $code = ActiveCode::generateCode($user);
+                $user->notify(new ActiveCodeNotification($code, $phone));
+                SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
+                SendImageInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
+                return response()->json(
+                    ['isSuccess' => true,
+                        'token' => $user->api_token,
+                        'message' => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
+                        'errors' => null,
+                        'status_code' => 200,
+                    ], 200);
             }
-            $user = User::create([
-                'phone'         => $phone,
-                'national_id'   => $meli_code,
-                'birthday'      => substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0),
-                'type_id'       => $validData['type_id'],
-            ]);
-            $user->update([
-                'api_token' => Str::random(100)
-            ]);
-            $user->wallet()->create(['balance' => 0]);
-            $code = ActiveCode::generateCode($user);
-            $user->notify(new ActiveCodeNotification($code, $phone));
-            SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
-            SendImageInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
-            return response()->json(
-                ['isSuccess'       => true,
-                    'token'        => $user->api_token,
-                    'message'      => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
-                    'errors'       => null,
-                    'status_code'  => 200,
-                ], 200);
-        }else{
+            }
+            }else{
             return response()->json(
                 ['isSuccess'       => false,
                     'message'      => 'شماره موبایل قبلا ثبت شده',
