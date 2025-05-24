@@ -67,7 +67,7 @@
                                                     <select name="paid_type" id="paid_type" class="form-control select-lg select2">
                                                         <option value="">انتخاب نوع قرارداد</option>
                                                         <option value="free" {{$contracts->paid_type     == 'free'     ? 'selected' : ''}}>رایگان</option>
-                                                        <option value="nonefree" {{$contracts->paid_type == 'nonefree' ? 'selected' : ''}}>غیر رایگان</option>
+                                                        <option value="nonefree" {{$contracts->paid_type == 'notfree'  ? 'selected' : ''}}>غیر رایگان</option>
                                                         <option value="vip" {{$contracts->paid_type      == 'vip'      ? 'selected' : ''}}>کاربران ویژه</option>
                                                     </select>
                                                 </div>

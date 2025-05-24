@@ -63,10 +63,10 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <p class="mg-b-10">نوع هزینه</p>
-                                                <select name="paid_type" id="paid_type" class="form-control select-lg select2">
+                                                <select name="paid_type[]" id="paid_type" class="form-control select-lg select2">
                                                     <option value="">انتخاب نوع قرارداد</option>
                                                     <option value="free">رایگان</option>
-                                                    <option value="nonefree">غیر رایگان</option>
+                                                    <option value="notfree">غیر رایگان</option>
                                                     <option value="vip">کاربران ویژه</option>
                                                 </select>
                                             </div>
@@ -145,6 +145,24 @@
     </script>
     <script>
         CKEDITOR.replace('editor2');
+    </script>
+    <script>
+        const priceInput = document.getElementById('price');
+        const discountInput = document.getElementById('discount');
+
+        function formatNumber(val) {
+            val = val.replace(/,/g, '');
+            if (!/^\d*$/.test(val)) return '';
+            return Number(val).toLocaleString('en');
+        }
+
+        priceInput.addEventListener('input', function () {
+            this.value = formatNumber(this.value);
+        });
+
+        discountInput.addEventListener('input', function () {
+            this.value = formatNumber(this.value);
+        });
     </script>
 
 @endsection

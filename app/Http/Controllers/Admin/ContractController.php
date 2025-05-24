@@ -96,8 +96,8 @@ class ContractController extends Controller
             $contracts = new Contract();
             $contracts->title           = $request->input('title');
             $contracts->paid_type       = $request->input('paid_type');
-            $contracts->price           = $request->input('price');
-            $contracts->discount        = $request->input('discount');
+            $contracts->price           = str_replace(',', '', $request->input('price'));
+            $contracts->discount        = str_replace(',', '', $request->input('discount'));
             $contracts->text            = $request->input('text');
             $contracts->description     = $request->input('description');
             if($request->input('type')) {
