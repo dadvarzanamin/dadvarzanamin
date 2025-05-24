@@ -40,8 +40,8 @@
                 <div class="col-lg-4 responsive-column-half">
                     <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                         <div class="card-image">
-                            <a href="course-details.html" class="d-block">
-                                <img class="card-img-top lazy" src="{{asset($contract->image)}}" data-src="{{asset($contract->image)}}" alt="{{$contract->title}}" />
+                            <a href="{{url('نمونه-قراردادها/'.$contract->slug)}}" class="d-block">
+                                <img class="card-img-top lazy" src="{{asset('storage'.$contract->image)}}" data-src="{{asset('storage'.$contract->image)}}" alt="{{$contract->title}}" />
                             </a>
                             <div class="course-badge-labels">
                                 <div class="course-badge">{{$contract->paid_type}}</div>
@@ -53,14 +53,6 @@
                             <h5 class="card-title"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->title}}</a></h5>
                             <p class="card-text"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->type}}</a></p>
                             <div class="rating-wrap d-flex align-items-center py-2">
-                                <div class="review-stars">
-                                    <span class="rating-number">4.4</span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star-o"></span>
-                                </div>
                                 <span class="rating-total pl-1">{{$contract->count_view}}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
