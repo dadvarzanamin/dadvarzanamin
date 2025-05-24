@@ -80,9 +80,10 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
         Route::get('payment.callback'   , 'ProfileController@callbackpay')          ->name('payment.callback');
         Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
-        Route::post('discountcheck'      , 'ProfileController@discountcheck')        ->name('discountcheck');
+        Route::post('discountcheck'      , 'ProfileController@discountcheck')       ->name('discountcheck');
         Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
+        Route::get('profile-wallet'     , 'ProfileController@profilewallet')        ->name('profilewallet');
         //Route::get('pay'                , 'WalletController@pay')                  ->name('pay');
 
 

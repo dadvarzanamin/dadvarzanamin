@@ -557,6 +557,20 @@ class ProfileController extends Controller
 
     }
 
+    public function profilewallet()
+    {
+
+        $companies = Company::first();
+        $user = Auth::user();
+        $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
+        $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
+        $banks = Bank::whereUser_id(Auth::user()->id)->get();
+        $payments = Payment::whereUser_id(Auth::user()->id)->get();
+
+        return view('Site.Dashboard.wallet')->with(compact('companies', 'dashboardmenus', 'banks', 'notifs', 'payments'));
+
+    }
+
     public function workshop()
     {
 

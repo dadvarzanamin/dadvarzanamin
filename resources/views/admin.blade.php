@@ -167,7 +167,7 @@
                                                     <li>
                                                         <ul class="generic-list-item">
                                                             <li>
-                                                                <a href="{{route('setting')}}"> <i class="la la-wallet mr-1"></i> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}} ریال </a>
+                                                                <a href="{{route('profilewallet')}}"> <i class="la la-wallet mr-1"></i> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}} ریال </a>
                                                             </li>
                                                             <li>
                                                                 <a href="{{route('setting')}}"> <i class="la la-gear mr-1"></i> تنظیمات </a>
