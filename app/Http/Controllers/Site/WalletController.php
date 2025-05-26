@@ -20,8 +20,6 @@ class WalletController extends Controller
             'description'   => 'nullable|string|max:255',
         ]);
 
-
-
         $user           = auth()->user();
         $amount         = $request->amount;
         if($request->description == null){
@@ -54,9 +52,9 @@ class WalletController extends Controller
             ->request();
 
         if ($request->successful()) {
-                $transaction->update([
-                    'transactionId' => $request->transactionId()
-                ]);
+            WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')->update([
+                'transactionId' => $request->transactionId()
+            ]);
             return $request->pay();
         }
 
@@ -74,7 +72,7 @@ class WalletController extends Controller
 
         if ($status == "OK") {
             $wallet_transactions = DB::table('wallet_transactions as w')
-                ->select('w.amount')
+                ->select('w.id','w.amount')
                 ->where('ws.transactionId', '=', $authority)
                 ->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.status', '=', 'pending')
@@ -83,7 +81,8 @@ class WalletController extends Controller
             $payment = Toman::amount($wallet_transactions->amount)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                $wallet_transactions->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
+                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')
+                    ->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
                 $wallet_transactions->user->wallet->increment('balance', $wallet_transactions->amount);
 
                 return view('Site.Dashboard.payment-success');
