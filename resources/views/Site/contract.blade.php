@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h3 class="ribbon ribbon-blue-bg fs-14 mb-3">{{$contract->title}}</h3>
+{{--                            <h3 class="ribbon ribbon-blue-bg fs-14 mb-3">{{$contract->title}}</h3>--}}
                             <h5 class="card-title"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->title}}</a></h5>
 {{--                            <p class="card-text"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->type}}</a></p>--}}
                             <div class="rating-wrap d-flex align-items-center py-2">
