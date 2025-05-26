@@ -72,10 +72,10 @@ class WalletController extends Controller
 
         if ($status == "OK") {
             $wallet_transactions = WalletTransaction::
-                 select('w.id','w.amount')
-                ->where('ws.transactionId', '=', $authority)
-                ->where('ws.user_id', '=', Auth::user()->id)
-                ->where('ws.status', '=', 'pending')
+                 select('id','w.amount')
+                ->where('transactionId', '=', $authority)
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('status', '=', 'pending')
                 ->first();
 
             $payment = Toman::amount($wallet_transactions->amount)->transactionId($authority)->verify();
