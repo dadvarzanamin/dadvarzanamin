@@ -63,7 +63,7 @@
     <h1>پرداخت موفق</h1>
     <p>پرداخت شما با موفقیت انجام شد.</p>
     <p>ثبت نام شما کامل شد.</p>
-    <a href="{{route('workshop')}}" class="btn">بازگشت به حساب کاربری</a>
+    <a href="{{route('profilewallet')}}" class="btn">بازگشت به حساب کاربری</a>
 </div>
 
 </body>
