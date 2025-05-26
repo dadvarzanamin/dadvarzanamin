@@ -12,7 +12,7 @@
                 <div class="col-lg-8 mb-5">
                     <div class="card card-item card-bg50">
                         <div class="text-center">
-                            <img src="{{ asset($contracts->image) }}" alt="پیش‌نمایش قرارداد" class="img-fluid rounded shadow-sm" style="max-height: 500px;">
+                            <img src="{{ asset('storage/'.$contracts->image) }}" alt="پیش‌نمایش قرارداد" class="img-fluid rounded shadow-sm" style="max-height: 500px;">
                         </div>
 
                         <div class="card-body">
