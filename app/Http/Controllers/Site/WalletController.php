@@ -65,13 +65,6 @@ class WalletController extends Controller
 //            $transaction->user->wallet->increment('balance', $transaction->amount);
 //        }
 
-
-//          $salam =  Toman::amount($amount)
-//            ->description($request->description)
-//            ->callback(route('payment.callback'))
-//            ->mobile(Auth::user()->phone)
-//            ->email(Auth::user()->email)
-//            ->request();
     }
 
     public function callbackpay(Request $request)
@@ -80,70 +73,23 @@ class WalletController extends Controller
         $status     = $request->query('Status');
 
         if ($status == "OK") {
+            $wallet_transactions = DB::table('wallet_transactions as w')
+                ->select('w.amount')
+                ->where('ws.transactionId', '=', $authority)
+                ->where('ws.user_id', '=', Auth::user()->id)
+                ->where('ws.status', '=', 'pending')
+                ->first();
 
-            $curl = curl_init();
+            $payment = Toman::amount($wallet_transactions->amount)->transactionId($authority)->verify();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://payment.zarinpal.com/pg/v4/payment/verify.json',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS =>'{
-                "merchant_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                "amount": "1000",
-                "authority": "A0000000000000000000000000000wwOGYpd"
-                }',
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json',
-                    'Accept: application/json'
-                ),
-            ));
+            if ($payment->successful()) {
+                $wallet_transactions->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
+                $wallet_transactions->user->wallet->increment('balance', $wallet_transactions->amount);
 
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-
-            //$payment = Toman::amount($workshopsign->totalprice)->transactionId($authority)->verify();
-
-//            if ($payment->successful()) {
-
-//                try {
-//                    $curl = curl_init();
-//                    curl_setopt_array($curl, array(
-//                        CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-//                        CURLOPT_RETURNTRANSFER => true,
-//                        CURLOPT_ENCODING => "",
-//                        CURLOPT_MAXREDIRS => 10,
-//                        CURLOPT_TIMEOUT => 30,
-//                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//                        CURLOPT_CUSTOMREQUEST => "POST",
-//                        CURLOPT_POSTFIELDS => http_build_query([
-//                            'type' => '1',
-//                            'param1' => Auth::user()->name,
-//                            'param2' => $workshopsign->title,
-//                            'param3' => $workshoptype,
-//                            'receptor' => Auth::user()->phone,
-//                            'template' => 'workshop',
-//                        ]),
-//                        CURLOPT_HTTPHEADER => array(
-//                            "apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko",
-//                            "cache-control: no-cache",
-//                            "content-type: application/x-www-form-urlencoded",
-//                        ),
-//                    ));
-//                    $response = curl_exec($curl);
-//                    $err = curl_error($curl);
-//                    curl_close($curl);
-//                } catch (Exception $exception) {
-//                }
-//                return view('Site.Dashboard.payment-success');
-//            } else {
-//                return view('Site.Dashboard.payment-failed');
-//            }
+                return view('Site.Dashboard.payment-success');
+            } else {
+                return view('Site.Dashboard.payment-failed');
+            }
         } else {
             return view('Site.Dashboard.payment-failed');
         }
