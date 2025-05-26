@@ -52,7 +52,7 @@ class WalletController extends Controller
             ->request();
 
         if ($request->successful()) {
-            WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')->update([
+            WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
                 'transactionId' => $request->transactionId()
             ]);
             return $request->pay();
