@@ -71,8 +71,8 @@ class WalletController extends Controller
         $status     = $request->query('Status');
 
         if ($status == "OK") {
-            $wallet_transactions = DB::table('wallet_transactions as w')
-                ->select('w.id','w.amount')
+            $wallet_transactions = WalletTransaction::
+                 select('w.id','w.amount')
                 ->where('ws.transactionId', '=', $authority)
                 ->where('ws.user_id', '=', Auth::user()->id)
                 ->where('ws.status', '=', 'pending')
