@@ -57,7 +57,6 @@ class WalletController extends Controller
             $transaction->update(['status' => 'completed']);
             $transaction->user->wallet->increment('balance', $transaction->amount);
         }
-        dd($request);
 
 
 //          $salam =  Toman::amount($amount)
