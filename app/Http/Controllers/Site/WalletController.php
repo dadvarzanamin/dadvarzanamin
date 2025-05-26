@@ -72,7 +72,7 @@ class WalletController extends Controller
 
         if ($status == "OK") {
             $wallet_transactions = WalletTransaction::
-                 select('id','w.amount')
+                 select('id','amount')
                 ->where('transactionId', '=', $authority)
                 ->where('user_id', '=', Auth::user()->id)
                 ->where('status', '=', 'pending')
