@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile\Wallet;
 use App\Models\Profile\WalletTransaction;
 use App\Models\Profile\Workshopsign;
 use Evryn\LaravelToman\Facades\Toman;
@@ -83,8 +84,9 @@ class WalletController extends Controller
             if ($payment->successful()) {
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
-                $wallet_transactions->user->wallet->increment('balance', $wallet_transactions->amount);
-
+                $wallet = Wallet::whereUser_id(Auth::user()->id)->first();
+                $amount_total = $wallet->balance + $wallet_transactions->amount;
+                Wallet::whereUser_id(Auth::user()->id)->update(['balance' => $amount_total]);
                 return view('Site.Dashboard.payment-success');
             } else {
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
