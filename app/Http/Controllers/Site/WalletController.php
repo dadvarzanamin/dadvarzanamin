@@ -87,7 +87,8 @@ class WalletController extends Controller
 
                 return view('Site.Dashboard.payment-success');
             } else {
-                $wallet_transactions->update(['status' => 'failed']);
+                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')
+                    ->update(['status' => 'failed']);
                 return view('Site.Dashboard.payment-failed');
             }
         } else {
