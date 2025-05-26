@@ -41,17 +41,17 @@
                     <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                         <div class="card-image">
                             <a href="{{url('نمونه-قراردادها/'.$contract->slug)}}" class="d-block">
-                                <img class="card-img-top lazy" src="{{asset('storage/'.$contract->image)}}" data-src="{{asset('storage/'.$contract->image)}}" alt="{{$contract->title}}" />
+                                <img class="card-img-top img-index" src="{{asset('storage/'.$contract->image)}}" alt="{{$contract->title}}" style="object-fit: cover;">
                             </a>
                             <div class="course-badge-labels">
                                 <div class="course-badge">{{$contract->paid_type}}</div>
-                                @if($contract->discount)<div class="course-badge">{{$contract->discount}}</div>@endif
+{{--                                @if($contract->discount)<div class="course-badge">{{$contract->discount}}</div>@endif--}}
                             </div>
                         </div>
                         <div class="card-body">
                             <h3 class="ribbon ribbon-blue-bg fs-14 mb-3">{{$contract->title}}</h3>
                             <h5 class="card-title"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->title}}</a></h5>
-                            <p class="card-text"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->type}}</a></p>
+{{--                            <p class="card-text"><a href="{{url('نمونه-قراردادها/'.$contract->slug)}}">{{$contract->type}}</a></p>--}}
                             <div class="rating-wrap d-flex align-items-center py-2">
                                 <span class="rating-total pl-1">{{$contract->count_view}}</span>
                             </div>
