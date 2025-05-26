@@ -77,14 +77,14 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::post('queries'           , 'ProfileController@queries')              ->name('queries');
         Route::post('workshop-sign'     , 'ProfileController@workshopsign')         ->name('workshop-sign');
         Route::get('paymentpage'        , 'ProfileController@paymentpage')          ->name('paymentpage');
-        Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
+        //Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
         Route::get('payment.callback'   , 'ProfileController@callbackpay')          ->name('payment.callback');
         Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
         Route::post('discountcheck'      , 'ProfileController@discountcheck')       ->name('discountcheck');
         Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
         Route::get('profile-wallet'     , 'ProfileController@profilewallet')        ->name('profilewallet');
-        //Route::get('pay'                , 'WalletController@pay')                  ->name('pay');
+        Route::get('pay'                , 'WalletController@pay')                  ->name('pay');
 
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();

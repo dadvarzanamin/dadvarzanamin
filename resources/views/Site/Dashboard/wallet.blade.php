@@ -100,10 +100,9 @@
         <!-- کارت موجودی -->
         <div class="wallet-card">
             <p class="mb-1">موجودی فعلی</p>
-            <div class="wallet-balance">۱,۲۵۰,۰۰۰ تومان</div>
+            <div class="wallet-balance"> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}} ریال </div>
             <div class="wallet-actions">
                 <button class="btn btn-wallet" data-toggle="modal" data-target="#chargeModal">شارژ کیف پول</button>
-                <button class="btn btn-outline-secondary">درخواست برداشت</button>
             </div>
         </div>
 
@@ -165,32 +164,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="get" action="{{ route('pay') }}">
                         <div class="form-group">
                             <label for="amount">مبلغ موردنظر (تومان)</label>
                             <!-- فیلد مبلغ -->
-                            <input type="number" class="form-control" id="amount" placeholder="مثلاً 100000">
+                            <input type="number" class="form-control" name="amount" placeholder="مثلاً 10.000">
 
                             <!-- دکمه‌های مقادیر پیش‌فرض -->
-                            <div class="mt-3 d-flex flex-wrap justify-content-start">
-                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="50000">۵۰٬۰۰۰</button>
-                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="100000">۱۰۰٬۰۰۰</button>
-                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="200000">۲۰۰٬۰۰۰</button>
-                            </div>
+{{--                            <div class="mt-3 d-flex flex-wrap justify-content-start">--}}
+{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="50000">۵۰٬۰۰۰</button>--}}
+{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="100000">۱۰۰٬۰۰۰</button>--}}
+{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="200000">۲۰۰٬۰۰۰</button>--}}
+{{--                            </div>--}}
                         </div>
                         <div class="form-group">
                             <label for="gateway">درگاه پرداخت</label>
                             <select class="form-control" id="gateway">
-                                <option>درگاه زرین‌پال</option>
-                                <option>درگاه نکست‌پی</option>
+                                <option selected>درگاه زرین‌پال</option>
                             </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                            <button type="submit" class="btn btn-wallet">پرداخت</button>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
-                    <button type="button" class="btn btn-wallet">پرداخت</button>
-                </div>
+
             </div>
         </div>
     </div>

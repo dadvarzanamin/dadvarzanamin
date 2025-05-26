@@ -20,10 +20,15 @@ class WalletController extends Controller
             'description'   => 'nullable|string|max:255',
         ]);
 
+
+
         $user           = auth()->user();
         $amount         = $request->amount;
-        $description    = $request->description;
-
+        if($request->description == null){
+            $description = 'شارژ کیف پول';
+        }else {
+            $description = $request->description;
+        }
         $transaction = $user->transactions()->create([
             'wallet_id'     => $user->wallet->id,
             'type'          => 'deposit',
@@ -41,45 +46,18 @@ class WalletController extends Controller
             return Redirect::back();
 
         }
-        $curl = curl_init();
+        $request = Toman::amount($amount)
+            ->description($description)
+            ->callback(route('payment.callback'))
+            ->mobile(Auth::user()->phone)
+            ->email(Auth::user()->email)
+            ->request();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.zarinpal.com/pg/v4/payment/request.json',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>'{
-                "merchant_id": "3640bcef-0d71-42b8-bc05-341f06755396",
-                "amount": "11000",
-                "callback_url": "http://example.com/verify",
-                "description": "Transaction description.",
-                "metadata": {
-                  "mobile": "09121234567",
-                  "email": "info.test@example.com"
-                }
-            }',
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json'
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-
-        $data = json_decode($response, true);
-        $message = $data['data']['message'];
-
-        if ($message == 'Success'){
+        if ($request->successful()) {
             $transaction->update(['status' => 'completed']);
             $transaction->user->wallet->increment('balance', $transaction->amount);
         }
-        dd($response);
+        dd($request);
 
 
 //          $salam =  Toman::amount($amount)
