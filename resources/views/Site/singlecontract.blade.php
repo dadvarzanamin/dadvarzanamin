@@ -25,7 +25,7 @@
                             </div>
 
                             <!-- توضیحات -->
-                            <div class="card-text">
+                            <div>
                                 {!! $contracts->text !!}
                             </div>
 
