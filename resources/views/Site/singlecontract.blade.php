@@ -26,12 +26,12 @@
 
                             <!-- توضیحات -->
                             <div class="card-text">
-                                {{$contracts->text}}
+                                {!! $contracts->text !!}
                             </div>
 
                             <!-- موضوع -->
                             <div class="mt-4">
-                                {{$contracts->description}}
+                                {!! $contracts->description !!}
 
                             </div>
 
