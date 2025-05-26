@@ -81,13 +81,13 @@ class WalletController extends Controller
             $payment = Toman::amount($wallet_transactions->amount)->transactionId($authority)->verify();
 
             if ($payment->successful()) {
-                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')
+                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
                 $wallet_transactions->user->wallet->increment('balance', $wallet_transactions->amount);
 
                 return view('Site.Dashboard.payment-success');
             } else {
-                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->wherePricestatus('pending')
+                WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'failed']);
                 return view('Site.Dashboard.payment-failed');
             }
