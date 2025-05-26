@@ -120,34 +120,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($payments as $payment)
                 <tr>
                     <td>1404/02/20</td>
                     <td>واریز</td>
-                    <td>۵۰۰,۰۰۰ تومان</td>
-                    <td><span class="badge-custom badge-success">موفق</span></td>
+                    <td>{{$payment->amount}}</td>
+                    <td><span class="badge-custom {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'پرداخت موفق' : 'پرداخت نا موفق'}}</span></td>
                     <td>شارژ از درگاه پرداخت</td>
                 </tr>
-                <tr>
-                    <td>1404/02/18</td>
-                    <td>برداشت</td>
-                    <td>۲۰۰,۰۰۰ تومان</td>
-                    <td><span class="badge-custom badge-danger">ناموفق</span></td>
-                    <td>برداشت به حساب بانکی</td>
-                </tr>
-                <tr>
-                    <td>1404/02/16</td>
-                    <td>برداشت</td>
-                    <td>۱۵۰,۰۰۰ تومان</td>
-                    <td><span class="badge-custom badge-warning">در انتظار</span></td>
-                    <td>در حال بررسی</td>
-                </tr>
-                <tr>
-                    <td>1404/02/15</td>
-                    <td>واریز</td>
-                    <td>۱,۰۰۰,۰۰۰ تومان</td>
-                    <td><span class="badge-custom badge-success">موفق</span></td>
-                    <td>واریز اولیه</td>
-                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
