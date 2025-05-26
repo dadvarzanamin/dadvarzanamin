@@ -54,9 +54,16 @@ class WalletController extends Controller
             ->request();
 
         if ($request->successful()) {
-            $transaction->update(['status' => 'completed']);
-            $transaction->user->wallet->increment('balance', $transaction->amount);
+                $transaction->update([
+                    'transactionId' => $request->transactionId()
+                ]);
+            return $request->pay();
         }
+
+//        if ($request->successful()) {
+//            $transaction->update(['status' => 'completed']);
+//            $transaction->user->wallet->increment('balance', $transaction->amount);
+//        }
 
 
 //          $salam =  Toman::amount($amount)
