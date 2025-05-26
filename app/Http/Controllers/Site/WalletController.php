@@ -88,6 +88,7 @@ class WalletController extends Controller
 
                 return view('Site.Dashboard.payment-success');
             } else {
+                $wallet_transactions->update(['status' => 'failed']);
                 return view('Site.Dashboard.payment-failed');
             }
         } else {
