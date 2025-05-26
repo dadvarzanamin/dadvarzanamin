@@ -122,7 +122,7 @@
                 <tbody>
                 @foreach($payments as $payment)
                 <tr>
-                    <td>1404/02/20</td>
+                    <td>{{jdate($payment->updated_at)}}</td>
                     <td>واریز</td>
                     <td>{{$payment->amount}}</td>
                     <td><span class="badge-custom {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'پرداخت موفق' : 'پرداخت نا موفق'}}</span></td>
