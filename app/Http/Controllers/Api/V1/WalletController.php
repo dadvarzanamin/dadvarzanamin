@@ -66,10 +66,9 @@ class WalletController extends Controller
             ->request();
 
         if ($paymentRequest->successful()) {
-            $s = WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
+            WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
                 'transactionId' => $paymentRequest->transactionId()
             ]);
-            dd($s);
             return response()->json([
                 "ok" => true,
                 "message" => "لینک پرداخت ایجاد شد.",
