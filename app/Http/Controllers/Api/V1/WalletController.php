@@ -80,7 +80,7 @@ class WalletController extends Controller
         ]);
         $paymentRequest = Toman::amount($amount)
             ->description($description)
-            ->callback(url('https://dadvarzanamin.ir/api/v1/backtoapp'))
+            ->callback(url('https://dadvarzanamin.ir/api/v1/wallet/backtoapp'))
             ->mobile(auth()->user()->phone)
             ->email(auth()->user()->email)
             ->request();
