@@ -41,12 +41,13 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/form'               ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'form']);
     Route::post('v1/workshopsign'       ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
     Route::post('v1/discountcheck'      ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
-    Route::post('v1/pay'                ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'pay']);
+    Route::post('v1/pay'                ,   [App\Http\Controllers\Api\V1\WalletController::class      , 'pay']);
     //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
     //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
     Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
     Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
     Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
+    Route::GET('v1/wallet/transactions'    , [App\Http\Controllers\Api\V1\WalletController::class  , 'transactions']);
 
 });
 

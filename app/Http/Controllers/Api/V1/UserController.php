@@ -299,9 +299,10 @@ class UserController extends Controller
 
             $states = State::all();
             $citis = City::all();
-
+            $wallet_balance = number_format(auth()->user()->wallet->balance);
             $response = [
                 'user'          => $users,
+                'wallet_balance'=> $wallet_balance,
                 'state'         => $states,
                 'city'          => $citis,
             ];
