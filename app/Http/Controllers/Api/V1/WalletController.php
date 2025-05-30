@@ -117,32 +117,37 @@ class WalletController extends Controller
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
                 Wallet::whereUser_id(Auth::user()->id)->update(['balance' => auth()->user()->wallet->balance + $wallet_transactions->amount]);
+                return view('Site.Dashboard.payment-success');
 
-                    return response()->json(
-                        ['isSuccess' => true,
-                            'message' => 'کیف پول شما با موفقیت شارژ شد ',
-                            'errors' => null,
-                            'status_code' => 200,
-                            'result' => auth()->user()->wallet->balance
-                        ], 200);
+//                    return response()->json(
+//                        ['isSuccess' => true,
+//                            'message' => 'کیف پول شما با موفقیت شارژ شد ',
+//                            'errors' => null,
+//                            'status_code' => 200,
+//                            'result' => auth()->user()->wallet->balance
+//                        ], 200);
 
             } else {
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'failed']);
-                return response()->json(
-                    ['isSuccess' => null,
-                        'message' => 'متاسفانه کیف پول شما شارژ نشد، در صورت کم شدن مبلغ از حساب شما تا 72 ساعت آیند به حساب شما باز می گردد.',
-                        'errors' => true,
-                        'status_code' => 500,
-                    ], 500);
+                return view('Site.Dashboard.payment-failed');
+
+//                return response()->json(
+//                    ['isSuccess' => null,
+//                        'message' => 'متاسفانه کیف پول شما شارژ نشد، در صورت کم شدن مبلغ از حساب شما تا 72 ساعت آیند به حساب شما باز می گردد.',
+//                        'errors' => true,
+//                        'status_code' => 500,
+//                    ], 500);
             }
         } else {
-            return response()->json(
-                ['isSuccess' => null,
-                    'message' => 'متاسفانه تراکنش موفقیت آمیز نبود.',
-                    'errors' => true,
-                    'status_code' => 500,
-                ], 500);
+            return view('Site.Dashboard.payment-failed');
+//            return response()->json(
+//                ['isSuccess' => null,
+//                    'message' => 'متاسفانه تراکنش موفقیت آمیز نبود.',
+//                    'errors' => true,
+//                    'status_code' => 500,
+//                ], 500);
         }
+
     }
 }
