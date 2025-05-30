@@ -11,8 +11,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
     Route::post('v1/token'          , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
     Route::post('v1/remember'       , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
-    Route::get('v1/payment.callback', [App\Http\Controllers\Api\V1\IndexController::class   ,'callbackpay'])->name('payment.callback');
-    Route::GET('v1/backtoapp'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'callbackpay'])->name('backtoapp');
+//    Route::get('v1/payment.callback', [App\Http\Controllers\Api\V1\IndexController::class   ,'callbackpay'])->name('payment.callback');
     Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
     Route::GET('v1/getstate'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getState']);
     Route::Post('v1/getcity'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getCity']);
@@ -32,23 +31,22 @@ use App\Http\Controllers\Api\v1\IndexController;
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('v1/index'           , [App\Http\Controllers\Api\V1\IndexController::class   , 'index']);
-    Route::get('v1/profile'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'profile']);
-    Route::get('v1/demands'             ,   [App\Http\Controllers\Api\V1\UserController::class       , 'demands']);
-    Route::get('v1/laws'                ,   [App\Http\Controllers\Api\V1\UserController::class       , 'laws']);
-    Route::post('v1/addpass'            ,   [App\Http\Controllers\Api\V1\UserController::class       , 'addpass']);
-    Route::post('v1/editprofile'        ,   [App\Http\Controllers\Api\V1\UserController::class       , 'editprofile']);
-    Route::post('v1/form'               ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'form']);
-    Route::post('v1/workshopsign'       ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'workshopsign']);
-    Route::post('v1/discountcheck'      ,   [App\Http\Controllers\Api\V1\IndexController::class      , 'discountcheck']);
-    //Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
-    //Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
-    Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
-    Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
-    Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
-    Route::GET('v1/wallet/balance'  , [App\Http\Controllers\Api\V1\WalletController::class  , 'balance']);
-    Route::GET('v1/wallet/transactions'  , [App\Http\Controllers\Api\V1\WalletController::class  , 'transactions']);
-    Route::post('v1/wallet/deposit'      , [App\Http\Controllers\Api\V1\WalletController::class      , 'deposit']);
+    Route::get('v1/index'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'index']);
+    Route::get('v1/profile'             , [App\Http\Controllers\Api\V1\UserController::class         , 'profile']);
+    Route::get('v1/demands'             , [App\Http\Controllers\Api\V1\UserController::class         , 'demands']);
+    Route::get('v1/laws'                , [App\Http\Controllers\Api\V1\UserController::class         , 'laws']);
+    Route::post('v1/addpass'            , [App\Http\Controllers\Api\V1\UserController::class         , 'addpass']);
+    Route::post('v1/editprofile'        , [App\Http\Controllers\Api\V1\UserController::class         , 'editprofile']);
+    Route::post('v1/form'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'form']);
+    Route::post('v1/workshopsign'       , [App\Http\Controllers\Api\V1\IndexController::class        , 'workshopsign']);
+    Route::post('v1/discountcheck'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'discountcheck']);
+    Route::post('v1/estelam'            , [App\Http\Controllers\Api\V1\EstelamController::class      , 'estelam']);
+    Route::GET('v1/workshops'           , [App\Http\Controllers\Api\V1\IndexController::class        , 'workshops']);
+    Route::GET('v1/courts'              , [App\Http\Controllers\Api\V1\IndexController::class        , 'court']);
+    Route::GET('v1/wallet/balance'      , [App\Http\Controllers\Api\V1\WalletController::class       , 'balance']);
+    Route::GET('v1/wallet/transactions' , [App\Http\Controllers\Api\V1\WalletController::class       , 'transactions']);
+    Route::post('v1/wallet/deposit'     , [App\Http\Controllers\Api\V1\WalletController::class       , 'deposit']);
+    Route::GET('v1/wallet/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
 
 });
 
