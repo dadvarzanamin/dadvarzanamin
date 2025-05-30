@@ -64,7 +64,7 @@ class WalletController extends Controller
             ->mobile(auth()->user()->phone)
             ->email(auth()->user()->email)
             ->request();
-        dd($paymentRequest->transactionId);
+        dd($paymentRequest->transactionId());
         if ($paymentRequest->successful()) {
             WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
                 'transactionId' => $paymentRequest->transactionId
