@@ -46,6 +46,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/estelam'        , [App\Http\Controllers\Api\V1\EstelamController::class , 'estelam']);
     Route::GET('v1/workshops'       , [App\Http\Controllers\Api\V1\IndexController::class   , 'workshops']);
     Route::GET('v1/courts'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'court']);
+    Route::GET('v1/wallet/balance'  , [App\Http\Controllers\Api\V1\WalletController::class  , 'balance']);
     Route::GET('v1/wallet/transactions'  , [App\Http\Controllers\Api\V1\WalletController::class  , 'transactions']);
     Route::post('v1/wallet/deposit'      , [App\Http\Controllers\Api\V1\WalletController::class      , 'deposit']);
 

@@ -12,6 +12,26 @@ use Illuminate\Support\Facades\Redirect;
 
 class WalletController extends Controller
 {
+    public function balance()
+    {
+        $wallet_balance = number_format(auth()->user()->wallet->balance);
+        if ($wallet_balance) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد دریافت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $wallet_balance
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
+    }
     public function transactions(){
 
         $payments       = auth()->user()->wallet->transactions()->latest()->get();
