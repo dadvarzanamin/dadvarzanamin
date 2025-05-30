@@ -20,23 +20,23 @@ class PanelController extends Controller
     public function index()
     {
 
-        $token = EstelamToken::select('token', 'appname')->first();
-        $headers = [
-            'token:' . $token->token,
-            'appname:' . $token->appname,
-            'Content-Type: application/json',
-        ];
-        User::whereNotNull('national_id')
-            ->whereNotNull('birthday')
-            ->whereNull('imagedata')
-            ->chunk(20, function ($users) use ($headers) {
-                foreach ($users as $user) {
-                    SendNameInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
-                    SendImageInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
-                }
-            });
-
-        dd('good');
+//        $token = EstelamToken::select('token', 'appname')->first();
+//        $headers = [
+//            'token:' . $token->token,
+//            'appname:' . $token->appname,
+//            'Content-Type: application/json',
+//        ];
+//        User::whereNotNull('national_id')
+//            ->whereNotNull('birthday')
+//            ->whereNull('imagedata')
+//            ->chunk(20, function ($users) use ($headers) {
+//                foreach ($users as $user) {
+//                    SendNameInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
+//                    SendImageInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
+//                }
+//            });
+//
+//        dd('good');
 
 
 
