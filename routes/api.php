@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
     Route::GET('v1/getstate'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getState']);
     Route::Post('v1/getcity'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getCity']);
-    Route::GET('v1/wallet/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
+    Route::GET('v1/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
 
 
 
