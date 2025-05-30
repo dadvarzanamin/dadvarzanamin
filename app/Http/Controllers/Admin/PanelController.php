@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendImageInquiryJob;
+use App\Jobs\SendNameInquiryJob;
 use App\Models\Dashboard\Menu_panel;
 use App\Models\Dashboard\Submenu_panel;
+use App\Models\Profile\EstelamToken;
 use App\Models\Submenu;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,6 +19,28 @@ class PanelController extends Controller
 
     public function index()
     {
+
+        $token = EstelamToken::select('token', 'appname')->first();
+        $headers = [
+            'token:' . $token->token,
+            'appname:' . $token->appname,
+            'Content-Type: application/json',
+        ];
+        User::whereNotNull('national_id')
+            ->whereNotNull('birthday')
+            ->whereNull('imagedata')
+            ->chunk(20, function ($users) use ($headers) {
+                foreach ($users as $user) {
+                    SendNameInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
+                    SendImageInquiryJob::dispatch($user->id, $user->national_id, str_replace('/', '', $user->birthday), $headers);
+                }
+            });
+
+        dd('good');
+
+
+
+
         $countusers         = User::count();
         $users              = User::leftjoin('type_users' , 'type_users.id' , '=' , 'users.type_id')
             ->select('users.id','users.name', 'users.type_id','users.phone' , 'users.created_at' , 'type_users.title as type_title',
