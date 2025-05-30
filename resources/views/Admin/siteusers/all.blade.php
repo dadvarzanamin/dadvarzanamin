@@ -27,11 +27,12 @@
                                         <thead>
                                         <tr>
                                             {{--<th class="wd-10p"> ردیف </th>--}}
+                                            <th class="wd-10p"> تصویر </th>
                                             <th class="wd-10p"> نام و نام خانوادگی </th>
                                             <th class="wd-10p"> نام کاربری </th>
                                             <th class="wd-10p"> آدرس ایمیل </th>
                                             <th class="wd-10p"> موبایل </th>
-                                            <th class="wd-10p"> وضعیت </th>
+                                            <th class="wd-10p"> تاریخ تولد </th>
                                             <th class="wd-10p"> زمان ثبت نام </th>
                                             <th class="wd-10p"> تغییر </th>
                                         </tr>
@@ -84,11 +85,12 @@
                 ajax: "{{ route('user-site-manage.index') }}",
                 columns: [
                     //{data: 'DT_RowIndex' , name: 'DT_RowIndex'},
+                    {data: 'imgdata'   , name: 'imgdata'},
                     {data: 'name'        , name: 'name'},
                     {data: 'username'    , name: 'username'},
                     {data: 'email'       , name: 'email'},
                     {data: 'phone'       , name: 'phone'},
-                    {data: 'status'      , name: 'status'},
+                    {data: 'birthday'    , name: 'birthday'},
                     {data: 'date'        , name: 'date'},
                     {data: 'action'      , name: 'action', orderable: true, searchable: true},
                 ]

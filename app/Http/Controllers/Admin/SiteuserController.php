@@ -31,7 +31,7 @@ class SiteuserController extends Controller
             } elseif ($request->segments()[1] == 'user-site-manage') {
                 $level = 'site';
             }
-            $data = User::select('id', 'name', 'username', 'email', 'phone', 'status','created_at')->whereLevel($level)->get();
+            $data = User::select('id', 'name', 'username', 'email', 'phone', 'status' ,'birthday','imagedata' ,'created_at')->whereLevel($level)->get();
 
             return Datatables::of($data)
                 ->editColumn('name', function ($data) {
@@ -49,12 +49,14 @@ class SiteuserController extends Controller
                 ->editColumn('date', function ($data) {
                     return ($data->created_at);
                 })
-                ->editColumn('status', function ($data) {
-                    if ($data->status == "0") {
-                        return "عدم نمایش";
-                    } elseif ($data->status == "4") {
-                        return "در حال نمایش";
+                ->editColumn('birthday', function ($data) {
+                    return ($data->birthday);
+                })
+                ->editColumn('imgdata', function ($data) {
+                    if (!$data->imagedata) {
+                        return '<span class="text-muted">No image</span>';
                     }
+                    return '<img src="data:image/png;base64,' . e($data->imagedata) . '" alt="User Image" style="max-width: 50px; height: auto; border-radius: 4px;" />';
                 })
                 ->addColumn('action', function ($data) {
                     $actionBtn = '<a href="' . route('user-site-manage.edit', $data->id) . '" class="btn ripple btn-outline-info btn-icon" style="float: right;margin: 0 5px;"><i class="fe fe-edit-2"></i></a>
@@ -62,7 +64,7 @@ class SiteuserController extends Controller
 
                     return $actionBtn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action' , 'imgdata'])
                 ->make(true);
         }
 
