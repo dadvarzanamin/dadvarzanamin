@@ -67,8 +67,8 @@ class WalletController extends Controller
             ->request();
 
         if ($paymentRequest->successful()) {
-            $transaction->update([
-                'transactionId' => $paymentRequest->transactionId(),
+            WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
+                'transactionId' => $request->transactionId()
             ]);
             return response()->json([
                 "ok" => true,
