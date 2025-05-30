@@ -73,8 +73,8 @@ class WalletController extends Controller
                 "ok" => true,
                 "message" => "لینک پرداخت ایجاد شد.",
                 "response" => [
-                    "url" => "https://www.zarinpal.com/pg/StartPay/" . $transaction->transactionId(),
-                    "authority" => $transaction->transactionId(),
+                    "url" => "https://www.zarinpal.com/pg/StartPay/" . $paymentRequest->transactionId(),
+                    "authority" => $paymentRequest->transactionId(),
                 ],
             ]);
         }
