@@ -58,7 +58,6 @@ class WalletController extends Controller
             'description' => $description,
             'status'      => 'pending',
         ]);
-
         $paymentRequest = Toman::amount($amount)
             ->description($description)
             ->callback(url('https://dadvarzanamin.ir/api/v1/backtoapp'))
@@ -68,7 +67,7 @@ class WalletController extends Controller
 
         if ($paymentRequest->successful()) {
             WalletTransaction::whereid($transaction->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')->update([
-                'transactionId' => $request->transactionId()
+                'transactionId' => $paymentRequest->transactionId()
             ]);
             return response()->json([
                 "ok" => true,
