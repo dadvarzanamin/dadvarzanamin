@@ -105,10 +105,12 @@ class WalletController extends Controller
         $status     = $request->query('Status');
 
         if ($status == "OK") {
-            $wallet_transactions = WalletTransaction::select('id','amount')
+            $wallet_transactions = WalletTransaction::select('id','amount','user_id')
                 ->where('transactionId', '=', $authority)
                 ->where('status', '=', 'pending')
                 ->first();
+
+            Auth::loginUsingId($wallet_transactions->user_id);
 
             $payment = Toman::amount($wallet_transactions->amount)->transactionId($authority)->verify();
 
