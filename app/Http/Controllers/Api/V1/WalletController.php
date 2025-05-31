@@ -117,7 +117,7 @@ class WalletController extends Controller
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'completed' , 'referenceId' => $payment->referenceId()]);
                 Wallet::whereUser_id(Auth::user()->id)->update(['balance' => auth()->user()->wallet->balance + $wallet_transactions->amount]);
-                return view('Site.Dashboard.payment-success');
+                return view('Api.payment-success');
 
 //                    return response()->json(
 //                        ['isSuccess' => true,
@@ -130,7 +130,7 @@ class WalletController extends Controller
             } else {
                 WalletTransaction::whereid($wallet_transactions->id)->whereUser_id(Auth::user()->id)->whereStatus('pending')
                     ->update(['status' => 'failed']);
-                return view('Site.Dashboard.payment-failed');
+                return view('Api.payment-failed');
 
 //                return response()->json(
 //                    ['isSuccess' => null,
