@@ -9,7 +9,9 @@
         <!-- کارت موجودی -->
         <div class="wallet-card">
             <p class="mb-5">موجودی فعلی</p>
-            <div class="wallet-balance mb-5"> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}} تومان </div>
+            <div class="wallet-balance mb-5"> موجودی کیف پول : {{number_format(auth()->user()->wallet->balance)}}
+                تومان
+            </div>
             <div class="wallet-actions">
                 <button class="btn btn-wallet" data-toggle="modal" data-target="#chargeModal">شارژ کیف پول</button>
             </div>
@@ -29,14 +31,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($payments as $payment)
-                <tr>
-                    <td>{{jdate($payment->updated_at)}}</td>
-                    <td>واریز</td>
-                    <td>{{$payment->amount}}</td>
-                    <td><span class="badge-custom p-1 br-8 {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'پرداخت موفق' : 'پرداخت نا موفق'}}</span></td>
-                    <td>شارژ از درگاه پرداخت</td>
-                </tr>
+                @foreach($payments->sortByDesc('updated_at') as $payment)
+                    <tr>
+                        <td>{{jdate($payment->updated_at)}}</td>
+                        <td>واریز</td>
+                        <td>{{$payment->amount}}</td>
+                        <td><span
+                                class="badge-custom p-1 br-8 {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'پرداخت موفق' : 'پرداخت نا موفق'}}</span>
+                        </td>
+                        <td>شارژ از درگاه پرداخت</td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>
@@ -44,7 +48,8 @@
     </div>
 
     <!-- مودال شارژ کیف پول -->
-    <div class="modal fade" id="chargeModal" tabindex="-1" role="dialog" aria-labelledby="chargeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="chargeModal" tabindex="-1" role="dialog" aria-labelledby="chargeModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,11 +66,11 @@
                             <input type="number" class="form-control" name="amount" placeholder="مثلاً 10.000">
 
                             <!-- دکمه‌های مقادیر پیش‌فرض -->
-{{--                            <div class="mt-3 d-flex flex-wrap justify-content-start">--}}
-{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="50000">۵۰٬۰۰۰</button>--}}
-{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="100000">۱۰۰٬۰۰۰</button>--}}
-{{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="200000">۲۰۰٬۰۰۰</button>--}}
-{{--                            </div>--}}
+                            {{--                            <div class="mt-3 d-flex flex-wrap justify-content-start">--}}
+                            {{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="50000">۵۰٬۰۰۰</button>--}}
+                            {{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="100000">۱۰۰٬۰۰۰</button>--}}
+                            {{--                                <button type="button" class="btn btn-light border mr-2 mb-2 quick-amount" data-value="200000">۲۰۰٬۰۰۰</button>--}}
+                            {{--                            </div>--}}
                         </div>
                         <div class="form-group">
                             <label for="gateway">درگاه پرداخت</label>
