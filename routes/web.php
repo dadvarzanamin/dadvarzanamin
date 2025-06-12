@@ -17,6 +17,7 @@ Route::get('generate'  , [App\Http\Controllers\SitemapController::class, 'genera
 
 
 Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function () {
+    Route::get('invoice'            , 'Site\IndexController@invoice')              ->name('invoice');
 
     $sitemenus= Menu::select('slug', 'class', 'submenu_route', 'submenu')->whereLevel('site')->get();
     $submenus = Submenu::select('id', 'slug', 'class')->get();
