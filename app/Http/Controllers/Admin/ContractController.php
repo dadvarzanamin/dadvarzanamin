@@ -92,18 +92,20 @@ class ContractController extends Controller
 
     public function store(Request $request)
     {
-        try{
+        //try{
             $contracts = new Contract();
             $contracts->title           = $request->input('title');
-            $contracts->paid_type       = $request->input('paid_type');
             $contracts->price           = str_replace(',', '', $request->input('price'));
             $contracts->discount        = str_replace(',', '', $request->input('discount'));
+            $contracts->type            =  $request->input('type');
+//            if($request->input('type')) {
+//                $contracts->type = json_encode(explode('،', $request->input('type')));
+//            }
+            $contracts->paid_type       = $request->input('paid_type');
+            $contracts->status          = $request->input('status');
+
             $contracts->text            = $request->input('text');
             $contracts->description     = $request->input('description');
-            if($request->input('type')) {
-                $contracts->type = json_encode(explode('،', $request->input('type')));
-            }
-            $contracts->status      = $request->input('status');
 
             if ($request->file('file_path')) {
                 $file       = $request->file('file_path');
@@ -135,14 +137,14 @@ class ContractController extends Controller
                 $message = 'اطلاعات ثبت نشد، لطفا مجددا تلاش نمایید';
             }
 
-        } catch (Exception $e) {
-
-            $success = false;
-            $flag    = 'error';
-            $subject = 'خطا در ارتباط با سرور';
-            //$message = strchr($e);
-            $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
-        }
+//        } catch (Exception $e) {
+//
+//            $success = false;
+//            $flag    = 'error';
+//            $subject = 'خطا در ارتباط با سرور';
+//            //$message = strchr($e);
+//            $message = 'اطلاعات ثبت نشد،لطفا بعدا مجدد تلاش نمایید ';
+//        }
 return Redirect::back();
     }
 

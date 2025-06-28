@@ -25,12 +25,11 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="{{route(request()->segment(2).'.'.'store')}}" method="POST"
-                                      enctype="multipart/form-data" id="form">
+                                <form action="{{route(request()->segment(2).'.'.'store')}}" method="POST" enctype="multipart/form-data" id="form">
                                     <div class="row row-sm">
                                         @csrf
                                         <div class="col-md-12">
-                                            {{--                                            @include('error')--}}
+                                            {{--@include('error')--}}
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -53,7 +52,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <p class="mg-b-10">نوع قرارداد</p>
-                                                <select name="type" id="type" multiple="multiple" class="form-control select-lg select2">
+                                                <select name="type" id="type" class="form-control select-lg select2">
                                                     <option value="">انتخاب نوع قرارداد</option>
                                                     <option value="1">پیمانکاری</option>
                                                     <option value="2">فرانچایز</option>
@@ -63,7 +62,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <p class="mg-b-10">نوع هزینه</p>
-                                                <select name="paid_type[]" id="paid_type" class="form-control select-lg select2">
+                                                <select name="paid_type" id="paid_type" class="form-control select-lg select2">
                                                     <option value="">انتخاب نوع قرارداد</option>
                                                     <option value="free">رایگان</option>
                                                     <option value="notfree">غیر رایگان</option>
