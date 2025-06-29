@@ -37,16 +37,11 @@
                             </div>
 
                             @if($contracts->paid_type == 'free')
-                                <div class="p-4 border rounded-lg shadow bg-white flex items-center space-x-4">
-                                    <div class="text-green-600">
-                                        <i class="fas fa-file-download fa-2x"></i>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-700">دانلود رایگان مقاله</p>
-                                        <a href="{{'/storage/'.$contracts->file_path }}" class="text-blue-600 hover:underline">
-                                            کلیک کنید
-                                        </a>
-                                    </div>
+                                <div class="mt-4 text-center">
+                                    <a href="{{'/storage/'.$contracts->file_path }}"
+                                       class="btn btn-success btn-lg br-8 px-5">
+                                        دانلود رایگان
+                                    </a>
                                 </div>
                             @else
                                 <div class="mt-4 text-center">
