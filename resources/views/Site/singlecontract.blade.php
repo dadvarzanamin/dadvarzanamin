@@ -12,7 +12,8 @@
                 <div class="col-lg-8 mb-5">
                     <div class="card card-item card-bg50">
                         <div class="text-center">
-                            <img src="{{ asset('storage/'.$contracts->image) }}" alt="پیش‌نمایش قرارداد" class="img-fluid rounded shadow-sm" style="max-height: 500px;">
+                            <img src="{{ asset('storage/'.$contracts->image) }}" alt="پیش‌نمایش قرارداد"
+                                 class="img-fluid rounded shadow-sm" style="max-height: 500px;">
                         </div>
 
                         <div class="card-body">
@@ -35,11 +36,26 @@
 
                             </div>
 
-                            <div class="mt-4 text-center">
-                                <a href="#" onclick="alert('فعلاً امکان خرید فعال نیست')" class="btn btn-success btn-lg br-8 px-5">
-                                    خرید قرارداد
-                                </a>
-                            </div>
+                            @if($contracts->paid_type == 'free')
+                                <div class="p-4 border rounded-lg shadow bg-white flex items-center space-x-4">
+                                    <div class="text-green-600">
+                                        <i class="fas fa-file-download fa-2x"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-gray-700">دانلود رایگان مقاله</p>
+                                        <a href="{{'storage'.$contracts->file_path }}" class="text-blue-600 hover:underline">
+                                            کلیک کنید
+                                        </a>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="mt-4 text-center">
+                                    <a href="#" onclick="alert('فعلاً امکان خرید فعال نیست')"
+                                       class="btn btn-success btn-lg br-8 px-5">
+                                        خرید قرارداد
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
