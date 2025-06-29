@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="flex-1">
                                         <p class="font-semibold text-gray-700">دانلود رایگان مقاله</p>
-                                        <a href="{{'/storage'.$contracts->file_path }}" class="text-blue-600 hover:underline">
+                                        <a href="{{'/storage/'.$contracts->file_path }}" class="text-blue-600 hover:underline">
                                             کلیک کنید
                                         </a>
                                     </div>
