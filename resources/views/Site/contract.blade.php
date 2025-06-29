@@ -55,6 +55,12 @@
                             <div class="rating-wrap d-flex align-items-center py-2">
                                 <span class="rating-total pl-1">{{$contract->count_view}}</span>
                             </div>
+                            <div class="mt-4 text-center">
+                                <a href="{{url('نمونه-قراردادها/'.$contract->slug)}}"
+                                   class="btn btn-success px-5">
+                                     مشاهده
+                                </a>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="card-price text-black font-weight-bold">{{number_format($contract->discount)}}<span class="before-price font-weight-medium">{{number_format($contract->price)}}</span></p>
                             </div>
