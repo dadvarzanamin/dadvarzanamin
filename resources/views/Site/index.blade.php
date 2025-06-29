@@ -31,6 +31,23 @@
 @endsection
 @section('main')
 
+    <!-- Modal -->
+    <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qrModalLabel">دانلود اپلیکیشن</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="بستن"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ asset('site/images/qr-code.svg') }}" alt="QR Code" style="max-width: 300px;">
+                    <p class="mt-3">برای دانلود اپلیکیشن کد را اسکن کنید</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <section class="hero-area">
         {{--        <div class="hero-slider owl-action-styled">--}}
         {{--            @foreach($slides as $slide)--}}
@@ -610,4 +627,12 @@
         });
 
     </script>
+
+    <script>
+        window.addEventListener('load', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('qrModal'));
+            myModal.show();
+        });
+    </script>
+
 @endsection
