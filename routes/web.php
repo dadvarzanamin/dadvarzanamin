@@ -17,7 +17,6 @@ Route::get('generate'  , [App\Http\Controllers\SitemapController::class, 'genera
 
 
 Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function () {
-    Route::get('invoice'            , 'Site\IndexController@invoice')              ->name('invoice');
 
     $sitemenus= Menu::select('slug', 'class', 'submenu_route', 'submenu')->whereLevel('site')->get();
     $submenus = Submenu::select('id', 'slug', 'class')->get();
@@ -78,14 +77,14 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::post('queries'           , 'ProfileController@queries')              ->name('queries');
         Route::post('workshop-sign'     , 'ProfileController@workshopsign')         ->name('workshop-sign');
         Route::get('paymentpage'        , 'ProfileController@paymentpage')          ->name('paymentpage');
-        //Route::get('pay'                , 'ProfileController@pay')                  ->name('pay');
-        Route::get('payment.callback'   , 'WalletController@callbackpay')          ->name('payment.callback');
+        Route::get('payment.callback'   , 'WalletController@callbackpay')           ->name('payment.callback');
         Route::post('edit-user-mobile/update'  , 'ProfileController@editusermobile')->name('edit-user-mobile');
-        Route::post('discountcheck'      , 'ProfileController@discountcheck')       ->name('discountcheck');
+        Route::post('discountcheck'     , 'ProfileController@discountcheck')        ->name('discountcheck');
         Route::get('payment-success'    , 'ProfileController@pay')                  ->name('payment-success');
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
         Route::get('profile-wallet'     , 'ProfileController@profilewallet')        ->name('profilewallet');
-        Route::get('pay'                , 'WalletController@pay')                  ->name('pay');
+        Route::get('pay'                , 'WalletController@pay')                   ->name('pay');
+        Route::post('invoice'           , 'Site\IndexController@invoice')           ->name('invoice');
 
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();

@@ -36,21 +36,17 @@
 
                             </div>
 
-                            @if($contracts->paid_type == 'free')
                                 <div class="mt-4 text-center">
-                                    <a href="{{'/storage/'.$contracts->file_path }}"
-                                       class="btn btn-success btn-lg br-8 px-5">
-                                        دانلود رایگان
-                                    </a>
+                                    <form action="{{url('invoice')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$contracts->id}}">
+                                        <input type="hidden" name="type" value="contracts">
+                                        <input type="hidden" name="price" value="{{$contracts->price}}">
+                                        <input type="hidden" name="discount" value="{{$contracts->discount}}">
+                                        <button type="submit" class="btn btn-success btn-lg br-8 px-5">دانلود</button>
+                                    </form>
                                 </div>
-                            @else
-                                <div class="mt-4 text-center">
-                                    <a href="#" onclick="alert('فعلاً امکان خرید فعال نیست')"
-                                       class="btn btn-success btn-lg br-8 px-5">
-                                        خرید قرارداد
-                                    </a>
-                                </div>
-                            @endif
+
                         </div>
                     </div>
                 </div>
