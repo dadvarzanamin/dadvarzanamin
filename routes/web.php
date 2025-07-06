@@ -84,7 +84,6 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
         Route::get('payment-failed'     , 'ProfileController@pay')                  ->name('payment-failed');
         Route::get('profile-wallet'     , 'ProfileController@profilewallet')        ->name('profilewallet');
         Route::get('pay'                , 'WalletController@pay')                   ->name('pay');
-        Route::post('invoice'           , 'Site\IndexController@invoice')           ->name('invoice');
 
 
         $dashboardmenus = Menu::select('slug' , 'class')->whereLevel('dashboard')->get();
@@ -108,6 +107,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
     //Route::get('دوره-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
     Route::get('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
     Route::get('/reload-captcha'            , [App\Http\Controllers\Site\IndexController::class, 'reloadCaptcha']);
+    Route::post('invoice'                   , [App\Http\Controllers\Site\IndexController::class, 'invoice'])           ->name('invoice');
 
 
 Route::group(['prefix' => 'admin' , 'middleware' => ['auth:web' , 'checkAdmin'] , 'namespace' => 'App\Http\Controllers\Admin' ] , function (){
