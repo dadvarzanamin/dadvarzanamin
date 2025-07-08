@@ -47,6 +47,8 @@ Route::middleware('auth:api')->group(function () {
     Route::GET('v1/wallet/balance'      , [App\Http\Controllers\Api\V1\WalletController::class       , 'balance']);
     Route::GET('v1/wallet/transactions' , [App\Http\Controllers\Api\V1\WalletController::class       , 'transactions']);
     Route::post('v1/wallet/deposit'     , [App\Http\Controllers\Api\V1\WalletController::class       , 'deposit']);
+    Route::post('v1/wallet/withdraw'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'withdraw']);
+
 //    Route::GET('v1/backtoapp'           , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
 
 });
