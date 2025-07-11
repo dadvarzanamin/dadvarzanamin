@@ -20,23 +20,23 @@
         <div class="container">
             <h1 class="d-flex text-align-center justify-content-center">مقالات آموزشی</h1>
             <div class="row">
-                @foreach($workshops as $workshop)
+                @foreach($articles as $article)
                     <div class="col-lg-4">
                         <div class="card card-item card-preview" data-tooltip-content="#tooltip_content_1">
                             <div class="card-image">
-                                <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshop->slug)}}" class="d-block">
-                                    <img class="card-img-top img-index" src="{{asset('storage/'.$workshop->image)}}" alt="{{$workshop->title}}" style="object-fit: cover;">
+                                <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$article->slug)}}" class="d-block">
+                                    <img class="card-img-top img-index" src="{{asset('storage/'.$article->image)}}" alt="{{$article->title}}" style="object-fit: cover;">
                                 </a>
                                 <div class="course-badge-labels">
-                                    <div class="course-badge">{{jdate($workshop->created_at)->ago()}}</div>
+                                    <div class="course-badge">{{jdate($article->created_at)->ago()}}</div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title"><a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshop->slug)}}">{{$workshop->title}}</a></h5>
+                                <h5 class="card-title"><a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$article->slug)}}">{{$article->title}}</a></h5>
                                 <div class="line"></div>
                                 <div class="row rating-wrap d-flex align-items-center justify-content-between p-2 pt-3">
                                     <p>امیرحسین زین الدینی</p>
-                                    <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$workshop->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
+                                    <a href="{{url('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی/'.$article->slug)}}" class="btn theme-btn theme-btn-sm theme-btn-transparent">مشاهده</a>
                                 </div>
                             </div>
                         </div>
