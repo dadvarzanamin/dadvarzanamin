@@ -174,6 +174,7 @@ Route::group(['prefix' => 'admin' , 'middleware' => ['auth:web' , 'checkAdmin'] 
     Route::delete('deletemedia'             , 'MediaController@deletemedia')                        ->name('deletemedia');
     Route::delete('deleteoffer'             , 'OfferController@deleteoffer')                        ->name('deleteoffer');
     Route::delete('deletecontract'          , 'ContractController@deletecontract')                  ->name('deletecontract');
+    Route::delete('deletearticle'          , 'ContractController@deletearticle')                    ->name('deletearticle');
     Route::get('learn-file-download/{id}'   , 'LearnfileController@download')                       ->name('learn-file-download');
 
     Route::post('readnotif'                 , 'NotifController@readnotif')      ->name('readnotif');
