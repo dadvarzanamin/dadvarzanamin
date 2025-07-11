@@ -81,7 +81,7 @@ class ArticleController extends Controller
                 ->make(true);
         }
 
-        return view('Admin.article.all')
+        return view('Admin.articles.all')
             ->with(compact(['menupanels' , 'submenupanels' , 'articles' , 'thispage']));
     }
 
