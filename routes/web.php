@@ -95,19 +95,25 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
 
     });
 
-    Route::get('/setclass'                  , [App\Http\Controllers\Site\IndexController::class, 'setclass'])        ->name('setclass');
-    Route::get('/sendmail'                  , [App\Http\Controllers\Site\IndexController::class, 'sendmail'])        ->name('sendmail');
-    Route::post('/getcategory'              , [App\Http\Controllers\Site\IndexController::class, 'getcategory'])        ->name('getcategory');
-    Route::post('/Consultationrequest'      , [App\Http\Controllers\Site\IndexController::class, 'Consultationrequest'])->name('Consultationrequest');
-    Route::get('شرایط-ضوابط'                , [App\Http\Controllers\Site\IndexController::class, 'terms'])              ->name('شرایط-ضوابط');
-    Route::get('اخبار'.'/'.'{slug}'         , [App\Http\Controllers\Site\IndexController::class, 'singleakhbar']);
-    Route::get('نمونه-قراردادها'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'singlecontract']);
-    Route::get('تیم-ما'.'/'.'رزومه'.'/'.'{slug}'  , [App\Http\Controllers\Site\IndexController::class, 'emploeeresume']);
-    Route::get('محتوای-آموزشی'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'singlepost']);
-    //Route::get('دوره-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
+    Route::get('/setclass'                       , [App\Http\Controllers\Site\IndexController::class, 'setclass'])           ->name('setclass');
+    Route::get('/sendmail'                       , [App\Http\Controllers\Site\IndexController::class, 'sendmail'])           ->name('sendmail');
+    Route::post('/getcategory'                   , [App\Http\Controllers\Site\IndexController::class, 'getcategory'])        ->name('getcategory');
+    Route::post('/Consultationrequest'           , [App\Http\Controllers\Site\IndexController::class, 'Consultationrequest'])->name('Consultationrequest');
+    Route::get('شرایط-ضوابط'                     , [App\Http\Controllers\Site\IndexController::class, 'terms'])              ->name('شرایط-ضوابط');
+    Route::post('invoice'                        , [App\Http\Controllers\Site\IndexController::class, 'invoice'])            ->name('invoice');
+    Route::delete('invoicedestroy'               , [App\Http\Controllers\Site\IndexController::class, 'invoicedestroy'])     ->name('invoicedestroy');
+    Route::get('invoicetotal'                    , [App\Http\Controllers\Site\IndexController::class, 'invoicetotal'])       ->name('invoicetotal');
+    Route::get('order'                           , [App\Http\Controllers\Site\IndexController::class, 'order'])              ->name('order');
+    Route::get('اخبار'.'/'.'{slug}'              , [App\Http\Controllers\Site\IndexController::class, 'singleakhbar']);
+    Route::get('نمونه-قراردادها'.'/'.'{slug}'    , [App\Http\Controllers\Site\IndexController::class, 'singlecontract']);
+    Route::get('تیم-ما'.'/'.'رزومه'.'/'.'{slug}' , [App\Http\Controllers\Site\IndexController::class, 'emploeeresume']);
+    Route::get('محتوای-آموزشی'.'/'.'{slug}'      , [App\Http\Controllers\Site\IndexController::class, 'singlepost']);
+    Route::get('/reload-captcha'                 , [App\Http\Controllers\Site\IndexController::class, 'reloadCaptcha']);
     Route::get('دپارتمان-اموزش-و-پژوهش/دوره-های-آموزشی'.'/'.'{slug}'   , [App\Http\Controllers\Site\IndexController::class, 'singleworkshop']);
-    Route::get('/reload-captcha'            , [App\Http\Controllers\Site\IndexController::class, 'reloadCaptcha']);
-    Route::post('invoice'                   , [App\Http\Controllers\Site\IndexController::class, 'invoice'])           ->name('invoice');
+    Route::post('wallet/deposit'                  , [App\Http\Controllers\Site\WalletController::class, 'deposit'])->name('deposit');
+    Route::post('wallet/withdraw'                 , [App\Http\Controllers\Site\WalletController::class, 'withdraw'])->name('withdraw');
+    Route::get('wallet'                          , [App\Http\Controllers\Site\WalletController::class, 'show']);
+    Route::get('wallet/transactions'             , [App\Http\Controllers\Site\WalletController::class, 'transactions']);
 
 
 Route::group(['prefix' => 'admin' , 'middleware' => ['auth:web' , 'checkAdmin'] , 'namespace' => 'App\Http\Controllers\Admin' ] , function (){
@@ -220,7 +226,3 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'] , function (){
         Route::get('logout'     , 'LoginController@logout')->name('panellogout');
     });
 
-    Route::post('wallet/deposit'        , 'WalletController@deposit')->name('deposit');
-    Route::post('wallet/withdraw'       , 'WalletController@withdraw')->name('withdraw');
-    Route::get('wallet'                 , 'WalletController@show');
-    Route::get('wallet/transactions'    , 'WalletController@transactions');

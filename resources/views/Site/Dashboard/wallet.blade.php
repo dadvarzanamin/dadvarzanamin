@@ -34,10 +34,27 @@
                 @foreach($payments->sortByDesc('updated_at') as $payment)
                     <tr>
                         <td>{{jdate($payment->updated_at)}}</td>
-                        <td>واریز</td>
-                        <td>{{$payment->amount}}</td>
-                        <td><span
-                                class="badge-custom p-1 br-8 {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'پرداخت موفق' : 'پرداخت نا موفق'}}</span>
+                        <td>
+
+                            @php
+                                $typeText = match($payment->type) {
+                                    'deposit'   => 'واریز',
+                                    'withdraw'  => 'برداشت',
+                                    default     => 'نامشخص',
+                                };
+                            @endphp
+
+                            {{ $typeText }}
+
+
+                        </td>
+                        <td>{{number_format($payment->amount)}}</td>
+                        <td>
+                            @if($payment->type == 'deposit')
+                                <span class="badge-custom p-1 br-8 {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'واریز موفق' : 'واریز ناموفق'}}</span>
+                            @elseif($payment->type == 'withdraw')
+                                <span class="badge-custom p-1 br-8 {{$payment->status == 'completed' ? 'badge-success' : 'badge-danger'}} ">{{$payment->status == 'completed' ? 'برداشت موفق' : 'برداشت ناموفق'}}</span>
+                            @endif
                         </td>
                         <td>شارژ از درگاه پرداخت</td>
                     </tr>

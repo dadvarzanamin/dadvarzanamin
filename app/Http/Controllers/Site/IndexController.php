@@ -102,6 +102,25 @@ class IndexController extends Controller
 
     }
 
+    public function invoicedestroy(Request $request)
+    {
+        $invoice = Invoice::find($request->id);
+
+        if ($invoice) {
+            $invoice->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'یافت نشد.']);
+        }
+    }
+
+    public function invoicetotal()
+    {
+        $totalFinal = Invoice::sum(DB::raw('product_price - offer_discount'));
+
+        return response()->json(['total' => $totalFinal]);
+    }
+
     public function order(Request $request)
     {
         $url = $request->segments();
@@ -126,7 +145,7 @@ class IndexController extends Controller
         $customers      = Customer::select('name', 'image')->whereStatus(4)->whereHome_show(1)->get();
         $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
 
-        return view('Site.invoice')->with(compact('menus', 'thispage' , 'companies', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'megamenus', 'megacounts', 'emploees'));
+        return view('Site.orders')->with(compact('menus', 'thispage' , 'companies', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'megamenus', 'megacounts', 'emploees'));
 
     }
 
@@ -586,6 +605,7 @@ class IndexController extends Controller
         $slides         = Slide::select('id', 'file_link')->whereMenu_id($thispage['id'])->whereStatus(4)->first();
         return view('Site.term')->with(compact('menus', 'thispage', 'companies', 'slides', 'submenus', 'services', 'megacounts', 'megamenus', 'servicelawyers'));
     }
+
     public function privacy(Request $request)
     {
         $url = $request->segments();

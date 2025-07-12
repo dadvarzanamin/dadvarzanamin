@@ -115,15 +115,39 @@ class WalletController extends Controller
 
     public function withdraw(Request $request)
     {
-        $amount = $request->input('amount');
-        $wallet = auth()->user()->wallet;
+        $amount = $request->input('totalFinal');
 
-        try {
-            $wallet->withdraw($amount, 'برداشت از کیف پول');
-            return response()->json(['message' => 'برداشت انجام شد']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
+        $user = auth()->user();
+        $wallet = $user->wallet;
+
+        if ($wallet->balance < $amount) {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'موجودی کافی نیست.',
+                    'errors' => true,
+                    'status_code' => 500,
+                    'result' => $wallet->balance
+                ], 500);
         }
+
+        $transaction = $user->transactions()->create([
+            'wallet_id'     => $wallet->id,
+            'type'          => 'withdraw',
+            'amount'        => $amount,
+            'description'   => $request->description,
+            'status'        => 'completed',
+        ]);
+
+        $wallet->decrement('balance', $amount);
+
+        return response()->json(
+            ['isSuccess'        => true,
+                'message'       => 'مبلغ با موفقیت از کیف پول برداشت شد.',
+                'errors'        => null,
+                'status_code'   => 200,
+                'result'        => $wallet->balance,
+                'redirect_url' => route('order'),
+            ], 200);
     }
 
     public function transactions()
