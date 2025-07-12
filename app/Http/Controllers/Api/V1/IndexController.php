@@ -11,6 +11,8 @@ use App\Models\APP\lawsuit;
 use App\Models\APP\legalAdvice;
 use App\Models\APP\tokil;
 use App\Models\APP\Version;
+use App\Models\Article;
+use App\Models\Contract;
 use App\Models\Emploee;
 use App\Models\Profile\City;
 use App\Models\Profile\State;
@@ -516,6 +518,46 @@ class IndexController extends Controller
                     'errors' => null,
                     'status_code' => 200,
                     'result' => $cities
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
+    }
+    public function getcontract(Request $request)
+    {
+        $contracts = Contract::all();
+        if ($contracts) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد دریافت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $contracts
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
+    }
+    public function getarticle(Request $request)
+    {
+        $articles = Article::all();
+        if ($articles) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد دریافت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $articles
                 ], 200);
         } else {
             return response()->json(

@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\IndexController;
 
 //Route::middleware('api')->group(function () {
-    Route::post('v1/login'          , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
-    Route::post('v1/register'       , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
-    Route::get('v1/register'        , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
-    Route::post('v1/token'          , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
-    Route::post('v1/remember'       , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
-//    Route::get('v1/payment.callback', [App\Http\Controllers\Api\V1\IndexController::class   ,'callbackpay'])->name('payment.callback');
-    Route::GET('v1/latest_version'  , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
-    Route::GET('v1/getstate'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getState']);
-    Route::Post('v1/getcity'        , [App\Http\Controllers\Api\V1\IndexController::class   , 'getCity']);
-    Route::GET('v1/wallet/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
+    Route::post('v1/login'              , [App\Http\Controllers\Api\V1\UserController::class    , 'login']);
+    Route::post('v1/register'           , [App\Http\Controllers\Api\V1\UserController::class    , 'register']);
+    Route::get('v1/register'            , [App\Http\Controllers\Api\V1\UserController::class    , 'getregister']);
+    Route::post('v1/token'              , [App\Http\Controllers\Api\V1\UserController::class    , 'token']);
+    Route::post('v1/remember'           , [App\Http\Controllers\Api\V1\UserController::class    , 'remember']);
+    Route::GET('v1/latest_version'      , [App\Http\Controllers\Api\V1\IndexController::class   , 'version']);
+    Route::GET('v1/getstate'            , [App\Http\Controllers\Api\V1\IndexController::class   , 'getState']);
+    Route::Post('v1/getcity'            , [App\Http\Controllers\Api\V1\IndexController::class   , 'getCity']);
+    Route::GET('v1/wallet/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class  , 'callbackpay'])->name('backtoapp');
+    Route::GET('v1/getcontract'         , [App\Http\Controllers\Api\V1\IndexController::class   , 'getcontract']);
+    Route::GET('v1/getarticle'         , [App\Http\Controllers\Api\V1\IndexController::class    , 'getarticle']);
 
 
 
