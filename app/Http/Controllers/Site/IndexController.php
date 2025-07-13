@@ -46,11 +46,11 @@ class IndexController extends Controller
 
         if(Auth::check()) {
             $invoice = new Invoice();
-            $invoice->user_id = Auth::user()->id;
-            $invoice->product_id = $request->input('id');
-            $invoice->product_type = $request->input('type');
-            $invoice->product_price = $request->input('price');
-            $invoice->offer_discount = $request->input('discount');
+            $invoice->user_id           = Auth::user()->id;
+            $invoice->product_id        = $request->input('id');
+            $invoice->product_type      = $request->input('type');
+            $invoice->product_price     = $request->input('price');
+            $invoice->offer_discount    = $request->input('discount');
             $invoice->save();
         }else{
             return Redirect::to('login');
@@ -80,12 +80,12 @@ class IndexController extends Controller
 
         $invoices = DB::table('invoices')
             ->leftJoin('workshops', function($join) {
-                $join->on('invoices.product_id', '=', 'workshops.id')
-                    ->where('invoices.product_type', '=', 'workshops');
+            $join->on('invoices.product_id', '=', 'workshops.id')
+            ->where('invoices.product_type', '=', 'workshops');
             })
             ->leftJoin('contracts', function($join) {
-                $join->on('invoices.product_id', '=', 'contracts.id')
-                    ->where('invoices.product_type', '=', 'contracts');
+            $join->on('invoices.product_id', '=', 'contracts.id')
+            ->where('invoices.product_type', '=', 'contracts');
             })
             ->where('invoices.user_id', '=', Auth::user()->id)
             ->where('invoices.price_status', '=', null)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\Profile\Wallet;
 use App\Models\Profile\WalletTransaction;
 use App\Models\Profile\Workshopsign;
@@ -115,7 +116,9 @@ class WalletController extends Controller
 
     public function withdraw(Request $request)
     {
-        $amount = $request->input('totalFinal');
+
+        $amount     = $request->input('totalFinal');
+        $invoiceIds = $request->input('invoice_ids', []);
 
         $user = auth()->user();
         $wallet = $user->wallet;
@@ -139,6 +142,10 @@ class WalletController extends Controller
         ]);
 
         $wallet->decrement('balance', $amount);
+
+        Invoice::whereIn('id', $invoiceIds)
+            ->where('user_id', auth()->id())
+            ->update(['price_status' => 4]);
 
         return response()->json(
             ['isSuccess'        => true,
