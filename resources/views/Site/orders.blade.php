@@ -3,25 +3,44 @@
 @section('title', 'سفارشات من')
 
 @section('main')
-    <div class="container py-4">
-        <h3 class="mb-4 text-center">سفارشات من</h3>
+    <div class="container py-5">
+        <h3 class="text-center mb-5 fw-bold">سفارشات من</h3>
 
-        @foreach($orders as $order)
-                <div class="order-card ">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div><strong>شماره سفارش:</strong> #{{$order->id}}</div>
-                        <div><strong>سفارش:</strong> {{$order->product_type}}</div>
-                        <div><strong>وضعیت:</strong>
-                            <span class="badge bg-success order-status p-2">پرداخت شده</span>
+        @forelse($orders as $order)
+                <div class="card mb-4 border border-light-subtle br-8">
+                    <div class="card-body">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-1">سفارش #{{ $order->id }}</h5>
+                                <p class="mb-0 text-muted">نوع سفارش: {{ $order->product_type }}</p>
+                            </div>
+                            <div>
+                                <span class="badge bg-success fs-6 p-2" style="color:#fff;">پرداخت شده</span>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4 col-12">
+                                <div><strong>نام محصول:</strong></div>
+                                <div>{{ $order->product_name }}</div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div><strong>مبلغ کل:</strong></div>
+                                <div>{{ number_format($order->product_price) }} تومان</div>
+                            </div>
+                            <div class="col-md-4 col-12 d-flex align-items-end justify-content-md-end">
+                                <a href="{{ asset($order->file_path) }}" class="btn btn-outline-primary w-100 w-md-auto">
+                                    دانلود فایل
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div><strong>مبلغ کل:</strong> {{$order->product_price}} تومان </div>
-                        <div><strong>نام محصول:</strong> {{$order->product_name}}</div>
-                        <div><a href="{{asset($order->file_path)}}"><strong>کنید دانلود</strong></a> </div>
-                    </div>
                 </div>
-                <hr>
-        @endforeach
+
+        @empty
+            <div class="alert alert-info text-center">
+                هیچ سفارشی ثبت نشده است.
+            </div>
+        @endforelse
     </div>
 @endsection
