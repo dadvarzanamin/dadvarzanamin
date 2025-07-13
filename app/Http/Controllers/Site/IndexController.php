@@ -144,8 +144,35 @@ class IndexController extends Controller
         $serviceclients = Submenu::select('title', 'slug', 'menu_id', 'image', 'megamenu_id')->whereStatus(4)->whereMegamenu_id(5)->whereMenu_id(64)->get();
         $customers      = Customer::select('name', 'image')->whereStatus(4)->whereHome_show(1)->get();
         $emploees       = Emploee::whereStatus(4)->orderBy('priority')->get();
+        $orders         = DB::table('invoices')
+            ->leftJoin('workshops', function ($join) {
+                $join->on('invoices.product_id', '=', 'workshops.id')
+                    ->where('invoices.product_type', '=', 'workshops');
+            })
+            ->leftJoin('contracts', function ($join) {
+                $join->on('invoices.product_id', '=', 'contracts.id')
+                    ->where('invoices.product_type', '=', 'contracts');
+            })
+            ->where('invoices.user_id', Auth::user()->id)
+            ->where('invoices.price_status', 4)
+            ->select('invoices.*',
+                DB::raw("CASE
+                        WHEN invoices.product_type = 'workshops' THEN workshops.title
+                        WHEN invoices.product_type = 'contracts' THEN contracts.title
+                        ELSE NULL END AS product_name"),
+                DB::raw("CASE
+                        WHEN invoices.product_type = 'contracts' THEN contracts.file_path
+                        ELSE NULL END AS file_path"),
+//                DB::raw("CASE
+//                        WHEN invoices.product_type = 'contracts' THEN contracts.start_date
+//                        ELSE NULL END AS contract_start_date"),
+//                DB::raw("CASE
+//                        WHEN invoices.product_type = 'contracts' THEN contracts.end_date
+//                        ELSE NULL END AS contract_end_date")
+            )->get();
 
-        return view('Site.orders')->with(compact('menus', 'thispage' , 'companies', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'megamenus', 'megacounts', 'emploees'));
+        //dd($orders);
+        return view('Site.orders')->with(compact('menus', 'thispage' ,'orders' ,'companies', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'megamenus', 'megacounts', 'emploees'));
 
     }
 
