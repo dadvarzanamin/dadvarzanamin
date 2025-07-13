@@ -29,7 +29,7 @@
                                 <div>{{ number_format($order->product_price) }} تومان</div>
                             </div>
                             <div class="col-md-4 col-12 d-flex align-items-end justify-content-md-end">
-                                <a href="{{ asset($order->file_path) }}" class="btn btn-outline-primary w-100 w-md-auto">
+                                <a href="{{ asset('storage/' . $order->file_path) }}" class="btn btn-outline-primary w-100 w-md-auto">
                                     دانلود فایل
                                 </a>
                             </div>
