@@ -102,6 +102,12 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
+                                                <div class="form-group" style="margin-top: 65px;">
+                                                    <p class="mg-b-10">جزوه دوره</p>
+                                                    <input type="jozve" name="jozve" id="jozve" value="{{$workshops->jozve}}" class="form-control" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <p class="mg-b-10">سطح دوره</p>
                                                     <select name="level" id="level"

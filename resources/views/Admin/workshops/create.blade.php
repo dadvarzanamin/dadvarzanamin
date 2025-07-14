@@ -135,6 +135,12 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group" style="margin-top: 65px;">
+                                                <p class="mg-b-10">جزوه دوره</p>
+                                                <input type="jozve" name="jozve" id="jozve" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group" style="margin-top: 65px;">
                                                 <p class="mg-b-10"> اهداف دوره</p>
                                                 <textarea name="text" id="editor2" cols="30" rows="5"
                                                           class="form-control"></textarea>
@@ -222,7 +228,8 @@
                 let type = jQuery('#type').val();
                 let status = jQuery('#status').val();
                 //let    editor       = jQuery('#editor').val();
-                let file_link = jQuery('#file_link')[0].files[0];
+                let file_link   = jQuery('#file_link')[0].files[0];
+                let jozve       = jQuery('#jozve')[0].files[0];
 
                 let formData = new FormData();
                 formData.append('title', title);
@@ -238,6 +245,7 @@
                 formData.append('type', type);
                 formData.append('description', description);
                 formData.append('file_link', file_link);
+                formData.append('jozve', jozve);
                 formData.append('_token', _token);
 
                 swal({

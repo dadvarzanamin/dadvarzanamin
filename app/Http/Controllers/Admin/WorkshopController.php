@@ -237,6 +237,15 @@ class WorkshopController extends Controller
                 $file->storeAs($imagePath, $imageName);
 
             }
+            if ($request->file('jozve')) {
+
+                $file       = $request->file('jozve');
+                $imagePath  ="public/workshops";
+                $imageName  = Str::random(30).".".$file->clientExtension();
+                $workshops->jozve = 'workshops/'.$imageName;
+                $file->storeAs($imagePath, $imageName);
+
+            }
 
             $result = $workshops->save();
 
@@ -310,7 +319,15 @@ class WorkshopController extends Controller
                 $file->storeAs($imagePath, $imageName);
 
             }
+            if ($request->file('jozve')) {
 
+                $file       = $request->file('jozve');
+                $imagePath  ="public/workshops";
+                $imageName  = Str::random(30).".".$file->clientExtension();
+                $workshops->jozve = 'workshops/'.$imageName;
+                $file->storeAs($imagePath, $imageName);
+
+            }
             $result = $workshops->save();
 
             if ($result == true) {
