@@ -50,6 +50,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/wallet/deposit'     , [App\Http\Controllers\Api\V1\WalletController::class       , 'deposit']);
     Route::post('v1/wallet/withdraw'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'withdraw']);
 
+    Route::post('invoice'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoice'])            ->name('invoice');
+    Route::delete('invoicedestroy'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicedestroy'])     ->name('invoicedestroy');
+    Route::get('invoicetotal'           , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicetotal'])       ->name('invoicetotal');
+    Route::get('order'                  , [App\Http\Controllers\Api\V1\IndexController::class        , 'order'])              ->name('order');
+
 //    Route::GET('v1/backtoapp'           , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
 
 });

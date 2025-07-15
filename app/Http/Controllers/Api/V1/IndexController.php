@@ -14,6 +14,7 @@ use App\Models\APP\Version;
 use App\Models\Article;
 use App\Models\Contract;
 use App\Models\Emploee;
+use App\Models\Invoice;
 use App\Models\Profile\City;
 use App\Models\Profile\State;
 use App\Models\Profile\Workshop;
@@ -567,6 +568,78 @@ class IndexController extends Controller
                     'status_code' => 500,
                 ], 500);
         }
+    }
+    public function invoice(Request $request)
+    {
+        $invoice = new Invoice();
+        $invoice->user_id           = Auth::user()->id;
+        $invoice->product_id        = $request->input('id');
+        $invoice->product_type      = $request->input('type');
+        $invoice->product_price     = $request->input('price');
+        $invoice->offer_discount    = $request->input('discount');
+        $invoice->save();
+
+        $invoices = DB::table('invoices')
+            ->leftJoin('workshops', function($join) {
+                $join->on('invoices.product_id', '=', 'workshops.id')
+                    ->where('invoices.product_type', '=', 'workshops');
+            })
+            ->leftJoin('contracts', function($join) {
+                $join->on('invoices.product_id', '=', 'contracts.id')
+                    ->where('invoices.product_type', '=', 'contracts');
+            })
+            ->where('invoices.user_id', '=', Auth::user()->id)
+            ->where('invoices.price_status', '=', null)
+            ->select(
+                'invoices.*',
+                DB::raw("CASE
+            WHEN invoices.product_type = 'workshops' THEN workshops.title
+            WHEN invoices.product_type = 'contracts' THEN contracts.title
+            ELSE null END as product_name")
+            )
+            ->get();
+
+        return response()->json(
+            ['isSuccess' => true,
+                'message' => 'مقادیر رکورد دریافت شد',
+                'errors' => null,
+                'status_code' => 200,
+                'result' => $invoices
+            ], 200);
+    }
+    public function invoicedestroy(Request $request)
+    {
+        $invoice = Invoice::find($request->id);
+
+        if ($invoice) {
+            $invoice->delete();
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد با موفقیت پاک شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
+    }
+
+    public function invoicetotal()
+    {
+        $totalFinal = Invoice::sum(DB::raw('product_price - offer_discount'));
+
+        return response()->json(
+            ['isSuccess' => true,
+                'message' => 'مقادیر رکورد دریافت شد',
+                'errors' => null,
+                'status_code' => 200,
+                'result' => $totalFinal
+            ], 200);
     }
     public function order(Request $request)
     {
