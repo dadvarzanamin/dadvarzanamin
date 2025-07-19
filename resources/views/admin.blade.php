@@ -179,8 +179,13 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{route('user-request')}}"> <i class="la la-question mr-1"></i> درخواست مشاوره
-                                                                </a>
+                                                                <a href="{{route('user-request')}}"> <i class="la la-question mr-1"></i> درخواست مشاوره </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('showinvoice')}}"> <i class="la la-question mr-1"></i> نمایش سبد خرید </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('order')}}"> <i class="la la-question mr-1"></i> سفارشات </a>
                                                             </li>
                                                             <li>
                                                                 <a href="{{route('logout')}}"> <i class="la la-power-off mr-1"></i> خروج </a>

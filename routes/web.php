@@ -101,6 +101,7 @@ Route::group(['namespace' => 'App\Http\Controllers' ,'prefix' => '/'] , function
     Route::post('/Consultationrequest'           , [App\Http\Controllers\Site\IndexController::class, 'Consultationrequest'])->name('Consultationrequest');
     Route::get('شرایط-ضوابط'                     , [App\Http\Controllers\Site\IndexController::class, 'terms'])              ->name('شرایط-ضوابط');
     Route::post('invoice'                        , [App\Http\Controllers\Site\IndexController::class, 'invoice'])            ->name('invoice');
+    Route::get('showinvoice'                     , [App\Http\Controllers\Site\IndexController::class, 'showinvoice'])        ->name('showinvoice');
     Route::delete('invoicedestroy'               , [App\Http\Controllers\Site\IndexController::class, 'invoicedestroy'])     ->name('invoicedestroy');
     Route::get('invoicetotal'                    , [App\Http\Controllers\Site\IndexController::class, 'invoicetotal'])       ->name('invoicetotal');
     Route::get('order'                           , [App\Http\Controllers\Site\IndexController::class, 'order'])              ->name('order');

@@ -607,6 +607,37 @@ class IndexController extends Controller
                 'result' => $invoices
             ], 200);
     }
+
+    public function showinvoice(Request $request)
+    {
+        $invoices = DB::table('invoices')
+            ->leftJoin('workshops', function($join) {
+                $join->on('invoices.product_id', '=', 'workshops.id')
+                    ->where('invoices.product_type', '=', 'workshops');
+            })
+            ->leftJoin('contracts', function($join) {
+                $join->on('invoices.product_id', '=', 'contracts.id')
+                    ->where('invoices.product_type', '=', 'contracts');
+            })
+            ->where('invoices.user_id', '=', Auth::user()->id)
+            ->where('invoices.price_status', '=', null)
+            ->select(
+                'invoices.*',
+                DB::raw("CASE
+            WHEN invoices.product_type = 'workshops' THEN workshops.title
+            WHEN invoices.product_type = 'contracts' THEN contracts.title
+            ELSE null END as product_name")
+            )
+            ->get();
+
+        return response()->json(
+            ['isSuccess' => true,
+                'message' => 'مقادیر رکورد دریافت شد',
+                'errors' => null,
+                'status_code' => 200,
+                'result' => $invoices
+            ], 200);
+    }
     public function invoicedestroy(Request $request)
     {
         $invoice = Invoice::find($request->id);
