@@ -225,6 +225,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
+        return view('Demo.index');
          //Artisan::call('sitemap:generate');
 //        $users = User::doesntHave('wallet')->get();
 //        foreach ($users as $user) {
