@@ -62,7 +62,9 @@
                                 </a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="card-price text-black font-weight-bold">{{number_format($contract->discount)}}<span class="before-price font-weight-medium">{{number_format($contract->price)}}</span></p>
+
+                                <p class="card-price text-black font-weight-bold">{{number_format($contract->price - $contract->discount)}} تومان</p>
+
                             </div>
                         </div>
                     </div>
