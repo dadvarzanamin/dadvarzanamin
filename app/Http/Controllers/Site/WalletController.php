@@ -120,6 +120,10 @@ class WalletController extends Controller
         $amount     = $request->input('totalFinal');
         $invoiceIds = $request->input('invoice_ids', []);
 
+        if (!is_array($invoiceIds)) {
+            $invoiceIds = explode(',', $invoiceIds);
+        }
+
         $user = auth()->user();
         $wallet = $user->wallet;
 

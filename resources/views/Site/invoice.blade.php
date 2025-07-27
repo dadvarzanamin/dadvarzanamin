@@ -116,14 +116,14 @@
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const walletBalance = {{ auth()->user()->wallet->balance }};
-        let latestTotalFinal = {{ $totalFinal }};
-        let activeInvoiceIds = @json($invoices->pluck('id')->toArray());
-        let selectedInvoiceId = null;
+        const walletBalance    = {{ auth()->user()->wallet->balance }};
+        let latestTotalFinal   = {{ $totalFinal }};
+        let activeInvoiceIds   = @json($invoices->pluck('id')->toArray());
+        let selectedInvoiceId  = null;
 
-        const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-        const payModal = new bootstrap.Modal(document.getElementById('confirmPayModal'));
-        const statusModal = new bootstrap.Modal(document.getElementById('paymentStatusModal'));
+        const deleteModal   = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+        const payModal      = new bootstrap.Modal(document.getElementById('confirmPayModal'));
+        const statusModal   = new bootstrap.Modal(document.getElementById('paymentStatusModal'));
 
         $(document).on('click', '.delete-invoice-btn', function() {
             selectedInvoiceId = $(this).data('id');

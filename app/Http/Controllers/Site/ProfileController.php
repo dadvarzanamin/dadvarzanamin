@@ -9,6 +9,7 @@ use App\Models\Dashboard\Estelam;
 use App\Models\Dashboard\Learnfile;
 use App\Models\Dashboard\notif_user;
 use App\Models\Dashboard\Subestelam;
+use App\Models\Invoice;
 use App\Models\Menu;
 use App\Models\message;
 use App\Models\Payment;
@@ -58,10 +59,11 @@ class ProfileController extends Controller
 
     public function withdraw()
     {
-        $user = Auth::user();
-        $notifs = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
-        $companies = Company::first();
-        $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
+        $user               = Auth::user();
+        $notifs             = $user->notifs()->whereActive(1)->orderBy('id', 'DESC')->get();
+        $companies          = Company::first();
+        $dashboardmenus     = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
+
         return view('Site.Dashboard.withdraw')->with(compact('companies', 'dashboardmenus', 'notifs'));
 
     }
@@ -700,11 +702,23 @@ class ProfileController extends Controller
             $Workshopsign->certificate      = $request->input('certificate');
             $Workshopsign->certif_price     = $workshops->certificate_price;
             $Workshopsign->workshop_price   = $workshops->price;
-            $Workshopsign->price   = $workshops->price;
-            $Workshopsign->user_id      = Auth::user()->id;
+            $Workshopsign->price            = $workshops->price;
+            $Workshopsign->user_id          = Auth::user()->id;
             $Workshopsign->save();
 
-            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+            $invoice = new Invoice();
+            $invoice->user_id           = Auth::user()->id;
+            $invoice->product_id        = $request->input('workshopid');
+            $invoice->product_type      = 'workshop';
+            $invoice->product_price     = $workshops->price;
+            $invoice->type_use          = $request->input('typeuse');
+            $invoice->certificate_price = $workshops->certificate_price;
+            $invoice->price     = $workshops->certificate_price + $workshops->price;
+            $invoice->save();
+
+            $invoices = Invoice::whereId($invoice->id)->first();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }elseif ($workshopsigns->pricestatus == 4) {
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
             return Redirect::back();
@@ -719,7 +733,19 @@ class ProfileController extends Controller
                 'user_id'           => Auth::user()->id,
             ]);
 
-            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+            $invoice = new Invoice();
+            $invoice->user_id           = Auth::user()->id;
+            $invoice->product_id        = $workshopid;
+            $invoice->product_type      = 'workshop';
+            $invoice->product_price     = $workshops->price;
+            $invoice->type_use          = $request->input('typeuse');
+            $invoice->certificate_price = $workshops->certificate_price;
+            $invoice->price     = $workshops->certificate_price + $workshops->price;
+            $invoice->save();
+
+            $invoices = Invoice::whereId($invoice->id)->first();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
 
     }

@@ -146,11 +146,44 @@
                             <p id="discount-result" class="text-center my-3"></p>
                         </div>
                     </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn theme-btn">تایید و پرداخت</button>
+                    <div class="text-center mt-4 btn-pay-container">
+                        <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
+                        <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge" style="display:none;">شارژ کیف پول</a>
                     </div>
+{{--                    <div class="text-center">--}}
+{{--                        <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}
+{{--                    </div>--}}
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmPayModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">تأیید پرداخت</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>آیا مطمئن هستید که می‌خواهید پرداخت را انجام دهید؟</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    <button type="button" class="btn btn-success" id="confirmPayBtn">پرداخت</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="paymentStatusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">وضعیت پرداخت</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="paymentStatusText" class="mb-0"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -224,6 +257,52 @@
                         alert("خطایی در ارسال درخواست به وجود آمد.");
                     }
                 });
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const walletBalance    = {{ auth()->user()->wallet->balance }};
+        let latestTotalFinal   = {{ $invoices->price }};
+        let activeInvoiceIds   = {{$invoices->id}};
+        let selectedInvoiceId  = null;
+        const payModal      = new bootstrap.Modal(document.getElementById('confirmPayModal'));
+
+        $('#btn-pay').on('click', function() {
+            payModal.show();
+        });
+
+        $('#confirmPayBtn').on('click', function() {
+            $.ajax({
+                url: "{{ route('withdraw') }}",
+                type: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    totalFinal: latestTotalFinal,
+                    invoice_ids: activeInvoiceIds
+                },
+                success: function(response) {
+                    payModal.hide();
+
+                    if (response.isSuccess) {
+                        $('#invoice-list').fadeOut(300, function() { $(this).remove(); });
+                        $('#walletWarning, #btn-pay, #btn-wallet-charge').hide();
+
+                        $('#btn-go-orders').attr('href', response.redirect_url);
+                        $('#post-payment-actions').fadeIn();
+
+                        $('#paymentStatusText').text(response.message || 'پرداخت با موفقیت انجام شد');
+                    } else {
+                        $('#paymentStatusText').text(response.message || 'خطا در پرداخت');
+                    }
+
+                    statusModal.show();
+                },
+                error: function() {
+                    payModal.hide();
+                    $('#paymentStatusText').text('خطای سرور در انجام پرداخت');
+                    statusModal.show();
+                }
             });
         });
     </script>
