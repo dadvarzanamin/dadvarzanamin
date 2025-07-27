@@ -39,6 +39,7 @@ class IndexController extends Controller
         ];
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
+
     public function index(){
         $emploees       = Emploee::select('id' , 'priority' , 'fullname' , 'image' , 'side' , 'status')->whereStatus(4)->orderBy('priority')->get();
         $response = [
@@ -47,6 +48,7 @@ class IndexController extends Controller
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
     }
+
     public function workshops(Request $request){
         $workshops = Workshop::select('id', 'title', 'teacher', 'teacher_image', 'teacher_resume', 'price', 'certificate_price', 'offer', 'duration', 'type', 'image', 'video', 'date', 'description', 'target', 'level' , 'status')->where('id' , '!=' , 2)->get();
 
@@ -77,6 +79,7 @@ class IndexController extends Controller
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
+
     public function form(Request $request){
 
         if($request->input(['type']) == 'tokil'){
@@ -212,6 +215,7 @@ class IndexController extends Controller
 
         // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
     }
+
     public function court(){
         $courts       = Courts::whereStatus(4)->get();
         $response = [
@@ -219,6 +223,7 @@ class IndexController extends Controller
         ];
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
     }
+
     public function workshopsign(Request $request){
 
         $workshop = Workshop::whereId($request->input('workshop_id'))->first();
@@ -273,6 +278,7 @@ class IndexController extends Controller
         }
 
     }
+
     public function discountcheck(Request $request){
 
         $workshopsigns = DB::table('workshops')
@@ -320,6 +326,7 @@ class IndexController extends Controller
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
     }
+
     public function pay(Request $request)
     {
         if ($request->input('certificate') == 1){
@@ -421,6 +428,7 @@ class IndexController extends Controller
             }
         }
     }
+
     public function callbackpay(Request $request)
     {
         $authority = $request->query('Authority');
@@ -489,6 +497,7 @@ class IndexController extends Controller
             //return redirect("yourapp://payment-failed?message=" . urlencode("پرداخت لغو شد"));
         }
     }
+
     public function getState(Request $request)
     {
         $states = State::select('id', 'title')->get();
@@ -509,6 +518,7 @@ class IndexController extends Controller
                 ], 500);
         }
     }
+
     public function getCity(Request $request)
     {
         $cities = City::select('id', 'title')->whereState_id($request->input('id'))->get();
@@ -529,6 +539,7 @@ class IndexController extends Controller
                 ], 500);
         }
     }
+
     public function getcontract(Request $request)
     {
         $contracts = Contract::all();
@@ -549,6 +560,7 @@ class IndexController extends Controller
                 ], 500);
         }
     }
+
     public function getarticle(Request $request)
     {
         $articles = Article::all();
@@ -569,6 +581,7 @@ class IndexController extends Controller
                 ], 500);
         }
     }
+
     public function invoice(Request $request)
     {
         $invoice = new Invoice();
@@ -638,6 +651,7 @@ class IndexController extends Controller
                 'result' => $invoices
             ], 200);
     }
+
     public function invoicedestroy(Request $request)
     {
         $invoice = Invoice::find($request->id);
@@ -662,7 +676,9 @@ class IndexController extends Controller
 
     public function invoicetotal()
     {
-        $totalFinal = Invoice::sum(DB::raw('product_price - offer_discount'));
+        $totalFinal = Invoice::where('price_status','<>' , 4)
+            ->whereUser_id(Auth::user()->id)
+            ->sum(DB::raw('product_price - offer_discount'));
 
         return response()->json(
             ['isSuccess' => true,
@@ -672,6 +688,7 @@ class IndexController extends Controller
                 'result' => $totalFinal
             ], 200);
     }
+
     public function order(Request $request)
     {
         $orders         = DB::table('invoices')
