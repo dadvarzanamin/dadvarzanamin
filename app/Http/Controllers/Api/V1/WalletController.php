@@ -16,7 +16,7 @@ class WalletController extends Controller
     public function balance()
     {
         $wallet_balance = number_format(auth()->user()->wallet->balance);
-        if ($wallet_balance) {
+        if ($wallet_balance >=0) {
             return response()->json(
                 ['isSuccess' => true,
                     'message' => 'مقادیر رکورد دریافت شد',
