@@ -772,6 +772,7 @@ class IndexController extends Controller
     public function setclass(){
 
     }
+
     public function partnerResume(Request $request)
     {
         $url = $request->segments();

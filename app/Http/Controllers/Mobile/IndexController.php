@@ -30,14 +30,13 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    public function demo(){
-
+//    public function demo(){
         //$receiverEmail = 'hosseindbk@yahoo.com';
        // Mail::to($receiverEmail)->send(new VerificationEmail());
         //return "ایمیل تستی با موفقیت ارسال شد!";
         // Artisan::call('storage:link');
-         return view('Demo.index');
-    }
+//         return view('Demo.index');
+//    }
 
     public function index(Request $request)
     {
