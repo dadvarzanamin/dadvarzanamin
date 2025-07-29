@@ -676,8 +676,8 @@ class IndexController extends Controller
 
     public function invoicetotal()
     {
-        $totalFinal = Invoice::where('price_status','<>' , 4)
-            ->whereUser_id(Auth::user()->id)
+        $totalFinal = Invoice::whereUser_id(Auth::user()->id)
+->wherePrice_status(null)
             ->sum(DB::raw('product_price - offer_discount'));
 
         return response()->json(

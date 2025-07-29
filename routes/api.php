@@ -51,7 +51,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/wallet/withdraw'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'withdraw']);
 
     Route::post('v1/invoice'            , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoice'])            ->name('invoice');
-    Route::delete('v1/invoicedestroy'   , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicedestroy'])     ->name('invoicedestroy');
+    Route::delete('v1/invoicedestroy/{id}'   , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicedestroy'])     ->name('invoicedestroy');
     Route::get('v1/invoicetotal'        , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicetotal'])       ->name('invoicetotal');
     Route::get('v1/order'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'order'])              ->name('order');
     Route::get('v1/showinvoice'         , [App\Http\Controllers\Api\V1\IndexController::class        , 'showinvoice'])        ->name('showinvoice');

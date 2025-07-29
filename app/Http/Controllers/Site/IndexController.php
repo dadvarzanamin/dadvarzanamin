@@ -163,8 +163,9 @@ class IndexController extends Controller
 
     public function invoicetotal()
     {
-        $totalFinal = Invoice::sum(DB::raw('product_price - offer_discount'));
-
+        $totalFinal = Invoice::whereUser_id(Auth::user()->id)
+->wherePrice_status(null)
+            ->sum(DB::raw('product_price - offer_discount'));
         return response()->json(['total' => $totalFinal]);
     }
 
@@ -225,7 +226,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        return view('Demo.index');
+        //return view('Demo.index');
          //Artisan::call('sitemap:generate');
 //        $users = User::doesntHave('wallet')->get();
 //        foreach ($users as $user) {
