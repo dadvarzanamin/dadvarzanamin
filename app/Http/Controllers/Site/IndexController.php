@@ -43,8 +43,17 @@ class IndexController extends Controller
 
     public function invoice(Request $request)
     {
-
         if(Auth::check()) {
+
+            $existing = Invoice::where('user_id', Auth::user()->id)
+                ->where('product_id', $request->input('id'))
+                ->where('product_type', $request->input('type'))
+                ->first();
+
+            if ($existing) {
+                return Redirect::back();
+            }
+
             $invoice = new Invoice();
             $invoice->user_id           = Auth::user()->id;
             $invoice->product_id        = $request->input('id');
@@ -318,6 +327,7 @@ class IndexController extends Controller
         return view('Site.resume')
             ->with(compact('menus','thispage' , 'companies' ,'emploees' , 'slides' , 'customers' , 'submenus' , 'services' , 'megacounts' , 'megamenus', 'servicelawyers'));
     }
+
     public function emploeeresume(Request $request , $name){
         $url = $request->segments();
         $menus        = Menu::select('id' , 'title' , 'slug' , 'submenu' , 'priority' , 'mega_menu')->MenuSite()->orderBy('priority')->get();

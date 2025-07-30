@@ -147,7 +147,13 @@
                         </div>
                     </div>
                     <div class="text-center mt-4 btn-pay-container">
+
                         <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
+
+                        <a href="{{route('order')}}" id="btn-order" class="btn btn-success btn-lg px-4" style="display: none;">
+                            نمایش سفارشات
+                        </a>
+
                         <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge" style="display:none;">شارژ کیف پول</a>
                     </div>
 {{--                    <div class="text-center">--}}
@@ -292,6 +298,10 @@
                         $('#post-payment-actions').fadeIn();
 
                         $('#paymentStatusText').text(response.message || 'پرداخت با موفقیت انجام شد');
+
+                        $('#btn-pay').remove();
+                        $('#btn-order').fadeIn();
+
                     } else {
                         $('#paymentStatusText').text(response.message || 'خطا در پرداخت');
                     }

@@ -729,21 +729,36 @@ class ProfileController extends Controller
                 'typeuse'           => $request->input('typeuse'),
                 'certif_price'      => $workshops->certificate_price,
                 'workshop_price'    => $workshops->price,
-                'price'    => $workshops->price,
+                'price'             => $workshops->price,
                 'user_id'           => Auth::user()->id,
             ]);
 
-            $invoice = new Invoice();
-            $invoice->user_id           = Auth::user()->id;
-            $invoice->product_id        = $workshopid;
-            $invoice->product_type      = 'workshop';
-            $invoice->product_price     = $workshops->price;
-            $invoice->type_use          = $request->input('typeuse');
-            $invoice->certificate_price = $workshops->certificate_price;
-            $invoice->price     = $workshops->certificate_price + $workshops->price;
-            $invoice->save();
+            $existing = Invoice::
+                  where('user_id', Auth::user()->id)
+                ->where('product_id', $workshopid)
+                ->where('product_type','workshop')
+                ->first();
 
-            $invoices = Invoice::whereId($invoice->id)->first();
+            if ($existing->price_status == 4) {
+                alert()->error('', 'شما قبلا این دوره را ثبت نام کرده اید.');
+                return Redirect::back();
+
+            }elseif(!$existing) {
+
+                $invoice = new Invoice();
+                $invoice->user_id = Auth::user()->id;
+                $invoice->product_id = $workshopid;
+                $invoice->product_type = 'workshop';
+                $invoice->product_price = $workshops->price;
+                $invoice->type_use = $request->input('typeuse');
+                $invoice->certificate_price = $workshops->certificate_price;
+                $invoice->price = $workshops->certificate_price + $workshops->price;
+                $invoice->save();
+                $invoices = Invoice::whereId($invoice->id)->first();
+
+            }elseif($existing->price_status == null){
+                $invoices = Invoice::whereId($existing->id)->first();
+            }
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
         }
