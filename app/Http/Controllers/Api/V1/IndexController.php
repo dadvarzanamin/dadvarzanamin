@@ -258,6 +258,17 @@ class IndexController extends Controller
                 $workshopsign->workshop_price = $workshop->price;
                 $workshopsign->user_id = Auth::user()->id;
                 $workshopsign->save();
+
+                $invoice = new Invoice();
+                $invoice->user_id           = Auth::user()->id;
+                $invoice->product_id        = $request->input('workshop_id');
+                $invoice->product_type      = 'workshop';
+                $invoice->product_price     = $workshop->price;
+                $invoice->type_use          = $request->input('typeuse');
+                $invoice->certificate_price = $workshop->certificate_price;
+                $invoice->price     = $workshop->certificate_price + $workshop->price;
+                $invoice->save();
+
                 if ($workshopsign){
                     return Response::json(['ok' =>true ,'message' => 'success']);
                 }else{
