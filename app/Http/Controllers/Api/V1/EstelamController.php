@@ -29,7 +29,7 @@ class EstelamController extends Controller
 //dd($estelams);
             $user = auth()->user();
             $wallet = $user->wallet;
-            if ($wallet->balance < '3000000') {
+            if ($wallet->balance < '300000') {
                 return response()->json(
                     ['isSuccess' => null,
                         'message' => 'موجودی کافی نیست.',
@@ -73,7 +73,7 @@ class EstelamController extends Controller
                     $invoice->user_id = Auth::user()->id;
                     $invoice->product_id = $request->input('formId');
                     $invoice->product_type = 'estelam';
-                    $invoice->product_price = '3000000';
+                    $invoice->product_price = '300000';
                     $invoice->save();
 
                     $data = [
