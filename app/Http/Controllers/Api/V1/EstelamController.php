@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard\Estelam;
+use App\Models\Invoice;
 use App\Models\Profile\EstelamToken;
 use App\Models\Profile\Log_estelam;
 use App\Models\User;
@@ -26,6 +27,17 @@ class EstelamController extends Controller
 
             $estelams = Estelam::whereId($request->input('formId'))->get();
 //dd($estelams);
+            $user = auth()->user();
+            $wallet = $user->wallet;
+            if ($wallet->balance < '3000000') {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'موجودی کافی نیست.',
+                        'errors' => true,
+                        'status_code' => 500,
+                        'result' => $wallet->balance
+                    ], 500);
+            }
             foreach ($estelams as $estelam) {
 
                 $requiredFields = explode(',', $estelam->required_fields);
@@ -39,10 +51,10 @@ class EstelamController extends Controller
 //dd($data[$field]);
                     } else {
                         return response()->json(
-                            ['isSuccess'    => false,
-                             'message'      => 'اطلاعات ورودی نادرست می باشد.',
-                             'errors'       => true,
-                             'status_code'  => 500,
+                            ['isSuccess' => false,
+                                'message' => 'اطلاعات ورودی نادرست می باشد.',
+                                'errors' => true,
+                                'status_code' => 500,
                             ], 500);
                     }
                 }
@@ -56,19 +68,39 @@ class EstelamController extends Controller
 //dd($dataParts);
                 }
                 if ($response['isSuccess'] === true) {
-                    return response()->json(
-                        ['isSuccess'       => true,
-                            'message'      => 'مقادیر رکورد دریافت شد',
-                            'errors'       => null,
-                            'status_code'  => 200,
-                            'result'       => $dataParts
-                        ], 200);
+
+                    $invoice = new Invoice();
+                    $invoice->user_id = Auth::user()->id;
+                    $invoice->product_id = $request->input('formId');
+                    $invoice->product_type = 'estelam';
+                    $invoice->product_price = '3000000';
+                    $invoice->save();
+
+                    $data = [
+                        'totalFinal' => $invoice->product_price,
+                        'invoice_ids' => $invoice->id,
+                        'description' => 'دریافت موفق استعلام',
+                    ];
+                    $withdrawRequest = new Request($data);
+                    $walletController = new WalletController();
+                    $withdrawResult = $walletController->withdraw($withdrawRequest);
+
+                    if ($withdrawResult->getData()->isSuccess === true)
+                    {
+                        return response()->json(
+                            ['isSuccess' => true,
+                                'message' => 'مقادیر رکورد دریافت شد',
+                                'errors' => null,
+                                'status_code' => 200,
+                                'result' => $dataParts
+                            ], 200);
+                    }
                 } else {
                     return response()->json(
-                        ['isSuccess'       => null,
-                            'message'      => 'مقداری یافت نشد.',
-                            'errors'       => true,
-                            'status_code'  => 500,
+                        ['isSuccess' => null,
+                            'message' => 'مقداری یافت نشد.',
+                            'errors' => true,
+                            'status_code' => 500,
                         ], 500);
                 }
             }

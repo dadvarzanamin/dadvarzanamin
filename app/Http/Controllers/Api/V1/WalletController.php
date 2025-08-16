@@ -180,6 +180,7 @@ class WalletController extends Controller
 
         $wallet->decrement('balance', $amount);
 
+        $invoiceIds = (array) $request->input('invoice_ids');
         Invoice::whereIn('id', $invoiceIds)
             ->where('user_id', auth()->id())
             ->update(['price_status' => 4]);
