@@ -407,6 +407,7 @@ class UserController extends Controller
         }
 
     }
+
     public function addpass(Request $request){
 
         $user = User::findOrfail(auth::user()->id);
