@@ -15,8 +15,9 @@ use App\Http\Controllers\Api\v1\IndexController;
     Route::GET('v1/getstate'            , [App\Http\Controllers\Api\V1\IndexController::class   , 'getState']);
     Route::Post('v1/getcity'            , [App\Http\Controllers\Api\V1\IndexController::class   , 'getCity']);
     Route::GET('v1/wallet/backtoapp'    , [App\Http\Controllers\Api\V1\WalletController::class  , 'callbackpay'])->name('backtoapp');
-    Route::GET('v1/getcontract'         , [App\Http\Controllers\Api\V1\IndexController::class   , 'getcontract']);
+    Route::GET('v1/getcontract'         , [App\Http\Controllers\Api\V1\ProductController::class , 'getcontract']);
     Route::GET('v1/getarticle'          , [App\Http\Controllers\Api\V1\IndexController::class   , 'getarticle']);
+    Route::GET('v1/workshops'           , [App\Http\Controllers\Api\V1\ProductController::class , 'workshops']);
 
 
 
@@ -40,11 +41,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/addpass'            , [App\Http\Controllers\Api\V1\UserController::class         , 'addpass']);
     Route::post('v1/editprofile'        , [App\Http\Controllers\Api\V1\UserController::class         , 'editprofile']);
     Route::post('v1/form'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'form']);
-    Route::post('v1/workshopsign'       , [App\Http\Controllers\Api\V1\IndexController::class        , 'workshopsign']);
+    Route::post('v1/workshopsign'       , [App\Http\Controllers\Api\V1\ProductController::class        , 'workshopsign']);
+    Route::post('v1/workshopinvoice'    , [App\Http\Controllers\Api\V1\ProductController::class      , 'workshopinvoice']);
     Route::post('v1/discountcheck'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'discountcheck']);
-
+    Route::post('v1/purchase_contract'  , [App\Http\Controllers\Api\V1\ProductController::class      , 'purchase_contract']);
     Route::post('v1/estelam'            , [App\Http\Controllers\Api\V1\ProductController::class      , 'estelam']);
-    Route::GET('v1/workshops'           , [App\Http\Controllers\Api\V1\IndexController::class        , 'workshops']);
     Route::GET('v1/courts'              , [App\Http\Controllers\Api\V1\IndexController::class        , 'court']);
     Route::GET('v1/wallet/balance'      , [App\Http\Controllers\Api\V1\WalletController::class       , 'balance']);
     Route::GET('v1/wallet/transactions' , [App\Http\Controllers\Api\V1\WalletController::class       , 'transactions']);

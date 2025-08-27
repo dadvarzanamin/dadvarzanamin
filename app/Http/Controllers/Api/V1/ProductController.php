@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contract;
 use App\Models\Dashboard\Estelam;
 use App\Models\Invoice;
 use App\Models\Profile\EstelamToken;
@@ -140,7 +141,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function workshops(Request $request){
         $workshops = Workshop::select('id', 'title', 'teacher', 'teacher_image', 'teacher_resume', 'price', 'certificate_price', 'offer', 'duration', 'type', 'image', 'video', 'date', 'description', 'target', 'level' , 'status')->where('id' , '!=' , 2)->get();
 
@@ -180,6 +180,7 @@ class ProductController extends Controller
     public function workshopsign(Request $request){
 
         $workshop = Workshop::whereId($request->input('workshop_id'))->first();
+
         if ($workshop->status <> 4){
             return response()->json(
                 ['isSuccess' => null,
@@ -191,22 +192,21 @@ class ProductController extends Controller
         try {
             $workshopsigns = DB::table('workshops as w')
                 ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
+                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price' , 'w.type_price')
                 ->where('w.id', '=', $request->input('workshop_id'))
                 ->where('ws.user_id', '=', Auth::user()->id )
                 ->first();
 
             if ($workshopsigns){
-                DB::table('workshops as w')
-                    ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                    ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price')
-                    ->where('w.id', '=', $request->input('workshop_id'))
-                    ->where('ws.user_id', '=', Auth::user()->id )
+                DB::table('workshopsigns')
+                    ->where('workshop_id', $request->input('workshop_id'))
+                    ->where('user_id', Auth::id())
                     ->update([
-                        'workshop_id'      => $request->input('workshop_id'),
-                        'certif_price'     => $workshop->certificate_price,
-                        'workshop_price'   => $workshop->price,
-                        'user_id'          => Auth::user()->id,
+                        'certif_price'   => $workshop->certificate_price,
+                        'type_price'     => $workshop->type_price,
+                        'workshop_price' => $workshop->price,
+                        'price'          => $workshop->price,
+                        'user_id'        => Auth::id(),
                     ]);
                 return response()->json(
                     ['isSuccess' => true,
@@ -217,10 +217,11 @@ class ProductController extends Controller
                     ], 200);
             }else {
                 $workshopsign = new Workshopsign();
-                $workshopsign->workshop_id = $request->input('workshop_id');
-                $workshopsign->certif_price = $workshop->certificate_price;
-                $workshopsign->workshop_price = $workshop->price;
-                $workshopsign->user_id = Auth::user()->id;
+                $workshopsign->workshop_id      = $request->input('workshop_id');
+                $workshopsign->certif_price     = $workshop->certificate_price;
+                $workshopsign->type_price       = $workshop->type_price;
+                $workshopsign->workshop_price   = $workshop->price;
+                $workshopsign->user_id          = Auth::user()->id;
                 $workshopsign->save();
 
                 $invoice = new Invoice();
@@ -228,9 +229,10 @@ class ProductController extends Controller
                 $invoice->product_id        = $request->input('workshop_id');
                 $invoice->product_type      = 'workshop';
                 $invoice->product_price     = $workshop->price;
+                $invoice->type_price        = $workshop->price;
                 $invoice->type_use          = $request->input('typeuse');
                 $invoice->certificate_price = $workshop->certificate_price;
-                $invoice->price     = $workshop->certificate_price + $workshop->price;
+                $invoice->price             = $workshop->certificate_price + $workshop->price;
                 $invoice->save();
 
                 if ($workshopsign){
@@ -263,4 +265,109 @@ class ProductController extends Controller
 
     }
 
+    public function workshopinvoice(Request $request){
+        $invoice = Invoice::where('user_id' , Auth::user()->id)
+            ->where('product_id' , $request->input('workshop_id'))
+            ->where('product_type' , 'workshop')
+            ->whereNull('price_status')
+            ->first();
+
+        $workshop = $invoice->workshop;
+
+        $totalPrice = $workshop->price;
+
+        if ($request->input('certificate') == 1) {
+            $totalPrice += $workshop->certificate_price;
+        }
+
+        if ($request->input('type_use') == 1) {
+            $totalPrice += $workshop->type_price;
+        }
+
+        $invoice->update([
+            'certificate' => $request->input('certificate'),
+            'type_use'    => $request->input('type_use'),
+            'price'       => $totalPrice,
+        ]);
+
+    }
+
+    public function getcontract(Request $request)
+    {
+        $contracts = Contract::all();
+        if ($contracts) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد دریافت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $contracts
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
+    }
+
+    public function purchase_contract(Request $request){
+        $contract = Contract::whereId($request->input('contract_id'))->first();
+        if ($contract->paid_type == 'nonfree') {
+            $user = auth()->user();
+            $wallet = $user->wallet;
+            if ($wallet->balance < $contract->price) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'موجودی کافی نیست.',
+                        'errors' => true,
+                        'status_code' => 500,
+                        'result' => $wallet->balance
+                    ], 500);
+            }else{
+                $invoice = new Invoice();
+                $invoice->user_id           = Auth::user()->id;
+                $invoice->product_id        = $request->input('contract_id');
+                $invoice->product_type      = 'contract';
+                $invoice->product_price     = $contract->price;
+                $invoice->price             = $contract->price;
+                $invoice->save();
+                $data = [
+                    'totalFinal'    => $invoice->product_price,
+                    'invoice_ids'   => $invoice->id,
+                    'description'   => 'خرید نمونه قرارداد',
+                ];
+                $withdrawRequest    = new Request($data);
+                $walletController   = new WalletController();
+                $withdrawResult     = $walletController->withdraw($withdrawRequest);
+
+                if ($withdrawResult->getData()->isSuccess === true) {
+                    return response()->json(
+                        ['isSuccess' => true,
+                            'message' => 'پرداخت با موفقیت انجام شد',
+                            'errors' => null,
+                            'status_code' => 200,
+                            'result' => ''
+                        ], 200);
+                } else {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 500);
+            }
+        }
+    }else{
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'پرداخت با موفقیت انجام شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
+    }
 }

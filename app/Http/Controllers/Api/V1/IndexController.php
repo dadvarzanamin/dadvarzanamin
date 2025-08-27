@@ -454,27 +454,6 @@ class IndexController extends Controller
         }
     }
 
-    public function getcontract(Request $request)
-    {
-        $contracts = Contract::all();
-        if ($contracts) {
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'مقادیر رکورد دریافت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $contracts
-                ], 200);
-        } else {
-            return response()->json(
-                ['isSuccess' => null,
-                    'message' => 'مقداری یافت نشد.',
-                    'errors' => true,
-                    'status_code' => 500,
-                ], 500);
-        }
-    }
-
     public function getarticle(Request $request)
     {
         $articles = Article::all();
