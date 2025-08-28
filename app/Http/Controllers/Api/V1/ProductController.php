@@ -306,7 +306,6 @@ class ProductController extends Controller
             'typeuse'          => $request->input('type_use'),
             'type_price'        => $type_price,
             'price'             => $totalPrice,
-            'final_price'       => $totalPrice,
         ]);
 
         $result = Invoice::where('user_id' , Auth::user()->id)
