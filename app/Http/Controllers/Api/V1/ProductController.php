@@ -375,7 +375,7 @@ class ProductController extends Controller
                 $invoice->final_price       = $contract->price;
                 $invoice->save();
                 $data = [
-                    'totalFinal'    => $invoice->product_price,
+                    'totalFinal'    => $invoice->final_price,
                     'invoice_ids'   => $invoice->id,
                     'description'   => 'خرید نمونه قرارداد',
                 ];
@@ -393,15 +393,15 @@ class ProductController extends Controller
                             'result' => $result
                         ], 200);
                 } else {
-                return response()->json(
-                    ['isSuccess' => null,
-                        'message' => 'مقداری یافت نشد.',
-                        'errors' => true,
-                        'status_code' => 500,
-                    ], 500);
+                    return response()->json(
+                        ['isSuccess' => null,
+                            'message' => 'مقداری یافت نشد.',
+                            'errors' => true,
+                            'status_code' => 500,
+                        ], 500);
+                }
             }
-        }
-    }else{
+        }else{
             return response()->json(
                 ['isSuccess' => true,
                     'message' => 'پرداخت با موفقیت انجام شد',
@@ -410,5 +410,48 @@ class ProductController extends Controller
                     'result' => ''
                 ], 200);
         }
+    }
+
+    public function purchase_workshop(Request $request){
+        $invoice = Invoice::whereId($request->input('invoice_id'))->first();
+        $workshop = $invoice->workshop;
+        $user = auth()->user();
+        $wallet = $user->wallet;
+            if ($wallet->balance < $invoice->final_price) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'موجودی کافی نیست.',
+                        'errors' => true,
+                        'status_code' => 500,
+                        'result' => $wallet->balance
+                    ], 500);
+            }else{
+                $data = [
+                    'totalFinal'    => $invoice->final_price,
+                    'invoice_ids'   => $invoice->id,
+                    'description'   => $workshop->title,
+                ];
+                $withdrawRequest    = new Request($data);
+                $walletController   = new WalletController();
+                $withdrawResult     = $walletController->withdraw($withdrawRequest);
+
+                if ($withdrawResult->getData()->isSuccess === true) {
+
+                    return response()->json(
+                        ['isSuccess' => true,
+                            'message' => 'ثبت نام و پرداخت با موفقیت انجام شد',
+                            'errors' => null,
+                            'status_code' => 200,
+                            'result' => ''
+                        ], 200);
+                } else {
+                    return response()->json(
+                        ['isSuccess' => null,
+                            'message' => 'خطا در عملیات',
+                            'errors' => true,
+                            'status_code' => 500,
+                        ], 500);
+                }
+            }
     }
 }
