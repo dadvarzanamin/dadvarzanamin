@@ -299,13 +299,19 @@ class ProductController extends Controller
             'price'             => $totalPrice,
         ]);
 
-        $result = $workshopsign->update([
+        $workshopsign->update([
             'certificate'       => $request->input('certificate'),
             'certif_price'      => $certificate_price,
             'typeuse'          => $request->input('type_use'),
             'type_price'        => $type_price,
             'price'             => $totalPrice,
         ]);
+
+        $result = Invoice::where('user_id' , Auth::user()->id)
+            ->where('product_id' , $request->input('workshop_id'))
+            ->where('product_type' , 'workshop')
+            ->whereNull('price_status')
+            ->first();
 
         if ($result) {
             return response()->json(
@@ -377,12 +383,13 @@ class ProductController extends Controller
                 $withdrawResult     = $walletController->withdraw($withdrawRequest);
 
                 if ($withdrawResult->getData()->isSuccess === true) {
+                    $result = Contract::whereId($request->input('contract_id'))->first();
                     return response()->json(
                         ['isSuccess' => true,
                             'message' => 'پرداخت با موفقیت انجام شد',
                             'errors' => null,
                             'status_code' => 200,
-                            'result' => ''
+                            'result' => $result
                         ], 200);
                 } else {
                 return response()->json(
