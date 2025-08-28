@@ -56,11 +56,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('v1/purchase_contract'  , [App\Http\Controllers\Api\V1\ProductController::class      , 'purchase_contract']);
     Route::post('v1/estelam'            , [App\Http\Controllers\Api\V1\ProductController::class      , 'estelam']);
 
-    Route::post('v1/invoice'            , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoice'])            ->name('invoice');
-    Route::delete('v1/invoicedestroy/{id}' , [App\Http\Controllers\Api\V1\IndexController::class     , 'invoicedestroy'])     ->name('invoicedestroy');
-    Route::get('v1/invoicetotal'        , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoicetotal'])       ->name('invoicetotal');
-    Route::get('v1/order'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'order'])              ->name('order');
-    Route::get('v1/showinvoice'         , [App\Http\Controllers\Api\V1\IndexController::class        , 'showinvoice'])        ->name('showinvoice');
+    Route::post('v1/invoice'            , [App\Http\Controllers\Api\V1\InvoiceController::class        , 'invoice'])            ->name('invoice');
+    Route::delete('v1/invoicedestroy/{id}' , [App\Http\Controllers\Api\V1\InvoiceController::class     , 'invoicedestroy'])     ->name('invoicedestroy');
+    Route::get('v1/invoicetotal'        , [App\Http\Controllers\Api\V1\InvoiceController::class        , 'invoicetotal'])       ->name('invoicetotal');
+    Route::get('v1/order'               , [App\Http\Controllers\Api\V1\InvoiceController::class        , 'order'])              ->name('order');
+    Route::get('v1/showinvoice'         , [App\Http\Controllers\Api\V1\InvoiceController::class        , 'showinvoice'])        ->name('showinvoice');
 
 //    Route::GET('v1/backtoapp'           , [App\Http\Controllers\Api\V1\WalletController::class       , 'callbackpay'])->name('backtoapp');
 

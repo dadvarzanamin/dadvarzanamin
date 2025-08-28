@@ -106,7 +106,7 @@ class InvoiceController extends Controller
     {
         $totalFinal = Invoice::whereUser_id(Auth::user()->id)
             ->wherePrice_status(null)
-            ->sum(DB::raw('product_price - offer_discount'));
+            ->sum(DB::raw('final_price'));
 
         return response()->json(
             ['isSuccess' => true,
