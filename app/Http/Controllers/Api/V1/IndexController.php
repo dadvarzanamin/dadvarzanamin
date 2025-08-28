@@ -15,6 +15,7 @@ use App\Models\Article;
 use App\Models\Contract;
 use App\Models\Emploee;
 use App\Models\Invoice;
+use App\Models\Offer;
 use App\Models\Profile\City;
 use App\Models\Profile\State;
 use App\Models\Profile\Workshop;
@@ -195,50 +196,47 @@ class IndexController extends Controller
 
     public function discountcheck(Request $request){
 
-        $workshopsigns = DB::table('workshops')
-            ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('offers.discount','workshops.price as wprice', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
-            ->where('offers.status', '=', 4)
-            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->where('offers.offercode', '=', $request->input('discountcode'))
-            ->when(
-                DB::table('offers')
-                    ->where('status', '=', 4)
-                    ->where('offercode', '=', $request->input('discountcode'))
-                    ->whereNotNull('user_offer')
-                    ->exists(),
-                function ($query) {
-                    $query->where('offers.user_offer', '=', Auth::user()->id);
-                }
-            )
+        $offer = Offer::where('status', 4)
+            ->where('offercode', $request->input('discountcode'))
+            ->where('user_offer', Auth::id())
             ->first();
-        $Workshopsignee = Workshopsign::whereId($workshopsigns->id)->first();
 
-        if ($workshopsigns->percentage <> null){
-            $Workshopsignee->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
-            $Workshopsignee->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
-        }elseif ($workshopsigns->discount <> null) {
-            $Workshopsignee->offer_discount = (int)$workshopsigns->discount;
-            $Workshopsignee->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
+        if (!$offer) {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'کد وارد شده معتبر نمی باشد',
+                    'errors' => true,
+                    'status_code' => 500,
+                    'result' => ''
+                ], 500);
+        }
+        if ($request->input('product_type') == 'workshop') {
+            $invoice = Invoice::where('user_id', Auth::id())
+                ->where('product_id', $offer->workshop_id)
+                ->whereNull('price_status')
+                ->first();
+        }
+
+        if ($offer->percentage <> null){
+            $invoice->offer_percentage  = $offer->percentage;
+            $invoice->final_price       = $invoice->price - ($invoice->price * (intval(str_replace('%', '', $offer->percentage)))/100);
+        }elseif ($offer->discount <> null) {
+            $invoice->offer_discount    = $offer->discount;
+            $invoice->final_price       = $invoice->price - (int)$offer->discount;
         }else {
-            $Workshopsignee->price = $workshopsigns->wprice;
+            $invoice->final_price       = $invoice->price;
+            $invoice->offer_percentage  = 0;
+            $invoice->final_price       = 0;
         }
-        $Workshopsignee->update();
+        $invoice->update();
 
-        if($workshopsigns == null){
-            $discount   = 0;
-            $percentage = 0;
-        }else{
-            $percentage = $workshopsigns->percentage ;
-            $discount   = (int)$workshopsigns->discount   ;
-        }
-        $response = [
-            'price'  => $Workshopsignee->price,
-        ];
-
-        return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
-
+        return response()->json(
+            ['isSuccess' => true,
+                'message' => 'عملیات با موفقیت انجام شد.',
+                'errors' => false,
+                'status_code' => 200,
+                'result' => $invoice->final_price,
+            ], 200);
     }
 
     public function pay(Request $request)

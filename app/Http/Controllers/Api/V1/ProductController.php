@@ -210,7 +210,7 @@ class ProductController extends Controller
                     ]);
                 return response()->json(
                     ['isSuccess' => true,
-                        'message' => 'عملیات با موفقیت انجام شده',
+                        'message' => 'قبلا اطلاعات ثبت شده بود اما عملیات با موفقیت انجام شده',
                         'errors' => null,
                         'status_code' => 200,
                         'result' => ''
@@ -229,7 +229,7 @@ class ProductController extends Controller
                 $invoice->product_id        = $request->input('workshop_id');
                 $invoice->product_type      = 'workshop';
                 $invoice->product_price     = $workshop->price;
-                $invoice->type_price        = $workshop->price;
+                $invoice->type_price        = $workshop->type_price;
                 $invoice->type_use          = $request->input('typeuse');
                 $invoice->certificate_price = $workshop->certificate_price;
                 $invoice->price             = $workshop->certificate_price + $workshop->price;
@@ -271,25 +271,58 @@ class ProductController extends Controller
             ->where('product_type' , 'workshop')
             ->whereNull('price_status')
             ->first();
+        $workshopsign = Workshopsign::where('user_id' , Auth::user()->id)
+            ->where('workshop_id' , $request->input('workshop_id'))
+            ->whereNull('pricestatus')
+            ->first();
 
         $workshop = $invoice->workshop;
 
         $totalPrice = $workshop->price;
-
+        $certificate_price = 0 ;
+        $type_price        = 0 ;
         if ($request->input('certificate') == 1) {
             $totalPrice += $workshop->certificate_price;
+            $certificate_price = $workshop->certificate_price;
         }
 
         if ($request->input('type_use') == 1) {
             $totalPrice += $workshop->type_price;
+            $type_price = $workshop->type_price;
         }
 
-        $invoice->update([
-            'certificate' => $request->input('certificate'),
-            'type_use'    => $request->input('type_use'),
-            'price'       => $totalPrice,
+        $result = $invoice->update([
+            'certificate'       => $request->input('certificate'),
+            'certificate_price' => $certificate_price,
+            'type_use'          => $request->input('type_use'),
+            'type_price'        => $type_price,
+            'price'             => $totalPrice,
         ]);
 
+        $result = $workshopsign->update([
+            'certificate'       => $request->input('certificate'),
+            'certif_price'      => $certificate_price,
+            'typeuse'          => $request->input('type_use'),
+            'type_price'        => $type_price,
+            'price'             => $totalPrice,
+        ]);
+
+        if ($result) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'عملیات با موفقیت انجام شد.',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }else{
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'عملیات با خطا مواجه شد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
     }
 
     public function getcontract(Request $request)

@@ -34,23 +34,27 @@ use App\Http\Controllers\Api\v1\IndexController;
 
 
 Route::middleware('auth:api')->group(function () {
+
     Route::get('v1/index'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'index']);
+    Route::post('v1/form'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'form']);
+    Route::post('v1/discountcheck'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'discountcheck']);
+    Route::GET('v1/courts'              , [App\Http\Controllers\Api\V1\IndexController::class        , 'court']);
+
     Route::get('v1/profile'             , [App\Http\Controllers\Api\V1\UserController::class         , 'profile']);
     Route::get('v1/demands'             , [App\Http\Controllers\Api\V1\UserController::class         , 'demands']);
     Route::get('v1/laws'                , [App\Http\Controllers\Api\V1\UserController::class         , 'laws']);
     Route::post('v1/addpass'            , [App\Http\Controllers\Api\V1\UserController::class         , 'addpass']);
     Route::post('v1/editprofile'        , [App\Http\Controllers\Api\V1\UserController::class         , 'editprofile']);
-    Route::post('v1/form'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'form']);
-    Route::post('v1/workshopsign'       , [App\Http\Controllers\Api\V1\ProductController::class        , 'workshopsign']);
-    Route::post('v1/workshopinvoice'    , [App\Http\Controllers\Api\V1\ProductController::class      , 'workshopinvoice']);
-    Route::post('v1/discountcheck'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'discountcheck']);
-    Route::post('v1/purchase_contract'  , [App\Http\Controllers\Api\V1\ProductController::class      , 'purchase_contract']);
-    Route::post('v1/estelam'            , [App\Http\Controllers\Api\V1\ProductController::class      , 'estelam']);
-    Route::GET('v1/courts'              , [App\Http\Controllers\Api\V1\IndexController::class        , 'court']);
+
     Route::GET('v1/wallet/balance'      , [App\Http\Controllers\Api\V1\WalletController::class       , 'balance']);
     Route::GET('v1/wallet/transactions' , [App\Http\Controllers\Api\V1\WalletController::class       , 'transactions']);
     Route::post('v1/wallet/deposit'     , [App\Http\Controllers\Api\V1\WalletController::class       , 'deposit']);
     Route::post('v1/wallet/withdraw'    , [App\Http\Controllers\Api\V1\WalletController::class       , 'withdraw']);
+
+    Route::post('v1/workshopsign'       , [App\Http\Controllers\Api\V1\ProductController::class      , 'workshopsign']);
+    Route::post('v1/workshopinvoice'    , [App\Http\Controllers\Api\V1\ProductController::class      , 'workshopinvoice']);
+    Route::post('v1/purchase_contract'  , [App\Http\Controllers\Api\V1\ProductController::class      , 'purchase_contract']);
+    Route::post('v1/estelam'            , [App\Http\Controllers\Api\V1\ProductController::class      , 'estelam']);
 
     Route::post('v1/invoice'            , [App\Http\Controllers\Api\V1\IndexController::class        , 'invoice'])            ->name('invoice');
     Route::delete('v1/invoicedestroy/{id}' , [App\Http\Controllers\Api\V1\IndexController::class     , 'invoicedestroy'])     ->name('invoicedestroy');
