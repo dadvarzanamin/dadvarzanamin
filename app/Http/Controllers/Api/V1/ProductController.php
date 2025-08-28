@@ -372,6 +372,7 @@ class ProductController extends Controller
                 $invoice->product_type      = 'contract';
                 $invoice->product_price     = $contract->price;
                 $invoice->price             = $contract->price;
+                $invoice->final_price       = $contract->price;
                 $invoice->save();
                 $data = [
                     'totalFinal'    => $invoice->product_price,
