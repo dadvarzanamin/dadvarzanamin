@@ -27,7 +27,7 @@ class ProductController extends Controller
             ];
 
             $estelams = Estelam::whereId($request->input('formId'))->get();
-//dd($estelams);
+
             $user = auth()->user();
             $wallet = $user->wallet;
             if ($wallet->balance < '300000') {
@@ -38,79 +38,77 @@ class ProductController extends Controller
                         'status_code' => 500,
                         'result' => $wallet->balance
                     ], 500);
-            }
-            foreach ($estelams as $estelam) {
+            }else{
+                foreach ($estelams as $estelam) {
 
-                $requiredFields = explode(',', $estelam->required_fields);
-                $data = [];
-//dd($requiredFields);
-                foreach ($requiredFields as $field) {
-                    $field = trim($field);
-//dd($field);
-                    if ($field <> null) {
-                        $data[$field] = $request->input($field);
-//dd($data[$field]);
+                    $requiredFields = explode(',', $estelam->required_fields);
+                    $data = [];
+
+                    foreach ($requiredFields as $field) {
+                        $field = trim($field);
+
+                        if ($field <> null) {
+                            $data[$field] = $request->input($field);
+
+                        } else {
+                            return response()->json(
+                                ['isSuccess' => false,
+                                    'message' => 'اطلاعات ورودی نادرست می باشد.',
+                                    'errors' => true,
+                                    'status_code' => 500,
+                                ], 500);
+                        }
+                    }
+                    $response = $this->sendCurlRequest($estelam->action_route, $estelam->method, $headers, $data);
+
+                    $result = $response['data']['result'] ?? [];
+                    $resultFields = explode(',', $estelam->result_field);
+
+                    foreach ($resultFields as $resultfield) {
+                        $dataParts[$resultfield] = $result[$resultfield] ?? '';
+                    }
+                    if ($response['isSuccess'] === true) {
+
+                        $invoice = new Invoice();
+                        $invoice->user_id = Auth::user()->id;
+                        $invoice->product_id = $request->input('formId');
+                        $invoice->product_type = 'estelam';
+                        $invoice->product_price = '300000';
+                        $invoice->product_price = '300000';
+                        $invoice->save();
+
+                        $data = [
+                            'totalFinal' => $invoice->product_price,
+                            'invoice_ids' => $invoice->id,
+                            'description' => 'دریافت موفق استعلام',
+                        ];
+                        $withdrawRequest = new Request($data);
+                        $walletController = new WalletController();
+                        $withdrawResult = $walletController->withdraw($withdrawRequest);
+
+                        if ($withdrawResult->getData()->isSuccess === true) {
+                            return response()->json(
+                                ['isSuccess' => true,
+                                    'message' => 'مقادیر رکورد دریافت شد',
+                                    'errors' => null,
+                                    'status_code' => 200,
+                                    'result' => $dataParts
+                                ], 200);
+                        }
                     } else {
                         return response()->json(
-                            ['isSuccess' => false,
-                                'message' => 'اطلاعات ورودی نادرست می باشد.',
+                            ['isSuccess' => null,
+                                'message' => 'مقداری یافت نشد.',
                                 'errors' => true,
                                 'status_code' => 500,
                             ], 500);
                     }
                 }
-                $response = $this->sendCurlRequest($estelam->action_route, $estelam->method, $headers, $data);
-
-                $result = $response['data']['result'] ?? [];
-                $resultFields = explode(',', $estelam->result_field);
-//dd($resultFields);
-                foreach ($resultFields as $resultfield) {
-                    $dataParts[$resultfield] = $result[$resultfield] ?? '';
-//dd($dataParts);
-                }
-                if ($response['isSuccess'] === true) {
-
-                    $invoice = new Invoice();
-                    $invoice->user_id = Auth::user()->id;
-                    $invoice->product_id = $request->input('formId');
-                    $invoice->product_type = 'estelam';
-                    $invoice->product_price = '300000';
-                    $invoice->save();
-
-                    $data = [
-                        'totalFinal' => $invoice->product_price,
-                        'invoice_ids' => $invoice->id,
-                        'description' => 'دریافت موفق استعلام',
-                    ];
-                    $withdrawRequest = new Request($data);
-                    $walletController = new WalletController();
-                    $withdrawResult = $walletController->withdraw($withdrawRequest);
-
-                    if ($withdrawResult->getData()->isSuccess === true) {
-                        return response()->json(
-                            ['isSuccess' => true,
-                                'message' => 'مقادیر رکورد دریافت شد',
-                                'errors' => null,
-                                'status_code' => 200,
-                                'result' => $dataParts
-                            ], 200);
-                    }
-                } else {
-                    return response()->json(
-                        ['isSuccess' => null,
-                            'message' => 'مقداری یافت نشد.',
-                            'errors' => true,
-                            'status_code' => 500,
-                        ], 500);
-                }
             }
-
-            return response()->json(['status' => 'done']);
         } catch (\Exception $e) {
             \Log::error('Exception: ' . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
-
     }
 
     function sendCurlRequest($url, $method, $headers, $data = [])
