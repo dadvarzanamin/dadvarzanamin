@@ -154,45 +154,63 @@ class WalletController extends Controller
     }
     public function withdraw(Request $request)
     {
-        $amount     = $request->input('totalFinal');
+        $amount = $request->input('totalFinal');
         $invoiceIds = $request->input('invoice_ids', []);
 
-        $user = auth()->user();
-        $wallet = $user->wallet;
+        $invoiceIds = (array)$request->input('invoice_ids');
 
-        if ($wallet->balance < $amount) {
+        $paidInvoices = Invoice::whereIn('id', $invoiceIds)
+            ->where('user_id', auth()->id())
+            ->where('price_status', 4)
+            ->get();
+
+        if ($paidInvoices->isNotEmpty()) {
             return response()->json(
                 ['isSuccess' => null,
-                    'message' => 'موجودی کافی نیست.',
+                    'message' => 'شما قبلا فاکتور(ها) رو پرداخت کرده اید',
                     'errors' => true,
                     'status_code' => 500,
-                    'result' => $wallet->balance
+                    'result' => $paidInvoices
                 ], 500);
+        } else {
+
+            $user = auth()->user();
+            $wallet = $user->wallet;
+
+            if ($wallet->balance < $amount) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'موجودی کافی نیست.',
+                        'errors' => true,
+                        'status_code' => 500,
+                        'result' => $wallet->balance
+                    ], 500);
+            }
+
+            $transaction = $user->transactions()->create([
+                'wallet_id' => $wallet->id,
+                'type' => 'withdraw',
+                'amount' => $amount,
+                'description' => $request->description,
+                'status' => 'completed',
+            ]);
+
+            $wallet->decrement('balance', $amount);
+
+            $invoiceIds = (array)$request->input('invoice_ids');
+            Invoice::whereIn('id', $invoiceIds)
+                ->where('user_id', auth()->id())
+                ->update(['price_status' => 4]);
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مبلغ با موفقیت از کیف پول برداشت شد.',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $wallet->balance,
+                    'redirect_url' => route('order'),
+                ], 200);
         }
-
-        $transaction = $user->transactions()->create([
-            'wallet_id'     => $wallet->id,
-            'type'          => 'withdraw',
-            'amount'        => $amount,
-            'description'   => $request->description,
-            'status'        => 'completed',
-        ]);
-
-        $wallet->decrement('balance', $amount);
-
-        $invoiceIds = (array) $request->input('invoice_ids');
-        Invoice::whereIn('id', $invoiceIds)
-            ->where('user_id', auth()->id())
-            ->update(['price_status' => 4]);
-
-        return response()->json(
-            ['isSuccess'        => true,
-                'message'       => 'مبلغ با موفقیت از کیف پول برداشت شد.',
-                'errors'        => null,
-                'status_code'   => 200,
-                'result'        => $wallet->balance,
-                'redirect_url' => route('order'),
-            ], 200);
     }
 
 }
