@@ -51,33 +51,49 @@ class InvoiceController extends Controller
 
     public function showinvoice(Request $request)
     {
-        $invoices = DB::table('invoices')
-            ->leftJoin('workshops', function($join) {
+        $orders = DB::table('invoices')
+            ->leftJoin('workshops', function ($join) {
                 $join->on('invoices.product_id', '=', 'workshops.id')
-                    ->where('invoices.product_type', '=', 'workshops');
+                    ->where('invoices.product_type', '=', 'workshop');
             })
-            ->leftJoin('contracts', function($join) {
+            ->leftJoin('contracts', function ($join) {
                 $join->on('invoices.product_id', '=', 'contracts.id')
                     ->where('invoices.product_type', '=', 'contracts');
             })
-            ->where('invoices.user_id', '=', Auth::user()->id)
-            ->where('invoices.price_status', '=', null)
+            ->leftJoin('estelams', function ($join) {
+                $join->on('invoices.product_id', '=', 'estelams.id')
+                    ->where('invoices.product_type', '=', 'estelam');
+            })
+            ->where('invoices.user_id', Auth::id())
+            ->whereNull('invoices.price_status')
             ->select(
                 'invoices.*',
                 DB::raw("CASE
-            WHEN invoices.product_type = 'workshops' THEN workshops.title
+            WHEN invoices.product_type = 'workshop' THEN workshops.title
             WHEN invoices.product_type = 'contracts' THEN contracts.title
-            ELSE null END as product_name")
+            WHEN invoices.product_type = 'estelam' THEN estelams.title_fa
+            ELSE NULL END AS product_name"),
+                DB::raw("CASE
+            WHEN invoices.product_type = 'contracts' THEN contracts.file_path
+            ELSE NULL END AS file_path")
             )
             ->get();
-
-        return response()->json(
-            ['isSuccess' => true,
-                'message' => 'مقادیر رکورد دریافت شد',
-                'errors' => null,
-                'status_code' => 200,
-                'result' => $invoices
-            ], 200);
+        if ($orders) {
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'مقادیر رکورد دریافت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $orders
+                ], 200);
+        } else {
+            return response()->json(
+                ['isSuccess' => null,
+                    'message' => 'مقداری یافت نشد.',
+                    'errors' => true,
+                    'status_code' => 500,
+                ], 500);
+        }
     }
 
     public function invoicedestroy(Request $request)
