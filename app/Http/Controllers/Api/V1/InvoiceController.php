@@ -119,33 +119,34 @@ class InvoiceController extends Controller
 
     public function order(Request $request)
     {
-        $orders         = DB::table('invoices')
+
+        $orders = DB::table('invoices')
             ->leftJoin('workshops', function ($join) {
                 $join->on('invoices.product_id', '=', 'workshops.id')
-                    ->where('invoices.product_type', '=', 'workshops');
+                    ->where('invoices.product_type', '=', 'workshop');
             })
             ->leftJoin('contracts', function ($join) {
                 $join->on('invoices.product_id', '=', 'contracts.id')
                     ->where('invoices.product_type', '=', 'contracts');
             })
-            ->where('invoices.user_id', Auth::user()->id)
+            ->leftJoin('estelams', function ($join) {
+                $join->on('invoices.product_id', '=', 'estelams.id')
+                    ->where('invoices.product_type', '=', 'estelam');
+            })
+            ->where('invoices.user_id', Auth::id())
             ->where('invoices.price_status', 4)
-            ->select('invoices.*',
+            ->select(
+                'invoices.*',
                 DB::raw("CASE
-                        WHEN invoices.product_type = 'workshops' THEN workshops.title
-                        WHEN invoices.product_type = 'contracts' THEN contracts.title
-                        ELSE NULL END AS product_name"),
+            WHEN invoices.product_type = 'workshop' THEN workshops.title
+            WHEN invoices.product_type = 'contracts' THEN contracts.title
+            WHEN invoices.product_type = 'estelam' THEN estelams.title_fa
+            ELSE NULL END AS product_name"),
                 DB::raw("CASE
-                        WHEN invoices.product_type = 'contracts' THEN contracts.file_path
-                        ELSE NULL END AS file_path"),
-//                DB::raw("CASE
-//                        WHEN invoices.product_type = 'contracts' THEN contracts.start_date
-//                        ELSE NULL END AS contract_start_date"),
-//                DB::raw("CASE
-//                        WHEN invoices.product_type = 'contracts' THEN contracts.end_date
-//                        ELSE NULL END AS contract_end_date")
-            )->get();
-
+            WHEN invoices.product_type = 'contracts' THEN contracts.file_path
+            ELSE NULL END AS file_path")
+            )
+            ->get();
         if ($orders) {
             return response()->json(
                 ['isSuccess' => true,
