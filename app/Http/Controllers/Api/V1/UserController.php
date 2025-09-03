@@ -419,4 +419,16 @@ class UserController extends Controller
         return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
 
     }
+
+    public function addmail(Request $request){
+
+        $user = User::findOrfail(auth::user()->id);
+        $request->validate(['email' => 'required|min:6|email']);
+        $user->email = $request->input('email');
+        $user->update();
+
+        $response = 'آدرس ایمیل با موفقیت ثبت شد' ;
+        return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+
+    }
 }
