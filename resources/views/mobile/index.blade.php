@@ -378,7 +378,7 @@
             <span class="android-modal-close" onclick="closeAndroidModal()">&times;</span>
             <img src="{{asset('mobile/images/android.png')}}" alt="Android" class="android-modal-icon">
             <p class="android-modal-text">برای تجربه بهتر، اپلیکیشن ما را دانلود کنید</p>
-            <a href="{{url('/app/app-release-v1.2.1.apk')}}" class="android-modal-button external">دانلود اپلیکیشن اندروید</a>
+            <a href="{{DB::table('versions')->orderBy('id', 'desc')->pluck('url_update')->first()}}" class="android-modal-button external">دانلود اپلیکیشن اندروید</a>
         </div>
     </div>
 
