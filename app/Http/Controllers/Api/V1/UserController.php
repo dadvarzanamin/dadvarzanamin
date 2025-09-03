@@ -103,84 +103,127 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $user = User::wherePhone($request->input('phone'))->first();
+        // نرمال‌سازی ورودی‌ها
+        $phoneRaw    = $request->input('phone');
+        $nidRaw      = $request->input('national_id');
+        $birthRaw    = $request->input('birthday');
 
-        if ($user === null) {
+        $phone    = $this->convertPersianToEnglishNumbers($phoneRaw);
+        $nid      = $this->convertPersianToEnglishNumbers($nidRaw);
+        $birthday = $this->convertPersianToEnglishNumbers($birthRaw);
+        $birthday = str_replace('/', '', $birthday);
 
-            $validData = $this->validate($request, [
-                'phone'         => 'required',
-                'national_id'   => 'required|string',
-                'birthday'      => 'required|string',
-                'type_id'       => 'required|string',
-            ]);
+        // ولیدیشن
+        $validData = $this->validate($request, [
+            'phone'       => 'required|string',
+            'national_id' => 'required|string',
+            'birthday'    => 'required|string',
+            'type_id'     => 'required|string',
+        ]);
 
-            $phone          = $this->convertPersianToEnglishNumbers($request->input('phone'));
-            $meli_code      = $this->convertPersianToEnglishNumbers($request->input('national_id'));
-            $birthday       = $this->convertPersianToEnglishNumbers($request->input('birthday'));
-            $birthday       = str_replace('/', '', $birthday);
-
-            $token = EstelamToken::select('token', 'appname')->first();
-            $headers = [
-                'token:' . $token->token,
-                'appname:' . $token->appname,
-                'Content-Type: application/json',
-            ];
-
-// Step 1: Shahkar Inquiry
-            $shahkar = Estelam::whereId(17)->first();
-            $responseShahkar = $this->sendCurlRequest($shahkar->action_route, $shahkar->method, $headers, [
-                "mobileNumber" => $phone,
-                "nationalCode" => $meli_code
-            ]);
-            if ($responseShahkar['isSuccess'] === false) {
-                $message = 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید';
-                return response()->json(
-                    ['isSuccess'       => false,
-                        'message'      => $message,
-                        'errors'       => true,
-                        'status_code'  => 500,
-                    ], 500);
-            }elseif ($responseShahkar['isSuccess'] === true){
-            $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
-            if ($isMatched === false) {
-                return response()->json(
-                    ['isSuccess'       => false,
-                        'message'      => 'شماره موبایل وارد شده برای این کد ملی نمی باشد لطفا شماره موبایل درست وارد نمایید',
-                        'errors'       => true,
-                        'status_code'  => 500,
-                    ], 500);
-            }elseif ($isMatched === true) {
-                $user = User::create([
-                    'phone' => $phone,
-                    'national_id' => $meli_code,
-                    'birthday' => substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0),
-                    'type_id' => $validData['type_id'],
-                ]);
-                $user->update([
-                    'api_token' => Str::random(100)
-                ]);
-                $user->wallet()->create(['balance' => 0]);
-                $code = ActiveCode::generateCode($user);
-                $user->notify(new ActiveCodeNotification($code, $phone));
-                SendNameInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
-                SendImageInquiryJob::dispatch($user->id, $meli_code, $birthday, $headers);
-                return response()->json(
-                    ['isSuccess' => true,
-                        'token' => $user->api_token,
-                        'message' => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
-                        'errors' => null,
-                        'status_code' => 200,
-                    ], 200);
-            }
-            }
-            }else{
-            return response()->json(
-                ['isSuccess'       => false,
-                    'message'      => 'شماره موبایل قبلا ثبت شده',
-                    'errors'       => true,
-                    'status_code'  => 500,
-                ], 500);
+        // بررسی کاربر موجود
+        $user = User::where('phone', $phone)->first();
+        if ($user !== null) {
+            return response()->json([
+                'isSuccess'   => false,
+                'message'     => 'شماره موبایل قبلا ثبت شده است',
+                'errors'      => true,
+                'status_code' => 409,
+            ], 409);
         }
+
+        // دریافت توکن سرویس
+        $tokenRow = EstelamToken::select('token', 'appname')->first();
+        if (!$tokenRow) {
+            return response()->json([
+                'isSuccess'   => false,
+                'message'     => 'تنظیمات سرویس در دسترس نیست',
+                'errors'      => true,
+                'status_code' => 500,
+            ], 500);
+        }
+
+        $shahkar = Estelam::find(17);
+        if (!$shahkar) {
+            return response()->json([
+                'isSuccess'   => false,
+                'message'     => 'تنظیمات سرویس شاهکار یافت نشد',
+                'errors'      => true,
+                'status_code' => 500,
+            ], 500);
+        }
+
+        $headers = [
+            'token:' . $tokenRow->token,
+            'appname:' . $tokenRow->appname,
+            'Content-Type: application/json',
+        ];
+
+        // درخواست به شاهکار
+        $responseShahkar = $this->sendCurlRequest($shahkar->action_route, $shahkar->method, $headers, [
+            "mobileNumber" => $phone,
+            "nationalCode" => $nid,
+        ]);
+
+        if (!isset($responseShahkar['isSuccess']) || $responseShahkar['isSuccess'] === false) {
+            return response()->json([
+                'isSuccess'   => false,
+                'message'     => 'در حال حاضر ارتباط با سرور شاهکار برقرار نشد، لطفا بعدا تلاش کنید',
+                'errors'      => true,
+                'status_code' => 503,
+            ], 503);
+        }
+
+        $isMatched = $responseShahkar['data']['result']['isMatched'] ?? null;
+        if ($isMatched === false) {
+            return response()->json([
+                'isSuccess'   => false,
+                'message'     => 'شماره موبایل وارد شده برای این کد ملی نمی‌باشد، لطفا شماره موبایل درست وارد نمایید',
+                'errors'      => true,
+                'status_code' => 422,
+            ], 422);
+        }
+
+        if ($isMatched === true) {
+            // فرمت تاریخ YYYY/MM/DD
+            $birthdayFormatted = substr_replace(substr_replace($birthday, '/', 4, 0), '/', 7, 0);
+
+            $user = User::create([
+                'phone'       => $phone,
+                'national_id' => $nid,
+                'birthday'    => $birthdayFormatted,
+                'type_id'     => $validData['type_id'],
+            ]);
+
+            $user->update([
+                'api_token' => Str::random(100), // یا JWT/Sanctum جایگزین شود
+            ]);
+
+            $user->wallet()->create(['balance' => 0]);
+
+            $code = ActiveCode::generateCode($user);
+            $user->notify(new ActiveCodeNotification($code, $phone));
+
+            // ارسال Jobها
+            SendNameInquiryJob::dispatch($user->id, $nid, $birthday, $headers);
+            SendImageInquiryJob::dispatch($user->id, $nid, $birthday, $headers);
+
+            return response()->json([
+                'isSuccess'   => true,
+                'message'     => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
+                'errors'      => null,
+                'status_code' => 201,
+                'token'       => $user->api_token,
+            ], 201);
+        }
+
+        // اگر ساختار پاسخ غیرمنتظره بود
+        return response()->json([
+            'isSuccess'   => false,
+            'message'     => 'پاسخ نامعتبر از سرور شاهکار دریافت شد',
+            'errors'      => true,
+            'status_code' => 500,
+        ], 500);
     }
 
     function sendCurlRequest($url, $method, $headers, $data = [])
