@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Dashboard\Estelam;
+use App\Models\Profile\EstelamToken;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -27,6 +28,12 @@ class SendNameInquiryJob implements ShouldQueue
 
     public function handle()
     {
+        $token = EstelamToken::select('token', 'appname')->first();
+        $headers = [
+            'token:' . $token->token,
+            'appname:' . $token->appname,
+            'Content-Type: application/json',
+        ];
         $estelam = Estelam::whereId(2)->first(); // Name Inquiry
         $response = $this->sendCurlRequest($estelam->action_route, $estelam->method, $this->headers, [
             'nationalCode' => $this->nationalCode,
