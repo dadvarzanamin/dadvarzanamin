@@ -212,9 +212,9 @@ class UserController extends Controller
                 'isSuccess'   => true,
                 'message'     => 'کاربر با موفقیت ایجاد شد. اطلاعات تکمیلی در حال دریافت می‌باشد.',
                 'errors'      => null,
-                'status_code' => 201,
+                'status_code' => 200,
                 'token'       => $user->api_token,
-            ], 201);
+            ], 200);
         }
 
         // اگر ساختار پاسخ غیرمنتظره بود
