@@ -401,12 +401,23 @@ class ProductController extends Controller
                 }
             }
         }else{
+            $invoice = new Invoice();
+            $invoice->user_id           = Auth::user()->id;
+            $invoice->product_id        = $request->input('contract_id');
+            $invoice->product_type      = 'contract';
+            $invoice->product_price     = 0;
+            $invoice->price             = 0;
+            $invoice->final_price       = 0;
+            $invoice->price_status      = 4;
+            $invoice->save();
+
+            $result = Contract::whereId($request->input('contract_id'))->first();
             return response()->json(
                 ['isSuccess' => true,
-                    'message' => 'پرداخت با موفقیت انجام شد',
+                    'message' => 'قرارداد با موفقیت ثبت شد',
                     'errors' => null,
                     'status_code' => 200,
-                    'result' => ''
+                    'result' => $result
                 ], 200);
         }
     }
