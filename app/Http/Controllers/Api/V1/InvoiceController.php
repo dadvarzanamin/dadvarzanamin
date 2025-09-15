@@ -153,7 +153,7 @@ class InvoiceController extends Controller
             })
             ->leftJoin('contracts', function ($join) {
                 $join->on('invoices.product_id', '=', 'contracts.id')
-                    ->where('invoices.product_type', '=', 'contracts');
+                    ->where('invoices.product_type', '=', 'contract');
             })
             ->leftJoin('estelams', function ($join) {
                 $join->on('invoices.product_id', '=', 'estelams.id')
@@ -165,11 +165,11 @@ class InvoiceController extends Controller
                 'invoices.*',
                 DB::raw("CASE
             WHEN invoices.product_type = 'workshop' THEN workshops.title
-            WHEN invoices.product_type = 'contracts' THEN contracts.title
+            WHEN invoices.product_type = 'contract' THEN contracts.title
             WHEN invoices.product_type = 'estelam' THEN estelams.title_fa
             ELSE NULL END AS product_name"),
                 DB::raw("CASE
-            WHEN invoices.product_type = 'contracts' THEN contracts.file_path
+            WHEN invoices.product_type = 'contract' THEN contracts.file_path
             ELSE NULL END AS file_path")
             )
             ->get();
