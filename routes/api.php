@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('v1/index'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'index']);
     Route::post('v1/form'               , [App\Http\Controllers\Api\V1\IndexController::class        , 'form']);
     Route::get('v1/getform'             , [App\Http\Controllers\Api\V1\IndexController::class        , 'getform'])->name('getform');
+    Route::post('v1/stepform'           , [App\Http\Controllers\Api\V1\IndexController::class        , 'stepform']);
     Route::post('v1/discountcheck'      , [App\Http\Controllers\Api\V1\IndexController::class        , 'discountcheck']);
     Route::GET('v1/courts'              , [App\Http\Controllers\Api\V1\IndexController::class        , 'court']);
 

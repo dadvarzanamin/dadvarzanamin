@@ -317,6 +317,15 @@ class IndexController extends Controller
         }
     }
 
+    public function stepform()
+    {
+        return response()->json(
+            ['isSuccess' => null,
+                'message' => 'مقداری یافت نشد.',
+                'errors' => true,
+                'status_code' => 500,
+            ], 200);
+    }
     public function court(){
         $courts       = Courts::whereStatus(4)->get();
         $response = [
