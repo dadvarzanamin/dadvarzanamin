@@ -57,13 +57,14 @@ class IndexController extends Controller
             $arrayData = json_decode($arrayData, true) ?? [];
             $tokil = new tokil();
             $tokil->case_type        = $arrayData['case_type'];
-            $tokil->hearing_date    = $arrayData['hearing_date'];
+            $tokil->hearing_date     = $arrayData['hearing_date'];
             $tokil->hearing_time     = $arrayData['hearing_time'];
             $tokil->province         = $arrayData['province'];
             $tokil->city             = $arrayData['city'];
             $tokil->court_complex    = $arrayData['court_complex'];
             $tokil->court_branch     = $arrayData['court_branch'];
             $tokil->additional_info  = $arrayData['additional_info'];
+            $tokil->status           = 1;
             $tokil->user_id            = Auth::user()->id;
 
             if ($request->hasFile('files')) {
@@ -86,6 +87,7 @@ class IndexController extends Controller
             $lawsuit->opponent_name      = $arrayData['opponent_name'];
             $lawsuit->opponent_national_id = $arrayData['opponent_national_id'];
             $lawsuit->additional_info    = $arrayData['additional_info'];
+            $lawsuit->status           = 1;
             $lawsuit->user_id            = Auth::user()->id;
 
             if ($request->hasFile('files')) {
@@ -106,6 +108,7 @@ class IndexController extends Controller
             $legalAdvice->sub_topic     = $arrayData['sub_topic'];
             $legalAdvice->type     = $arrayData['type'];
             $legalAdvice->additional_info         = $arrayData['additional_info'];
+            $legalAdvice->status           = 1;
             $legalAdvice->user_id            = Auth::user()->id;
 
            // if ($request->hasFile('files')) {
@@ -126,6 +129,7 @@ class IndexController extends Controller
             $contractDrafting->party_two_name            = $arrayData['party_two_name'];
             $contractDrafting->party_one_national_id     = $arrayData['party_one_national_id'];
             $contractDrafting->party_two_national_id     = $arrayData['party_two_national_id'];
+            $contractDrafting->status           = 1;
             $contractDrafting->user_id            = Auth::user()->id;
 
             if ($request->hasFile('files')) {
@@ -145,6 +149,7 @@ class IndexController extends Controller
             $documentDrafting->sub_topic           = $arrayData['sub_topic'];
             $documentDrafting->document_type       = $arrayData['document_type'];
             $documentDrafting->additional_info     = $arrayData['additional_info'];
+            $documentDrafting->status           = 1;
             $documentDrafting->user_id             = Auth::user()->id;
 
             if ($request->hasFile('files')) {
@@ -166,6 +171,7 @@ class IndexController extends Controller
             $judgement->party_two_name            = $arrayData['party_two_name'];
             $judgement->party_one_national_id     = $arrayData['party_one_national_id'];
             $judgement->party_two_national_id     = $arrayData['party_two_national_id'];
+            $judgement->status           = 1;
             $judgement->user_id             = Auth::user()->id;
 
             if ($request->hasFile('files')) {
@@ -184,6 +190,66 @@ class IndexController extends Controller
         ], 201);
 
         // return Response::json(['ok' => true , 'message' => 'success' , 'response' => $response]);
+    }
+
+    public function getform(Request $request)
+    {
+        if($request->input('type') == 'tokil') {
+            $result = tokil::whereUser_id(Auth::user()->id)->get();
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'قرارداد با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }
+        if($request->input('type') == 'lawsuit'){
+
+            $result = lawsuit::whereUser_id(Auth::user()->id);
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'قرارداد با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }
+        if($request->input('type') == 'legalAdvice'){
+            $result = legalAdvice::whereUser_id(Auth::user()->id);
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'قرارداد با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }
+        if($request->input('type') == 'contractDrafting'){
+            $result = contractDrafting::whereUser_id(Auth::user()->id);
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'قرارداد با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }
+        if($request->input('type') == 'documentDrafting'){
+            $result = documentDrafting::whereUser_id(Auth::user()->id);
+
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'قرارداد با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => $result
+                ], 200);
+        }
     }
 
     public function court(){
@@ -454,7 +520,7 @@ class IndexController extends Controller
 
     public function getarticle(Request $request)
     {
-        $articles = Article::all();
+        $articles = Article::whereUser_id(Auth::user()->id);
         if ($articles) {
             return response()->json(
                 ['isSuccess' => true,
