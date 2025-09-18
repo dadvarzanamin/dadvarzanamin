@@ -218,7 +218,7 @@ class IndexController extends Controller
                     ], 200);
             }
         }
-        if($request->input('type') == 'lawsuit'){
+        elseif($request->input('type') == 'lawsuit'){
 
             $result = lawsuit::whereUser_id(Auth::user()->id)->get();
 
@@ -243,7 +243,7 @@ class IndexController extends Controller
                     ], 200);
             }
         }
-        if($request->input('type') == 'legalAdvice'){
+        elseif($request->input('type') == 'legalAdvice'){
             $result = legalAdvice::whereUser_id(Auth::user()->id)->get();
 
             if ($result->isEmpty()) {
@@ -267,7 +267,7 @@ class IndexController extends Controller
                     ], 200);
             }
         }
-        if($request->input('type') == 'contractDrafting'){
+        elseif($request->input('type') == 'contractDrafting'){
             $result = contractDrafting::whereUser_id(Auth::user()->id)->get();
 
             if ($result->isEmpty()) {
@@ -291,7 +291,7 @@ class IndexController extends Controller
                     ], 200);
             }
         }
-        if($request->input('type') == 'documentDrafting'){
+        elseif($request->input('type') == 'documentDrafting'){
             $result = documentDrafting::whereUser_id(Auth::user()->id)->get();
 
             if ($result->isEmpty()) {
@@ -317,14 +317,58 @@ class IndexController extends Controller
         }
     }
 
-    public function stepform()
+    public function stepform(Request $request)
     {
-        return response()->json(
-            ['isSuccess' => null,
-                'message' => 'مقداری یافت نشد.',
-                'errors' => true,
-                'status_code' => 500,
-            ], 200);
+        if($request->input('form_type') == 'documentDrafting') {
+            $result = documentDrafting::whereId($request->input('form_id'))->update(['status' => $request->input('form_status')]);
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'اطلاعات با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
+        elseif($request->input('form_type') == 'documentDrafting') {
+            $result = contractDrafting::whereId($request->input('form_id'))->update(['status' => $request->input('form_status')]);
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'اطلاعات با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
+        elseif($request->input('form_type') == 'documentDrafting') {
+            $result = legalAdvice::whereId($request->input('form_id'))->update(['status' => $request->input('form_status')]);
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'اطلاعات با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
+        elseif($request->input('form_type') == 'documentDrafting') {
+            $result = lawsuit::whereId($request->input('form_id'))->update(['status' => $request->input('form_status')]);
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'اطلاعات با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
+        elseif($request->input('form_type') == 'documentDrafting') {
+            $result = tokil::whereId($request->input('form_id'))->update(['status' => $request->input('form_status')]);
+            return response()->json(
+                ['isSuccess' => true,
+                    'message' => 'اطلاعات با موفقیت ثبت شد',
+                    'errors' => null,
+                    'status_code' => 200,
+                    'result' => ''
+                ], 200);
+        }
     }
     public function court(){
         $courts       = Courts::whereStatus(4)->get();
