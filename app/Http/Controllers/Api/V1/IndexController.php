@@ -197,58 +197,123 @@ class IndexController extends Controller
         if($request->input('type') == 'tokil') {
             $result = tokil::whereUser_id(Auth::user()->id)->get();
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'قرارداد با موفقیت ثبت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $result
-                ], 200);
+            if ($result->isEmpty()) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 200);
+            }else {
+                $result->transform(function ($item) {
+                    $item->uploaded_file = json_decode($item->uploaded_file, true);
+                    return $item;
+                });
+                return response()->json(
+                    ['isSuccess' => true,
+                        'message' => 'اطلاعات با موفقیت دریافت شد',
+                        'errors' => null,
+                        'status_code' => 200,
+                        'result' => $result
+                    ], 200);
+            }
         }
         if($request->input('type') == 'lawsuit'){
 
-            $result = lawsuit::whereUser_id(Auth::user()->id);
+            $result = lawsuit::whereUser_id(Auth::user()->id)->get();
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'قرارداد با موفقیت ثبت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $result
-                ], 200);
+            if ($result->isEmpty()) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 200);
+            }else {
+                $result->transform(function ($item) {
+                    $item->uploaded_file = json_decode($item->uploaded_file, true);
+                    return $item;
+                });
+                return response()->json(
+                    ['isSuccess' => true,
+                        'message' => 'اطلاعات با موفقیت دریافت شد',
+                        'errors' => null,
+                        'status_code' => 200,
+                        'result' => $result
+                    ], 200);
+            }
         }
         if($request->input('type') == 'legalAdvice'){
-            $result = legalAdvice::whereUser_id(Auth::user()->id);
+            $result = legalAdvice::whereUser_id(Auth::user()->id)->get();
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'قرارداد با موفقیت ثبت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $result
-                ], 200);
+            if ($result->isEmpty()) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 200);
+            }else {
+                $result->transform(function ($item) {
+                    $item->uploaded_file = json_decode($item->uploaded_file, true);
+                    return $item;
+                });
+                return response()->json(
+                    ['isSuccess' => true,
+                        'message' => 'اطلاعات با موفقیت دریافت شد',
+                        'errors' => null,
+                        'status_code' => 200,
+                        'result' => $result
+                    ], 200);
+            }
         }
         if($request->input('type') == 'contractDrafting'){
-            $result = contractDrafting::whereUser_id(Auth::user()->id);
+            $result = contractDrafting::whereUser_id(Auth::user()->id)->get();
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'قرارداد با موفقیت ثبت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $result
-                ], 200);
+            if ($result->isEmpty()) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 200);
+            }else {
+                $result->transform(function ($item) {
+                    $item->uploaded_file = json_decode($item->uploaded_file, true);
+                    return $item;
+                });
+                return response()->json(
+                    ['isSuccess' => true,
+                        'message' => 'اطلاعات با موفقیت دریافت شد',
+                        'errors' => null,
+                        'status_code' => 200,
+                        'result' => $result
+                    ], 200);
+            }
         }
         if($request->input('type') == 'documentDrafting'){
-            $result = documentDrafting::whereUser_id(Auth::user()->id);
+            $result = documentDrafting::whereUser_id(Auth::user()->id)->get();
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'قرارداد با موفقیت ثبت شد',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $result
-                ], 200);
+            if ($result->isEmpty()) {
+                return response()->json(
+                    ['isSuccess' => null,
+                        'message' => 'مقداری یافت نشد.',
+                        'errors' => true,
+                        'status_code' => 500,
+                    ], 200);
+            }else {
+                $result->transform(function ($item) {
+                    $item->uploaded_file = json_decode($item->uploaded_file, true);
+                    return $item;
+                });
+                return response()->json(
+                    ['isSuccess' => true,
+                        'message' => 'اطلاعات با موفقیت دریافت شد',
+                        'errors' => null,
+                        'status_code' => 200,
+                        'result' => $result
+                    ], 200);
+            }
         }
     }
 
