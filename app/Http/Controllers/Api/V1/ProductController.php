@@ -465,6 +465,7 @@ class ProductController extends Controller
             'documentDrafting' => documentDrafting::class,
             'contractDrafting' => contractDrafting::class,
             'legalAdvice'      => legalAdvice::class,
+            'judgement'        => judgement::class,
             'lawsuit'          => lawsuit::class,
             'tokil'            => tokil::class,
         ];
