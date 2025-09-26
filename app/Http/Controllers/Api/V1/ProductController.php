@@ -490,6 +490,14 @@ class ProductController extends Controller
                 'status_code' => 200,
                 'result'      => ''
             ], 200);
+        }else{
+            return response()->json([
+                'isSuccess'   => true,
+                'message'     => 'اطلاعات ثبت نشد',
+                'errors'      => null,
+                'status_code' => 500,
+                'result'      => ''
+            ], 200);
         }
     }
 
