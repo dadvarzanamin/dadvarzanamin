@@ -456,10 +456,9 @@ class ProductController extends Controller
 
     public function stepform(Request $request)
     {
-        $formType = $request->input('form_type');
-        $formId   = $request->input('form_id');
-        $formStatus = $request->input('form_status');
-        $price    = $request->input('price');
+        $formType   = $request->input('form_type');
+        $formId     = $request->input('form_id');
+        $price      = $request->input('price');
 
         $models = [
             'documentDrafting' => documentDrafting::class,
@@ -470,19 +469,27 @@ class ProductController extends Controller
             'tokil'            => tokil::class,
         ];
 
+
         if (isset($models[$formType])) {
             $model = $models[$formType]::findOrFail($formId);
-            $model->update(['status' => $formStatus]);
+            $model->status = 3;
+            $model->price  = $price;
+            $model->save();
 
-            $invoice = new Invoice();
-            $invoice->user_id       = $model->user_id;
-            $invoice->product_id    = $model->id;
-            $invoice->product_type  = $formType;
-            $invoice->product_price = $price;
-            $invoice->price         = $price;
-            $invoice->final_price   = $price;
-            $invoice->save();
-
+            $exists = Invoice::where('user_id', $model->user_id)
+                ->where('product_id', $model->id)
+                ->where('product_type', $formType)
+                ->exists();
+            if (! $exists) {
+                $invoice = new Invoice();
+                $invoice->user_id = $model->user_id;
+                $invoice->product_id = $model->id;
+                $invoice->product_type = $formType;
+                $invoice->product_price = $price;
+                $invoice->price = $price;
+                $invoice->final_price = $price;
+                $invoice->save();
+            }
             return response()->json([
                 'isSuccess'   => true,
                 'message'     => 'اطلاعات با موفقیت ثبت شد',
