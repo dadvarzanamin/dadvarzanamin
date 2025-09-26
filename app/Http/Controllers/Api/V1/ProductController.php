@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\APP\contractDrafting;
+use App\Models\APP\documentDrafting;
+use App\Models\APP\judgement;
+use App\Models\APP\lawsuit;
+use App\Models\APP\legalAdvice;
+use App\Models\APP\tokil;
 use App\Models\Contract;
 use App\Models\Dashboard\Estelam;
 use App\Models\Invoice;
@@ -348,6 +354,141 @@ class ProductController extends Controller
                     'errors' => true,
                     'status_code' => 500,
                 ], 500);
+        }
+    }
+
+    public function form(Request $request){
+
+        $type       = $request->input('type');
+        $arrayData  = $request->input('fields', []);
+        $userId     = Auth::id();
+        $filePaths  = [];
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store("upload/{$type}/files", 'public');
+                $filePaths[] = $path;
+            }
+        }
+
+        $models = [
+            'tokil'            => Tokil::class,
+            'lawsuit'          => Lawsuit::class,
+            'legalAdvice'      => LegalAdvice::class,
+            'contractDrafting' => ContractDrafting::class,
+            'documentDrafting' => DocumentDrafting::class,
+            'judgement'        => Judgement::class,
+        ];
+
+        if (isset($models[$type])) {
+            $modelClass = $models[$type];
+            $model = new $modelClass();
+
+            switch ($type) {
+                case 'tokil':
+                    $model->case_type       = $arrayData['case_type'] ?? null;
+                    $model->hearing_date    = $arrayData['hearing_date'] ?? null;
+                    $model->hearing_time    = $arrayData['hearing_time'] ?? null;
+                    $model->province        = $arrayData['province'] ?? null;
+                    $model->city            = $arrayData['city'] ?? null;
+                    $model->court_complex   = $arrayData['court_complex'] ?? null;
+                    $model->court_branch    = $arrayData['court_branch'] ?? null;
+                    $model->additional_info = $arrayData['additional_info'] ?? null;
+                    break;
+
+                case 'lawsuit':
+                    $model->case_type             = $arrayData['case_type'] ?? null;
+                    $model->case_subject          = $arrayData['case_subject'] ?? null;
+                    $model->stage                 = $arrayData['stage'] ?? null;
+                    $model->opponent_name         = $arrayData['opponent_name'] ?? null;
+                    $model->opponent_national_id  = $arrayData['opponent_national_id'] ?? null;
+                    $model->additional_info       = $arrayData['additional_info'] ?? null;
+                    break;
+
+                case 'legalAdvice':
+                    $model->topic          = $arrayData['topic'] ?? null;
+                    $model->sub_topic      = $arrayData['sub_topic'] ?? null;
+                    $model->type           = $arrayData['type'] ?? null;
+                    $model->additional_info = $arrayData['additional_info'] ?? null;
+                    break;
+
+                case 'contractDrafting':
+                    $model->contract_type          = $arrayData['contract_type'] ?? null;
+                    $model->party_one_name         = $arrayData['party_one_name'] ?? null;
+                    $model->party_two_name         = $arrayData['party_two_name'] ?? null;
+                    $model->party_one_national_id  = $arrayData['party_one_national_id'] ?? null;
+                    $model->party_two_national_id  = $arrayData['party_two_national_id'] ?? null;
+                    break;
+
+                case 'documentDrafting':
+                    $model->topic           = $arrayData['topic'] ?? null;
+                    $model->sub_topic       = $arrayData['sub_topic'] ?? null;
+                    $model->document_type   = $arrayData['document_type'] ?? null;
+                    $model->additional_info = $arrayData['additional_info'] ?? null;
+                    break;
+
+                case 'judgement':
+                    $model->judgement_type        = $arrayData['judgementType'] ?? null;
+                    $model->contract_type         = $arrayData['contractType'] ?? null;
+                    $model->party_one_name        = $arrayData['partyOneName'] ?? null;
+                    $model->party_two_name        = $arrayData['partyTwoName'] ?? null;
+                    $model->party_one_national_id = $arrayData['partyOneNationalId'] ?? null;
+                    $model->party_two_national_id = $arrayData['partyTwoNationalId'] ?? null;
+                    break;
+            }
+
+            $model->status        = 2;
+            $model->user_id       = $userId;
+            if (!empty($filePaths)) {
+                $model->uploaded_file = json_encode($filePaths);
+            }
+            $model->save();
+        }
+
+        return response()->json([
+            'isSuccess'   => true,
+            'message'     => 'اطلاعات با موفقیت ثبت شد',
+            'errors'      => null,
+            'status_code' => 200,
+            'result'      => ''
+        ], 200);
+    }
+
+    public function stepform(Request $request)
+    {
+        $formType = $request->input('form_type');
+        $formId   = $request->input('form_id');
+        $formStatus = $request->input('form_status');
+        $price    = $request->input('price');
+
+        $models = [
+            'documentDrafting' => documentDrafting::class,
+            'contractDrafting' => contractDrafting::class,
+            'legalAdvice'      => legalAdvice::class,
+            'lawsuit'          => lawsuit::class,
+            'tokil'            => tokil::class,
+        ];
+
+        if (isset($models[$formType])) {
+            $model = $models[$formType]::findOrFail($formId);
+            $model->update(['status' => $formStatus]);
+
+            $invoice = new Invoice();
+            $invoice->user_id       = $model->user_id;
+            $invoice->product_id    = $model->id;
+            $invoice->product_type  = $formType;
+            $invoice->product_price = $price;
+            $invoice->price         = $price;
+            $invoice->final_price   = $price;
+            $invoice->save();
+
+            return response()->json([
+                'isSuccess'   => true,
+                'message'     => 'اطلاعات با موفقیت ثبت شد',
+                'errors'      => null,
+                'status_code' => 200,
+                'result'      => ''
+            ], 200);
         }
     }
 
