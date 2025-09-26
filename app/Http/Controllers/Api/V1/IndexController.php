@@ -54,7 +54,6 @@ class IndexController extends Controller
 
         if($request->input(['type']) == 'tokil'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $tokil = new tokil();
             $tokil->case_type        = $arrayData['case_type'];
             $tokil->hearing_date     = $arrayData['hearing_date'];
@@ -79,7 +78,6 @@ class IndexController extends Controller
         }
         elseif($request->input(['type']) == 'lawsuit'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $lawsuit = new Lawsuit();
             $lawsuit->case_type          = $arrayData['case_type'];
             $lawsuit->case_subject       = $arrayData['case_subject'];
@@ -102,7 +100,6 @@ class IndexController extends Controller
 
         }elseif($request->input(['type']) == 'legalAdvice'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $legalAdvice = new legalAdvice();
             $legalAdvice->topic        = $arrayData['topic'];
             $legalAdvice->sub_topic     = $arrayData['sub_topic'];
@@ -122,7 +119,6 @@ class IndexController extends Controller
 
         }elseif($request->input(['type']) == 'contractDrafting'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $contractDrafting = new contractDrafting();
             $contractDrafting->contract_type             = $arrayData['contract_type'];
             $contractDrafting->party_one_name            = $arrayData['party_one_name'];
@@ -143,7 +139,6 @@ class IndexController extends Controller
 
         }elseif($request->input(['type']) == 'documentDrafting'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $documentDrafting = new documentDrafting();
             $documentDrafting->topic               = $arrayData['topic'];
             $documentDrafting->sub_topic           = $arrayData['sub_topic'];
@@ -163,24 +158,24 @@ class IndexController extends Controller
 
         }elseif($request->input(['type']) == 'judgement'){
             $arrayData = $request->input('fields');
-            $arrayData = json_decode($arrayData, true) ?? [];
             $judgement = new judgement();
-            $judgement->judgement_type            = $arrayData['judgement_type'];
-            $judgement->contract_type             = $arrayData['contract_type'];
-            $judgement->party_one_name            = $arrayData['party_one_name'];
-            $judgement->party_two_name            = $arrayData['party_two_name'];
-            $judgement->party_one_national_id     = $arrayData['party_one_national_id'];
-            $judgement->party_two_national_id     = $arrayData['party_two_national_id'];
+            $judgement->judgement_type            = $arrayData['judgementType'];
+            $judgement->contract_type             = $arrayData['contractType'];
+            $judgement->party_one_name            = $arrayData['partyOneName'];
+            $judgement->party_two_name            = $arrayData['partyTwoName'];
+            $judgement->party_one_national_id     = $arrayData['partyOneNationalId'];
+            $judgement->party_two_national_id     = $arrayData['partyTwoNationalId'];
             $judgement->status           = 1;
             $judgement->user_id             = Auth::user()->id;
 
-            if ($request->hasFile('files')) {
-                foreach ($request->file('files') as $file) {
+            if ($request->hasFile('uploaded_file')) {
+                foreach ($request->file('uploaded_file') as $file) {
                     $path = $file->store('upload/judgement/files', 'public');
                     $filePaths[] = $path;
                 }
+                $judgement->uploaded_file            = json_encode($filePaths);
             }
-            $judgement->uploaded_file            = json_encode($filePaths);
+
             $judgement->save();
         }
 
