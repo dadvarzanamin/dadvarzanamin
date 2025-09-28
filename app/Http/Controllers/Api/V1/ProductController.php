@@ -624,26 +624,6 @@ class ProductController extends Controller
 
     public function purchase_request(Request $request){
         $invoice = Invoice::whereProduct_id($request->input('form_id'))->first();
-        $type = $invoice->product_type;
-
-        $models = [
-            'tokil'            => Tokil::class,
-            'lawsuit'          => Lawsuit::class,
-            'legalAdvice'      => LegalAdvice::class,
-            'contractDrafting' => ContractDrafting::class,
-            'documentDrafting' => DocumentDrafting::class,
-            'judgement'        => Judgement::class,
-        ];
-
-        if (isset($models[$type])) {
-            $modelClass = $models[$type];
-            $model = $modelClass::find($invoice->product_id);
-
-            if ($model) {
-                $model->status = 4;
-                $model->save();
-            }
-        }
 
         $user = auth()->user();
         $wallet = $user->wallet;
@@ -666,8 +646,27 @@ class ProductController extends Controller
             $withdrawResult     = $walletController->withdraw($withdrawRequest);
 
             if ($withdrawResult->getData()->isSuccess === true) {
-                $invoice = Invoice::whereId($request->input('invoice_id'))->first();
+                $invoice = Invoice::whereId($request->input('form_id'))->first();
+                $type = $invoice->product_type;
 
+                $models = [
+                    'tokil'            => Tokil::class,
+                    'lawsuit'          => Lawsuit::class,
+                    'legalAdvice'      => LegalAdvice::class,
+                    'contractDrafting' => ContractDrafting::class,
+                    'documentDrafting' => DocumentDrafting::class,
+                    'judgement'        => Judgement::class,
+                ];
+
+                if (isset($models[$type])) {
+                    $modelClass = $models[$type];
+                    $model = $modelClass::find($invoice->product_id);
+
+                    if ($model) {
+                        $model->status = 4;
+                        $model->save();
+                    }
+                }
                 return response()->json(
                     ['isSuccess' => true,
                         'message' => 'ثبت نام و پرداخت با موفقیت انجام شد',
