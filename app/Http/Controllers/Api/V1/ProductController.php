@@ -646,7 +646,7 @@ class ProductController extends Controller
             $withdrawResult     = $walletController->withdraw($withdrawRequest);
 
             if ($withdrawResult->getData()->isSuccess === true) {
-                $invoice = Invoice::whereId($request->input('form_id'))->first();
+                $invoice = Invoice::whereProduct_id($request->input('form_id'))->whereProduct_type($request->input('form_type'))->first();
                 $type = $invoice->product_type;
 
                 $models = [
