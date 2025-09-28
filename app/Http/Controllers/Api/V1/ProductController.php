@@ -482,12 +482,12 @@ class ProductController extends Controller
                 ->exists();
             if (! $exists) {
                 $invoice = new Invoice();
-                $invoice->user_id = $model->user_id;
-                $invoice->product_id = $model->id;
-                $invoice->product_type = $formType;
-                $invoice->product_price = $price;
-                $invoice->price = $price;
-                $invoice->final_price = $price;
+                $invoice->user_id           = $model->user_id;
+                $invoice->product_id        = $formId;
+                $invoice->product_type      = $formType;
+                $invoice->product_price     = $price;
+                $invoice->price             = $price;
+                $invoice->final_price       = $price;
                 $invoice->save();
             }
             return response()->json([
@@ -623,7 +623,7 @@ class ProductController extends Controller
     }
 
     public function purchase_request(Request $request){
-        $invoice = Invoice::whereProduct_id($request->input('form_id'))->first();
+        $invoice = Invoice::whereProduct_id($request->input('form_id'))->whereProduct_type($request->input('form_type'))->first();
 
         $user = auth()->user();
         $wallet = $user->wallet;
