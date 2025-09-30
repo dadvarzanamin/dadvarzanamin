@@ -42,11 +42,11 @@
                                     <table id="sample1" class="table table-striped table-bordered yajra-datatable">
                                         <thead>
                                         <tr>
-                                            <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> عنوان </th>
-                                            <th class="wd-10p"> تصویر </th>
-                                            <th class="wd-10p"> توضیحات </th>
-                                            <th class="wd-10p"> وضعیت </th>
+                                            <th class="wd-10p"> نوع پرونده </th>
+                                            <th class="wd-10p"> موضوع پرونده </th>
+                                            <th class="wd-10p"> مرحله رسیدگی </th>
+                                            <th class="wd-10p"> نام طرف مقابل </th>
+                                            <th class="wd-10p"> کد ملی طرف مقابل </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
                                         </thead>
@@ -96,11 +96,11 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'image'      , name: 'image'},
-                    {data: 'description', name: 'description'},
-                    {data: 'status'     , name: 'status'},
+                    {data: 'case_type'         , name: 'case_type'},
+                    {data: 'case_subject'      , name: 'case_subject'},
+                    {data: 'stage'      , name: 'stage'},
+                    {data: 'opponent_name', name: 'opponent_name'},
+                    {data: 'opponent_national_id'     , name: 'opponent_national_id'},
                     {data: 'action'     , name: 'action', orderable: true, searchable: true},
                 ]
             });

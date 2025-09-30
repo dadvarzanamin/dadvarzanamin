@@ -42,10 +42,12 @@
                                     <table id="sample1" class="table table-striped table-bordered yajra-datatable">
                                         <thead>
                                         <tr>
-                                            <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> عنوان </th>
-                                            <th class="wd-10p"> تصویر </th>
-                                            <th class="wd-10p"> توضیحات </th>
+                                            <th class="wd-10p"> نوع داوری </th>
+                                            <th class="wd-10p"> نوع قرارداد </th>
+                                            <th class="wd-10p"> نام طرف اول </th>
+                                            <th class="wd-10p"> نام طرف دوم </th>
+                                            <th class="wd-10p"> کد ملی طرف اول </th>
+                                            <th class="wd-10p"> کد ملی طرف دوم </th>
                                             <th class="wd-10p"> وضعیت </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
@@ -96,11 +98,12 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'image'      , name: 'image'},
-                    {data: 'description', name: 'description'},
-                    {data: 'status'     , name: 'status'},
+                    {data: 'judgement_type'         , name: 'judgement_type'},
+                    {data: 'contract_type'      , name: 'contract_type'},
+                    {data: 'party_one_name'      , name: 'party_one_name'},
+                    {data: 'party_two_name', name: 'party_two_name'},
+                    {data: 'party_one_national_id'     , name: 'party_one_national_id'},
+                    {data: 'party_two_national_id'     , name: 'party_two_national_id'},
                     {data: 'action'     , name: 'action', orderable: true, searchable: true},
                 ]
             });
