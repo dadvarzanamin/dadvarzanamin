@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\APP\lawsuit;
 use App\Models\Dashboard\Menu_panel;
 use App\Models\Dashboard\Submenu_panel;
 use App\Models\Menu;
