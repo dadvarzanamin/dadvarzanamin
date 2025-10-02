@@ -513,7 +513,7 @@
                         @endif
                         @if(Auth::check())
                             <a href="#" class="dore-open-modal mobile-button br-16"
-                               style="display: flex;justify-content: center">ثبت نام
+                               style="display: flex;justify-content: center">ثبت نام در کارگاه
                             </a>
                         @else
                            <a href="#" class="dore-open-modal mobile-button br-16"
