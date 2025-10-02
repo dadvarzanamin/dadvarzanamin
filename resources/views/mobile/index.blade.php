@@ -511,10 +511,15 @@
                                 ظرفیت
                             </a>
                         @endif
-                        <a href="#" class="dore-open-modal mobile-button br-16"
-                           style="display: flex;justify-content: center">مشاهده اطلاعات
-                        </a>
-
+                        @if(Auth::check())
+                            <a href="#" class="dore-open-modal mobile-button br-16"
+                               style="display: flex;justify-content: center">ثبت نام
+                            </a>
+                        @else
+                           <a href="#" class="dore-open-modal mobile-button br-16"
+                              style="display: flex;justify-content: center">مشاهده اطلاعات
+                           </a>
+                        @endif
                     </div>
                 </div>
                 <div id="doreModal" class="dore-modal">
