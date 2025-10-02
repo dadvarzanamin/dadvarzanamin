@@ -342,12 +342,12 @@
         .course-image-container {
             border-radius: 16px;
             position: relative;
-            width: 100%;
+            max-width: 100%;
             overflow: hidden;
         }
 
         .course-image {
-            width: 100%;
+            max-width: 100%;
             height: 100%;
             object-fit: cover;
         }
