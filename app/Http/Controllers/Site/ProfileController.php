@@ -725,7 +725,9 @@ class ProfileController extends Controller
             $invoice->price     = $workshops->certificate_price + $workshops->price;
             $invoice->save();
 
-            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
+            $invoices = Invoice::whereId($invoice->id)->first();
+
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate' , 'invoices'));
         }elseif ($invoices->price_status == 4) {
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
             return Redirect::back();
