@@ -94,7 +94,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($workshopsigns as $workshopsign)
+                        @foreach($invoices as $invoice)
                             <tr>
                                 <td>
                                     <ul class="generic-list-item">
@@ -103,34 +103,34 @@
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{$workshopsign->title}}</li>
+                                        <li>{{$invoice->title}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{$workshopsign->date}}</li>
+                                        <li>{{$invoice->date}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        @if($workshopsign->typeuse == 1)
+                                        @if($invoice->typeuse == 1)
                                             <button class="btn btn-success">حضوری</button>
-                                        @elseif($workshopsign->typeuse == 2)
+                                        @elseif($invoice->typeuse == 2)
                                             <button class="btn btn-warning">آنلاین</button>
                                         @endif
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
-                                        <li>{{number_format($workshopsign->price)}} تومان</li>
+                                        <li>{{number_format($invoice->price)}} تومان</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            @if($workshopsign->pricestatus == 4)
+                                            @if($invoice->pricestatus == 4)
                                                 <button class="btn btn-success">پرداخت موفق</button>
-                                            @elseif($workshopsign->pricestatus == null)
+                                            @elseif($invoice->pricestatus == null)
                                                 <button class="btn btn-danger">پرداخت ناموفق</button>
                                             @endif
                                         </li>
