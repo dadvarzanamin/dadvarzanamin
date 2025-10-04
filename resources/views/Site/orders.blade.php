@@ -29,9 +29,11 @@
                                 <div>{{ number_format($order->product_price) }} تومان</div>
                             </div>
                             <div class="col-md-4 col-12 d-flex align-items-end justify-content-md-end">
+                                @if($order->product_type == 'contract')
                                 <a href="{{ asset('storage/' . $order->file_path) }}" class="btn btn-outline-primary w-100 w-md-auto">
                                     دانلود فایل
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </div>

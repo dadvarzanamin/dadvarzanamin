@@ -128,13 +128,12 @@ class WalletController extends Controller
         $wallet = $user->wallet;
 
         if ($wallet->balance < $amount) {
-            return response()->json(
-                ['isSuccess' => null,
-                    'message' => 'موجودی کافی نیست.',
-                    'errors' => true,
-                    'status_code' => 500,
-                    'result' => $wallet->balance
-                ], 500);
+            return response()->json([
+                'isSuccess'    => false,
+                'message'      => 'موجودی کافی نیست. در حال انتقال به صفحه پرداخت...',
+                'redirect_url' => route('pay', ['user' => $user->id, 'amount' => $amount]),
+            ]);
+
         }
 
         $transaction = $user->transactions()->create([

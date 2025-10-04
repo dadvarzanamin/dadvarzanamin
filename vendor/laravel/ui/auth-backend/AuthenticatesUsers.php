@@ -100,29 +100,29 @@ trait AuthenticatesUsers
     }
     public function loginusermobile(Request $request)
     {
+
+
         $request->validate([
             'phone'         => 'required|numeric',
             'password'      => 'required|string|min:8',
-            'captcha'       => 'required|numeric|captcha|min:1',
+            'captcha'       => 'required|numeric|captcha',
         ]);
 
         $phone      = $this->convertPersianToEnglishNumbers($request->input('phone'));
         $password   = $this->convertPersianToEnglishNumbers($request->input('password'));
 
-
         if ($phone  && $password) {
             $user = User::wherePhone($phone)->first();
             if ($user != null) {
-                if (Hash::check($password, $user->password)) {
+                if ($user && Hash::check($password, $user->password)) {
                     Auth::loginUsingId($user->id);
-                    if(Auth::check()){
-                        session()->flash('success', 'عملیات با موفقیت انجام شد!');
-                        $url  = Session::get('url');
-                        return redirect()->intended();
-                    }else {
-                        session()->flash('success', 'شماره موبایل و یا رمز عبور اشتباه است');
-                        return Redirect::back();
-                    }
+                    session()->flash('success', 'عملیات با موفقیت انجام شد!');
+                    return redirect()->intended('/');
+                } else {
+                    return back()->withErrors([
+                        'login' => 'شماره موبایل یا رمز عبور اشتباه است.',
+                    ]);
+                }
                     //dd(url()->previous());
                     //return Redirect::to($url);
                     //return Redirect::route('indexfilter');
@@ -134,10 +134,6 @@ trait AuthenticatesUsers
                 session()->flash('success', 'شماره موبایل و یا رمز عبور اشتباه است');
                 return Redirect::back();
             }
-        } else {
-            session()->flash('success', 'شماره موبایل و یا رمز عبور اشتباه است');
-            return Redirect::back();
-        }
     }
 
     public function redirectToProvider($provider)

@@ -204,11 +204,11 @@ class IndexController extends Controller
         $orders         = DB::table('invoices')
             ->leftJoin('workshops', function ($join) {
                 $join->on('invoices.product_id', '=', 'workshops.id')
-                    ->where('invoices.product_type', '=', 'workshops');
+                    ->where('invoices.product_type', '=', 'workshop');
             })
             ->leftJoin('contracts', function ($join) {
                 $join->on('invoices.product_id', '=', 'contracts.id')
-                    ->where('invoices.product_type', '=', 'contracts');
+                    ->where('invoices.product_type', '=', 'contract');
             })
             ->where('invoices.user_id', Auth::user()->id)
             ->where('invoices.price_status', 4)
@@ -220,13 +220,9 @@ class IndexController extends Controller
                 DB::raw("CASE
                         WHEN invoices.product_type = 'contracts' THEN contracts.file_path
                         ELSE NULL END AS file_path"),
-//                DB::raw("CASE
-//                        WHEN invoices.product_type = 'contracts' THEN contracts.start_date
-//                        ELSE NULL END AS contract_start_date"),
-//                DB::raw("CASE
-//                        WHEN invoices.product_type = 'contracts' THEN contracts.end_date
-//                        ELSE NULL END AS contract_end_date")
-            )->get();
+            )
+            ->orderBy('invoices.created_at', 'desc')
+            ->get();
 
         //dd($orders);
         return view('Site.orders')->with(compact('menus', 'thispage' ,'orders' ,'companies', 'customers', 'submenus', 'servicelawyers', 'serviceclients', 'megamenus', 'megacounts', 'emploees'));

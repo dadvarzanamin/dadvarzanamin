@@ -147,14 +147,14 @@
                         </div>
                     </div>
                     <div class="text-center mt-4 btn-pay-container">
-
-                        <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
-
+                        @if(auth()->user()->wallet->balance == 0)
+                            <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge">شارژ کیف پول</a>
+                        @else
+                            <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
+                        @endif
                         <a href="{{route('order')}}" id="btn-order" class="btn btn-success btn-lg px-4" style="display: none;">
                             نمایش سفارشات
                         </a>
-
-                        <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge" style="display:none;">شارژ کیف پول</a>
                     </div>
 {{--                    <div class="text-center">--}}
 {{--                        <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}

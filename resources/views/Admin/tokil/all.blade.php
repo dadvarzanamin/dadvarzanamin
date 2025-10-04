@@ -42,11 +42,11 @@
                                     <table id="sample1" class="table table-striped table-bordered yajra-datatable">
                                         <thead>
                                         <tr>
-                                            <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> عنوان </th>
-                                            <th class="wd-10p"> تصویر </th>
-                                            <th class="wd-10p"> توضیحات </th>
-                                            <th class="wd-10p"> وضعیت </th>
+                                            <th class="wd-10p"> نوع پرونده </th>
+                                            <th class="wd-10p"> تاریخ دادرسی </th>
+                                            <th class="wd-10p"> مجتمع قضایی </th>
+                                            <th class="wd-10p"> شعبه </th>
+                                            <th class="wd-10p"> توضیحات بیشتر </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
                                         </thead>
@@ -96,11 +96,11 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'image'      , name: 'image'},
-                    {data: 'description', name: 'description'},
-                    {data: 'status'     , name: 'status'},
+                    {data: 'case_type'         , name: 'case_type'},
+                    {data: 'hearing_date'      , name: 'hearing_date'},
+                    {data: 'court_complex'      , name: 'court_complex'},
+                    {data: 'court_branch', name: 'court_branch'},
+                    {data: 'additional_info'     , name: 'additional_info'},
                     {data: 'action'     , name: 'action', orderable: true, searchable: true},
                 ]
             });

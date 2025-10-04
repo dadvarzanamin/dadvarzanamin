@@ -42,11 +42,10 @@
                                     <table id="sample1" class="table table-striped table-bordered yajra-datatable">
                                         <thead>
                                         <tr>
-                                            <th class="wd-10p"> سریال </th>
-                                            <th class="wd-10p"> عنوان </th>
-                                            <th class="wd-10p"> تصویر </th>
-                                            <th class="wd-10p"> توضیحات </th>
-                                            <th class="wd-10p"> وضعیت </th>
+                                            <th class="wd-10p"> موضوع </th>
+                                            <th class="wd-10p"> زیر موضوع </th>
+                                            <th class="wd-10p"> نوع مشاوره </th>
+                                            <th class="wd-10p"> توضیحات بیشتر </th>
                                             <th class="wd-10p">ویرایش / حذف </th>
                                         </tr>
                                         </thead>
@@ -96,10 +95,10 @@
                 serverSide: true,
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
-                    {data: 'id'         , name: 'id'},
-                    {data: 'title'      , name: 'title'},
-                    {data: 'image'      , name: 'image'},
-                    {data: 'description', name: 'description'},
+                    {data: 'topic'         , name: 'topic'},
+                    {data: 'sub_topic'      , name: 'sub_topic'},
+                    {data: 'type'      , name: 'type'},
+                    {data: 'additional_info', name: 'additional_info'},
                     {data: 'status'     , name: 'status'},
                     {data: 'action'     , name: 'action', orderable: true, searchable: true},
                 ]

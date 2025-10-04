@@ -342,13 +342,13 @@
         .course-image-container {
             border-radius: 16px;
             position: relative;
-            width: 100%;
+            max-width: 100%;
             overflow: hidden;
         }
 
         .course-image {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            /*height: 100%;*/
             object-fit: cover;
         }
 
@@ -511,10 +511,15 @@
                                 ظرفیت
                             </a>
                         @endif
-                        <a href="#" class="dore-open-modal mobile-button br-16"
-                           style="display: flex;justify-content: center">مشاهده اطلاعات
-                        </a>
-
+                        @if(Auth::check())
+                            <a href="#" class="dore-open-modal mobile-button br-16"
+                               style="display: flex;justify-content: center">ثبت نام در کارگاه
+                            </a>
+                        @else
+                           <a href="#" class="dore-open-modal mobile-button br-16"
+                              style="display: flex;justify-content: center">مشاهده اطلاعات
+                           </a>
+                        @endif
                     </div>
                 </div>
                 <div id="doreModal" class="dore-modal">

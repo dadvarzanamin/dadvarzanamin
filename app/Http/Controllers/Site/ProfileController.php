@@ -583,6 +583,10 @@ class ProfileController extends Controller
         $dashboardmenus = Menu::select('id', 'title', 'slug', 'class', 'priority')->MenuDashboard()->orderBy('priority')->get();
         $payments = Payment::whereUser_id(Auth::user()->id)->get();
         $workshops = Workshop::whereStatus(4)->get();
+        $invoices  = Invoice::leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+            ->where('invoices.product_type','workshop')
+            ->where('invoices.user_id', '=', Auth::user()->id)
+            ->select('workshops.title','workshops.date','workshops.type as ','invoices.price','invoices.price_status')->get();
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
             ->select('workshops.title', 'workshops.price', 'workshops.date', 'workshopsigns.typeuse', 'workshopsigns.pricestatus')
@@ -595,7 +599,7 @@ class ProfileController extends Controller
             ->where('workshopsigns.user_id', '=', Auth::user()->id)
             ->get();
 
-        return view('Site.Dashboard.workshop')->with(compact('companies', 'dashboardmenus', 'workshoppays', 'workshopsigns', 'notifs', 'workshops', 'payments'));
+        return view('Site.Dashboard.workshop')->with(compact('companies', 'dashboardmenus', 'workshoppays', 'workshopsigns' ,'invoices', 'notifs', 'workshops', 'payments'));
 
     }
 
@@ -682,6 +686,11 @@ class ProfileController extends Controller
         $typeuse        = $request->input('typeuse');
         $certificate    = $request->input('certificate');
 
+        $invoices  = Invoice::leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+            ->where('invoices.product_type','workshop')
+            ->where('invoices.user_id', '=', Auth::user()->id)
+            ->where('invoices.product_id', '=', $request->input('workshopid'))
+            ->first();
 
         $workshopsigns = DB::table('workshops')
             ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
@@ -694,7 +703,7 @@ class ProfileController extends Controller
 
         $workshops = Workshop::whereId($workshopid)->first();
 
-        if ($workshopsigns == null){
+        if ($invoices == null){
 
             $Workshopsign = new Workshopsign();
             $Workshopsign->workshop_id      = $request->input('workshopid');
@@ -718,11 +727,11 @@ class ProfileController extends Controller
 
             $invoices = Invoice::whereId($invoice->id)->first();
 
-            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
-        }elseif ($workshopsigns->pricestatus == 4) {
+            return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate' , 'invoices'));
+        }elseif ($invoices->price_status == 4) {
             alert()->error('', 'شما قبلا در این دوره ثبت نام کرده اید');
             return Redirect::back();
-        } elseif ($workshopsigns->pricestatus == null) {
+        } elseif ($invoices->price_status == null) {
 
             Workshopsign::whereWorkshop_id($workshopid)->whereUser_id(Auth::user()->id)->wherePricestatus(null)->update([
                 'certificate'       => $request->input('certificate'),
@@ -834,9 +843,16 @@ class ProfileController extends Controller
             ->where('workshopsigns.pricestatus', '<>', null)
             ->first();
 
+        $invoices  = Invoice::leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+            ->where('invoices.product_type','workshop')
+            ->where('invoices.user_id', '=', Auth::user()->id)
+            ->where('invoices.product_id', '=', $request->input('workshopid'))
+            ->where('invoices.price_status', '<>', null)
+            ->first();
+
         //dd($workshopsigns);
 
-        return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns'));
+        return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus', 'notifs', 'workshopsigns' , 'invoices'));
     }
 
 //    public function pay(Request $request)
