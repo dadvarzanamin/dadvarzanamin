@@ -128,9 +128,9 @@
                                 <td>
                                     <ul class="generic-list-item">
                                         <li>
-                                            @if($invoice->pricestatus == 4)
+                                            @if($invoice->price_status == 4)
                                                 <button class="btn btn-success">پرداخت موفق</button>
-                                            @elseif($invoice->pricestatus == null)
+                                            @elseif($invoice->price_status == null)
                                                 <button class="btn btn-danger">پرداخت ناموفق</button>
                                             @endif
                                         </li>

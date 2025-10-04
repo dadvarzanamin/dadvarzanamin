@@ -722,7 +722,8 @@ class ProfileController extends Controller
             $invoice->product_price     = $workshops->price;
             $invoice->type_use          = $request->input('typeuse');
             $invoice->certificate_price = $workshops->certificate_price;
-            $invoice->price     = $workshops->certificate_price + $workshops->price;
+            $invoice->price             = $workshops->certificate_price + $workshops->price;
+            $invoice->final_price       = $workshops->certificate_price + $workshops->price;
             $invoice->save();
 
             $invoices = Invoice::whereId($invoice->id)->first();
