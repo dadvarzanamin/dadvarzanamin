@@ -604,7 +604,7 @@
                                     </div>
                                 @else
                                     <div class="content-button">
-                                        <a href="#tab-login" class="mobile-button tab-link"
+                                        <a href="{{route('login')}}" class="mobile-button external"
                                            style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
                                             سایت</a>
                                     </div>
