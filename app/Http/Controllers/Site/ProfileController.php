@@ -688,6 +688,7 @@ class ProfileController extends Controller
         $certificate    = $request->input('certificate');
 
         $invoices  = Invoice::leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+            ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'invoices.type_use', 'invoices.price_status', 'invoices.id')
             ->where('invoices.product_type','workshop')
             ->where('invoices.user_id', '=', Auth::user()->id)
             ->where('invoices.product_id', '=', $request->input('workshopid'))
@@ -727,7 +728,13 @@ class ProfileController extends Controller
             $invoice->final_price       = $workshops->certificate_price + $workshops->price;
             $invoice->save();
 
-            $invoices = Invoice::whereId($invoice->id)->first();
+            $invoices = Invoice::
+            leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+                ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'invoices.type_use', 'invoices.price_status', 'invoices.id')
+                ->where('invoices.product_type','workshop')
+                ->where('invoices.user_id', '=', Auth::user()->id)
+                ->where('invoices.id', '=', $invoice->id)
+                ->first();
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate' , 'invoices'));
         }elseif ($invoices->price_status == 4) {
@@ -745,9 +752,11 @@ class ProfileController extends Controller
             ]);
 
             $existing = Invoice::
-                  where('user_id', Auth::user()->id)
-                ->where('product_id', $workshopid)
-                ->where('product_type','workshop')
+            leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+                ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'invoices.type_use', 'invoices.price_status', 'invoices.id')
+                ->where('invoices.product_type','workshop')
+                ->where('invoices.user_id', '=', Auth::user()->id)
+                ->where('invoices.product_id', '=', $workshopid)
                 ->first();
 
             if ($existing->price_status == 4) {
@@ -768,7 +777,13 @@ class ProfileController extends Controller
                 $invoices = Invoice::whereId($invoice->id)->first();
 
             }elseif($existing->price_status == null){
-                $invoices = Invoice::whereId($existing->id)->first();
+                $invoices = Invoice::
+                leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+                    ->select('workshops.title' , 'workshops.certificate_price', 'workshops.price', 'workshops.date', 'invoices.type_use', 'invoices.price_status', 'invoices.id')
+                    ->where('invoices.product_type','workshop')
+                    ->where('invoices.user_id', '=', Auth::user()->id)
+                    ->where('invoices.product_id', '=', $workshopid)
+                    ->first();
             }
 
             return view('Site.Dashboard.paymentpage')->with(compact('companies', 'dashboardmenus','invoices' , 'notifs', 'workshops', 'workshopid', 'typeuse', 'certificate'));
@@ -779,10 +794,9 @@ class ProfileController extends Controller
     public function discountcheck(Request $request){
 
         $invoices = Invoice::leftJoin('offers', 'offers.workshop_id', '=', 'invoices.product_id')
-            ->select('invoices.price', 'offers.discount', 'offers.percentage')
+            ->select('invoices.id','invoices.price', 'offers.discount', 'offers.percentage')
             ->where([
                 ['offers.status', '=', 4],
-                ['offers.user_offer', '=', Auth::id()],
                 ['invoices.user_id', '=', Auth::id()],
                 ['invoices.product_type', '=', 'workshop'],
                 ['offers.offercode', '=', $request->input('discountcode')],
@@ -797,30 +811,30 @@ class ProfileController extends Controller
             )
             ->first();
 
-
         if ($invoices) {
-            $price = $invoices->price;
+            $price      = $invoices->price;
             $percentage = $invoices->percentage ? (int) str_replace('%', '', $invoices->percentage) : null;
-            $discount = $invoices->discount ? (int) $invoices->discount : null;
+            $discount   = $invoices->discount ? (int) $invoices->discount : null;
 
+            $invoicee = Invoice::whereId($invoices->id)->first();
             if ($percentage !== null) {
-                $invoices->offer_percentage = $percentage;
-                $invoices->final_price = $price - ($price * $percentage / 100);
+                $invoicee->offer_percentage = $percentage;
+                $invoicee->final_price = $price - ($price * $percentage / 100);
             } elseif ($discount !== null) {
-                $invoices->offer_discount = $discount;
-                $invoices->final_price = $price - $discount;
+                $invoicee->offer_discount = $discount;
+                $invoicee->final_price = $price - $discount;
             } else {
-                $invoices->final_price = $price;
+                $invoicee->final_price = $price;
             }
-            $invoices->save();
+            $invoicee->save();
         }
 
-        if($invoices == null){
+        if($invoicee == null){
             $discount   = 0;
             $percentage = 0;
         }else{
-            $percentage = $invoices->offer_percentage ;
-            $discount   = (int)$invoices->offer_discount ;
+            $percentage = $invoicee->offer_percentage ;
+            $discount   = (int)$invoicee->offer_discount ;
         }
         $response = [
             'percentage'  => $percentage,
@@ -896,6 +910,7 @@ class ProfileController extends Controller
             ->first();
 
         $invoices  = Invoice::leftjoin('workshops' ,'invoices.product_id' , '=' ,'workshops.id')
+            ->select('workshops.title', 'workshops.price','workshops.date','workshops.offer', 'invoices.type_use', 'invoices.product_id' , 'invoices.id' , 'invoices.certificate' , 'invoices.certificate_price')
             ->where('invoices.product_type','workshop')
             ->where('invoices.user_id', '=', Auth::user()->id)
             ->where('invoices.product_id', '=', $request->input('workshopid'))

@@ -20,7 +20,7 @@
             <div class="card card-custom p-4 br-16">
                 <form method="get" action="{{ route('pay') }}">
                     @csrf
-                    <input type="hidden" name="workshopid" value="{{ $workshops->id }}">
+                    <input type="hidden" name="workshopid" value="{{ $invoices->id }}">
 
                     <div class="row">
                         <!-- نام دوره -->
@@ -29,7 +29,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">نام دوره</p>
                                     <hr class="solid flex-grow-1 mx-3">
-                                    <p class="mb-0 mobile-font">{{ $workshops->title }}</p>
+                                    <p class="mb-0 mobile-font">{{ $invoices->title }}</p>
                                 </div>
                             </div>
                         </div>
@@ -39,11 +39,7 @@
                                     <p class="mobile-font">مبلغ هزینه دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font" id="">
-                                        @if($workshops->offer)
-                                            {{ number_format((int)$workshops->offer) }} تومان
-                                        @else
-                                            {{ number_format((int)$workshops->price) }} تومان
-                                        @endif
+                                            {{ number_format((int)$invoices->price) }} تومان
                                     </p>
                                 </div>
                             </div>
@@ -54,7 +50,7 @@
                                     <p class="mobile-font">نوع استفاده</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font">
-                                        {{ $typeuse == 1 ? 'حضوری' : 'آنلاین' }}
+                                        {{ $invoices->type_use == 1 ? 'حضوری' : 'آنلاین' }}
                                     </p>
                                 </div>
                             </div>
@@ -65,8 +61,8 @@
                                     <p class="mobile-font">مبلغ گواهی دوره</p>
                                     <hr class="solid flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font">
-                                        @if($certificate == 1)
-                                            {{(int)$workshops->certificate_price }}
+                                        @if($invoices->certificate == 1)
+                                            {{(int)$invoices->certificate_price }}
                                             تومان
                                         @else
                                             رایگان
@@ -80,7 +76,7 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">تاریخ دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ $workshops->date }}</p>
+                                    <p class="mb-0 mobile-font">{{ $invoices->date }}</p>
                                 </div>
                             </div>
                         </div>
@@ -101,28 +97,27 @@
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">گواهی دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
-                                    <p class="mb-0 mobile-font">{{ $certificate == 1 ? 'به همراه گواهی' : 'بدون گواهی' }}</p>
+                                    <p class="mb-0 mobile-font">{{ $invoices->certificate == 1 ? 'به همراه گواهی' : 'بدون گواهی' }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div></div>
                         <div class="col-lg-6">
                             <div class="card py-3 my-2 border-1 br-8">
                                 <div class="container d-flex flex-row justify-content-center">
                                     <p class="mobile-font">مبلغ نهایی دوره</p>
                                     <hr class="dashed flex-grow-1 mx-3 mobile-font">
                                     <p class="mb-0 mobile-font" id="final-price">
-                                        @if($certificate == 1)
-                                            @if($workshops->offer)
-                                                {{$finalprice = number_format((int)$workshops->offer + (int)$workshops->certificate_price) }}تومان
+                                        @if($invoices->certificate == 1)
+                                            @if($invoices->offer)
+                                                {{$finalprice = number_format((int)$invoices->offer + (int)$invoices->certificate_price) }}تومان
                                             @else
-                                                {{$finalprice = number_format((int)$workshops->price + (int)$workshops->certificate_price) }}تومان
+                                                {{$finalprice = number_format((int)$invoices->price + (int)$invoices->certificate_price) }}تومان
                                             @endif
                                         @else
-                                            @if($workshops->offer)
-                                                {{$finalprice = number_format((int)$workshops->offer) }} تومان
+                                            @if($invoices->offer)
+                                                {{$finalprice = number_format((int)$invoices->offer) }} تومان
                                             @else
-                                                {{$finalprice = number_format((int)$workshops->price) }} تومان
+                                                {{$finalprice = number_format((int)$invoices->price) }} تومان
                                             @endif
                                         @endif
                                     </p>
@@ -146,16 +141,33 @@
                             <p id="discount-result" class="text-center my-3"></p>
                         </div>
                     </div>
-                    <div class="text-center mt-4 btn-pay-container">
-                        @if(auth()->user()->wallet->balance < $workshops->price)
-                            <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge">شارژ کیف پول</a>
-                        @else
-                            <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
-                        @endif
-                        <a href="{{route('order')}}" id="btn-order" class="btn btn-success btn-lg px-4" style="display: none;">
-                            نمایش سفارشات
-                        </a>
-                    </div>
+                        <div class="text-center mt-4 btn-pay-container">
+                            <button type="button" id="btn-wallet-pay" class="btn btn-success btn-lg px-4" style="display:none;">
+                                پرداخت با کیف پول
+                            </button>
+
+                            <button type="button" id="btn-bank-pay" class="btn btn-primary btn-lg px-4" style="display:none;">
+                                پرداخت از طریق درگاه بانکی
+                            </button>
+
+                            <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge" style="display:none;">
+                                شارژ کیف پول
+                            </a>
+
+                            <a href="{{route('order')}}" id="btn-order" class="btn btn-success btn-lg px-4" style="display: none;">
+                                نمایش سفارشات
+                            </a>
+                        </div>
+{{--                    <div class="text-center mt-4 btn-pay-container">--}}
+{{--                        @if(auth()->user()->wallet->balance < $invoices->price)--}}
+{{--                            <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge">شارژ کیف پول</a>--}}
+{{--                        @else--}}
+{{--                            <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>--}}
+{{--                        @endif--}}
+{{--                        <a href="{{route('order')}}" id="btn-order" class="btn btn-success btn-lg px-4" style="display: none;">--}}
+{{--                            نمایش سفارشات--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
 {{--                    <div class="text-center">--}}
 {{--                        <button type="submit" class="btn theme-btn">تایید و پرداخت</button>--}}
 {{--                    </div>--}}
@@ -206,10 +218,23 @@
         </script>
     @endif
     <script>
+        const userWallet = {{ auth()->user()->wallet->balance }};
+        const workshopPrice = {{ $invoices->price }};
+    </script>
+    <script>
         jQuery(document).ready(function () {
+
+            let initialPrice = workshopPrice;
+            if (userWallet >= initialPrice) {
+                $('#btn-wallet-pay').show();
+            } else {
+                $('#btn-bank-pay').show();
+            }
+
             jQuery('#apply-discount').click(function (e) {
                 e.preventDefault();
                 jQuery(this).prop('disabled', true);
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -218,7 +243,7 @@
 
                 let _token = jQuery('input[name="_token"]').val();
                 let discountcode = jQuery('#discount-code').val();
-                let workshopid = {{ $workshops->id }};
+                let workshopid = {{ $invoices->id }};
 
                 let formData = new FormData();
                 formData.append('discountcode', discountcode);
@@ -233,27 +258,34 @@
                     processData: false,
                     success: function (response) {
                         if (response.ok) {
-
                             let discount = parseInt(response.response.discount || 0);
                             let percentage = parseInt(response.response.percentage || 0);
 
                             let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));
-
                             let finalPrice;
-                            if (percentage > 0) {
 
+                            if (percentage > 0) {
                                 finalPrice = Math.round(currentPrice * (1 - (percentage / 100)));
                                 $('#discount-amount').text(`${percentage}%`);
                             } else {
-
                                 finalPrice = currentPrice - discount;
                                 $('#discount-amount').text(new Intl.NumberFormat('fa-IR').format(discount) + ' تومان');
                             }
 
                             $('#final-price').text(new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان');
                             $('#final-price-input').val(finalPrice);
-                        } else {
 
+                            if (userWallet >= finalPrice) {
+                                $('#btn-wallet-pay').show();
+                                $('#btn-bank-pay').hide();
+                                $('#btn-wallet-charge').hide();
+                            } else {
+                                $('#btn-bank-pay').show();
+                                $('#btn-wallet-pay').hide();
+                                $('#btn-wallet-charge').hide();
+                            }
+
+                        } else {
                             $('#discount-amount').text("۰ تومان");
                             alert("کد تخفیف معتبر نیست!");
                         }
@@ -264,21 +296,92 @@
                     }
                 });
             });
+
+            {{--$('#btn-wallet-pay').click(function () {--}}
+            {{--    window.location.href = "{{ route('profilewallet', ['id' => $invoices->id]) }}";--}}
+            {{--});--}}
+
+            $('#btn-bank-pay').click(function () {
+                window.location.href = "{{ route('profilewallet', ['id' => $invoices->id]) }}";
+            });
+
         });
     </script>
+{{--    <script>--}}
+{{--        jQuery(document).ready(function () {--}}
+{{--            jQuery('#apply-discount').click(function (e) {--}}
+{{--                e.preventDefault();--}}
+{{--                jQuery(this).prop('disabled', true);--}}
+{{--                $.ajaxSetup({--}}
+{{--                    headers: {--}}
+{{--                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')--}}
+{{--                    }--}}
+{{--                });--}}
+
+{{--                let _token = jQuery('input[name="_token"]').val();--}}
+{{--                let discountcode = jQuery('#discount-code').val();--}}
+{{--                let workshopid = {{ $invoices->id }};--}}
+
+{{--                let formData = new FormData();--}}
+{{--                formData.append('discountcode', discountcode);--}}
+{{--                formData.append('workshopid', workshopid);--}}
+{{--                formData.append('_token', _token);--}}
+
+{{--                jQuery.ajax({--}}
+{{--                    url: "{{route('discountcheck')}}",--}}
+{{--                    method: 'POST',--}}
+{{--                    data: formData,--}}
+{{--                    contentType: false,--}}
+{{--                    processData: false,--}}
+{{--                    success: function (response) {--}}
+{{--                        if (response.ok) {--}}
+
+{{--                            let discount = parseInt(response.response.discount || 0);--}}
+{{--                            let percentage = parseInt(response.response.percentage || 0);--}}
+
+{{--                            let currentPrice = parseInt($('#final-price').text().replace(/[, تومان]/g, ''));--}}
+
+{{--                            let finalPrice;--}}
+{{--                            if (percentage > 0) {--}}
+
+{{--                                finalPrice = Math.round(currentPrice * (1 - (percentage / 100)));--}}
+{{--                                $('#discount-amount').text(`${percentage}%`);--}}
+{{--                            } else {--}}
+
+{{--                                finalPrice = currentPrice - discount;--}}
+{{--                                $('#discount-amount').text(new Intl.NumberFormat('fa-IR').format(discount) + ' تومان');--}}
+{{--                            }--}}
+
+{{--                            $('#final-price').text(new Intl.NumberFormat('fa-IR').format(finalPrice) + ' تومان');--}}
+{{--                            $('#final-price-input').val(finalPrice);--}}
+{{--                        } else {--}}
+
+{{--                            $('#discount-amount').text("۰ تومان");--}}
+{{--                            alert("کد تخفیف معتبر نیست!");--}}
+{{--                        }--}}
+{{--                    },--}}
+{{--                    error: function (xhr, status, error) {--}}
+{{--                        console.error("Error occurred: ", error);--}}
+{{--                        alert("خطایی در ارسال درخواست به وجود آمد.");--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const walletBalance    = {{ auth()->user()->wallet->balance }};
-        let latestTotalFinal   = {{ $invoices->price }};
         let activeInvoiceIds   = {{$invoices->id}};
         let selectedInvoiceId  = null;
         const payModal      = new bootstrap.Modal(document.getElementById('confirmPayModal'));
 
-        $('#btn-pay').on('click', function() {
+        $('#btn-wallet-pay').on('click', function() {
             payModal.show();
         });
 
         $('#confirmPayBtn').on('click', function() {
+            let latestTotalFinal = parseInt($('#final-price-input').val());
+
             $.ajax({
                 url: "{{ route('withdraw') }}",
                 type: "POST",
@@ -292,14 +395,14 @@
 
                     if (response.isSuccess) {
                         $('#invoice-list').fadeOut(300, function() { $(this).remove(); });
-                        $('#walletWarning, #btn-pay, #btn-wallet-charge').hide();
+                        $('#walletWarning, #btn-wallet-pay, #btn-wallet-charge').hide();
 
                         $('#btn-go-orders').attr('href', response.redirect_url);
                         $('#post-payment-actions').fadeIn();
 
                         $('#paymentStatusText').text(response.message || 'پرداخت با موفقیت انجام شد');
 
-                        $('#btn-pay').remove();
+                        $('#btn-wallet-pay').remove();
                         $('#btn-order').fadeIn();
 
                     } else {
