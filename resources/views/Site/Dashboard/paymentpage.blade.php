@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-4 btn-pay-container">
-                        @if(auth()->user()->wallet->balance < $finalprice)
+                        @if(auth()->user()->wallet->balance < $workshops->price)
                             <a href="{{ route('profilewallet') }}" class="btn btn-warning btn-lg px-4" id="btn-wallet-charge">شارژ کیف پول</a>
                         @else
                             <button type="button" id="btn-pay" class="btn btn-success btn-lg px-4">پرداخت</button>
