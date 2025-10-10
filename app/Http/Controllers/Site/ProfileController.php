@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
+use function Laravel\Prompts\select;
 
 class ProfileController extends Controller
 {
@@ -777,48 +778,98 @@ class ProfileController extends Controller
 
     public function discountcheck(Request $request){
 
-        $workshopsigns = DB::table('workshops')
-            ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
-            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
-            ->select('offers.discount','workshops.price as wprice', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
-            ->where('offers.status', '=', 4)
-            ->where('workshopsigns.user_id', '=', Auth::user()->id)
-            ->where('offers.offercode', '=', $request->input('discountcode'))
+        $invoices = Invoice::leftJoin('offers', 'offers.workshop_id', '=', 'invoices.product_id')
+            ->select('invoices.price', 'offers.discount', 'offers.percentage')
+            ->where([
+                ['offers.status', '=', 4],
+                ['offers.user_offer', '=', Auth::id()],
+                ['invoices.user_id', '=', Auth::id()],
+                ['invoices.product_type', '=', 'workshop'],
+                ['offers.offercode', '=', $request->input('discountcode')],
+            ])
             ->when(
                 DB::table('offers')
-                    ->where('status', '=', 4)
-                    ->where('offercode', '=', $request->input('discountcode'))
+                    ->where('status', 4)
+                    ->where('offercode', $request->input('discountcode'))
                     ->whereNotNull('user_offer')
                     ->exists(),
-                function ($query) {
-                    $query->where('offers.user_offer', '=', Auth::user()->id);
-                }
+                fn($query) => $query->where('offers.user_offer', Auth::id())
             )
             ->first();
-        $Workshopsignee = Workshopsign::whereId($workshopsigns->id)->first();
 
-        if ($workshopsigns->percentage <> null){
-            $Workshopsignee->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
-            $Workshopsignee->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
-        }elseif ($workshopsigns->discount <> null) {
-            $Workshopsignee->offer_discount = (int)$workshopsigns->discount;
-            $Workshopsignee->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
-        }else {
-            $Workshopsignee->price = $workshopsigns->wprice;
+
+        if ($invoices) {
+            $price = $invoices->price;
+            $percentage = $invoices->percentage ? (int) str_replace('%', '', $invoices->percentage) : null;
+            $discount = $invoices->discount ? (int) $invoices->discount : null;
+
+            if ($percentage !== null) {
+                $invoices->offer_percentage = $percentage;
+                $invoices->final_price = $price - ($price * $percentage / 100);
+            } elseif ($discount !== null) {
+                $invoices->offer_discount = $discount;
+                $invoices->final_price = $price - $discount;
+            } else {
+                $invoices->final_price = $price;
+            }
+            $invoices->save();
         }
-        $Workshopsignee->update();
 
-        if($workshopsigns == null){
+        if($invoices == null){
             $discount   = 0;
             $percentage = 0;
         }else{
-            $percentage = $workshopsigns->percentage ;
-            $discount   = (int)$workshopsigns->discount   ;
+            $percentage = $invoices->offer_percentage ;
+            $discount   = (int)$invoices->offer_discount ;
         }
         $response = [
             'percentage'  => $percentage,
             'discount'    => $discount  ,
         ];
+
+//        $workshopsigns = DB::table('workshops')
+//            ->join('offers', 'workshops.id', '=', 'offers.workshop_id')
+//            ->join('workshopsigns', 'workshops.id', '=', 'workshopsigns.workshop_id')
+//            ->select('offers.discount','workshops.price as wprice', 'offers.percentage', 'workshopsigns.id', 'workshopsigns.workshop_price')
+//            ->where('offers.status', '=', 4)
+//            ->where('workshopsigns.user_id', '=', Auth::user()->id)
+//            ->where('offers.offercode', '=', $request->input('discountcode'))
+//            ->when(
+//                DB::table('offers')
+//                    ->where('status', '=', 4)
+//                    ->where('offercode', '=', $request->input('discountcode'))
+//                    ->whereNotNull('user_offer')
+//                    ->exists(),
+//                function ($query) {
+//                    $query->where('offers.user_offer', '=', Auth::user()->id);
+//                }
+//            )
+//            ->first();
+//
+//        $Workshopsignee = Workshopsign::whereId($workshopsigns->id)->first();
+//
+//        if ($workshopsigns->percentage <> null){
+//            $Workshopsignee->offer_percentage  = intval(str_replace('%', '', $workshopsigns->percentage));
+//            $Workshopsignee->price = $workshopsigns->workshop_price - ($workshopsigns->workshop_price * (intval(str_replace('%', '', $workshopsigns->percentage)))/100);
+//        }elseif ($workshopsigns->discount <> null) {
+//            $Workshopsignee->offer_discount = (int)$workshopsigns->discount;
+//            $Workshopsignee->price = $workshopsigns->workshop_price - (int)$workshopsigns->discount;
+//        }else {
+//            $Workshopsignee->price = $workshopsigns->wprice;
+//        }
+//        $Workshopsignee->update();
+
+//        if($workshopsigns == null){
+//            $discount   = 0;
+//            $percentage = 0;
+//        }else{
+//            $percentage = $workshopsigns->percentage ;
+//            $discount   = (int)$workshopsigns->discount   ;
+//        }
+//        $response = [
+//            'percentage'  => $percentage,
+//            'discount'    => $discount  ,
+//        ];
 
         return Response::json(['ok' =>true ,'message' => 'success','response'=>$response]);
 
