@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Akhbar;
 use App\Models\Dashboard\Menu_panel;
 use App\Models\Dashboard\Submenu_panel;
+use App\Models\Invoice;
 use App\Models\Profile\Workshopsign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,8 @@ use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
-class PayuserController extends Controller
+class
+PayuserController extends Controller
 {
 
     public function index(Request $request)
@@ -34,13 +36,35 @@ class PayuserController extends Controller
         $submenupanels  =   Submenu_panel::whereStatus(4)->get();
 
         if ($request->ajax()) {
-            $data = DB::table('workshopsigns')
-                   ->select( 'workshopsigns.id', 'users.name as name' ,'users.phone as phone', 'users.father_name', 'users.national_id', 'users.birthday' , 'workshops.title as title'
-                                    ,'workshopsigns.typeuse', 'workshopsigns.created_at as date', 'workshopsigns.price', 'workshopsigns.pricestatus'
-                                    ,'workshopsigns.referenceId','workshopsigns.certificate')
-                   ->join('users', 'workshopsigns.user_id', '=', 'users.id')
-                   ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
-                   ->get();
+//            $data = DB::table('workshopsigns')
+//                   ->select( 'workshopsigns.id', 'users.name as name' ,'users.phone as phone', 'users.father_name', 'users.national_id', 'users.birthday' , 'workshops.title as title'
+//                                    ,'workshopsigns.typeuse', 'workshopsigns.created_at as date', 'workshopsigns.price', 'workshopsigns.pricestatus'
+//                                    ,'workshopsigns.referenceId','workshopsigns.certificate')
+//                   ->join('users', 'workshopsigns.user_id', '=', 'users.id')
+//                   ->join('workshops', 'workshopsigns.workshop_id', '=', 'workshops.id')
+//                   ->get();
+
+            $data = Invoice::query()
+                ->leftJoin('workshops', 'workshops.id', '=', 'invoices.product_id')
+                ->leftJoin('contracts', 'contracts.id', '=', 'invoices.product_id')
+                ->leftJoin('estelams', 'estelams.id', '=', 'invoices.product_id')
+                ->leftJoin('users', 'users.id', '=', 'invoices.user_id')
+                ->select(
+                    'invoices.id',
+                    'users.name',
+                    'users.phone',
+                    'users.national_id',
+                    'users.birthday',
+                    'users.father_name',
+                    DB::raw('COALESCE(workshops.title, contracts.title, estelams.title) as product_title'),
+                    'invoices.type_use',
+                    'invoices.certificate',
+                    'invoices.final_price',
+                    'invoices.price_status',
+                    'invoices.updated_at'
+                )
+                ->where('invoices.price_status', 4)
+                ->get();
 
 
             return Datatables::of($data)
@@ -52,7 +76,7 @@ class PayuserController extends Controller
                     return ($data->name);
                 })
                 ->addColumn('title', function ($data) {
-                    return ($data->title);
+                    return ($data->product_title);
                 })
                 ->addColumn('phone', function ($data) {
                     return ($data->phone);
@@ -61,15 +85,15 @@ class PayuserController extends Controller
                     return (jdate($data->date)->format('Y/m/d'));
                 })
                 ->addColumn('typeuse', function ($data) {
-                    if ($data->typeuse == "1") {
+                    if ($data->type_use == "1") {
                         return "حضوری";
                     }
-                    elseif ($data->typeuse == "2") {
+                    elseif ($data->type_use == "2") {
                         return "آنلاین";
                     }
                 })
-                ->addColumn('price', function ($data) {
-                    return ($data->price);
+                ->addColumn('final_price', function ($data) {
+                    return (number_format($data->final_price));
                 })
                 ->addColumn('certificate', function ($data) {
                     if ($data->certificate == null) {
@@ -89,15 +113,12 @@ class PayuserController extends Controller
                     return ($data->birthday);
                 })
                 ->addColumn('pricestatus', function ($data) {
-                    if ($data->pricestatus == null) {
+                    if ($data->price_status == null) {
                         return "عدم پرداخت";
                     }
-                    elseif ($data->pricestatus == "4") {
+                    elseif ($data->price_status == "4") {
                         return "پرداخت موفق";
                     }
-                })
-                ->addColumn('referenceId', function ($data) {
-                    return ($data->referenceId);
                 })
                 ->make(true);
         }

@@ -48,7 +48,6 @@
                                             <th class="wd-10p"> مبلغ پرداخت </th>
                                             <th class="wd-10p"> وضعیت پرداخت </th>
                                             <th class="wd-10p"> تاریخ پرداخت </th>
-                                            <th class="wd-10p"> کد پیگیری پرداخت </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -75,6 +74,7 @@
             var table = $('.yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
+                order: [[0, 'desc']],
                 ajax: "{{route(request()->segment(2).'.'.'index')}}",
                 columns: [
                     {data: 'id'          , name: 'id'},
@@ -86,10 +86,9 @@
                     {data: 'father_name' , name: 'father_name'},
                     {data: 'national_id' , name: 'national_id'},
                     {data: 'birthday'    , name: 'birthday'},
-                    {data: 'price'       , name: 'price'},
+                    {data: 'final_price'       , name: 'final_price'},
                     {data: 'pricestatus' , name: 'pricestatus'},
                     {data: 'date'        , name: 'date'},
-                    {data: 'referenceId' , name: 'referenceId'},
                 ]
             });
 
