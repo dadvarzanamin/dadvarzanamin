@@ -8,6 +8,7 @@ use App\Models\Profile\Wallet;
 use App\Models\Profile\WalletTransaction;
 use App\Models\Profile\Workshopsign;
 use Evryn\LaravelToman\Facades\Toman;
+use Ghasedak\Exceptions\HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -158,41 +159,43 @@ class WalletController extends Controller
             ->first();
 
         if ($invoice->product_type == 'workshop') {
-            try {
-                $curl = curl_init();
+             try {
+                    $headers = array(
+                        'apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko',
+                        'Accept: application/json',
+                        'Content-Type: application/x-www-form-urlencoded',
+                        'charset: utf-8'
+                    );
 
-                $data = [
-                    'type' => 1,
-                    'param1' => $invoice->name,
-                    'param2' => $invoice->title,
-                    'param3' => $invoice->date,
-                    'receptor' => $invoice->phone,
-                    'template' => 'workshop',
-                ];
+                    $params = http_build_query([
+                        'type' => 1,
+                        'param1' => $invoice->name,
+                        'param2' => $invoice->title,
+                        'param3' => $invoice->date,
+                        'receptor' => $invoice->phone,
+                        'template' => 'workshop',
+                    ]);
 
-                curl_setopt_array($curl, [
-                    CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => http_build_query($data),
-                    CURLOPT_HTTPHEADER => [
-                        "apikey: yourapikey",
-                        "Content-Type: application/x-www-form-urlencoded",
-                        "Cache-Control: no-cache",
-                    ],
-                ]);
+                    $url = 'http://api.ghasedaksms.com/v2/send/verify';
 
-                $response = curl_exec($curl);
-                $error = curl_error($curl);
+                    $method = 'POST';
 
-                curl_close($curl);
+                    $init = curl_init();
+                    curl_setopt($init, CURLOPT_URL, $url);
+                    curl_setopt($init, CURLOPT_HTTPHEADER, $headers);
+                    curl_setopt($init, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($init, CURLOPT_SSL_VERIFYHOST, false);
+                    curl_setopt($init, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($init, CURLOPT_CUSTOMREQUEST, $method);
+                    curl_setopt($init, CURLOPT_POSTFIELDS, $params);
 
-                if ($error) {
-                    Log::error('cURL Error: ' . $error);
-                    return response()->json(['error' => $error], 500);
-                }
+                    $result = curl_exec($init);
+                    $code = curl_getinfo($init, CURLINFO_HTTP_CODE);
+                    $curl_errno = curl_errno($init);
+                    $curl_error = curl_error($init);
+                    if ($curl_errno) {
+                        throw new HttpException($curl_error, $curl_errno);
+                    }
 
                 return response()->json(
                     ['isSuccess' => true,
