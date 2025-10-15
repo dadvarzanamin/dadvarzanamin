@@ -399,24 +399,45 @@
 
                         $('#btn-go-orders').attr('href', response.redirect_url);
                         $('#post-payment-actions').fadeIn();
-
-                        $('#paymentStatusText').text(response.message || 'پرداخت با موفقیت انجام شد');
-
                         $('#btn-wallet-pay').remove();
                         $('#btn-order').fadeIn();
 
-                    } else {
-                        $('#paymentStatusText').text(response.message || 'خطا در پرداخت');
-                    }
+                        // ✅ SweetAlert برای موفقیت
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'پرداخت موفق',
+                            text: response.message || 'پرداخت با موفقیت انجام شد',
+                            confirmButtonText: 'باشه',
+                            timer: 3000,
+                            timerProgressBar: true
+                        }).then(() => {
+                            if (response.redirect_url) {
+                                window.location.href = response.redirect_url;
+                            }
+                        });
 
-                    statusModal.show();
+                    } else {
+                        // ❌ SweetAlert برای خطا
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا در پرداخت',
+                            text: response.message || 'در انجام پرداخت مشکلی پیش آمد',
+                            confirmButtonText: 'متوجه شدم'
+                        });
+                    }
                 },
                 error: function() {
                     payModal.hide();
-                    $('#paymentStatusText').text('خطای سرور در انجام پرداخت');
-                    statusModal.show();
+                    // ⚠️ خطای سرور
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'خطای سرور',
+                        text: 'در انجام پرداخت خطایی رخ داده است، لطفاً مجدداً تلاش کنید.',
+                        confirmButtonText: 'باشه'
+                    });
                 }
             });
         });
     </script>
+
 @endsection
