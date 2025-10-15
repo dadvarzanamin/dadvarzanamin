@@ -197,6 +197,8 @@ class WalletController extends Controller
                         throw new HttpException($curl_error, $curl_errno);
                     }
 
+                    $json_result = json_decode($result);
+                    dd($json_result);
                 return response()->json(
                     ['isSuccess' => true,
                         'message' => 'مبلغ با موفقیت از کیف پول برداشت شد.',
