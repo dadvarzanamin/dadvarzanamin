@@ -198,7 +198,7 @@ class WalletController extends Controller
                     }
 
                     $json_result = json_decode($result);
-                    dd($json_result);
+
                 return response()->json(
                     ['isSuccess' => true,
                         'message' => 'مبلغ با موفقیت از کیف پول برداشت شد.',
