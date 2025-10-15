@@ -9,6 +9,7 @@ use App\Models\Profile\WalletTransaction;
 use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 class WalletController extends Controller
@@ -154,8 +155,8 @@ class WalletController extends Controller
     }
     public function withdraw(Request $request)
     {
-        $amount = $request->input('totalFinal');
-        $invoiceIds = $request->input('invoice_ids', []);
+        $amount         = $request->input('totalFinal');
+        $invoiceIds     = $request->input('invoice_ids', []);
 
         $invoiceIds = (array)$request->input('invoice_ids');
 
@@ -188,11 +189,11 @@ class WalletController extends Controller
             }
 
             $transaction = $user->transactions()->create([
-                'wallet_id' => $wallet->id,
-                'type' => 'withdraw',
-                'amount' => $amount,
-                'description' => $request->description,
-                'status' => 'completed',
+                'wallet_id'     => $wallet->id,
+                'type'          => 'withdraw',
+                'amount'        => $amount,
+                'description'   => $request->description,
+                'status'        => 'completed',
             ]);
 
             $wallet->decrement('balance', $amount);
@@ -202,15 +203,64 @@ class WalletController extends Controller
                 ->where('user_id', auth()->id())
                 ->update(['price_status' => 4]);
 
-            return response()->json(
-                ['isSuccess' => true,
-                    'message' => 'مبلغ با موفقیت از کیف پول برداشت شد.',
-                    'errors' => null,
-                    'status_code' => 200,
-                    'result' => $wallet->balance,
-                    'redirect_url' => route('order'),
-                ], 200);
+            $invoice = Invoice::leftjoin('workshops' ,'workshops.id' , '=' , 'invoices.product_id')
+                ->leftjoin('users' , 'users.id' , '=' , 'invoices.user_id')
+                ->select('workshops.title' , 'workshops.date' , 'users.phone' , 'users.name' , 'invoices.product_type')
+                ->where('invoices.id', $invoiceIds)
+                ->where('invoices.user_id', auth()->id())
+                ->first();
+
+            if ($invoice->product_type == 'workshop') {
+                try {
+                    $curl = curl_init();
+
+                    $data = [
+                        'type' => 1,
+                        'param1' => $invoice->name,
+                        'param2' => $invoice->title,
+                        'param3' => $invoice->date,
+                        'receptor' => $invoice->phone,
+                        'template' => 'workshop',
+                    ];
+
+                    curl_setopt_array($curl, [
+                        CURLOPT_URL => "http://api.ghasedaksms.com/v2/send/verify",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => http_build_query($data),
+                        CURLOPT_HTTPHEADER => [
+                            "apikey: yourapikey",
+                            "Content-Type: application/x-www-form-urlencoded",
+                            "Cache-Control: no-cache",
+                        ],
+                    ]);
+
+                    $response = curl_exec($curl);
+                    $error = curl_error($curl);
+
+                    curl_close($curl);
+
+                    if ($error) {
+                        Log::error('cURL Error: ' . $error);
+                        return response()->json(['error' => $error], 500);
+                    }
+
+                    return response()->json(
+                        ['isSuccess' => true,
+                            'message' => 'مبلغ با موفقیت از کیف پول برداشت شد.',
+                            'errors' => null,
+                            'status_code' => 200,
+                            'result' => $wallet->balance,
+                            'redirect_url' => route('order'),
+                        ], 200);
+
+                } catch (\Throwable $e) {
+                    Log::error('Exception: ' . $e->getMessage());
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
+            }
         }
     }
-
 }
