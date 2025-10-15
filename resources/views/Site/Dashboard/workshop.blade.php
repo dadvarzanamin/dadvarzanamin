@@ -1,6 +1,9 @@
 @extends('admin')
 @section('style')
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/font-face.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
+    <script type="text/javascript" src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"></script>
+
     <title>کارگاه و دوره های آموزشی</title>
 @endsection
 @section('main')
@@ -56,9 +59,6 @@
                             </select>
                         </div>
                     </div>
-                    <style>
-                        .hidden {display: none;}
-                    </style>
                     <div class="input-box col-lg-4 hidden" id="inputFields1">
                         <label class="label-text">کد ملی</label>
                         <div class="form-group">
@@ -74,7 +74,7 @@
                     <div class="input-box col-lg-4 hidden" id="inputFields3">
                         <label for="birthday" class="label-text">تاریخ تولد</label>
                         <div class="form-group">
-                            <input name="birthday" id="birthday" class="form-control" style="direction: ltr" placeholder="1370/01/01">
+                            <input data-jdp name="birthday" id="birthday" class="form-control" style="direction: ltr" value="{{Auth::user()->birthday}}">
                         </div>
                     </div>
                     <div class="input-box col-lg-12 py-2">
@@ -239,59 +239,48 @@
     </div>
 @endsection
 @section('script')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/css/persian-datepicker.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker/dist/js/persian-datepicker.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // فعال‌سازی تاریخ‌شمار فارسی
-            $('#birthday').persianDatepicker({
-                format: 'YYYY/MM/DD', // فرمت تاریخ
-                initialValue: false,   // مقدار اولیه
-                autoClose: true,      // بستن خودکار پس از انتخاب تاریخ
-                calendarType: 'persian', // تقویم شمسی
-                navigator: {
-                    enabled: true, // فعال‌سازی ناوبری ماه و سال
-                },
-                toolbox: {
-                    calendarSwitch: {
-                        enabled: false // غیرفعال کردن تغییر تقویم
-                    }
-                },
-                theme: {
-                    selected: "font-family: 'Pinar-FD', sans-serif;"
-                }
-            });
+        jalaliDatepicker.startWatch();
 
-            // منطق نمایش/پنهان کردن فیلدها
-            const selectOption = $('#certificate');
-            const inputFields1 = $('#inputFields1');
-            const inputFields2 = $('#inputFields2');
-            const inputFields3 = $('#inputFields3');
+        document.querySelector("[data-jdp-miladi-input]").addEventListener("jdp:change", function (e) {
+            var miladiInput = document.getElementById(this.getAttribute("data-jdp-miladi-input"));
+            if (!this.value) {
+                miladiInput.value = "";
+                return;
+            }
+            var date = this.value.split("/");
+            miladiInput.value = jalali_to_gregorian(date[0], date[1], date[2]).join("/")
+        });
 
-            selectOption.on('change', function () {
-                if ($(this).val() === '1') {
-                    inputFields1.removeClass('hidden');
-                    inputFields2.removeClass('hidden');
-                    inputFields3.removeClass('hidden');
-                } else {
-                    inputFields1.addClass('hidden');
-                    inputFields2.addClass('hidden');
-                    inputFields3.addClass('hidden');
-                }
-            });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#date-input').persianDatepicker({
-                format: 'YYYY/MM/DD', // فرمت مورد نیاز شما
-                initialValue: false,
-                // سایر تنظیمات مورد نیاز
-            });
-        });
+        function jalali_to_gregorian(jy, jm, jd) {
+            jy = Number(jy);
+            jm = Number(jm);
+            jd = Number(jd);
+            var gy = (jy <= 979) ? 621 : 1600;
+            jy -= (jy <= 979) ? 0 : 979;
+            var days = (365 * jy) + ((parseInt(jy / 33)) * 8) + (parseInt(((jy % 33) + 3) / 4))
+                + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+            gy += 400 * (parseInt(days / 146097));
+            days %= 146097;
+            if (days > 36524) {
+                gy += 100 * (parseInt(--days / 36524));
+                days %= 36524;
+                if (days >= 365) days++;
+            }
+            gy += 4 * (parseInt((days) / 1461));
+            days %= 1461;
+            gy += parseInt((days - 1) / 365);
+            if (days > 365) days = (days - 1) % 365;
+            var gd = days + 1;
+            var sal_a = [0, 31, ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var gm
+            for (gm = 0; gm < 13; gm++) {
+                var v = sal_a[gm];
+                if (gd <= v) break;
+                gd -= v;
+            }
+            return [gy, gm, gd];
+        }
     </script>
     @if ($errors->any())
         <script>
