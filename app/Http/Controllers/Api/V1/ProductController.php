@@ -195,38 +195,30 @@ class ProductController extends Controller
         }
         try {
             $workshopsigns = DB::table('workshops as w')
-                ->join('workshopsigns as ws', 'w.id', '=', 'ws.workshop_id')
-                ->select( 'ws.id', 'w.certificate_price as c_price' , 'ws.price' , 'w.type_price')
+                ->join('invoices as i', 'i.product_id', '=', 'w.id')
+                ->select( 'i.id', 'w.certificate_price as c_price' , 'i.price')
                 ->where('w.id', '=', $request->input('workshop_id'))
-                ->where('ws.user_id', '=', Auth::user()->id )
+                ->where('i.user_id', '=', Auth::user()->id )
+                ->where('i.product_type', '=', 'workshop' )
                 ->first();
 
             if ($workshopsigns){
-                DB::table('workshopsigns')
-                    ->where('workshop_id', $request->input('workshop_id'))
+                DB::table('invoices')
+                    ->where('product_id', $request->input('workshop_id'))
                     ->where('user_id', Auth::id())
+                    ->where('product_type', '=', 'workshop' )
                     ->update([
-                        'certif_price'   => $workshop->certificate_price,
-                        'type_price'     => $workshop->type_price,
-                        'workshop_price' => $workshop->price,
-                        'price'          => $workshop->price,
-                        'user_id'        => Auth::id(),
+                        'certificate_price'   => $workshop->certificate_price,
+                        'price'               => $workshop->price,
                     ]);
                 return response()->json(
                     ['isSuccess' => true,
-                        'message' => 'قبلا اطلاعات ثبت شده بود اما عملیات با موفقیت انجام شده',
+                        'message' => 'اطلاعات با موفقیت ثبت شد',
                         'errors' => null,
                         'status_code' => 200,
                         'result' => ''
                     ], 200);
             }else {
-                $workshopsign = new Workshopsign();
-                $workshopsign->workshop_id      = $request->input('workshop_id');
-                $workshopsign->certif_price     = $workshop->certificate_price;
-                $workshopsign->type_price       = $workshop->type_price;
-                $workshopsign->workshop_price   = $workshop->price;
-                $workshopsign->user_id          = Auth::user()->id;
-                $workshopsign->save();
 
                 $invoice = new Invoice();
                 $invoice->user_id           = Auth::user()->id;
@@ -239,7 +231,7 @@ class ProductController extends Controller
                 $invoice->price             = $workshop->certificate_price + $workshop->price;
                 $invoice->save();
 
-                if ($workshopsign){
+                if ($invoice){
                     return response()->json(
                         ['isSuccess' => true,
                             'message' => 'عملیات با موفقیت انجام شده',
@@ -270,14 +262,11 @@ class ProductController extends Controller
     }
 
     public function workshopinvoice(Request $request){
+
         $invoice = Invoice::where('user_id' , Auth::user()->id)
             ->where('product_id' , $request->input('workshop_id'))
             ->where('product_type' , 'workshop')
             ->whereNull('price_status')
-            ->first();
-        $workshopsign = Workshopsign::where('user_id' , Auth::user()->id)
-            ->where('workshop_id' , $request->input('workshop_id'))
-            ->whereNull('pricestatus')
             ->first();
 
         $workshop = $invoice->workshop;
@@ -302,14 +291,6 @@ class ProductController extends Controller
             'type_price'        => $type_price,
             'price'             => $totalPrice,
             'final_price'       => $totalPrice,
-        ]);
-
-        $workshopsign->update([
-            'certificate'       => $request->input('certificate'),
-            'certif_price'      => $certificate_price,
-            'typeuse'          => $request->input('type_use'),
-            'type_price'        => $type_price,
-            'price'             => $totalPrice,
         ]);
 
         $result = Invoice::where('user_id' , Auth::user()->id)
