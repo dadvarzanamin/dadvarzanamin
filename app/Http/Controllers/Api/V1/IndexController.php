@@ -185,9 +185,18 @@ class IndexController extends Controller
 
     public function discountcheck(Request $request){
 
-        $offer = Offer::where('status', 4)
-            ->where('offercode', $request->input('discountcode'))
-            ->where('user_offer', Auth::id())
+        $offer = Invoice::leftJoin('offers', 'offers.workshop_id', '=', 'invoices.product_id')
+            ->select('invoices.id', 'invoices.price', 'offers.discount', 'offers.percentage')
+            ->where([
+                ['offers.status', '=', 4],
+                ['invoices.user_id', '=', Auth::id()],
+                ['invoices.product_type', '=', 'workshop'],
+                ['offers.offercode', '=', $request->input('discountcode')],
+            ])
+            ->where(function ($q) {
+                $q->whereNull('offers.user_offer')
+                ->orWhere('offers.user_offer', Auth::id());
+            })
             ->first();
 
         if (!$offer) {
