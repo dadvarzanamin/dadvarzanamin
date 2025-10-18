@@ -208,9 +208,11 @@ class IndexController extends Controller
                     'result' => ''
                 ], 500);
         }
+
         if ($request->input('product_type') == 'workshop') {
             $invoice = Invoice::where('user_id', Auth::id())
-                ->where('product_id', $offer->workshop_id)
+                ->where('product_id', $request->input('product_id'))
+                ->where('product_type', 'workshop')
                 ->whereNull('price_status')
                 ->first();
         }
