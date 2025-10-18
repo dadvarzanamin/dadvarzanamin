@@ -794,22 +794,19 @@ class ProfileController extends Controller
     public function discountcheck(Request $request){
 
         $invoices = Invoice::leftJoin('offers', 'offers.workshop_id', '=', 'invoices.product_id')
-            ->select('invoices.id','invoices.price', 'offers.discount', 'offers.percentage')
+            ->select('invoices.id', 'invoices.price', 'offers.discount', 'offers.percentage')
             ->where([
                 ['offers.status', '=', 4],
                 ['invoices.user_id', '=', Auth::id()],
                 ['invoices.product_type', '=', 'workshop'],
                 ['offers.offercode', '=', $request->input('discountcode')],
             ])
-            ->when(
-                DB::table('offers')
-                    ->where('status', 4)
-                    ->where('offercode', $request->input('discountcode'))
-                    ->whereNotNull('user_offer')
-                    ->exists(),
-                fn($query) => $query->where('offers.user_offer', Auth::id())
-            )
+            ->where(function ($q) {
+                $q->whereNull('offers.user_offer') // کد برای همه کاربران
+                ->orWhere('offers.user_offer', Auth::id()); // یا مخصوص کاربر جاری
+            })
             ->first();
+
 
         if ($invoices) {
             $price      = $invoices->price;
