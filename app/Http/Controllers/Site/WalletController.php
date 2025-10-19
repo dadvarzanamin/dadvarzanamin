@@ -153,12 +153,18 @@ class WalletController extends Controller
 
         $invoice = Invoice::leftjoin('workshops' ,'workshops.id' , '=' , 'invoices.product_id')
             ->leftjoin('users' , 'users.id' , '=' , 'invoices.user_id')
-            ->select('workshops.title' , 'workshops.date' , 'users.phone' , 'users.name' , 'invoices.product_type')
+            ->select('workshops.title' , 'workshops.date' , 'users.phone' , 'users.name' , 'invoices.product_type', 'invoices.type_use')
             ->where('invoices.id', $invoiceIds)
             ->where('invoices.user_id', auth()->id())
             ->first();
 
         if ($invoice->product_type == 'workshop') {
+            if ($invoice->type_use == 1) {
+                $type = 'حضوری';
+            }elseif ($invoice->type_use == 2) {
+                $type = 'آنلاین';
+            }
+
              try {
                     $headers = array(
                         'apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko',
@@ -169,11 +175,11 @@ class WalletController extends Controller
 
                     $params = http_build_query([
                         'type' => 1,
-                        'param1' => $invoice->name,
-                        'param2' => $invoice->title,
-                        'param3' => $invoice->date,
-                        'receptor' => $invoice->phone,
-                        'template' => 'workshop',
+                        'param1'    => $invoice->name,
+                        'param2'    => $invoice->title,
+                        'param3'    => $type.' در تاریخ '.$invoice->date,
+                        'receptor'  => $invoice->phone,
+                        'template'  => 'workshop',
                     ]);
 
                     $url = 'http://api.ghasedaksms.com/v2/send/verify';
