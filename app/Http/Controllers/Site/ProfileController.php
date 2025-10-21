@@ -723,6 +723,7 @@ class ProfileController extends Controller
             $invoice->product_type      = 'workshop';
             $invoice->product_price     = $workshops->price;
             $invoice->type_use          = $request->input('typeuse');
+            $invoice->certificate       = $request->input('certificate');
             $invoice->certificate_price = $workshops->certificate_price;
             $invoice->price             = $workshops->certificate_price + $workshops->price;
             $invoice->final_price       = $workshops->certificate_price + $workshops->price;
@@ -766,11 +767,12 @@ class ProfileController extends Controller
             }elseif(!$existing) {
 
                 $invoice = new Invoice();
-                $invoice->user_id = Auth::user()->id;
-                $invoice->product_id = $workshopid;
-                $invoice->product_type = 'workshop';
-                $invoice->product_price = $workshops->price;
-                $invoice->type_use = $request->input('typeuse');
+                $invoice->user_id               = Auth::user()->id;
+                $invoice->product_id            = $workshopid;
+                $invoice->product_type          = 'workshop';
+                $invoice->product_price         = $workshops->price;
+                $invoice->type_use              = $request->input('typeuse');
+                $invoice->certificate           = $request->input('certificate');
                 $invoice->certificate_price = $workshops->certificate_price;
                 $invoice->price = $workshops->certificate_price + $workshops->price;
                 $invoice->save();

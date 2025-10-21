@@ -227,6 +227,7 @@ class ProductController extends Controller
                 $invoice->product_price     = $workshop->price;
                 $invoice->type_price        = $workshop->type_price;
                 $invoice->type_use          = $request->input('typeuse');
+                $invoice->certificate       = $request->input('certificate');
                 $invoice->certificate_price = $workshop->certificate_price;
                 $invoice->price             = $workshop->certificate_price + $workshop->price;
                 $invoice->save();
