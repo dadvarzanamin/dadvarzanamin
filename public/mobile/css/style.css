@@ -606,6 +606,7 @@ ul li {
 
 /*swiper pagination*/
 .swiper-container {
+    height: fit-content;
     border-radius: 12px;
 }
 

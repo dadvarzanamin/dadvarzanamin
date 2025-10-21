@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('mobile/css/style.css')}}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{asset('mobile/css/rtlStyle.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
     @yield('style')
 </head>
 <body>
@@ -351,5 +352,7 @@
         });
     </script>
 @endif
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 </body>
 </html>

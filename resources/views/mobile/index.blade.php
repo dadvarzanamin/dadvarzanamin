@@ -382,43 +382,370 @@
         </div>
     </div>
 
-    <!-- 🔹 بنر دانلود اپلیکیشن با دکمه‌های چپ و راست -->
-{{--    <div id="app-banner"--}}
-{{--         style="background-color: #233d63; color: white; padding: 14px 24px;--}}
-{{--            font-family: 'Vazir', sans-serif; position: fixed; top: 0; left: 0; right: 0;--}}
-{{--            z-index: 9999; box-shadow: 0 2px 5px rgba(0,0,0,0.1); direction: rtl;">--}}
+    <style>
+        /* ==== Workshop slider cards (بدون تغییر HTML) ==== */
+        .categories .swiper-slide .content.content-shadow-product{
+            background:#fff;
+            border:1px solid rgba(51,51,51,.12);
+            border-radius:16px;
+            box-shadow:0 8px 22px -10px rgba(0,0,0,.28);
+            overflow:hidden;           /* گوشه‌های گرد روی عکس هم اعمال شود */
+            padding:0;                 /* پدینگ پیش‌فرض کارت را صفر کن */
+            transition:transform .2s ease, box-shadow .2s ease;
+            height: 100%;
+        }
 
-{{--        <!-- 🔸 دکمه‌ها در یک ردیف -->--}}
-{{--        <div style="display: flex; justify-content: space-between; align-items: center;">--}}
-{{--            <!-- دکمه دانلود (راست) -->--}}
-{{--            <a href="{{url('/app/app-release-v1.2.0.apk')}}"--}}
-{{--               style="background-color: #cea54a; color: #233d63; padding: 10px 24px;--}}
-{{--              border-radius: 8px; text-decoration: none; font-weight: bold;"--}}
-{{--            class="external"--}}
-{{--            >--}}
-{{--                دانلود نسخه جدید اپلیکیشن امین--}}
-{{--            </a>--}}
+        .categories .swiper-slide .content.content-shadow-product:hover{
+            transform:translateY(-2px);
+            box-shadow:0 14px 28px -12px rgba(0,0,0,.35);
+        }
 
-{{--            <!-- دکمه بستن (چپ) -->--}}
-{{--            <button onclick="document.getElementById('app-banner').style.display='none';--}}
-{{--                     document.body.style.paddingTop='0';"--}}
-{{--                    style="background: none; border: none; color: white; font-size: 28px;--}}
-{{--                   cursor: pointer; line-height: 1; max-width: 40px">--}}
-{{--                &times;--}}
-{{--            </button>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+        /* کل کارت کلیک‌پذیر و بدون underline */
+        .categories .swiper-slide .content.content-shadow-product > a{
+            display:block;
+            color:inherit;
+            text-decoration:none;
+        }
 
-{{--    <!-- 🔸 فاصله زیر بنر -->--}}
-{{--    <script>--}}
-{{--        document.addEventListener("DOMContentLoaded", function () {--}}
-{{--            document.body.style.paddingTop = "70px";--}}
-{{--        });--}}
-{{--    </script>--}}
+        /* تصویر فول‌عرض با نسبت تصویر ثابت و برش تمیز */
+        .categories .swiper-slide .content.content-shadow-product img{
+            width:100%;
+            object-fit:cover;
+            display:block;
+
+        }
+
+        /* fallback برای مرورگرهای قدیمی که aspect-ratio ندارند */
+        @supports not (aspect-ratio: 1 / 1){
+            .categories .swiper-slide .content.content-shadow-product img{
+                height:180px;
+            }
+        }
+
+        /* متن پایین کارت */
+        .categories .swiper-slide .content.content-shadow-product .text{
+            padding:12px 12px 14px;
+        }
+
+        /* عنوان: دو خطی با ellipsis و ارتفاع یکنواخت */
+        .categories .swiper-slide .content.content-shadow-product .text h5{
+            margin:0 0 6px;
+            font-size:14px;
+            font-weight:700;
+            text-align:center;
+            display:-webkit-box;
+            -webkit-line-clamp:2;      /* حداکثر دو خط */
+            -webkit-box-orient: vertical;
+            overflow:hidden;
+            min-height:2.6em;          /* هم‌ارتفاعی کارت‌ها */
+        }
+
+        /* تاریخ/متای کوچک زیر عنوان */
+        .categories .swiper-slide .content.content-shadow-product .text .date{
+            margin:0;
+            font-size:12px;
+            color:#666;
+            text-align:center;
+        }
+
+        /* جلوگیری از پرش ارتفاع اسلاید */
+        .categories .swiper-slide{ height:auto; }
+
+        /* کمی فاصله پایین ردیف اسلایدها */
+        .categories .swiper-container .swiper-wrapper{ padding-bottom:0 !important; }
+
+        /* نوار تأکید ظریف هنگام هاور (اختیاری) */
+        .categories .swiper-slide .content.content-shadow-product::after{
+            content:"";
+            display:block;
+            height:3px;
+            background:#cea54a;        /* رنگ برندت */
+            opacity:0;
+            transition:opacity .2s ease;
+        }
+        .categories .swiper-slide .content.content-shadow-product:hover::after{
+            opacity:1;
+        }
+
+    </style>
+    @if(isset($workshops) && $workshops->count())
+        <div id="doreModal" class="dore-modal">
+            <div class="dore-modal-content">
+                <span class="dore-close">&times;</span>
+                <div id="doreModalContent">
+                    <div class="course-image-container" style="margin-top: 32px">
+                        <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره"
+                             class="course-image">
+                    </div>
+                    <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>
+
+                    <div class="course-info">
+                        <p>ارائه توسط: {{$currentws->teacher}}</p>
+                        <p>نوع برگزاری: {{implode("," , json_decode($currentws->type))}}</p>
+                        <p>تاریخ برگزاری: {{$currentws->date}}</p>
+                    </div>
+
+                    @if($currentws->video)
+                        <!-- ویدئو آپارات -->
+                        <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
+                        <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
+                            <iframe width="100%" height="220"
+                                    src="https://www.aparat.com/video/video/embed/videohash/{{$currentws->video}}/vt/frame/showvideo/true"
+                                    allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        </div>
+                    @endif
+                    <div class="course-description">
+                        <h3 style="margin-bottom: 20px">اهداف دوره</h3>
+                        <p>{!! $currentws->target !!}</p>
+                    </div>
+
+                    <div class="course-description">
+                        <h3 style="margin-bottom: 20px">شرح دوره</h3>
+                        <p>{!! $currentws->description !!}</p>
+                    </div>
+
+                    <div class="instructor-info">
+                        <img src="{{asset($currentws->teacher_image)}}" alt="تصویر استاد"
+                             class="instructor-img">
+                        <div>
+                            <h3 style="margin-bottom: 20px">درباره استاد</h3>
+                            <p>{!! $currentws->teacher_resume !!}</p>
+                        </div>
+                    </div>
+
+                    <div class="course-features">
+                        <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
+                        <div class="feature-item">
+                            <span>مدت زمان:</span>
+                            <span>{{$currentws->duration}} ساعت</span>
+                        </div>
+                        <div class="feature-item">
+                            <span>سطح مهارت :</span>
+                            <span>{{$currentws->level}}</span>
+                        </div>
+                        <div class="feature-item">
+                            <span>آزمون ورودی:</span>
+                            <span>ندارد</span>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; padding: 20px">
+                        <p style="font-size: 16px;">مبلغ التزام به حضور</p>
+                    </div>
+                    <div style="text-align: center;padding: 20px">
+                        <p class="align-items-center pb-2">
+                            @if($currentws->offer)
+                                <span
+                                    style="font-size: 24px">{{ number_format($currentws->offer) }} تومان </span>
+                                <span style="text-decoration: line-through; font-size: 16px">{{ number_format($currentws->price) }} تومان</span>
+                            @else
+                                <span
+                                    style="font-size: 24px">{{ number_format($currentws->price) }} تومان </span>
+                            @endif
+                        </p>
+                    </div>
+
+                    <div class="content" style="padding-bottom: 60px;">
+                        @if(Auth::check())
+                            <div class="content-button">
+                                <a href="{{'/کارگاه-آموزشی'}}" class="mobile-button external"
+                                   style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">
+                                    ثبت نام جهت حضور در کارگاه آموزشی
+                                </a>
+
+                            </div>
+                        @else
+                            <div class="content-button">
+                                <a href="{{route('login')}}" class="mobile-button external"
+                                   style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
+                                    سایت</a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="categories segments">
+            <div class="container">
+                <div class="section-title">
+                    <h3>کارگاه‌های فعال</h3>
+                </div>
+
+                <div
+                    data-pagination='{"el": ".swiper-pagination"}'
+                    data-space-between="12"
+                    data-slides-per-view="1"
+                    data-breakpoints='{"768":{"slidesPerView":1},"1200":{"slidesPerView":1}}'
+                    class="swiper-container swiper-init">
+
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-wrapper">
+                        @foreach($workshops as $workshop)
+                            <div class="swiper-slide">
+                                <div class="content content-shadow-product">
+                                    <a href="#"
+                                       class="dore-open-modal"
+                                       data-img="{{ asset('storage/'.$workshop->image) }}"
+                                       data-title="{{ $workshop->title }}"
+                                       data-teacher="{{ $workshop->teacher }}"
+                                       data-type="{{ implode(',', json_decode($workshop->type, true) ?? []) }}"
+                                       data-date="{{ $workshop->date }}"
+                                       data-video="{{ $workshop->video }}"
+                                       data-target="{{ base64_encode($workshop->target ?? '') }}"
+                                       data-desc="{{ base64_encode($workshop->description ?? '') }}"
+                                       data-teacher-img="{{ asset($workshop->teacher_image) }}"
+                                       data-teacher-resume="{{ base64_encode($workshop->teacher_resume ?? '') }}"
+                                       data-duration="{{ $workshop->duration }}"
+                                       data-level="{{ $workshop->level }}"
+                                       data-price="{{ $workshop->price }}"
+                                       data-offer="{{ $workshop->offer }}"
+                                    >
+                                        {{-- محتوای کارت شما همون قبلی --}}
+                                        <img src="{{ asset('storage/'.$workshop->image) }}" alt="{{ $workshop->title }}">
+                                        <div class="text">
+                                            <h5 style="text-align:center;overflow:hidden">{{ $workshop->title }}</h5>
+                                            <p class="date">{{ jdate($workshop->updated_at)->ago() }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- اگر تم‌ات از این‌ها پشتیبانی می‌کند می‌توانی دکمه‌ها را هم بگذاری؛ نبودنش هم مشکلی ایجاد نمی‌کند --}}
+                    {{-- <div class="swiper-button-prev"></div> --}}
+                    {{-- <div class="swiper-button-next"></div> --}}
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <script>
+        (function(){
+            function b64utf8(b64){
+                if(!b64) return '';
+                try { return decodeURIComponent(escape(atob(b64))); } catch(e){ return ''; }
+            }
+            function formatPrice(n){
+                var x = parseInt(n || '0', 10);
+                if(!x) return '';
+                return x.toLocaleString('fa-IR') + ' تومان';
+            }
+
+            document.addEventListener('click', function(e){
+                var el = e.target.closest('.dore-open-modal');
+                if(!el) return;
+                e.preventDefault();
+
+                var modal   = document.getElementById('doreModal');
+                var root    = modal; // برای خوانایی
+                // ۱) تصویر و عنوان
+                var imgEl   = root.querySelector('.course-image-container img.course-image');
+                var titleEl = root.querySelector('.course-title');
+                if(imgEl){ imgEl.src = el.dataset.img || ''; imgEl.alt = el.dataset.title || 'تصویر دوره'; }
+                if(titleEl){ titleEl.textContent = el.dataset.title || ''; }
+
+                // ۲) اطلاعات پایه
+                var infoEl  = root.querySelector('.course-info');
+                if(infoEl){
+                    infoEl.innerHTML =
+                        '<p>ارائه توسط: ' + (el.dataset.teacher || '') + '</p>' +
+                        '<p>نوع برگزاری: ' + (el.dataset.type || '') + '</p>' +
+                        '<p>تاریخ برگزاری: ' + (el.dataset.date || '') + '</p>';
+                }
+
+                // ۳) ویدئوی آپارات (نمایش/عدم نمایش)
+                var videoContainer = root.querySelector('.video-container');
+                var videoHeading   = (videoContainer && videoContainer.previousElementSibling && videoContainer.previousElementSibling.tagName==='H3')
+                    ? videoContainer.previousElementSibling : null;
+                var vhash = (el.dataset.video || '').trim();
+                if(vhash){
+                    if(videoHeading) videoHeading.style.display = '';
+                    if(videoContainer){
+                        videoContainer.style.display = '';
+                        var iframe = videoContainer.querySelector('iframe');
+                        if(iframe){
+                            iframe.src = 'https://www.aparat.com/video/video/embed/videohash/'+ vhash +'/vt/frame/showvideo/true';
+                        }
+                    }
+                }else{
+                    if(videoHeading) videoHeading.style.display = 'none';
+                    if(videoContainer){
+                        videoContainer.style.display = 'none';
+                        var iframe = videoContainer.querySelector('iframe');
+                        if(iframe){ iframe.src = ''; }
+                    }
+                }
+
+                // ۴) اهداف و شرح دوره (HTML)
+                var descBlocks = root.querySelectorAll('.course-description');
+                // فرض: اولی اهداف، دومی شرح
+                if(descBlocks[0]){
+                    var tEl = descBlocks[0].querySelector('p, div');
+                    if(tEl) tEl.innerHTML = b64utf8(el.dataset.target || '');
+                }
+                if(descBlocks[1]){
+                    var dEl = descBlocks[1].querySelector('p, div');
+                    if(dEl) dEl.innerHTML = b64utf8(el.dataset.desc || '');
+                }
+
+                // ۵) اطلاعات استاد
+                var instWrap = root.querySelector('.instructor-info');
+                if(instWrap){
+                    var instImg = instWrap.querySelector('img.instructor-img');
+                    var instText = instWrap.querySelector('p, div');
+                    if(instImg) instImg.src = el.dataset.teacherImg || instImg.src || '';
+                    if(instText) instText.innerHTML = b64utf8(el.dataset.teacherResume || '');
+                }
+
+                // ۶) ویژگی‌ها: مدت و سطح
+                var feats = root.querySelectorAll('.course-features .feature-item');
+                if(feats[0]){ // مدت زمان
+                    var val = feats[0].querySelectorAll('span')[1];
+                    if(val) val.textContent = (el.dataset.duration || '') + (el.dataset.duration ? ' ساعت' : '');
+                }
+                if(feats[1]){ // سطح مهارت
+                    var val2 = feats[1].querySelectorAll('span')[1];
+                    if(val2) val2.textContent = el.dataset.level || '';
+                }
+
+                // ۷) قیمت/تخفیف
+                var priceP = root.querySelector('.align-items-center.pb-2');
+                if(priceP){
+                    var price = parseInt(el.dataset.price || '0', 10);
+                    var offer = parseInt(el.dataset.offer || '0', 10);
+                    if(offer > 0){
+                        priceP.innerHTML =
+                            '<span style="font-size:24px">' + formatPrice(offer) + '</span> ' +
+                            '<span style="text-decoration: line-through; font-size: 16px; opacity:.7; margin-right:8px">' +
+                            formatPrice(price) + '</span>';
+                    }else{
+                        priceP.innerHTML = '<span style="font-size:24px">' + formatPrice(price) + '</span>';
+                    }
+                }
+
+                // ۸) نمایش مودال (از همان مودال موجود)
+                modal.style.display = 'block';
+            });
+
+            // بستن با ضربدر و کلیک بیرون: کد فعلی‌ات هست؛ اگر خواستی مطمئن‌ترش کن:
+            document.addEventListener('click', function(e){
+                if(e.target.matches('.dore-close')){
+                    e.preventDefault();
+                    var modal = document.getElementById('doreModal');
+                    modal.style.display = 'none';
+                }
+                if(e.target.id === 'doreModal'){ e.target.style.display = 'none'; }
+            });
+        })();
+    </script>
 
 
-    <!-- 🔸 برای اینکه نوبار شما زیر بنر قرار بگیره -->
-{{--    <div style="height: 80px;"></div>--}}
+
+
+
+
+
     <div class="slider">
         <div class="container">
             <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="10"
@@ -439,246 +766,246 @@
         </div>
     </div>
 
-    @if($currentws)
-        <div class="categories segments">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="content content-shadow-product" style="margin:20px auto;">
-                        <img src="{{asset('storage/'.$currentws->image)}}"
-                             style="width: 300px;border-radius: 16px"
-                             alt="{{$currentws->title}}">
-                    </div>
-                    <div class="content" style="margin: 20px auto;">
+{{--    @if($currentws)--}}
+{{--        <div class="categories segments">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row justify-content-center">--}}
+{{--                    <div class="content content-shadow-product" style="margin:20px auto;">--}}
+{{--                        <img src="{{asset('storage/'.$currentws->image)}}"--}}
+{{--                             style="width: 300px;border-radius: 16px"--}}
+{{--                             alt="{{$currentws->title}}">--}}
+{{--                    </div>--}}
+{{--                    <div class="content" style="margin: 20px auto;">--}}
 
-                        <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">
+{{--                        <p style="font-size: 20px;margin-bottom: 16px;margin-top: -10px;text-align: center">--}}
 
-                            {{$currentws->title}}
-                        </p>
-                        <hr style="border: none; height: 1px; background-color: #cea54a;">
-                        <h6>
-                            {{$currentws->teacher}}
-                        </h6>
-                        {{--                        <h6 class="" style="margin: 4px 0;">--}}
-                        {{--                                @php--}}
-                        {{--                                    $targets = explode("\n", $currentws->target);--}}
-                        {{--                                @endphp--}}
-                        {{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
-                        {{--                                <ul>--}}
-                        {{--                                    @foreach ($targets as $target)--}}
-                        {{--                                        <p class="generic-list-item overview-list-item">{{ $target }}</p>--}}
-                        {{--                                    @endforeach--}}
-                        {{--                                </ul>--}}
+{{--                            {{$currentws->title}}--}}
+{{--                        </p>--}}
+{{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                        <h6>--}}
+{{--                            {{$currentws->teacher}}--}}
+{{--                        </h6>--}}
+{{--                        --}}{{--                        <h6 class="" style="margin: 4px 0;">--}}
+{{--                        --}}{{--                                @php--}}
+{{--                        --}}{{--                                    $targets = explode("\n", $currentws->target);--}}
+{{--                        --}}{{--                                @endphp--}}
+{{--                        --}}{{--                                <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
+{{--                        --}}{{--                                <ul>--}}
+{{--                        --}}{{--                                    @foreach ($targets as $target)--}}
+{{--                        --}}{{--                                        <p class="generic-list-item overview-list-item">{{ $target }}</p>--}}
+{{--                        --}}{{--                                    @endforeach--}}
+{{--                        --}}{{--                                </ul>--}}
 
-                        {{--                        </h6>--}}
-                        {{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
-                        {{--                        <h6>{{ $currentws->target}}</h6>--}}
+{{--                        --}}{{--                        </h6>--}}
+{{--                        --}}{{--                        <hr style="border: none; height: 1px; background-color: #cea54a;">--}}
+{{--                        --}}{{--                        <h6>{{ $currentws->target}}</h6>--}}
 
-                    </div>
-                </div>
-                <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">
-                    <div class="col-lg-12 responsive-column-half">
-                        <div class="info-icon-box mb-3 text-center">
-                            <div class="row justify-content-center">
-                                <div class="time-segment"
-                                     style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">
-                                    <span id="days">0</span>
-                                    <span>روز</span>
-                                </div>
-                                <div class="time-segment">
-                                    <span id="hours">0</span>
-                                    <span>ساعت</span>
-                                </div>
-                                <div class="time-segment">
-                                    <span id="minutes">0</span>
-                                    <span>دقیقه</span>
-                                </div>
-                                <div class="time-segment"
-                                     style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">
-                                    <span id="seconds">0</span>
-                                    <span>ثانیه</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="row pt-4" style="margin-top: 24px; margin-bottom: 24px">--}}
+{{--                    <div class="col-lg-12 responsive-column-half">--}}
+{{--                        <div class="info-icon-box mb-3 text-center">--}}
+{{--                            <div class="row justify-content-center">--}}
+{{--                                <div class="time-segment"--}}
+{{--                                     style="border-bottom-right-radius: 16px;border-top-right-radius: 16px">--}}
+{{--                                    <span id="days">0</span>--}}
+{{--                                    <span>روز</span>--}}
+{{--                                </div>--}}
+{{--                                <div class="time-segment">--}}
+{{--                                    <span id="hours">0</span>--}}
+{{--                                    <span>ساعت</span>--}}
+{{--                                </div>--}}
+{{--                                <div class="time-segment">--}}
+{{--                                    <span id="minutes">0</span>--}}
+{{--                                    <span>دقیقه</span>--}}
+{{--                                </div>--}}
+{{--                                <div class="time-segment"--}}
+{{--                                     style="border-bottom-left-radius: 16px;border-top-left-radius: 16px">--}}
+{{--                                    <span id="seconds">0</span>--}}
+{{--                                    <span>ثانیه</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="content-button mx-4">
-                    <div class="content-button mx-4">
-                        @if($currentws->status == 5)
-                            <a href="#" class=" br-16"
-                               style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">
-                                تکمیل
-                                ظرفیت
-                            </a>
-                        @endif
-                        @if(Auth::check())
-                            <a href="#" class="dore-open-modal mobile-button br-16"
-                               style="display: flex;justify-content: center">ثبت نام در کارگاه
-                            </a>
-                        @else
-                           <a href="#" class="dore-open-modal mobile-button br-16"
-                              style="display: flex;justify-content: center">مشاهده اطلاعات
-                           </a>
-                        @endif
-                    </div>
-                </div>
-                <div id="doreModal" class="dore-modal">
-                    <div class="dore-modal-content">
-                        <span class="dore-close">&times;</span>
-                        <div id="doreModalContent">
-                            <div class="course-image-container" style="margin-top: 32px">
-                                <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره"
-                                     class="course-image">
-                            </div>
-                            <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>
+{{--                <div class="content-button mx-4">--}}
+{{--                    <div class="content-button mx-4">--}}
+{{--                        @if($currentws->status == 5)--}}
+{{--                            <a href="#" class=" br-16"--}}
+{{--                               style="display: flex;justify-content: center ;background-color: crimson;padding: 16px;border-radius: 16px;color: white">--}}
+{{--                                تکمیل--}}
+{{--                                ظرفیت--}}
+{{--                            </a>--}}
+{{--                        @endif--}}
+{{--                        @if(Auth::check())--}}
+{{--                            <a href="#" class="dore-open-modal mobile-button br-16"--}}
+{{--                               style="display: flex;justify-content: center">ثبت نام در کارگاه--}}
+{{--                            </a>--}}
+{{--                        @else--}}
+{{--                           <a href="#" class="dore-open-modal mobile-button br-16"--}}
+{{--                              style="display: flex;justify-content: center">مشاهده اطلاعات--}}
+{{--                           </a>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div id="doreModal" class="dore-modal">--}}
+{{--                    <div class="dore-modal-content">--}}
+{{--                        <span class="dore-close">&times;</span>--}}
+{{--                        <div id="doreModalContent">--}}
+{{--                            <div class="course-image-container" style="margin-top: 32px">--}}
+{{--                                <img src="{{asset('storage/'.$currentws->image)}}" alt="تصویر دوره"--}}
+{{--                                     class="course-image">--}}
+{{--                            </div>--}}
+{{--                            <h3 class="course-title" style="padding-top: 12px">{{$currentws->title}}</h3>--}}
 
-                            <div class="course-info">
-                                <p>ارائه توسط: {{$currentws->teacher}}</p>
-                                <p>نوع برگزاری: {{implode("," , json_decode($currentws->type))}}</p>
-                                <p>تاریخ برگزاری: {{$currentws->date}}</p>
-                            </div>
+{{--                            <div class="course-info">--}}
+{{--                                <p>ارائه توسط: {{$currentws->teacher}}</p>--}}
+{{--                                <p>نوع برگزاری: {{implode("," , json_decode($currentws->type))}}</p>--}}
+{{--                                <p>تاریخ برگزاری: {{$currentws->date}}</p>--}}
+{{--                            </div>--}}
 
-                            @if($currentws->video)
-                                <!-- ویدئو آپارات -->
-                                <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>
-                                <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">
-                                    <iframe width="100%" height="220"
-                                            src="https://www.aparat.com/video/video/embed/videohash/{{$currentws->video}}/vt/frame/showvideo/true"
-                                            allow="autoplay; fullscreen" allowfullscreen></iframe>
-                                </div>
-                            @endif
-                            <div class="course-description">
-                                <h3 style="margin-bottom: 20px">اهداف دوره</h3>
-                                <p>{!! $currentws->target !!}</p>
-                            </div>
+{{--                            @if($currentws->video)--}}
+{{--                                <!-- ویدئو آپارات -->--}}
+{{--                                <h3 style="margin-bottom: 20px">پیش درآمدی بر دوره</h3>--}}
+{{--                                <div class="video-container" style="margin-top: 20px; margin-bottom: 20px;">--}}
+{{--                                    <iframe width="100%" height="220"--}}
+{{--                                            src="https://www.aparat.com/video/video/embed/videohash/{{$currentws->video}}/vt/frame/showvideo/true"--}}
+{{--                                            allow="autoplay; fullscreen" allowfullscreen></iframe>--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
+{{--                            <div class="course-description">--}}
+{{--                                <h3 style="margin-bottom: 20px">اهداف دوره</h3>--}}
+{{--                                <p>{!! $currentws->target !!}</p>--}}
+{{--                            </div>--}}
 
-                            <div class="course-description">
-                                <h3 style="margin-bottom: 20px">شرح دوره</h3>
-                                <p>{!! $currentws->description !!}</p>
-                            </div>
+{{--                            <div class="course-description">--}}
+{{--                                <h3 style="margin-bottom: 20px">شرح دوره</h3>--}}
+{{--                                <p>{!! $currentws->description !!}</p>--}}
+{{--                            </div>--}}
 
-                            <div class="instructor-info">
-                                <img src="{{asset($currentws->teacher_image)}}" alt="تصویر استاد"
-                                     class="instructor-img">
-                                <div>
-                                    <h3 style="margin-bottom: 20px">درباره استاد</h3>
-                                    <p>{!! $currentws->teacher_resume !!}</p>
-                                </div>
-                            </div>
+{{--                            <div class="instructor-info">--}}
+{{--                                <img src="{{asset($currentws->teacher_image)}}" alt="تصویر استاد"--}}
+{{--                                     class="instructor-img">--}}
+{{--                                <div>--}}
+{{--                                    <h3 style="margin-bottom: 20px">درباره استاد</h3>--}}
+{{--                                    <p>{!! $currentws->teacher_resume !!}</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                            <div class="course-features">
-                                <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>
-                                <div class="feature-item">
-                                    <span>مدت زمان:</span>
-                                    <span>{{$currentws->duration}} ساعت</span>
-                                </div>
-                                <div class="feature-item">
-                                    <span>سطح مهارت :</span>
-                                    <span>{{$currentws->level}}</span>
-                                </div>
-                                <div class="feature-item">
-                                    <span>آزمون ورودی:</span>
-                                    <span>ندارد</span>
-                                </div>
-                            </div>
+{{--                            <div class="course-features">--}}
+{{--                                <h3 style="margin-bottom: 20px">ویژگی‌های دوره</h3>--}}
+{{--                                <div class="feature-item">--}}
+{{--                                    <span>مدت زمان:</span>--}}
+{{--                                    <span>{{$currentws->duration}} ساعت</span>--}}
+{{--                                </div>--}}
+{{--                                <div class="feature-item">--}}
+{{--                                    <span>سطح مهارت :</span>--}}
+{{--                                    <span>{{$currentws->level}}</span>--}}
+{{--                                </div>--}}
+{{--                                <div class="feature-item">--}}
+{{--                                    <span>آزمون ورودی:</span>--}}
+{{--                                    <span>ندارد</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                            <div style="text-align: center; padding: 20px">
-                                <p style="font-size: 16px;">مبلغ التزام به حضور</p>
-                            </div>
-                            <div style="text-align: center;padding: 20px">
-                                <p class="align-items-center pb-2">
-                                    @if($currentws->offer)
-                                        <span
-                                            style="font-size: 24px">{{ number_format($currentws->offer) }} تومان </span>
-                                        <span style="text-decoration: line-through; font-size: 16px">{{ number_format($currentws->price) }} تومان</span>
-                                    @else
-                                        <span
-                                            style="font-size: 24px">{{ number_format($currentws->price) }} تومان </span>
-                                    @endif
-                                </p>
-                            </div>
+{{--                            <div style="text-align: center; padding: 20px">--}}
+{{--                                <p style="font-size: 16px;">مبلغ التزام به حضور</p>--}}
+{{--                            </div>--}}
+{{--                            <div style="text-align: center;padding: 20px">--}}
+{{--                                <p class="align-items-center pb-2">--}}
+{{--                                    @if($currentws->offer)--}}
+{{--                                        <span--}}
+{{--                                            style="font-size: 24px">{{ number_format($currentws->offer) }} تومان </span>--}}
+{{--                                        <span style="text-decoration: line-through; font-size: 16px">{{ number_format($currentws->price) }} تومان</span>--}}
+{{--                                    @else--}}
+{{--                                        <span--}}
+{{--                                            style="font-size: 24px">{{ number_format($currentws->price) }} تومان </span>--}}
+{{--                                    @endif--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
 
-                            <div class="content" style="padding-bottom: 60px;">
-                                @if(Auth::check())
-                                    <div class="content-button">
-                                        <a href="{{'/کارگاه-آموزشی'}}" class="mobile-button external"
-                                           style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">
-                                            ثبت نام جهت حضور در کارگاه آموزشی
-                                        </a>
+{{--                            <div class="content" style="padding-bottom: 60px;">--}}
+{{--                                @if(Auth::check())--}}
+{{--                                    <div class="content-button">--}}
+{{--                                        <a href="{{'/کارگاه-آموزشی'}}" class="mobile-button external"--}}
+{{--                                           style="margin: auto; border-radius: 16px;font-size: 1rem;font-weight: bold;">--}}
+{{--                                            ثبت نام جهت حضور در کارگاه آموزشی--}}
+{{--                                        </a>--}}
 
-                                    </div>
-                                @else
-                                    <div class="content-button">
-                                        <a href="{{route('login')}}" class="mobile-button external"
-                                           style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به
-                                            سایت</a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var modal = document.getElementById("doreModal");
-                        var btn = document.querySelector(".dore-open-modal");
-                        var span = document.getElementsByClassName("dore-close")[0];
+{{--                                    </div>--}}
+{{--                                @else--}}
+{{--                                    <div class="content-button">--}}
+{{--                                        <a href="{{route('login')}}" class="mobile-button external"--}}
+{{--                                           style="margin:auto;border-radius: 16px;">ثبت نام در کارگاه آموزشی/ ورود به--}}
+{{--                                            سایت</a>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <script>--}}
+{{--                    document.addEventListener("DOMContentLoaded", function () {--}}
+{{--                        var modal = document.getElementById("doreModal");--}}
+{{--                        var btn = document.querySelector(".dore-open-modal");--}}
+{{--                        var span = document.getElementsByClassName("dore-close")[0];--}}
 
-                        btn.onclick = function (event) {
-                            event.preventDefault();
-                            modal.style.display = "block";
-                        }
+{{--                        btn.onclick = function (event) {--}}
+{{--                            event.preventDefault();--}}
+{{--                            modal.style.display = "block";--}}
+{{--                        }--}}
 
-                        span.onclick = function () {
-                            modal.style.display = "none";
-                        }
+{{--                        span.onclick = function () {--}}
+{{--                            modal.style.display = "none";--}}
+{{--                        }--}}
 
-                        window.onclick = function (event) {
-                            if (event.target == modal) {
-                                modal.style.display = "none";
-                            }
-                        }
-                    });
-                </script>
-            </div>
-        </div>
-    @endif
-    @if($currentws)
-        <script>
-            // Set the date we're counting down to
-            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();
+{{--                        window.onclick = function (event) {--}}
+{{--                            if (event.target == modal) {--}}
+{{--                                modal.style.display = "none";--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                </script>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    @endif--}}
+{{--    @if($currentws)--}}
+{{--        <script>--}}
+{{--            // Set the date we're counting down to--}}
+{{--            var countDownDate = new Date("{{ \Morilog\Jalali\Jalalian::fromFormat('Y/m/d', $currentws->date)->toCarbon()->format('Y-m-d H:i:s') }}").getTime();--}}
 
-            // Update the count down every 1 second
-            var x = setInterval(function () {
-                // Get today's date and time
-                var now = new Date().getTime();
+{{--            // Update the count down every 1 second--}}
+{{--            var x = setInterval(function () {--}}
+{{--                // Get today's date and time--}}
+{{--                var now = new Date().getTime();--}}
 
-                // Find the distance between now and the count down date
-                var distance = countDownDate - now;
+{{--                // Find the distance between now and the count down date--}}
+{{--                var distance = countDownDate - now;--}}
 
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+{{--                // Time calculations for days, hours, minutes and seconds--}}
+{{--                var days = Math.floor(distance / (1000 * 60 * 60 * 24));--}}
+{{--                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));--}}
+{{--                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));--}}
+{{--                var seconds = Math.floor((distance % (1000 * 60)) / 1000);--}}
 
-                // Display the result in the elements with IDs
-                document.getElementById("days").innerHTML = days;
-                document.getElementById("hours").innerHTML = hours;
-                document.getElementById("minutes").innerHTML = minutes;
-                document.getElementById("seconds").innerHTML = seconds;
+{{--                // Display the result in the elements with IDs--}}
+{{--                document.getElementById("days").innerHTML = days;--}}
+{{--                document.getElementById("hours").innerHTML = hours;--}}
+{{--                document.getElementById("minutes").innerHTML = minutes;--}}
+{{--                document.getElementById("seconds").innerHTML = seconds;--}}
 
-                // If the count down is finished, write some text
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("days").innerHTML = "EXPIRED";
-                    document.getElementById("hours").innerHTML = "EXPIRED";
-                    document.getElementById("minutes").innerHTML = "EXPIRED";
-                    document.getElementById("seconds").innerHTML = "EXPIRED";
-                }
-            }, 1000);
-        </script>
-    @endif
+{{--                // If the count down is finished, write some text--}}
+{{--                if (distance < 0) {--}}
+{{--                    clearInterval(x);--}}
+{{--                    document.getElementById("days").innerHTML = "EXPIRED";--}}
+{{--                    document.getElementById("hours").innerHTML = "EXPIRED";--}}
+{{--                    document.getElementById("minutes").innerHTML = "EXPIRED";--}}
+{{--                    document.getElementById("seconds").innerHTML = "EXPIRED";--}}
+{{--                }--}}
+{{--            }, 1000);--}}
+{{--        </script>--}}
+{{--    @endif--}}
     <div class="categories segments">
         <div id="serviceDescriptionModal" class="modal">
             <div class="modal-content">
