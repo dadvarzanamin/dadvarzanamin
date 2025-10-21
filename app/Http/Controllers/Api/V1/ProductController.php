@@ -146,7 +146,7 @@ class ProductController extends Controller
     }
 
     public function workshops(Request $request){
-        $workshops = Workshop::select('id', 'title', 'teacher', 'teacher_image', 'teacher_resume', 'price', 'certificate_price', 'offer', 'duration', 'type', 'image', 'video', 'date', 'description', 'target', 'level' , 'status')->where('id' , '!=' , 2)->get();
+        $workshops = Workshop::where('id' , '!=' , 2)->get();
 
         $response = [
             'workshops' => $workshops->map(function ($workshop) {
@@ -154,6 +154,7 @@ class ProductController extends Controller
                     'id'                => $workshop->id,
                     'title'             => $workshop->title,
                     'teacher'           => $workshop->teacher,
+                    'slug'              => $workshop->slug,
                     'teacher_image'     => $workshop->teacher_image,
                     'teacher_resume'    => $workshop->teacher_resume,
                     'price'             => $workshop->price,
