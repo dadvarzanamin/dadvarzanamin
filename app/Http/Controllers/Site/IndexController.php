@@ -21,6 +21,7 @@ use App\Models\Dashboard\Post;
 use App\Models\Profile\Workshop;
 use App\Models\Submenu;
 use App\Models\User;
+use Ghasedak\Exceptions\HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -240,6 +241,67 @@ class IndexController extends Controller
 //            ]);
 //        }
 //        dd(User::doesntHave('wallet')->get());
+
+//        $users  = DB::table('users')
+//            ->whereIn('users.id', function($q) {
+//                $q->select('user_id')->from('workshopsigns');
+//            })
+//            ->orWhereIn('users.id', function($q) {
+//                $q->select('user_id')->from('invoices');
+//            })
+//            ->distinct()
+//            ->get();
+//
+//        foreach ($users as $user) {
+//
+//            try {
+//                $headers = array(
+//                    'apikey: ilvYYKKVEXlM+BAmel+hepqt8fliIow1g0Br06rP4ko',
+//                    'Accept: application/json',
+//                    'Content-Type: application/x-www-form-urlencoded',
+//                    'charset: utf-8'
+//                );
+//
+//                $params = http_build_query([
+//                    'type' => 1,
+//                    'param1' => $user->name,
+//                    'param2' => $user->title,
+//                    'param3' => ' وبسایت یا اپلیکیشن امین ',
+//                    'receptor' => $user->phone,
+//                    'template' => 'payam',
+//                ]);
+//
+//                $url = 'http://api.ghasedaksms.com/v2/send/verify';
+//
+//                $method = 'POST';
+//
+//                $init = curl_init();
+//                curl_setopt($init, CURLOPT_URL, $url);
+//                curl_setopt($init, CURLOPT_HTTPHEADER, $headers);
+//                curl_setopt($init, CURLOPT_RETURNTRANSFER, true);
+//                curl_setopt($init, CURLOPT_SSL_VERIFYHOST, false);
+//                curl_setopt($init, CURLOPT_SSL_VERIFYPEER, false);
+//                curl_setopt($init, CURLOPT_CUSTOMREQUEST, $method);
+//                curl_setopt($init, CURLOPT_POSTFIELDS, $params);
+//
+//                $result = curl_exec($init);
+//                $code = curl_getinfo($init, CURLINFO_HTTP_CODE);
+//                $curl_errno = curl_errno($init);
+//                $curl_error = curl_error($init);
+//                if ($curl_errno) {
+//                    throw new HttpException($curl_error, $curl_errno);
+//                }
+//
+//                $json_result = json_decode($result);
+//
+//            } catch (\Throwable $e) {
+//                Log::error('Exception: ' . $e->getMessage());
+//                return response()->json(['error' => $e->getMessage()], 500);
+//            }
+//        }
+//
+//        dd($users);
+
         $url = $request->segments();
         $menus = Menu::select('id', 'title', 'slug', 'submenu', 'priority', 'mega_menu')->MenuSite()->orderBy('priority')->get();
         if (count($url) == 1) {
