@@ -31,7 +31,7 @@ class SiteuserController extends Controller
             } elseif ($request->segments()[1] == 'user-site-manage') {
                 $level = 'site';
             }
-            $data = User::select('id', 'name', 'username', 'email', 'phone', 'status' ,'birthday','imagedata' ,'created_at')->whereLevel($level)->get();
+            $data = User::select('id', 'name', 'username', 'email', 'phone', 'status' ,'birthday','imagedata' ,'national_id','created_at')->whereLevel($level)->get();
 
             return Datatables::of($data)
                 ->editColumn('name', function ($data) {
@@ -51,6 +51,9 @@ class SiteuserController extends Controller
                 })
                 ->editColumn('birthday', function ($data) {
                     return ($data->birthday);
+                })
+                ->editColumn('national_id', function ($data) {
+                    return ($data->national_id);
                 })
                 ->editColumn('imgdata', function ($data) {
                     if (!$data->imagedata) {

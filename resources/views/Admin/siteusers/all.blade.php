@@ -34,6 +34,7 @@
                                             <th class="wd-10p"> موبایل </th>
                                             <th class="wd-10p"> تاریخ تولد </th>
                                             <th class="wd-10p"> زمان ثبت نام </th>
+                                            <th class="wd-10p"> کد ملی </th>
                                             <th class="wd-10p"> تغییر </th>
                                         </tr>
                                         </thead>
@@ -92,6 +93,7 @@
                     {data: 'phone'       , name: 'phone'},
                     {data: 'birthday'    , name: 'birthday'},
                     {data: 'date'        , name: 'date'},
+                    {data: 'national_id' , name: 'national_id'},
                     {data: 'action'      , name: 'action', orderable: true, searchable: true},
                 ]
             });
